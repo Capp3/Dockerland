@@ -10,7 +10,8 @@ services:
       - USERID=1000
       - TZ=${TZ}
       - WORKGROUP=${WORKGROUP}
-      - USER=${USER}
+      - USER=${USERNAME};${USERPASSWORD}
+      - SHARE=${SHARE}
     volumes: 
       - ${MOUNT}:/local
     tty: true

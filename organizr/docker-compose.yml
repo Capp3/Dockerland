@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  organizr:
+    image: linuxserver/organizr
+    container_name: a_organizr
+    environment: 
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes: 
+      - ./config:/config
+    tty: true
+    # network_mode: "bridge"
+    networks: 
+      homeland_maclan:
+        ipv4_address: 192.168.1.100
+    # ports: 
+    restart: unless-stopped

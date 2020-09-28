@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  tvheadend:
+    image: linuxserver/tvheadend
+    container_name: b_tvheadend
+    devices:
+      # the DRI option requires your device to have video drivers installed
+      - /dev/dri:/dev/dri
+      # the DVB options requires you to have a DVB tuner installed
+      - /dev/dvb:/dev/dvb
+    environment: 
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes: 
+      - ${TVHCONFIG}:/config
+      - ${RECORDINGS}:/recordings
+  
+    tty: true
+    network_mode: "host"
+    # Ports only defined in bridge mode. Host mode used with IPTV
+    # ports: 
+      # - 9981:9981
+      # - 9982:9982
+    restart: unless-stopped
+  
+  xteve:
+    image: bl0m1/xtevedocker
+    container_name: b_xteve
+    environment: 
+      - TZ=${TZ}
+    volumes: 
+      - ${XTEVECONFIG}:/home/xteve/.xteve
+    tty: true
+    network_mode: "bridge"
+    ports:
+      - 34400:34400
+      
