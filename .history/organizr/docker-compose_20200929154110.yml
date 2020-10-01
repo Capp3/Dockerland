@@ -1,13 +1,11 @@
 version: '3.4'
 
 networks: 
-  lan:
-    name: org_lan
-    driver: macvlan
-    driver_opts: 
-      parent: enp1s0
+  outside:
+    driver: bridge
     ipam:
-      config: 
+      driver: default
+      config:
         - subnet: 192.168.1.0/24
 
 services:
@@ -22,7 +20,8 @@ services:
       - ./config:/config
     tty: true
     networks: 
-      lan:
+      default:
+      outside:
         ipv4_address: 192.168.1.100
     # ports: 
     restart: unless-stopped

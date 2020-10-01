@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  samba:
+    image: dperson/samba
+    container_name: c_samba 
+    environment: 
+      - NMBD='true'
+      - GROUPID=1000
+      - USERID=1000
+      - TZ=${TZ}
+      - WORKGROUP=${WORKGROUP}
+      - USER=${USERNAME};${USERPASSWORD}
+      - SHARE=${SHARE}
+    volumes: 
+      - ${MOUNT}:/local
+    tty: true
+    network_mode: "bridge"
+    ports: 
+      - "137:137"
+      - "138:138"
+      - "139:139"
+      - "445:445"
+    restart: unless-stopped
