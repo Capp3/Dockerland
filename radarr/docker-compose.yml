@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment: 
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK_SET=002
+    volumes: 
+      - ${CONFIGDIR}:/config
+      - ${MOVIESDIR}:/movies
+      - ${WATCHDIR}:/downloads
+    tty: true
+    network_mode: "bridge"
+    ports: 
+      - ${PORT}:7878
+    restart: unless-stopped

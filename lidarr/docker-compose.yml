@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  docker:
+    image: docker
+    container_name: 
+    environment: 
+    volumes: 
+    tty: true
+    network_mode: "bridge"
+    ports: 
+    restart: unless-stopped

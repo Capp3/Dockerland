@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    environment: 
+      - TZ=${TZ}
+      - PGID=${PGID}
+      - PUID=${PUID}
+    volumes: 
+      - ${CONFIGDIR}:/config
+      - ${WATCHDIR}:/watch
+    tty: true
+    network_mode: "bridge"
+    ports: 
+      - ${PORT}:9117
+    restart: unless-stopped

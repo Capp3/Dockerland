@@ -1,0 +1,6 @@
+docker volume create \
+     --driver local \
+     --opt type=cifs \
+     --opt device=//192.168.1.11/movies \
+     --opt o=username=un,password=pw,file_mode=0777,dir_mode=0777 \
+     --name name

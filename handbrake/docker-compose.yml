@@ -3,7 +3,7 @@ version: '3.4'
 services:
   handbrake:
     image: jlesage/handbrake
-    container_name: a_handbrake
+    container_name: handbrake
     environment:
       - USER_ID=${PUID}
       - GROUP_ID=${PGID} 
