@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  nodered:
+    image: nodered/node-red:latest
+    container_name: nodered
+    environment: 
+      - TZ=${TZ}
+    volumes: 
+      - ${DATADIR}:/data
+    tty: true
+    network_mode: "bridge"
+    networks:
+      - node-red-net
+    ports: 
+      - ${PORT}:1880
+    restart: unless-stopped
+networks: 
+  node-red-net:

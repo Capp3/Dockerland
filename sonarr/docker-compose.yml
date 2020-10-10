@@ -8,12 +8,12 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - UMASK_SET=002
-    volumes: 
+    volumes:
       - ${CONFIGDIR}:/config
       - ${TVDIR}:/tv
       - ${WATCHDIR}:/downloads
     tty: true
     network_mode: "bridge"
-    ports: 
+    ports:
       - ${PORT}:8989
     restart: unless-stopped

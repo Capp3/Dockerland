@@ -1,0 +1,49 @@
+version: '3.4'
+
+services:
+  minecraft:
+    image: itzg/minecraft-server
+    container_name: minecraft
+    environment: 
+      - EULA=${EULA}
+      - TZ=${TZ}
+      - UID=${PUID}
+      - GID=${PGID}
+      - VERSION=${MCVERSION}
+      - TYPE=${MCTYPE}
+      - DIFFICULTY=${DIFF}
+      - SERVER_NAME=${SERVNAME}
+      - GENERATE_STRUCTURES="true"
+      - ALLOW_NETHER="true"
+      - SEED=${SEED}
+      - ALLOW_FLIGHT="true"
+      - MEMORY=3G
+      - ANNOUNCE_PLAYER_ACHIEVEMENTS="true"
+      - ENABLE_RCON="TRUE"
+      - RCON_PASSWORD=${RCON_PASSWORD}
+      - RCON_PORT=${RCON_PORT}
+      - REPLACE_ENV_VARIABLES="TRUE"
+      # - ENV_VARIABLES_PREFIX="CFG_"
+      # - CFG_DB_HOST="http://localhost:3306"
+      # - CFG_DB_NAME="minecraft"
+      # - CFG_DB_PASSWORD_FILE="/run/secrets/db_password"
+    volumes: 
+      - ${DATADIR}:/data
+    tty: true
+    network_mode: "bridge"
+    ports: 
+      - 25565:25565
+    restart: unless-stopped
+#   rcon:
+#     image: itzg/rcon
+#     container_name: minecraft_rcon
+#     environment: 
+#       - RWA_PASSWORD=${RCON_DB_PASS} 
+#     ports:
+#       - 4326:4326
+#       - 4327:4327
+#     volumes: 
+#       - ${RCONDIR}:/opt/rcon-web-admin/db
+# secrets:
+#   db_password:
+#     file: ./db_password

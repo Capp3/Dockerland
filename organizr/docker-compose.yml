@@ -12,12 +12,14 @@ networks:
 
 services:
   organizr:
-    image: linuxserver/organizr
-    container_name: a_organizr
+    image: organizr/organizr
+    container_name: organizr
     environment: 
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - fpm="true"
+      - branch="v2-master"
     volumes: 
       - ./config:/config
     tty: true
