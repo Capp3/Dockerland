@@ -5,7 +5,7 @@ services:
     image: dperson/samba
     container_name: c_samba 
     environment: 
-      - NMBD="true"
+      - NMBD=true
       - SMB=true      
       - GROUPID=1000
       - USERID=1000
@@ -14,8 +14,13 @@ services:
       - WORKGROUP=${WORKGROUP}
       - USER="${USERNAME}";"${USERPASSWORD}"
       - SHARE=${SHARE}
-      - SHARE2-${SHARE2}
+      - SHARE2=${SHARE2}
     volumes: 
+      - samba_cache:/var/cache/samba
+      - samba_run:/run/samba
+      - samba_etc:/etc
+      - samba_log:/var/log/samba
+      - samba_lib:/var/lib/samba
       - ${MOUNT}:/local
       - ${MOUNT2}:/local2
     tty: true
@@ -26,3 +31,9 @@ services:
       - "139:139"
       - "445:445"
     restart: unless-stopped
+volumes: 
+  samba_cache:
+  samba_run:
+  samba_etc:
+  samba_log:
+  samba_lib:
