@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  nfs-server:
+    image: gists/nfs-server
+    container_name: nfs-server
+    environment:
+      - NFS_DIR=/netdata
+      - NFS_DOMAIN="*"
+      - NFS_OPTION="fsid=0,ro,sync,insecure,all_squash,anonuid=65534,anongid=65534,no_subtree_check,nohide"
+    volumes: 
+    - /netdata:/netdata
+    tty: true
+    network_mode: "bridge"
+    ports: 
+        - 2049:2049
+    cap_add:
+      - SYS_ADMIN
+      - SETPCAP
+    restart: unless-stopped
