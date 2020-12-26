@@ -1,8 +1,0 @@
-version: '3.4'
-
-services:
-  adi:
-    image: dcapp3/alfresco_download_installer
-    build:
-      context: .
-      dockerfile: ./Dockerfile

@@ -2,14 +2,12 @@ version: '3.4'
 
 services:
   nfs-server:
-    image: gists/nfs-server
+    image: itsthenetwork/nfs-server-alpine
     container_name: nfs-server
     environment:
-      - NFS_DIR=/netdata
-      - NFS_DOMAIN="*"
-      - NFS_OPTION="fsid=0,ro,sync,insecure,all_squash,anonuid=65534,anongid=65534,no_subtree_check,nohide"
+      - SHARED_DIRECTORY=/nfsshare
     volumes: 
-    - /netdata:/netdata
+    - /netdata:/nfsshare
     tty: true
     network_mode: "bridge"
     ports: 
@@ -17,4 +15,5 @@ services:
     cap_add:
       - SYS_ADMIN
       - SETPCAP
+    privileged: true
     restart: unless-stopped

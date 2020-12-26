@@ -74,8 +74,8 @@ services:
         volumes: 
             - ./data/alf-repo-data:/usr/local/tomcat/alf_data
             - ./logs/alfresco:/usr/local/tomcat/logs 
-            - /mnt/local/ocr/input:/ocr_input
-            - /mnt/local/ocr/output:/ocr_output   
+            - /ocr/input:/ocr_input
+            - /ocr/output:/ocr_output   
         
         ports:
             - 2121:2121
@@ -160,7 +160,7 @@ services:
             - 5432:5432
         volumes: 
             - /mnt/local/data/alfrescopostgres/postgres-data:/var/lib/postgresql/data
-            - ./logs/postgres:/var/log/postgresql  
+            - alfresco_postgresl:/var/log/postgresql  
      
 
     solr6:
@@ -240,5 +240,6 @@ services:
             - /mnt/local/ocr/input:/ocr_input
             - /mnt/local/ocr/output:/ocr_output  
     
-
+volumes:
+  alfresco_postgresl:
 
