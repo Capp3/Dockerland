@@ -1,0 +1,45 @@
+version: "3"
+services:
+
+  pihole:
+    image: pihole/pihole:latest
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: unless-stopped
+        max_attempts: 3
+    volumes:
+      - "etc-pihole:/etc/pihole"
+      - "etc-dnsmasqd:/etc/dnsmasq.d"
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+    environment:
+      - TZ='Europe/Dublin'
+      - WEBPASSWORD="homel@nd"
+      - FTL_CMD=debug
+      - DNSMASQ_LISTENING=all
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+      - 8.8.8.8
+
+volumes:
+  etc-pihole:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=192.168.1.6
+      device: /netdata/pihole/data/etc
+  etc-dnsmasqd:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=192.168.1.6
+      device: /netdata/pihole/data/dnsmasqd
+
+# To deploy:
+# docker stack deploy -c docker-stack.yml pihole
