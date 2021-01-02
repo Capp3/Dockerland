@@ -5,9 +5,9 @@ services:
     image: itsthenetwork/nfs-server-alpine
     container_name: nfs-server
     environment:
-      - SHARED_DIRECTORY=/nfsshare
+      - SHARED_DIRECTORY=/netdata
     volumes: 
-    - /netdata:/nfsshare
+    - /netdata:/netdata
     tty: true
     network_mode: "bridge"
     ports: 
