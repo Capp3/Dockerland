@@ -6,7 +6,7 @@ services:
     deploy:
       replicas: 3
       restart_policy:
-        condition: on failure
+        condition: on-failure
         max_attempts: 3
     volumes:
       - "etc-pihole:/etc/pihole"
