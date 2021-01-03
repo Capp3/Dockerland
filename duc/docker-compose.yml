@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  duc:
+    image: romeupalos/noip
+    container_name: noip_duc
+    # environment: 
+    #   - TZ=${TZ}
+    volumes: 
+      - noip/no-ip2.conf:/usr/local/etc/no-ip2.conf
+    tty: true
+    network_mode: "bridge"
+    restart: unless-stopped
+volumes:
+  noip:
