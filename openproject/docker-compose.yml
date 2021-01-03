@@ -7,10 +7,15 @@ networks:
 volumes:
   pgdata:
   proxy_pgdata:
+  proxy_assets:
   cron_pgdata:
+  cron_assets:
   worker_pgdata:
+  worker_assets:
   seeder_pgdata:
+  seeder_assets:
   web_pgdata:
+  web_assets:
 
 x-op-restart-policy: &restart_policy
   restart: unless-stopped
@@ -63,7 +68,8 @@ services:
     networks:
       - frontend
     volumes:
-      - proxy_pgdata:/var/openproject/assets
+      - proxy_pgdata:/var/openproject/pgdata
+      - proxy_assets:/var/openproject/assets
 
   web:
     <<: *app
@@ -76,7 +82,8 @@ services:
       - cache
       - seeder
     volumes:
-      - web_pgdata:/var/openproject/assets
+      - web_pgdata:/var/openproject/pgdata
+      - web_assets:/var/openproject/assets
 
   worker:
     <<: *app
@@ -88,7 +95,8 @@ services:
       - cache
       - seeder
     volumes:
-      - worker_pgdata:/var/openproject/assets
+      - worker_pgdata:/var/openproject/pgdata
+      - worker_assets:/var/openproject/assets
 
   cron:
     <<: *app
@@ -100,7 +108,8 @@ services:
       - cache
       - seeder
     volumes:
-      - cron_pgdata:/var/openproject/assets
+      - cron_pgdata:/var/openproject/pgdata
+      - cron_assets:/var/openproject/assets
 
   seeder:
     <<: *app
@@ -109,4 +118,5 @@ services:
     networks:
       - backend
     volumes:
-      - seeder_pgdata:/var/openproject/assets
+      - seeder_pgdata:/var/openproject/pgdata
+      - seeder_assets:/var/openprojects/assets
