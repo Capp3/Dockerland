@@ -22,6 +22,13 @@ services:
       - WEBPASSWORD="homel@nd"
       - FTL_CMD=debug
       - DNSMASQ_LISTENING=all
+      - IPv6='false'
+      - CONDITIONAL_FORWARDING='true'
+      - CONDITIONAL_FORWARDING_IP='192.168.1.2'
+      - CONDITIONAL_FORWARDING_DOMAIN='local'
+      - DNSMASQ_LISTENING='local'
+      - DNS1=1.1.1.1
+      - DNS2=1.0.0.1
     dns:
       - 127.0.0.1
 
