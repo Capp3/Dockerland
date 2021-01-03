@@ -16,23 +16,10 @@ services:
       WEBPASSWORD: ${GUIPASSWORD}
     # Volumes store your data between container upgrades
     volumes:
-      - "etc-pihole:/etc/pihole"
-      - "etc-dnsmasqd:/etc/dnsmasq.d"
+      - "/netdata/pihole/pihole:/etc/pihole"
+      - "/netdata/pihole/dnsmasq:/etc/dnsmasq.d"
     # Recommended but not required (DHCP needs NET_ADMIN)
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
-volumes:
-  etc-pihole:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: addr=192.168.1.6,rw
-      device: /netdata/pihole/data/etc
-  etc-dnsmasqd:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: addr=192.168.1.6,rw
-      device: /netdata/pihole/data/dnsmasqd
