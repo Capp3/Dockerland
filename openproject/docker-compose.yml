@@ -6,6 +6,11 @@ networks:
 
 volumes:
   pgdata:
+  proxy_pgdata:
+  cron_pgdata:
+  worker_pgdata:
+  seeder_pgdata:
+  web_pgdata:
 
 x-op-restart-policy: &restart_policy
   restart: unless-stopped
@@ -57,6 +62,8 @@ services:
       - web
     networks:
       - frontend
+    volumes:
+      - proxy_pgdata:/var/openproject/pgdata
 
   web:
     <<: *app
@@ -68,6 +75,8 @@ services:
       - db
       - cache
       - seeder
+    volumes:
+      - web_pgdata:/var/openproject/pgdata
 
   worker:
     <<: *app
@@ -78,6 +87,8 @@ services:
       - db
       - cache
       - seeder
+    volumes:
+      - worker_pgdata:/var/openproject/pgdata
 
   cron:
     <<: *app
@@ -88,6 +99,8 @@ services:
       - db
       - cache
       - seeder
+    volumes:
+      - cron_pgdata:/var/openproject/pgdata
 
   seeder:
     <<: *app
@@ -95,3 +108,5 @@ services:
     restart: on-failure
     networks:
       - backend
+    volumes:
+      - seeder_pgdata:/var/openproject/pgdata
