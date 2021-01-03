@@ -1,1 +1,0 @@
-docker run -d --name tactic --volume=/tactic-docker/tactic:/opt/tactic --volume=tactic_postgres-data:/var/lib/pgsql/data -p 8080:80 diegocortassa/tactic
