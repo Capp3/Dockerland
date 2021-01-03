@@ -119,4 +119,4 @@ services:
       - backend
     volumes:
       - seeder_pgdata:/var/openproject/pgdata
-      - seeder_assets:/var/openprojects/assets
+      - seeder_assets:/var/openproject/assets
