@@ -28,11 +28,11 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=192.168.1.6
+      o: addr=192.168.1.6,rw
       device: /netdata/pihole/data/etc
   etc-dnsmasqd:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=192.168.1.6
+      o: addr=192.168.1.6,rw
       device: /netdata/pihole/data/dnsmasqd
