@@ -7,7 +7,7 @@ services:
     # environment: 
     #   - TZ=${TZ}
     volumes: 
-      - noip/no-ip2.conf:/usr/local/etc/no-ip2.conf
+      - noip:/usr/local/etc/
     tty: true
     network_mode: "bridge"
     restart: unless-stopped
