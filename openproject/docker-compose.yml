@@ -63,7 +63,7 @@ services:
     networks:
       - frontend
     volumes:
-      - proxy_pgdata:/var/openproject/pgdata
+      - proxy_pgdata:/var/openproject/assets
 
   web:
     <<: *app
@@ -76,7 +76,7 @@ services:
       - cache
       - seeder
     volumes:
-      - web_pgdata:/var/openproject/pgdata
+      - web_pgdata:/var/openproject/assets
 
   worker:
     <<: *app
@@ -88,7 +88,7 @@ services:
       - cache
       - seeder
     volumes:
-      - worker_pgdata:/var/openproject/pgdata
+      - worker_pgdata:/var/openproject/assets
 
   cron:
     <<: *app
@@ -100,7 +100,7 @@ services:
       - cache
       - seeder
     volumes:
-      - cron_pgdata:/var/openproject/pgdata
+      - cron_pgdata:/var/openproject/assets
 
   seeder:
     <<: *app
@@ -109,4 +109,4 @@ services:
     networks:
       - backend
     volumes:
-      - seeder_pgdata:/var/openproject/pgdata
+      - seeder_pgdata:/var/openproject/assets
