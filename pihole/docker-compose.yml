@@ -14,6 +14,8 @@ services:
     environment:
       TZ: ${TZ}
       WEBPASSWORD: ${GUIPASSWORD}
+      DNS1: 1.1.1.1
+      DNS2: 1.0.0.1
     # Volumes store your data between container upgrades
     volumes:
       - "/netdata/pihole/pihole:/etc/pihole"
@@ -22,4 +24,6 @@ services:
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:
       - NET_ADMIN
+    dns:
+      - 127.0.0.1
     restart: unless-stopped
