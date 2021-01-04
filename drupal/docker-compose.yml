@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  drupal:
+    image: drupal:fpm-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles       
+      - drupal-sites:/var/www/html/sites      
+      - drupal-themes:/var/www/html/themes
+  postgres:
+    image: postgres:12.5-alpine
+    environment:
+      - POSTGRES_PASSWORD=homel@nd
+
+volumes:
+  drupal-modules:
+  drupal-profiles:
+  drupal-sites:
+  drupal-themes:
