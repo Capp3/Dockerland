@@ -8,3 +8,4 @@ postgresql_version: "10"
 postgresql_image: "postgres:{{postgresql_version}}"
 
 compose_start_containers: true
+ansible_python_interpreter: /usr/bin/python3
