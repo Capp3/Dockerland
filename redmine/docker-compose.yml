@@ -11,24 +11,13 @@ services:
     ports:
       - ${PORT}:3000
     environment:
-    
-
-
-
-
-  redmine:
-    image: redmine
-    restart: always
-    ports:
-      - 8080:3000
-    environment:
       REDMINE_DB_MYSQL: db
-      REDMINE_DB_PASSWORD: example
-      REDMINE_SECRET_KEY_BASE: supersecretkey
+      REDMINE_DB_PASSWORD: ${DB_PASSWORD}
+      REDMINE_SECRET_KEY_BASE: ${REDMINE_KEY_BASE}
 
   db:
     image: mysql:5.7
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: example
+    environment: 
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: redmine
