@@ -2,7 +2,7 @@ version: '3.4'
 
 networks: 
   lan:
-    name: org_lan
+    # name: org_lan
     driver: macvlan
     driver_opts: 
       parent: enp1s0
