@@ -1,0 +1,30 @@
+---
+version: "2.1"
+
+networks: 
+  lan:
+    # name: org_lan
+    driver: macvlan
+    driver_opts: 
+      parent: enp1s0
+    ipam:
+      config: 
+        - subnet: 192.168.1.0/24
+
+services:
+  heimdall:
+    image: ghcr.io/linuxserver/heimdall
+    container_name: heimdall
+    networks: 
+      lan:
+        ipv4_address: 192.168.1.100
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - </path/to/appdata/config>:/config
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped

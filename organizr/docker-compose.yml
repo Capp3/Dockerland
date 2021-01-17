@@ -19,7 +19,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
       - fpm="true"
-      - branch="v2-master"
+      # - branch="v2-master"
     volumes: 
       - ${CONFIG_DIR}:/config
     tty: true
