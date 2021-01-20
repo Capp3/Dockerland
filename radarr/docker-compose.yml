@@ -1,5 +1,8 @@
 version: '3.4'
 
+volumes: 
+  radarr_config:
+
 services:
   radarr:
     image: linuxserver/radarr
@@ -9,7 +12,7 @@ services:
       - PGID=${PGID}
       - UMASK_SET=002
     volumes: 
-      - ${CONFIGDIR}:/config
+      - radarr_config:/config
       - ${MOVIESDIR}:/movies
       - ${WATCHDIR}:/downloads
     tty: true

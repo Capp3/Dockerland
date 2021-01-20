@@ -1,5 +1,8 @@
 version: '3.4'
 
+volumes: 
+  config:
+
 services:
   sonarr:
     image: linuxserver/sonarr
@@ -9,7 +12,7 @@ services:
       - PGID=${PGID}
       - UMASK_SET=002
     volumes:
-      - ${CONFIGDIR}:/config
+      - sonarr_config:/config
       - ${TVDIR}:/tv
       - ${WATCHDIR}:/downloads
     tty: true

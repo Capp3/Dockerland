@@ -1,5 +1,8 @@
 version: '3.4'
 
+volumes:
+  jackett_config:
+  
 services:
   jackett:
     image: linuxserver/jackett
@@ -9,7 +12,8 @@ services:
       - PGID=${PGID}
       - PUID=${PUID}
     volumes: 
-      - ${CONFIGDIR}:/config
+      - ${CONFIGDIR}:/config2
+      - jackett_config:/config
       - ${WATCHDIR}:/watch
     tty: true
     network_mode: "bridge"
