@@ -1,6 +1,9 @@
 ---
 version: "2.1"
 
+volumes:
+  heimdall_config:
+
 networks: 
   lan:
     # name: org_lan
@@ -13,7 +16,7 @@ networks:
 
 services:
   heimdall:
-    image: ghcr.io/linuxserver/heimdall
+    image: linuxserver/heimdall
     container_name: heimdall
     networks: 
       lan:
@@ -23,7 +26,7 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - /netdata/heimdall/config:/config
+      - heimdall_config:/config
     # ports:
     #   - 80:80
     #   - 443:443
