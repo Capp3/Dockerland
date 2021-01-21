@@ -4,30 +4,30 @@ version: "2.1"
 volumes:
   heimdall_config:
 
-networks: 
-  lan:
-    # name: org_lan
-    driver: macvlan
-    driver_opts: 
-      parent: wlan0
-    ipam:
-      config: 
-        - subnet: 192.168.1.0/24
+# networks: 
+#   lan:
+#     # name: org_lan
+#     driver: macvlan
+#     driver_opts: 
+#       parent: wlan0
+#     ipam:
+#       config: 
+#         - subnet: 192.168.1.0/24
 
 services:
   heimdall:
     image: linuxserver/heimdall
     container_name: heimdall
-    networks: 
-      lan:
-        ipv4_address: 192.168.1.100
+    # networks: 
+    #   lan:
+    #     ipv4_address: 192.168.1.100
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
     volumes:
       - heimdall_config:/config
-    # ports:
-    #   - 80:80
-    #   - 443:443
+    ports:
+      - 80:80
+      - 443:443
     restart: unless-stopped
