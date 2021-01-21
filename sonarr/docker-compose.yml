@@ -10,7 +10,7 @@ services:
     environment: 
       - PUID=${PUID}
       - PGID=${PGID}
-      - UMASK_SET=000
+      # - UMASK_SET=000
     volumes:
       - sonarr_config:/config
       - ${TVDIR}:/tv

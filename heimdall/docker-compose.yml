@@ -9,7 +9,7 @@ networks:
     # name: org_lan
     driver: macvlan
     driver_opts: 
-      parent: enp1s0
+      parent: wlan0
     ipam:
       config: 
         - subnet: 192.168.1.0/24
