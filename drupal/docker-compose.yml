@@ -1,22 +1,61 @@
-version: '2'
+version: "3"
 
 services:
-  drupal:
-    image: drupal:fpm-alpine
-    ports:
-      - "8080:80"
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    env_file: .env
     volumes:
-      - drupal-modules:/var/www/html/modules
-      - drupal-profiles:/var/www/html/profiles       
-      - drupal-sites:/var/www/html/sites      
-      - drupal-themes:/var/www/html/themes
-  postgres:
-    image: postgres:12.5-alpine
-    environment:
-      - POSTGRES_PASSWORD=homel@nd
+      - db-data:/var/lib/mysql
+    networks:
+      - internal
+
+  drupal:
+    image: drupal:8.7.8-fpm-alpine
+    container_name: drupal
+    depends_on:
+      - mysql
+    restart: unless-stopped
+    networks:
+      - internal
+      - external
+    volumes:
+      - drupal-data:/var/www/html
+
+  webserver:
+    image: nginx:1.17.4-alpine
+    container_name: webserver
+    depends_on:
+      - drupal
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - drupal-data:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+    networks:
+      - external
+
+  certbot:
+    depends_on:
+      - webserver
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - drupal-data:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email sammy@your_domain --agree-tos --no-eff-email --staging -d your_domain -d www.your_domain
+
+networks:
+  external:
+    driver: bridge
+  internal:
+    driver: bridge
 
 volumes:
-  drupal-modules:
-  drupal-profiles:
-  drupal-sites:
-  drupal-themes:
+  drupal-data:
+  db-data:
+  certbot-etc:
