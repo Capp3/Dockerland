@@ -14,7 +14,7 @@ services:
     environment:
       TZ: ${TZ}
       WEBPASSWORD: ${GUIPASSWORD}
-      DNS1: 1.1.1.1
+      DNS1: 127.0.0.1
       DNS2: 1.0.0.1
     # Volumes store your data between container upgrades
     volumes:
