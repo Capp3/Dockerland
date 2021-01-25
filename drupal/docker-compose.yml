@@ -1,61 +1,28 @@
-version: "3"
+version: '3.3'
 
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: unless-stopped
-    env_file: .env
-    volumes:
-      - db-data:/var/lib/mysql
-    networks:
-      - internal
-
   drupal:
-    image: drupal:8.7.8-fpm-alpine
-    container_name: drupal
-    depends_on:
-      - mysql
-    restart: unless-stopped
-    networks:
-      - internal
-      - external
-    volumes:
-      - drupal-data:/var/www/html
-
-  webserver:
-    image: nginx:1.17.4-alpine
-    container_name: webserver
-    depends_on:
-      - drupal
-    restart: unless-stopped
+    image: drupal:latest
     ports:
       - 80:80
     volumes:
-      - drupal-data:/var/www/html
-      - ./nginx-conf:/etc/nginx/conf.d
-      - certbot-etc:/etc/letsencrypt
-    networks:
-      - external
+      - drupal_modules:/var/www/html/modules
+      - drupal_profiles:/var/www/html/profiles
+      - drupal_themes:/var/www/html/themes
+      - drupal_sites:/var/www/html/sites
+    restart: always
 
-  certbot:
-    depends_on:
-      - webserver
-    image: certbot/certbot
-    container_name: certbot
+  postgres:
+    image: postgres:10
+    environment:
+      POSTGRES_PASSWORD: homel@nd
     volumes:
-      - certbot-etc:/etc/letsencrypt
-      - drupal-data:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email sammy@your_domain --agree-tos --no-eff-email --staging -d your_domain -d www.your_domain
-
-networks:
-  external:
-    driver: bridge
-  internal:
-    driver: bridge
+        - db_data:/var/lib/postgresql/data
+    restart: always
 
 volumes:
-  drupal-data:
-  db-data:
-  certbot-etc:
+  drupal_modules:
+  drupal_profiles:
+  drupal_themes:
+  drupal_sites:
+  db_data:
