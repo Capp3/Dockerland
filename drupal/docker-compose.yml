@@ -17,7 +17,7 @@ services:
     environment:
       POSTGRES_PASSWORD: homel@nd
     volumes:
-        - db_data:/var/lib/postgresql/data
+        - /netdata/drupal/db_data:/var/lib/postgresql/data
     restart: always
 
 # volumes:
