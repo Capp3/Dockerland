@@ -7,7 +7,7 @@ services:
     environment: 
       - TZ=${TZ}
     volumes: 
-      - ${DATADIR}:/data
+      - nodered_data:/data
     tty: true
     # network_mode: "bridge"
     networks:
@@ -17,3 +17,5 @@ services:
     restart: unless-stopped
 networks: 
   node-red-net:
+volumes:
+  nodered_data:
