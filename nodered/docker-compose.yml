@@ -9,7 +9,7 @@ services:
     volumes: 
       - ${DATADIR}:/data
     tty: true
-    network_mode: "bridge"
+    # network_mode: "bridge"
     networks:
       - node-red-net
     ports: 
