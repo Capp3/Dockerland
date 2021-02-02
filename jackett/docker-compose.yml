@@ -12,7 +12,6 @@ services:
       - PGID=${PGID}
       - PUID=${PUID}
     volumes: 
-      - ${CONFIGDIR}:/config2
       - jackett_config:/config
       - ${WATCHDIR}:/watch
     tty: true
