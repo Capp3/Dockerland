@@ -5,7 +5,7 @@ services:
     depends_on:
       - db
     ports:
-      - "8080:8069"
+      - "8081:8069"
   db:
     image: postgres:10
     environment:
