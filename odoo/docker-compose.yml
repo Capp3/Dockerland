@@ -7,7 +7,9 @@ services:
     ports:
       - "8081:8069"
     volumes:
-      - /local/odoo/addons:/mnt/extra-addons
+      - /netdata/odoo/addons:/mnt/extra-addons
+      - odoo-web-data:/var/lib/odoo
+      - odoo-web-etc:/etc/odoo
   db:
     image: postgres:13-alpine
     environment:
@@ -16,4 +18,4 @@ services:
       - POSTGRES_USER=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - /local/odoo/odoo-db-data:/var/lib/postgresql/data/pgdata
+      - /netdata/odoo/odoo-db-data:/var/lib/postgresql/data/pgdata
