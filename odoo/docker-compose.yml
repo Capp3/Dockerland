@@ -7,9 +7,9 @@ services:
     ports:
       - "8081:8069"
     volumes:
-      - odoo-web-data:/var/lib/odoo
-      - ./config:/etc/odoo
-      - ./addons:/mnt/extra-addons
+      - /netdata/odoo/lib:/var/lib/odoo
+      - /netdata/odoo/config:/etc/odoo
+      - /netdata/odoo/addons:/mnt/extra-addons
   db:
     image: postgres:10
     environment:
@@ -17,7 +17,4 @@ services:
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
     volumes:
-      - odoo-db-data:/var/lib/postgresql/data/pgdata
-volumes:
-  odoo-web-data:
-  odoo-db-data:
+      - /netdata/odoo/odoo-db-data:/var/lib/postgresql/data/pgdata
