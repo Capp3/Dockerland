@@ -7,8 +7,6 @@ services:
     ports:
       - "8081:8069"
     volumes:
-      - /local/odoo/lib:/var/lib/odoo
-      - /local/odoo/config:/etc/odoo
       - /local/odoo/addons:/mnt/extra-addons
   db:
     image: postgres:13-alpine
