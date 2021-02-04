@@ -1,4 +1,5 @@
 _archive*
 */config*
 *notes*
-.env
+*.env*
+*/.env*
