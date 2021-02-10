@@ -1,0 +1,15 @@
+version: "3"
+services:
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant:stable
+    # devices:
+    #   - /dev/ttyUSB0:/dev/ttyUSB0
+    #   - /dev/ttyUSB1:/dev/ttyUSB1
+    #   - /dev/ttyACM0:/dev/ttyACM0
+    volumes:
+      - /netdata/homeass/config:/config
+    environment:
+      - TZ=Europe/Dublin
+    restart: always
+    network_mode: host
