@@ -1,0 +1,176 @@
+version: "3.7"
+
+########################### NETWORKS
+networks:
+  homeland:
+    driver: bridge
+  pihole:
+    driver: host
+  homelab:
+    name: homelab_lan
+    driver: macvlan
+    driver_opts: 
+      parent: enp1s0
+    ipam:
+      driver: default
+      config: 
+        - subnet: 192.168.1.0/24
+        - gateway: 192.168.1.1
+
+########################### VOLUMES
+volumes:
+  pihole_etc:
+  pihole_dnsmasq:
+  jackett_config:
+  radarr_config:
+  sonarr_config:
+  noip:
+
+########################### SERVICES
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    restart: unless-stopped
+    networks: 
+      pihole:
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+      - 80:80/tcp
+      - 443:443/tcp
+    environment:
+      TZ: ${TZ}
+      WEBPASSWORD: ${PIHOLEGUIPASSWORD}
+      DNS1: 127.0.0.1
+      DNS2: 1.0.0.1
+    volumes:
+      - "pihole_etc:/etc/pihole"
+      - "pihole_dnsmasq:/etc/dnsmasq.d"
+    cap_add:
+      - NET_ADMIN
+    tty: true
+    dns:
+      - 127.0.0.1
+
+  delugevpn:
+    image: binhex/arch-delugevpn
+    container_name: delugevpn
+    networks: 
+      homeland:
+    environment: 
+      - TZ=${TZ}
+      - VPN_ENABLED=yes
+      - VPN_USER=${VPNUSER}
+      - VPN_PASS=${VPNPASSWORD}
+      - VPN_PROV=${VPNPROVIDER}
+      - STRICT_PORT_FORWARD=no 
+      - ENABLE_PRIVOXY=yes
+      - LAN_NETWORK=${SETNETWORK}
+      - NAME_SERVERS=${DNSSERVERS}
+      - DELUGE_DAEMON_LOG_LEVEL=info
+      - DELUGE_WEB_LOG_LEVEL=info
+      - ADDITIONAL_PORTS=1234
+      - DEBUG=false
+      - UMASK=${DELUGEUMASK}
+      - PUID=${DELUGEPUID}
+      - PGID=${DELUGEPGID}
+    volumes: 
+       - ${CONFIGDIR}/deluge/config:/config
+       - ${CONFIGDIR}/deluge/data:/data
+       - ${TEMPDIR}:/tmp 
+       - ${DOWNLOADDIR}:/downloads
+       - ${WATCHDIR}:/watch 
+    tty: true
+    cap_add: 
+      - NET_ADMIN
+    ports: 
+      - 58846:58846
+      - 58946:58946
+      - ${DELUGEPORT}:8112
+      - ${PRIVOXYPORT}:8118
+    restart: unless-stopped
+
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    networks: 
+      homeland:
+    environment: 
+      - TZ=${TZ}
+      - PGID=${PGID}
+      - PUID=${PUID}
+    volumes: 
+      - jackett_config:/config
+      - ${WATCHDIR}:/watch
+    tty: true
+    ports: 
+      - ${JACKETTPORT}:9117
+    restart: unless-stopped
+
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment: 
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK_SET=002
+    volumes: 
+      - radarr_config:/config
+      - ${MOVIESDIR}:/movies
+      - ${MOVIEDROPDIR}:/downloads
+    tty: true
+    networks:
+      homeland:
+    ports: 
+      - ${RADARRPORT}:7878
+    restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    environment: 
+      - PUID=${PUID}
+      - PGID=${PGID}
+      # - UMASK_SET=000
+    volumes:
+      - sonarr_config:/config
+      - ${TVDIR}:/tv
+      - ${TVDROPDIR}:/downloads
+    tty: true
+    networks:
+      homeland:
+    ports:
+      - ${SONARRPORT}:8989
+    restart: unless-stopped
+
+  duc:
+    image: romeupalos/noip
+    container_name: noip_duc
+    environment: 
+      - TZ=${TZ}
+    volumes: 
+      - noip:/usr/local/etc/
+    tty: true
+    networks:
+      homeland:
+    restart: unless-stopped
+
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant:stable
+    # devices:
+    #   - /dev/ttyUSB0:/dev/ttyUSB0
+    #   - /dev/ttyUSB1:/dev/ttyUSB1
+    #   - /dev/ttyACM0:/dev/ttyACM0
+    volumes:
+      - ${HOMEASSISCONFIGDIR}:/config
+    environment:
+      - TZ=${TZ}
+    restart: always
+    networks:
+      homelab_lan:
+        ipv4_address: ${HOMEASSISTIPADDR}
+      
+        
