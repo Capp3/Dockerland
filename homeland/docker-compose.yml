@@ -16,8 +16,6 @@ networks:
 
 ########################### VOLUMES
 volumes:
-  pihole_etc:
-  pihole_dnsmasq:
   jackett_config:
   radarr_config:
   sonarr_config:
@@ -42,8 +40,8 @@ services:
       DNS1: 127.0.0.1
       DNS2: 1.0.0.1
     volumes:
-      - "pihole_etc:/etc/pihole"
-      - "pihole_dnsmasq:/etc/dnsmasq.d"
+      - ${CONFIGDIR}/pihole/etc/:/etc/pihole
+      - ${CONFIGDIR}/pihole/dnsmasq:/etc/dnsmasq.d
     cap_add:
       - NET_ADMIN
     tty: true
