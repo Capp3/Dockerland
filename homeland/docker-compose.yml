@@ -173,5 +173,3 @@ services:
       homelab_lan:
         ipv4_address: ${HOMEASSISTIPADDR}
       
-
-
