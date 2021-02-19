@@ -3,3 +3,4 @@ _archive*
 *notes*
 *.env*
 */.env*
+*passwd*
