@@ -187,7 +187,7 @@ services:
       - TRAEFIK_GLOBAL_SENDANONYMOUSUSAGE=false
       - TRAEFIK_API=true
       - TRAEFIK_LOG=true
-      - TRAEFIK_LOG_LEVEL=INFO
+      - TRAEFIK_LOG_LEVEL=DEBUG
       - TRAEFIK_ACCESSLOG_FILTERS_STATUSCODES=400-499
       - TRAEFIK_PROVIDERS_DOCKER=true
       - TRAEFIK_PROVIDERS_DOCKER_DEFAULTRULE=Host(`{{ index .Labels "com.docker.compose.service" }}.$DOMAINNAME`)
@@ -221,11 +221,11 @@ services:
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       ## HTTP Routers
       - "traefik.http.routers.traefik-rtr.entrypoints=https"
-      - "traefik.http.routers.traefik-rtr.rule=Host(`traefik.${DOMAINNAME}`)"
+      - "traefik.http.routers.traefik-rtr.rule=Host(`traefik.$DOMAINNAME`)"
       - "traefik.http.routers.traefik-rtr.tls=true"
       - "traefik.http.routers.traefik-rtr.tls.certresolver=dns-cloudflare" # Comment out this line after first run of traefik to force the use of wildcard certs
-      - "traefik.http.routers.traefik-rtr.tls.domains[0].main=${DOMAINNAME}"
-      - "traefik.http.routers.traefik-rtr.tls.domains[0].sans=*.${DOMAINNAME}"
+      - "traefik.http.routers.traefik-rtr.tls.domains[0].main=$DOMAINNAME"
+      - "traefik.http.routers.traefik-rtr.tls.domains[0].sans=*.$DOMAINNAME"
 #      - "traefik.http.routers.traefik-rtr.tls.domains[1].main=$SECONDDOMAINNAME" # Pulls main cert for second domain
 #      - "traefik.http.routers.traefik-rtr.tls.domains[1].sans=*.$SECONDDOMAINNAME" # Pulls wildcard cert for second domain
       ## Services - API
