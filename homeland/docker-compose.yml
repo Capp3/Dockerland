@@ -169,6 +169,6 @@ services:
       - TZ=${TZ}
     restart: always
     networks:
-      homelab_lan:
+      homelab:
         ipv4_address: ${HOMEASSISTIPADDR}
       
