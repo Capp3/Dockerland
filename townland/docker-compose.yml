@@ -1,0 +1,42 @@
+version: "3.7"
+
+########################### NETWORKS
+networks:
+  townland:
+    driver: bridge
+  # t2_proxy:
+  #   driver: bridge
+  homelab:
+    name: homelab_lan1
+    driver: macvlan
+    driver_opts: 
+      parent: enp1s0
+    ipam:
+      driver: default
+      config: 
+        - subnet: 192.168.1.0/24
+
+########################### VOLUMES
+volumes:
+
+
+########################### SERVICES
+
+
+
+
+  ftp-server:
+    image: fauria/vsftpd
+    container_name: ftp_server
+    environment:
+      - FTP_USER=$FTP_USER
+      - FTP_PASS=$FTP_PASS
+    volumes: 
+    - $CONFIGDIR/ftp:/var/log/vsftpd
+    - $CONFIGDIR:/home/vsftpd
+    tty: true
+    network_mode: "bridge"
+    ports: 
+        - 20:20
+        - 21:21
+    restart: unless-stopped
