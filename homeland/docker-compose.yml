@@ -190,7 +190,7 @@ services:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-      - URL=papercut.design
+      - URL=$DOMAINNAME
       - SUBDOMAINS=wildcard
       - VALIDATION=http
       - CERTPROVIDER=zerossl
