@@ -174,13 +174,13 @@ services:
     image: traefik:2.2.1 # the chevrotin tag refers to v2.2.x but introduced a breaking change in 2.2.2
     restart: unless-stopped
     networks:
-      # homeland:
-      homelab:
-        ipv4_address: ${TRFKIPADDR}
-    # ports: 
-    #   - ${TRFKHTTP}:80
-    #   - ${TRFKHTTPS}:443
-    #   - ${TRFK}:8080
+      homeland:
+      # homelab:
+      #   ipv4_address: ${TRFKIPADDR}
+    ports: 
+      - ${TRFKHTTP}:80
+      - ${TRFKHTTPS}:443
+      - ${TRFK}:8080
     environment:
       - TRAEFIK_GLOBAL_CHECKNEWVERSION=false
       - TRAEFIK_ACCESSLOG=true
