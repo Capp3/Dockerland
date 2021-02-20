@@ -220,7 +220,7 @@ services:
     volumes:
       - /docker/traefik2/rules:/rules
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /traefik2/acme:/acme
+      - /acme/traefik2/acme:/acme
       - /docker/traefik2/traefik.log:/traefik.log
       - /docker/shared:/shared
     labels:
