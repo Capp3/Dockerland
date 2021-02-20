@@ -143,18 +143,6 @@ services:
       - ${SONARRPORT}:8989
     restart: unless-stopped
 
-  duc:
-    image: romeupalos/noip
-    container_name: noip_duc
-    environment: 
-      - TZ=$TZ
-    volumes: 
-      - noip:/usr/local/etc/
-    tty: true
-    networks:
-      homeland:
-    restart: unless-stopped
-
   homeassistant:
     container_name: home-assistant
     image: homeassistant/home-assistant:stable
@@ -171,6 +159,15 @@ services:
       homelab:
         ipv4_address: $HOMEASSISTIPADDR
       
+  cloudflare-ddns:
+    image: oznu/cloudflare-ddns:latest
+    restart: always
+    environment:
+      - API_KEY=$CLOUDFLARE_API_KEY
+      - ZONE=$DOMAINNAME
+      - SUBDOMAIN=monitor
+      - PROXIED=true
+
   traefik:
     container_name: traefik
     image: traefik:2.2.1 # the chevrotin tag refers to v2.2.x but introduced a breaking change in 2.2.2
