@@ -21,7 +21,6 @@ volumes:
   jackett_config:
   radarr_config:
   sonarr_config:
-  noip:
 
 ########################### SERVICES
 services:
