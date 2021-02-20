@@ -163,11 +163,10 @@ services:
     image: oznu/cloudflare-ddns:latest
     restart: always
     environment:
-      - API_KEY=$CLOUDFLARE_API_KEY
+      - API_KEY="${CLOUDFLARE_API_KEY}""
       - ZONE=$DOMAINNAME
       - SUBDOMAIN=monitor
       - PROXIED=true
-
 
   whoami:
     image: "containous/whoami"
