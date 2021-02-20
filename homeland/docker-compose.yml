@@ -211,10 +211,10 @@ services:
       - --certificatesResolvers.dns-cloudflare.acme.storage=/acme.json
       - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.provider=cloudflare
     volumes:
-      - /docker/traefik2/rules:/rules 
+      - /docker/traefik2/rules:/rules
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /traefik2/acme/acme.json:/acme.json 
-      - /docker/traefik2/traefik.log:/traefik.log 
+      - /traefik2/acme/acme.json:/acme.json
+      - /docker/traefik2/traefik.log:/traefik.log
       - /docker/shared:/shared
     labels:
       - "traefik.enable=true"
