@@ -6,25 +6,22 @@ networks:
     driver: bridge
   # t2_proxy:
   #   driver: bridge
-  homelab:
-    name: homelab_lan1
-    driver: macvlan
-    driver_opts: 
-      parent: enp1s0
-    ipam:
-      driver: default
-      config: 
-        - subnet: 192.168.1.0/24
+  # homelab:
+  #   name: homelab_lan1
+  #   driver: macvlan
+  #   driver_opts: 
+  #     parent: enp1s0
+  #   ipam:
+  #     driver: default
+  #     config: 
+  #       - subnet: 192.168.1.0/24
 
 ########################### VOLUMES
-volumes:
+# volumes:
 
 
 ########################### SERVICES
-
-
-
-
+services:
   ftp-server:
     image: fauria/vsftpd
     container_name: ftp_server
@@ -35,7 +32,8 @@ volumes:
     - $CONFIGDIR/ftp:/var/log/vsftpd
     - $CONFIGDIR:/home/vsftpd
     tty: true
-    network_mode: "bridge"
+    networks:
+      homeland:
     ports: 
         - 20:20
         - 21:21
