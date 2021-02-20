@@ -240,10 +240,7 @@ services:
       - "traefik.enable=true" # <== Enable traefik on itself to view dashboard and assign subdomain to$
       - "traefik.http.routers.api.rule=Host(`monitor.papercut.design`)" # <== Setting the domain for the d$
       - "traefik.http.routers.api.service=api@internal" # <== Enabling the api to be a service to acce$
-      # API
-      - "traefik.http.routers.traefik.tls.domains[0].main=papercut.design"
-      - "traefik.http.routers.traefik.tls.domains[0].sans=*.papercut.design"
-      - "traefik.http.routers.traefik.tls.certresolver=mydnschallenge"
+      - "traefik.http.routers.traefik.tls.certresolver=dns-cloudflare"
       ## HTTP-to-HTTPS Redirect
       - "traefik.http.routers.http-catchall.entrypoints=http"
       - "traefik.http.routers.http-catchall.rule=HostRegexp(`{host:.+}`)"
@@ -253,7 +250,7 @@ services:
       - "traefik.http.routers.traefik-rtr.entrypoints=https"
       - "traefik.http.routers.traefik-rtr.rule=Host(`traefik.$DOMAINNAME`)"
       - "traefik.http.routers.traefik-rtr.tls=true"
-      - "traefik.http.routers.traefik-rtr.tls.certresolver=dns-cloudflare" # Comment out this line after first run of traefik to force the use of wildcard certs
+      # - "traefik.http.routers.traefik-rtr.tls.certresolver=dns-cloudflare" # Comment out this line after first run of traefik to force the use of wildcard certs
       - "traefik.http.routers.traefik-rtr.tls.domains[0].main=$DOMAINNAME"
       - "traefik.http.routers.traefik-rtr.tls.domains[0].sans=*.$DOMAINNAME"
 #      - "traefik.http.routers.traefik-rtr.tls.domains[1].main=$SECONDDOMAINNAME" # Pulls main cert for second domain
