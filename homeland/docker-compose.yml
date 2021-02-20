@@ -7,7 +7,7 @@ networks:
   # t2_proxy:
   #   driver: bridge
   homelab:
-    name: homelab_lan
+    name: homelab_lan0
     driver: macvlan
     driver_opts: 
       parent: enp1s0
@@ -18,7 +18,6 @@ networks:
 
 ########################### VOLUMES
 volumes:
-  jackett_config:
   radarr_config:
   sonarr_config:
 
@@ -50,6 +49,23 @@ services:
     tty: true
     dns:
       - 127.0.0.1
+
+  ftp-server:
+    image: fauria/vsftpd
+    container_name: ftp_server
+    environment:
+      - FTP_USER=$FTP_USER
+      - FTP_PASS=$FTP_PASS
+    volumes: 
+    - $CONFIGDIR/ftp:/var/log/vsftpd
+    - /home/server:/home/vsftpd
+    tty: true
+    network_mode: "bridge"
+    ports: 
+        - 20:20
+        - 21:21
+    restart: unless-stopped
+
 
   delugevpn:
     image: binhex/arch-delugevpn
@@ -99,7 +115,7 @@ services:
       - PGID=$PGID
       - PUID=$PUID
     volumes: 
-      - jackett_config:/config
+      - $CONFIGDIR/jackett:/config
       - $WATCHDIR:/watch
     tty: true
     ports: 
@@ -162,6 +178,7 @@ services:
       
   cloudflare-ddns:
     image: oznu/cloudflare-ddns:latest
+    container_name: cloudflare-ddns
     restart: always
     environment:
       - API_KEY=${CLOUDFLARE_TRFK_API}
@@ -178,30 +195,3 @@ services:
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=mydnschallenge"
 
-  swag:
-    image: ghcr.io/linuxserver/swag
-    container_name: swag
-    cap_add:
-      - NET_ADMIN
-    networks: 
-      homeland:
-    environment:
-      - PUID=$PUID
-      - PGID=$PGID
-      - TZ=$TZ
-      - URL=$DOMAINNAME
-      - SUBDOMAINS=wildcard
-      - VALIDATION=dns
-      - CERTPROVIDER=zerossl
-      - DNSPLUGIN=cloudflare #optional
-      # - DUCKDNSTOKEN=<token> #optional
-      - EMAIL=$CLOUDFLARE_EMAIL
-      - ONLY_SUBDOMAINS=false #optional
-      # - EXTRA_DOMAINS=<extradomains> #optional
-      - STAGING=false #optional
-    volumes:
-      - $CONFIGDIR/swag/config:/config
-    ports:
-      - 443:443
-      - 80:80
-    restart: unless-stopped
