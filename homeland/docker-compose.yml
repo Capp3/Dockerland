@@ -191,7 +191,7 @@ services:
       - TZ=$TZ
       - URL=$DOMAINNAME
       - SUBDOMAINS=wildcard
-      - VALIDATION=http
+      - VALIDATION=dns
       - CERTPROVIDER=zerossl
       - DNSPLUGIN=cloudflare #optional
       # - DUCKDNSTOKEN=<token> #optional
