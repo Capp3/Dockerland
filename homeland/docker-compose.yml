@@ -18,8 +18,7 @@ networks:
 
 ########################### VOLUMES
 volumes:
-  radarr_config:
-  sonarr_config:
+
 
 ########################### SERVICES
 services:
@@ -58,14 +57,13 @@ services:
       - FTP_PASS=$FTP_PASS
     volumes: 
     - $CONFIGDIR/ftp:/var/log/vsftpd
-    - /home/server:/home/vsftpd
+    - $CONFIGDIR:/home/vsftpd
     tty: true
     network_mode: "bridge"
     ports: 
         - 20:20
         - 21:21
     restart: unless-stopped
-
 
   delugevpn:
     image: binhex/arch-delugevpn
@@ -131,7 +129,7 @@ services:
       - PGID=$PGID
       - UMASK_SET=002
     volumes: 
-      - radarr_config:/config
+      - $CONFIGDIR/radarr:/config
       - $MOVIESDIR:/movies
       - $MOVIEDROPDIR:/downloads
     tty: true
@@ -150,7 +148,7 @@ services:
       - PGID=$PGID
       # - UMASK_SET=000
     volumes:
-      - sonarr_config:/config
+      - $CONFIGDIR/sonarr:/config
       - ${TVDIR}:/tv
       - ${TVDROPDIR}:/downloads
     tty: true
@@ -194,4 +192,6 @@ services:
       - "traefik.http.routers.whoami.rule=Host(`whoami.papercut.design`)"
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=mydnschallenge"
+
+
 
