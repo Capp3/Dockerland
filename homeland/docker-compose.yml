@@ -111,6 +111,7 @@ services:
     image: linuxserver/radarr
     container_name: radarr
     environment: 
+      - TZ=$TZ
       - PUID=$PUID
       - PGID=$PGID
       - UMASK_SET=002
@@ -129,6 +130,7 @@ services:
     image: linuxserver/sonarr
     container_name: sonarr
     environment: 
+      - TZ=$TZ
       - PUID=$PUID
       - PGID=$PGID
       # - UMASK_SET=000
@@ -177,85 +179,30 @@ services:
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=mydnschallenge"
 
-  traefik:
-    image: traefik:v2.2.1
-    restart: always
-    container_name: traefik
-    ports:
-      - $TRFKHTTP:80
-      - $TRFKHTTPS:443
-      - $TRFK:8080
-    networks:
+  swag:
+    image: ghcr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    networks: 
       homeland:
     environment:
-      - CF_API_EMAIL=$CLOUDFLARE_EMAIL
-      - CF_API_KEY=$CLOUDFLARE_API_KEY
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+      - URL=papercut.design
+      - SUBDOMAINS=wildcard
+      - VALIDATION=http
+      - CERTPROVIDER=zerossl
+      - DNSPLUGIN=cloudflare #optional
+      # - DUCKDNSTOKEN=<token> #optional
+      - EMAIL=$CLOUDFLARE_EMAIL
+      - ONLY_SUBDOMAINS=false #optional
+      # - EXTRA_DOMAINS=<extradomains> #optional
+      - STAGING=false #optional
     volumes:
-      - /docker/traefik2/rules:/rules
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /docker/traefik2/cert:/cert
-      - /docker/traefik2/traefik.log:/traefik.log
-      - /docker/shared:/shared
-    command:
-      - --api=true
-      - --global.checkNewVersion=false
-      - --global.sendAnonymousUsage=false
-        # Allow these IPs to set the X-Forwarded-* headers - Cloudflare IPs: https://www.cloudflare.com/ips/
-      - --entrypoints.https.forwardedHeaders.trustedIPs=173.245.48.0/20,103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,141.101.64.0/18,108.162.192.0/18,190.93.240.0/20,188.114.96.0/20,197.234.240.0/22,198.41.128.0/17,162.158.0.0/15,104.16.0.0/12,172.64.0.0/13,131.0.72.0/22
-      - --entryPoints.traefik.address=:8080
-#      - --api.insecure=true
-#      - --serversTransport.insecureSkipVerify=true
-      - --log=true
-      - --accessLog=true
-      - --accessLog.filePath=/traefik.log
-      - --accessLog.bufferingSize=100 # Configuring a buffer of 100 lines
-      - --accessLog.filters.statusCodes=400-499
-      - --providers.docker.defaultrule=Host(`{{ index .Labels "com.docker.compose.service" }}.$DOMAINNAME`)
-      - --providers.docker.network=homeland_homeland
-      - --providers.docker.swarmMode=false
-      - --providers.file.directory=/rules # Load dynamic configuration from one or more .toml or .yml files in a directory.
-#      - --providers.file.filename=/path/to/file # Load dynamic configuration from a file.
-      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
-      # Entrypoints
-      - --api.insecure=false # <== Enabling insecure api, NOT RECOMMENDED FOR PRODUCTION
-      - --api.dashboard=true # <== Enabling the dashboard to view services, middlewares, routers, etc.
-      - --api.debug=true # <== Enabling additional endpoints for debugging and profiling
-      - --log.level=DEBUG # <== Setting the level of the logs from traefik
-      - --providers.docker=true # <== Enabling docker as the provider for traefik
-      - --providers.docker.exposedbydefault=false # <== Don't expose every container to traefik
-      - --providers.file.filename=cert/dynamic.yaml # <== Referring to a dynamic configuration file
-      - --providers.docker.network=homeland_homeland
-      - --entrypoints.web.address=:80 # <== Defining an entrypoint for port :80 named web
-      - --entrypoints.web-secured.address=:443 # <== Defining an entrypoint for https on port :443
-      #- --certificatesresolvers.mytlschallenge.acme.tlschallenge=true # <== Enable TLS-ALPN-01 
-      #- --certificatesresolvers.mytlschallenge.acme.email=you@youremail # <== Set your email
-      #- --certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json # 
-      # - --certificatesResolvers.dns-cloudflare.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory # LetsEncrypt Staging Server - uncomment when testing
-      - --certificatesResolvers.dns-cloudflare.acme.email=$CLOUDFLARE_EMAIL
-      - --certificatesResolvers.dns-cloudflare.acme.storage=/cert/acme.json
-      - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.provider=cloudflare
-      - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
-      - --providers.file.watch=true # Only works on top level files in the rules folder
-    labels:
-      - "traefik.enable=true" # <== Enable traefik on itself to view dashboard and assign subdomain to$
-      - "traefik.http.routers.api.rule=Host(`monitor.papercut.design`)" # <== Setting the domain for the d$
-      - "traefik.http.routers.api.service=api@internal" # <== Enabling the api to be a service to acce$
-      - "traefik.http.routers.traefik.tls.certresolver=dns-cloudflare"
-      ## HTTP-to-HTTPS Redirect
-      - "traefik.http.routers.http-catchall.entrypoints=http"
-      - "traefik.http.routers.http-catchall.rule=HostRegexp(`{host:.+}`)"
-      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-      ## HTTP Routers
-      - "traefik.http.routers.traefik-rtr.entrypoints=https"
-      - "traefik.http.routers.traefik-rtr.rule=Host(`traefik.$DOMAINNAME`)"
-      - "traefik.http.routers.traefik-rtr.tls=true"
-      # - "traefik.http.routers.traefik-rtr.tls.certresolver=dns-cloudflare" # Comment out this line after first run of traefik to force the use of wildcard certs
-      - "traefik.http.routers.traefik-rtr.tls.domains[0].main=$DOMAINNAME"
-      - "traefik.http.routers.traefik-rtr.tls.domains[0].sans=*.$DOMAINNAME"
-#      - "traefik.http.routers.traefik-rtr.tls.domains[1].main=$SECONDDOMAINNAME" # Pulls main cert for second domain
-#      - "traefik.http.routers.traefik-rtr.tls.domains[1].sans=*.$SECONDDOMAINNAME" # Pulls wildcard cert for second domain
-      ## Services - API
-      - "traefik.http.routers.traefik-rtr.service=api@internal"
-      ## Middlewares
-      - "traefik.http.routers.traefik-rtr.middlewares=middlewares-basic-auth@file"
+      - $CONFIGDIR/swag/config:/config
+    ports:
+      - 443:443
+      - 80:80
+    restart: unless-stopped
