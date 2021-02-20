@@ -31,7 +31,7 @@ services:
     restart: unless-stopped
     networks: 
       homelab:
-        ipv4_address: ${PIHOLEIPADDR}      # homelab:
+        ipv4_address: $PIHOLEIPADDR      # homelab:
     # ports:
     #   - 53:53/tcp
     #   - 53:53/udp
@@ -39,13 +39,13 @@ services:
     #   - 80:80/tcp
     #   - 443:443/tcp
     environment:
-      TZ: ${TZ}
-      WEBPASSWORD: ${PIHOLEGUIPASSWORD}
+      TZ: $TZ
+      WEBPASSWORD: $PIHOLEGUIPASSWORD
       DNS1: 127.0.0.1
       DNS2: 1.0.0.1
     volumes:
-      - ${CONFIGDIR}/pihole/etc/:/etc/pihole
-      - ${CONFIGDIR}/pihole/dnsmasq:/etc/dnsmasq.d
+      - $CONFIGDIR/pihole/etc/:/etc/pihole
+      - $CONFIGDIR/pihole/dnsmasq:/etc/dnsmasq.d
     cap_add:
       - NET_ADMIN
     tty: true
@@ -58,36 +58,36 @@ services:
     networks: 
       homeland:
     environment: 
-      - TZ=${TZ}
+      - TZ=$TZ
       - VPN_ENABLED=yes
-      - VPN_USER=${VPNUSER}
-      - VPN_PASS=${VPNPASSWORD}
-      - VPN_PROV=${VPNPROVIDER}
+      - VPN_USER=$VPNUSER
+      - VPN_PASS=$VPNPASSWORD
+      - VPN_PROV=$VPNPROVIDER
       - STRICT_PORT_FORWARD=no 
       - ENABLE_PRIVOXY=yes
-      - LAN_NETWORK=${SETNETWORK}
-      - NAME_SERVERS=${DNSSERVERS}
+      - LAN_NETWORK=$SETNETWORK
+      - NAME_SERVERS=$DNSSERVERS
       - DELUGE_DAEMON_LOG_LEVEL=info
       - DELUGE_WEB_LOG_LEVEL=info
       - ADDITIONAL_PORTS=1234
       - DEBUG=false
-      - UMASK=${DELUGEUMASK}
-      - PUID=${DELUGEPUID}
-      - PGID=${DELUGEPGID}
+      - UMASK=$DELUGEUMASK
+      - PUID=$DELUGEPUID
+      - PGID=$DELUGEPGID
     volumes: 
-       - ${CONFIGDIR}/deluge/config:/config
-       - ${CONFIGDIR}/deluge/data:/data
-       - ${TEMPDIR}:/tmp 
-       - ${DOWNLOADDIR}:/downloads
-       - ${WATCHDIR}:/watch 
+       - $CONFIGDIR/deluge/config:/config
+       - $CONFIGDIR/deluge/data:/data
+       - $TEMPDIR:/tmp 
+       - $DOWNLOADDIR:/downloads
+       - $WATCHDIR:/watch 
     tty: true
     cap_add: 
       - NET_ADMIN
     ports: 
       - 58846:58846
       - 58946:58946
-      - ${DELUGEPORT}:8112
-      - ${PRIVOXYPORT}:8118
+      - $DELUGEPORT:8112
+      - $PRIVOXYPORT:8118
     restart: unless-stopped
 
   jackett:
@@ -96,41 +96,41 @@ services:
     networks: 
       homeland:
     environment: 
-      - TZ=${TZ}
-      - PGID=${PGID}
-      - PUID=${PUID}
+      - TZ=$TZ
+      - PGID=$PGID
+      - PUID=$PUID
     volumes: 
       - jackett_config:/config
-      - ${WATCHDIR}:/watch
+      - $WATCHDIR:/watch
     tty: true
     ports: 
-      - ${JACKETTPORT}:9117
+      - $JACKETTPORT:9117
     restart: unless-stopped
 
   radarr:
     image: linuxserver/radarr
     container_name: radarr
     environment: 
-      - PUID=${PUID}
-      - PGID=${PGID}
+      - PUID=$PUID
+      - PGID=$PGID
       - UMASK_SET=002
     volumes: 
       - radarr_config:/config
-      - ${MOVIESDIR}:/movies
-      - ${MOVIEDROPDIR}:/downloads
+      - $MOVIESDIR:/movies
+      - $MOVIEDROPDIR:/downloads
     tty: true
     networks:
       homeland:
     ports: 
-      - ${RADARRPORT}:7878
+      - $RADARRPORT:7878
     restart: unless-stopped
 
   sonarr:
     image: linuxserver/sonarr
     container_name: sonarr
     environment: 
-      - PUID=${PUID}
-      - PGID=${PGID}
+      - PUID=$PUID
+      - PGID=$PGID
       # - UMASK_SET=000
     volumes:
       - sonarr_config:/config
@@ -147,7 +147,7 @@ services:
     image: romeupalos/noip
     container_name: noip_duc
     environment: 
-      - TZ=${TZ}
+      - TZ=$TZ
     volumes: 
       - noip:/usr/local/etc/
     tty: true
@@ -163,13 +163,13 @@ services:
     #   - /dev/ttyUSB1:/dev/ttyUSB1
     #   - /dev/ttyACM0:/dev/ttyACM0
     volumes:
-      - ${HOMEASSISCONFIGDIR}:/config
+      - $HOMEASSISCONFIGDIR:/config
     environment:
-      - TZ=${TZ}
+      - TZ=$TZ
     restart: always
     networks:
       homelab:
-        ipv4_address: ${HOMEASSISTIPADDR}
+        ipv4_address: $HOMEASSISTIPADDR
       
   traefik:
     container_name: traefik
@@ -180,9 +180,9 @@ services:
       # homelab:
       #   ipv4_address: ${TRFKIPADDR}
     ports: 
-      - ${TRFKHTTP}:80
-      - ${TRFKHTTPS}:443
-      - ${TRFK}:8080
+      - $TRFKHTTP:80
+      - $TRFKHTTPS:443
+      - $TRFK:8080
     environment:
       - TRAEFIK_GLOBAL_CHECKNEWVERSION=false
       - TRAEFIK_ACCESSLOG=true
