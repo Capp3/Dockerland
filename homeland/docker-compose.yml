@@ -230,9 +230,11 @@ services:
       #- --certificatesresolvers.mytlschallenge.acme.tlschallenge=true # <== Enable TLS-ALPN-01 
       #- --certificatesresolvers.mytlschallenge.acme.email=you@youremail # <== Set your email
       #- --certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json # 
-      - --certificatesresolvers.mydnschallenge.acme.email=$CLOUDFLARE_EMAIL
-      - --certificatesresolvers.mydnschallenge.acme.dnschallenge.provider=cloudflare
-      - --certificatesresolvers.mydnschallenge.acme.storage=/certs/acme.json
+      # - --certificatesResolvers.dns-cloudflare.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory # LetsEncrypt Staging Server - uncomment when testing
+      - --certificatesResolvers.dns-cloudflare.acme.email=$CLOUDFLARE_EMAIL
+      - --certificatesResolvers.dns-cloudflare.acme.storage=/certs/acme.json
+      - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.provider=cloudflare
+      - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
       - --providers.file.watch=true # Only works on top level files in the rules folder
     labels:
       - "traefik.enable=true" # <== Enable traefik on itself to view dashboard and assign subdomain to$
