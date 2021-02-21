@@ -33,6 +33,7 @@ services:
     restart: unless-stopped
     networks: 
       marketplace:
+        external: true
       homelab:
         ipv4_address: $PIHOLEIPADDR
     # ports:
@@ -87,6 +88,7 @@ services:
     container_name: delugevpn
     networks: 
       marketplace:
+        external: true
       homeland:
     environment: 
       - TZ=$TZ
@@ -190,6 +192,7 @@ services:
     tty: true
     networks:
       marketplace:
+        external: true
       homeland:
     ports:
       - ${SONARRPORT}:8989
@@ -225,6 +228,7 @@ services:
     restart: always
     networks:
       marketplace:
+        external: true
       homelab:
         ipv4_address: $HOMEASSISTIPADDR
     labels:
@@ -263,6 +267,7 @@ services:
     networks:
       homeland:
       marketplace:
+        external: true
     labels:
       - "traefik.enable=true"
       # HTTP Routers
@@ -280,6 +285,7 @@ services:
     restart: always
     networks:
       marketplace:
+        external: true
       homeland:
 #    ports:
 #      - "3579:3579"
@@ -309,6 +315,7 @@ services:
     networks: 
       homeland:
       marketplace:
+        external: true
     command: # CLI arguments
       - --global.checkNewVersion=true
       - --global.sendAnonymousUsage=false
