@@ -46,3 +46,6 @@ services:
 
 volumes:
   portainer_data:
+
+# execute with
+# docker stack deploy -c portainer-agent-stack.yml portainer
