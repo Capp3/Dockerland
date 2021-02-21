@@ -1,7 +1,7 @@
 [http.routers]
   [http.routers.pihole-rtr]
       entryPoints = ["https"]
-      rule = "HostHeader(`pihole.example.com`)"
+      rule = "HostHeader(`pihole.papercut.design`)"
       service = "pihole-svc"
       middlewares = ["chain-authelia", "pihole-add-admin"]
       [http.routers.pihole-rtr.tls]
