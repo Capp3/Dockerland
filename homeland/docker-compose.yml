@@ -48,6 +48,16 @@ services:
     tty: true
     dns:
       - 127.0.0.1
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.pihole-rtr.entrypoints=https"
+      - "traefik.http.routers.pihole-rtr.rule=Host(`pihole.$DOMAINNAME`)"
+      ## Middlewares
+      - "traefik.http.routers.pihole-rtr.middlewares=secure-chain@file,add-admin@file"
+      ## HTTP Services
+      - "traefik.http.routers.pihole-rtr.service=pihole-svc"
+      - "traefik.http.services.pihole-svc.loadbalancer.server.port=80"
 
   ftp-server:
     image: fauria/vsftpd
@@ -173,6 +183,23 @@ services:
     networks:
       homelab:
         ipv4_address: $HOMEASSISTIPADDR
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.hass-rtr.entrypoints=https"
+      - "traefik.http.routers.hass-rtr.rule=Host(`hass.$DOMAINNAME`)"
+      - "traefik.http.routers.hass-rtr.priority=10"
+      ## Middlewares
+      - "traefik.http.routers.hass-rtr.middlewares=secure-headers@file"
+      ## HTTP Services
+      - "traefik.http.routers.hass-rtr.service=hass-svc"
+      - "traefik.http.services.hass-svc.loadbalancer.server.port=8123"
+      ## API Forward Auth Bypass
+      - "traefik.http.routers.hass-bypass.entrypoints=https"
+      - "traefik.http.routers.hass-bypass.rule=(Host(`hass.$DOMAINNAME`) && PathPrefix(`/api/`))"
+      - "traefik.http.routers.hass-bypass.priority=20"
+      - "traefik.http.routers.hass-bypass.middlewares=secure-headers@file"
+      - "traefik.http.routers.hass-bypass.service=hass-svc"
       
   cloudflare-ddns:
     image: oznu/cloudflare-ddns:latest
