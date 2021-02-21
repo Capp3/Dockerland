@@ -27,8 +27,7 @@ services:
     volumes:
       - portainer_data:/data
     networks:
-      - marketplace:
-          external: true
+      marketplace:
     deploy:
       mode: replicated
       replicas: 1
