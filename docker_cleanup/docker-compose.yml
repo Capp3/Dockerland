@@ -3,14 +3,15 @@ version: "3"
 services:
   docker-cleanup:
     image: meltwater/docker-cleanup:latest
+    container_name: cleanup
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker:/var/lib/docker
     networks:
-      - internal
+      - marketplace
     deploy:
       mode: global
-    env_file: /var/data/config/docker-cleanup/docker-cleanup.env
+    env_file: /var/data/config/docker-cleanup/docker-cleanup
 
 networks:
   marketplace:
