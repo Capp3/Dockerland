@@ -177,6 +177,8 @@ services:
   cloudflare-ddns:
     image: oznu/cloudflare-ddns:latest
     container_name: cloudflare-ddns
+    networks: 
+      homeland:
     restart: always
     environment:
       - API_KEY=${CLOUDFLARE_TRFK_API}
@@ -187,6 +189,8 @@ services:
   whoami:
     image: "containous/whoami"
     container_name: "whoami"
+    networks:
+      homeland:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`whoami.papercut.design`)"
