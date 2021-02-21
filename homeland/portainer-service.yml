@@ -1,13 +1,9 @@
 version: "3.7"
 
-########################### NETWORKS
-networks:
-  default:
-    driver: bridge
 
 ########################### VOLUMES
 volumes:
-  FOSS:
+  portainer_data:
 
 ########################### SERVICES
 services:
