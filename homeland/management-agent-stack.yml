@@ -58,15 +58,17 @@ services:
     networks:
       - internal
     deploy:
-      labels:
-        # traefik
-        - traefik.enable=true
-        - traefik.docker.network=traefik_public
-        # traefikv2
-        - "traefik.http.routers.heimdall.rule=Host(`heimdall.example.com`)"
-        - "traefik.http.routers.heimdall.entrypoints=https"
-        - "traefik.http.services.heimdall.loadbalancer.server.port=80"
-        - "traefik.http.routers.heimdall.middlewares=forward-auth"
+      mode: replicated
+      replicas: 1
+    labels:
+      # traefik
+      - traefik.enable=true
+      - traefik.docker.network=traefik_public
+      # traefikv2
+      - "traefik.http.routers.heimdall.rule=Host(`heimdall.example.com`)"
+      - "traefik.http.routers.heimdall.entrypoints=https"
+      - "traefik.http.services.heimdall.loadbalancer.server.port=80"
+      - "traefik.http.routers.heimdall.middlewares=forward-auth"
 
   traefik:
     image: traefik:v2.2.1
