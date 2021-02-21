@@ -1,4 +1,9 @@
 version: '3.2'
+# execute with
+# docker stack deploy -c management-agent-stack.yml management
+
+volumes:
+  portainer_data:
 
 services:
   agent:
@@ -44,8 +49,23 @@ services:
       - "traefik.http.routers.edge.service=edge"
       - "traefik.http.routers.edge.tls.certresolver=leresolver"
 
-volumes:
-  portainer_data:
+  heimdall:
+    image: linuxserver/heimdall:latest
+    env_file: /var/data/config/autopirate/heimdall.env
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/data/heimdall:/config
+    networks:
+      - internal
+    deploy:
+      labels:
+        # traefik
+        - traefik.enable=true
+        - traefik.docker.network=traefik_public
 
-# execute with
-# docker stack deploy -c management-agent-stack.yml portainer
+        # traefikv2
+        - "traefik.http.routers.heimdall.rule=Host(`heimdall.example.com`)"
+        - "traefik.http.routers.heimdall.entrypoints=https"
+        - "traefik.http.services.heimdall.loadbalancer.server.port=80"
+        - "traefik.http.routers.heimdall.middlewares=forward-auth"
+
