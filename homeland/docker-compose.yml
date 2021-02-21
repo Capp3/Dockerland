@@ -284,8 +284,8 @@ services:
     image: linuxserver/ombi:latest
     restart: always
     networks:
-      - marketplace:
-      - homeland:
+      marketplace:
+      homeland:
 #    ports:
 #      - "3579:3579"
     security_opt:
