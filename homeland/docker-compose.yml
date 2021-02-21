@@ -4,8 +4,10 @@ version: "3.7"
 networks:
   homeland:
     driver: bridge
-  # t2_proxy:
-  #   driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.90.0/24
+
   homelab:
     name: homelab_lan0
     driver: macvlan
