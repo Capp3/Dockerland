@@ -76,11 +76,11 @@ services:
       - 443:443
       - 8080:8080
     deploy:
-      # placement:
-      #   constraints:
-      #     # Make the traefik service run only on the node with this label
-      #     # as the node with it has the volume for the certificates
-      #     - node.labels.traefik-public.traefik-public-certificates == true
+      placement:
+        constraints:
+          # Make the traefik service run only on the node with this label
+          # as the node with it has the volume for the certificates
+          - node.labels.traefik-public.traefik-public-certificates == true
     networks:
       marketplace:
     labels:
