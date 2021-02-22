@@ -1,30 +1,36 @@
 version: "3.7"
 
-########################### NETWORKS
-networks:
-  keepalived:
-    driver: bridge
-
-########################### VOLUMES
-volumes:
-  FOSS:
-
 ########################### SERVICES
 services:
-  service1:
-    container_name: FOSS
-    image: FOSS/FOSS:FOSS
+  ftp-server:
+    image: fauria/vsftpd
+    container_name: ftp_server
+    environment:
+      - FTP_USER=$FTP_USER
+      - FTP_PASS=$FTP_PASS
+    volumes: 
+    - $CONFIGDIR/ftp:/var/log/vsftpd
+    - $CONFIGDIR:/home/vsftpd
+    tty: true
+    networks:
+      homeland:
+    ports: 
+        - 20:20
+        - 21:21
+    restart: unless-stopped
+    
+  keepalived0:
+    container_name: keepalived
+    image: osixia/keepalived:stable
     restart: unless-stopped
     # command: # CLI arguments
       # - --FOSS
-    networks:
-      default:
-    ports:
-      - target: 80
-        published: 80
-        protocol: tcp
-        mode: host
-    volumes:
-      - FOSS:/directory_in_container
+    network_mode: "host"
     environment:
-      - FOSS=FOSS
+      - KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.1.2', '192.168.1.3']"
+      - KEEPALIVED_VIRTUAL_IPS=192.168.1.7
+      - KEEPALIVED_PRIORITY=200
+    cap_add:
+      - NET_ADMIN
+      - NET_BROADCAST
+      - NET_RAW
