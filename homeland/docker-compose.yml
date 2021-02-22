@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
 
   keepalived0:
-    container_name: keepalived
+    container_name: keepalived2
     image: osixia/keepalived:stable
     restart: unless-stopped
     # command: # CLI arguments
