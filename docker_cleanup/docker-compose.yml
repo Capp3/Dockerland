@@ -14,7 +14,7 @@ services:
     env_file: /var/data/config/docker-cleanup/docker-cleanup
 
 networks:
-  marketplace:
+  marketplace0:
     driver: overlay
     ipam:
       config:
