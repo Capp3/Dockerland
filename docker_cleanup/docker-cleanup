@@ -1,2 +1,2 @@
-KEEP_IMAGES=traefik,keepalived,docker-mailserver
+KEEP_IMAGES=traefik,keepalived0,keepalived1,docker-mailserver
 DEBUG=1
