@@ -8,10 +8,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker:/var/lib/docker
     networks:
-      - marketplace
+      - marketplace0
     deploy:
       mode: global
-    env_file: /var/data/config/docker-cleanup/docker-cleanup
+    env_file: /docker/docker_cleanup/docker-cleanup
 
 networks:
   marketplace0:
