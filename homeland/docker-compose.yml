@@ -1,5 +1,8 @@
 version: "3.7"
-
+########################### Networks
+networks: 
+  services:
+    driver: bridge
 ########################### SERVICES
 services:
   ftp-server:
@@ -13,12 +16,12 @@ services:
     - $CONFIGDIR:/home/vsftpd
     tty: true
     networks:
-      homeland:
+      services:
     ports: 
         - 20:20
         - 21:21
     restart: unless-stopped
-    
+
   keepalived0:
     container_name: keepalived
     image: osixia/keepalived:stable
