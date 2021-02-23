@@ -11,7 +11,6 @@ networks:
 ########################### VOLUMES
 # volumes:
 
-
 ########################### SERVICES
 services:
   traefik:
@@ -47,10 +46,10 @@ services:
       mode: global
       labels:
         - "traefik.docker.network=traefik_public"
-        - "traefik.http.routers.api.rule=Host(`traefik.$DOMAINNAME`)"
+        - "traefik.http.routers.api.rule=Host(`traefik.capparelli.ie`)"
         - "traefik.http.routers.api.entrypoints=https"
-        - "traefik.http.routers.api.tls.domains[0].main=$DOMAINNAME"
-        - "traefik.http.routers.api.tls.domains[0].sans=*.$DOMAINNAME"        
+        - "traefik.http.routers.api.tls.domains[0].main=capparelli.ie"
+        - "traefik.http.routers.api.tls.domains[0].sans=*.capparelli.ie"        
         - "traefik.http.routers.api.tls=true"
         - "traefik.http.routers.api.tls.certresolver=main"
         - "traefik.http.routers.api.service=api@internal"
@@ -79,7 +78,7 @@ services:
         - traefik.frontend.auth.forward.authResponseHeaders=X-Forwarded-User
         - traefik.frontend.auth.forward.trustForwardHeader=true        
         # traefikv2
-        - "traefik.http.routers.heimdall.rule=Host(`home.$DOMAINNAME`)"
+        - "traefik.http.routers.heimdall.rule=Host(`home.capparelli.ie`)"
         - "traefik.http.routers.heimdall.entrypoints=https"
         - "traefik.http.services.heimdall.loadbalancer.server.port=80"
         - "traefik.http.routers.heimdall.middlewares=forward-auth"
@@ -91,7 +90,7 @@ services:
     deploy:
       labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.whoami.rule=Host(`whoami.$DOMAINNAME`)'
+      - 'traefik.http.routers.whoami.rule=Host(`whoami.capparelli.ie`)'
       - 'traefik.http.routers.whoami.entrypoints=web'
       - 'traefik.http.services.whoami.loadbalancer.server.port=80'
     networks:
@@ -119,7 +118,7 @@ services:
         - traefik.docker.network=traefik_public
 
         # traefikv1
-        - traefik.frontend.rule=Host:portainer.$DOMAINNAME
+        - traefik.frontend.rule=Host:portainer.capparelli.ie
         - traefik.port=9000    
         # uncomment if you want to protect portainer with traefik-forward-auth using traefikv1 
         # - traefik.frontend.auth.forward.address=http://traefik-forward-auth:4181
@@ -127,7 +126,7 @@ services:
         # - traefik.frontend.auth.forward.trustForwardHeader=true        
 
         # traefikv2
-        - "traefik.http.routers.portainer.rule=Host(`portainer.$DOMAINNAME`)"
+        - "traefik.http.routers.portainer.rule=Host(`portainer.capparelli.ie`)"
         - "traefik.http.routers.portainer.entrypoints=https"
         - "traefik.http.services.portainer.loadbalancer.server.port=9000"
         # uncomment if you want to protect portainer with traefik-forward-auth using traefikv2
