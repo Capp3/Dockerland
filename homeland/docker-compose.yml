@@ -1,8 +1,19 @@
 version: "3.7"
 ########################### Networks
 networks:
-  services:
+  internal2:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.2.0/24
+  rollcall:
+    # name: org_lan
+    driver: macvlan
+    driver_opts: 
+      parent: eth0
+    ipam:
+      config: 
+        - subnet: 192.168.1.0/24
 ########################### SERVICES
 services:
   ftp-server:
@@ -36,3 +47,29 @@ services:
       - NET_ADMIN
       - NET_BROADCAST
       - NET_RAW
+
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+    environment:
+      TZ: ${TZ}
+      WEBPASSWORD: ${GUIPASSWORD}
+      DNS1: 127.0.0.1
+      DNS2: 1.0.0.1
+    # Volumes store your data between container upgrades
+    volumes:
+      - $CONFIGDIR/pihole/pihole_etc:/etc/pihole
+      - $CONFIGDIR/pihole/pihole_dnsmasq:/etc/dnsmasq.d
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
+    dns:
+      - 127.0.0.1
+    restart: unless-stopped
