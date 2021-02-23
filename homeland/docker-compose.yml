@@ -59,7 +59,7 @@ services:
       - "443:443/tcp"
     environment:
       TZ: ${TZ}
-      WEBPASSWORD: ${GUIPASSWORD}
+      WEBPASSWORD: ${PIHOLEGUIPASSWORD}
       DNS1: 127.0.0.1
       DNS2: 1.0.0.1
     # Volumes store your data between container upgrades
