@@ -71,13 +71,13 @@ services:
       - 127.0.0.1
     restart: unless-stopped
 
-      whoami:
+  whoami:
     image: 'traefik/whoami'
     deploy:
       labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.whoami.rule=Host(`whoami.xxx`)'
+      - 'traefik.http.routers.whoami.rule=Host(`whoami.capparelli.ie`)'
       - 'traefik.http.routers.whoami.entrypoints=web'
       - 'traefik.http.services.whoami.loadbalancer.server.port=80'
     networks:
-      - traefik
+      - warehouse
