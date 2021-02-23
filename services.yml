@@ -95,7 +95,7 @@ services:
       - 'traefik.http.routers.whoami.entrypoints=web'
       - 'traefik.http.services.whoami.loadbalancer.server.port=80'
     networks:
-      - warehouse
+      - warehouse:
 
   portainer:
     image: portainer/portainer-ce
