@@ -4,3 +4,4 @@ _archive*
 *.env*
 */.env*
 *passwd*
+#acme.json
