@@ -9,7 +9,8 @@ networks:
         - subnet: 192.168.1.0/24
   marketplace:
     external: true
-
+  warehouse:
+    external: true
 ########################### VOLUMES
 # volumes:
 
@@ -41,7 +42,8 @@ services:
       - /docker/traefikv2/traefik.log:/traefik.log
       - /docker/traefikv2/acme/acme.json:/acme.json
     networks:
-      - traefik_public
+      - warehouse
+      - marketplace
     # Global mode makes an instance of traefik listen on _every_ node, so that regardless of which
     # node the request arrives on, it'll be forwarded to the correct backend service.
     deploy:
@@ -86,6 +88,17 @@ services:
         - "traefik.http.routers.heimdall.middlewares=forward-auth"
     networks:
       - marketplace:
+
+  whoami:
+    image: 'traefik/whoami'
+    deploy:
+      labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.whoami.rule=Host(`whoami.$DOMAINNAME`)'
+      - 'traefik.http.routers.whoami.entrypoints=web'
+      - 'traefik.http.services.whoami.loadbalancer.server.port=80'
+    networks:
+      - warehouse
 
   portainer:
     image: portainer/portainer-ce
