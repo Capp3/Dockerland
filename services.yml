@@ -1,0 +1,29 @@
+version: "3.7"
+
+########################### NETWORKS
+networks:
+  default:
+    driver: bridge
+
+########################### VOLUMES
+volumes:
+  FOSS:
+
+########################### SERVICES
+services:
+  traefik:
+    image: traefik:v2.4
+    restart: unless-stopped
+    # command: # CLI arguments
+      # - --FOSS
+    networks:
+      marketplace:
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+    volumes:
+      - FOSS:/directory_in_container
+    environment:
+      - FOSS=FOSS
