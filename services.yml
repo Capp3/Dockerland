@@ -2,28 +2,136 @@ version: "3.7"
 
 ########################### NETWORKS
 networks:
-  default:
+  internal1:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+  marketplace:
+    external: true
 
 ########################### VOLUMES
-volumes:
-  FOSS:
+# volumes:
+
 
 ########################### SERVICES
 services:
   traefik:
     image: traefik:v2.4
-    restart: unless-stopped
-    # command: # CLI arguments
-      # - --FOSS
-    networks:
-      marketplace:
+    env_file: /docker/.env
+    # Note below that we use host mode to avoid source nat being applied to our ingress HTTP/HTTPS sessions
+    # Without host mode, all inbound sessions would have the source IP of the swarm nodes, rather than the
+    # original source IP, which would impact logging. If you don't care about this, you can expose ports the 
+    # "minimal" way instead
     ports:
       - target: 80
         published: 80
         protocol: tcp
         mode: host
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: host
+      - target: 8080
+        published: 8080
+        protocol: tcp
     volumes:
-      - FOSS:/directory_in_container
-    environment:
-      - FOSS=FOSS
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /docker/traefikv2/etc:/etc/traefik
+      - /docker/traefikv2/traefik.log:/traefik.log
+      - /docker/traefikv2/acme/acme.json:/acme.json
+    networks:
+      - traefik_public
+    # Global mode makes an instance of traefik listen on _every_ node, so that regardless of which
+    # node the request arrives on, it'll be forwarded to the correct backend service.
+    deploy:
+      mode: global
+      labels:
+        - "traefik.docker.network=traefik_public"
+        - "traefik.http.routers.api.rule=Host(`traefik.$DOMAINNAME`)"
+        - "traefik.http.routers.api.entrypoints=https"
+        - "traefik.http.routers.api.tls.domains[0].main=$DOMAINNAME"
+        - "traefik.http.routers.api.tls.domains[0].sans=*.$DOMAINNAME"        
+        - "traefik.http.routers.api.tls=true"
+        - "traefik.http.routers.api.tls.certresolver=main"
+        - "traefik.http.routers.api.service=api@internal"
+        - "traefik.http.services.dummy.loadbalancer.server.port=9999"
+
+        # uncomment this to enable forward authentication on the traefik api/dashboard
+        - "traefik.http.routers.api.middlewares=forward-auth"      
+      placement:
+        constraints: [node.role == manager]
+
+  heimdall:
+    image: linuxserver/heimdall:latest
+    env_file: /docker/.env
+    volumes:
+      - /netdata/config/heimdall:/config
+    deploy:
+      replicas: 1
+      labels:
+        # traefik
+        - traefik.enable=true
+        - traefik.docker.network=traefik_public
+        # traefikv1
+        - traefik.frontend.rule=Host:heimdall.example.com
+        - traefik.port=80
+        - traefik.frontend.auth.forward.address=http://traefik-forward-auth:4181
+        - traefik.frontend.auth.forward.authResponseHeaders=X-Forwarded-User
+        - traefik.frontend.auth.forward.trustForwardHeader=true        
+        # traefikv2
+        - "traefik.http.routers.heimdall.rule=Host(`home.$DOMAINNAME`)"
+        - "traefik.http.routers.heimdall.entrypoints=https"
+        - "traefik.http.services.heimdall.loadbalancer.server.port=80"
+        - "traefik.http.routers.heimdall.middlewares=forward-auth"
+    networks:
+      - marketplace:
+
+  portainer:
+    image: portainer/portainer-ce
+    command: -H tcp://tasks.agent:9001 --tlsskipverify
+    ports:
+      - "9000:9000"
+      - "8000:8000"
+    volumes:
+      - /home/server/portainer:/data
+    networks:
+      - internal1:
+      - marketplace:
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      labels:
+        # traefik
+        - traefik.enable=true
+        - traefik.docker.network=traefik_public
+
+        # traefikv1
+        - traefik.frontend.rule=Host:portainer.$DOMAINNAME
+        - traefik.port=9000    
+        # uncomment if you want to protect portainer with traefik-forward-auth using traefikv1 
+        # - traefik.frontend.auth.forward.address=http://traefik-forward-auth:4181
+        # - traefik.frontend.auth.forward.authResponseHeaders=X-Forwarded-User
+        # - traefik.frontend.auth.forward.trustForwardHeader=true        
+
+        # traefikv2
+        - "traefik.http.routers.portainer.rule=Host(`portainer.$DOMAINNAME`)"
+        - "traefik.http.routers.portainer.entrypoints=https"
+        - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+        # uncomment if you want to protect portainer with traefik-forward-auth using traefikv2
+        # - "traefik.http.routers.portainer.middlewares=forward-auth"
+
+  agent:
+    image: portainer/agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    networks:
+      - internal
+    deploy:
+      mode: global
+      placement:
+        constraints: [node.platform.os == linux]
+
