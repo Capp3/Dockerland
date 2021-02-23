@@ -76,7 +76,7 @@ services:
     deploy:
       labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.whoami.rule=Host(`whoami.capparelli.ie`)'
+      - 'traefik.http.routers.whoami.rule=Host(`whoami.$DOMAINNAME`)'
       - 'traefik.http.routers.whoami.entrypoints=web'
       - 'traefik.http.services.whoami.loadbalancer.server.port=80'
     networks:
