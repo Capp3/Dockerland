@@ -25,6 +25,7 @@ services:
   ftp-server1:
     image: fauria/vsftpd
     container_name: ftp_server
+    env_file: /docker/.env
     environment:
       - FTP_USER=$FTP_USER
       - FTP_PASS=$FTP_PASS
