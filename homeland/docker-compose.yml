@@ -19,6 +19,7 @@ services:
   ftp-server:
     image: fauria/vsftpd
     container_name: ftp_server
+    env_file: /docker/.env
     environment:
       - FTP_USER=$FTP_USER
       - FTP_PASS=$FTP_PASS
@@ -51,6 +52,7 @@ services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
+    env_file: /docker/.env
     ports:
       - "53:53/tcp"
       - "53:53/udp"
