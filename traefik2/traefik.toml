@@ -29,7 +29,7 @@
   # uncomment to use staging CA for testing
   # caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
   [certificatesResolvers.main.acme.dnsChallenge]
-    provider = "route53"
+    provider = "cloudflare"
   # Uncomment to use HTTP validation, like a caveman!
   # [certificatesResolvers.main.acme.httpChallenge]
   #  entryPoint = "http"    
