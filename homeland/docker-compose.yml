@@ -1,11 +1,12 @@
 version: "3.7"
 ########################### Networks
 networks:
-  internal2:
+  marketplace:
+    external: true
+  warehouse:
+    external: true
+  local0:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 192.168.2.0/24
   rollcall:
     # name: org_lan
     driver: macvlan
@@ -28,7 +29,7 @@ services:
     - $CONFIGDIR:/home/vsftpd
     tty: true
     networks:
-      services:
+      local0:
     ports: 
         - 20:20
         - 21:21
@@ -53,25 +54,30 @@ services:
     container_name: pihole
     image: pihole/pihole:latest
     env_file: /docker/.env
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "67:67/udp"
-      - "80:80/tcp"
-      - "443:443/tcp"
+    networks: 
+      rollcall:
+        ipv4_address: 192.168.1.100
     environment:
       TZ: ${TZ}
       WEBPASSWORD: ${PIHOLEGUIPASSWORD}
       DNS1: 127.0.0.1
       DNS2: 1.0.0.1
-    # Volumes store your data between container upgrades
     volumes:
       - $CONFIGDIR/pihole/pihole_etc:/etc/pihole
       - $CONFIGDIR/pihole/pihole_dnsmasq:/etc/dnsmasq.d
-    # Recommended but not required (DHCP needs NET_ADMIN)
-    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:
       - NET_ADMIN
     dns:
       - 127.0.0.1
     restart: unless-stopped
+
+      whoami:
+    image: 'traefik/whoami'
+    deploy:
+      labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.whoami.rule=Host(`whoami.xxx`)'
+      - 'traefik.http.routers.whoami.entrypoints=web'
+      - 'traefik.http.services.whoami.loadbalancer.server.port=80'
+    networks:
+      - traefik
