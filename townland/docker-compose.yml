@@ -22,37 +22,3 @@ networks:
 
 ########################### SERVICES
 services:
-  ftp-server1:
-    image: fauria/vsftpd
-    container_name: ftp_server
-    env_file: /docker/.env
-    environment:
-      - FTP_USER=$FTP_USER
-      - FTP_PASS=$FTP_PASS
-    volumes: 
-    - $CONFIGDIR/ftp:/var/log/vsftpd
-    - $CONFIGDIR:/home/vsftpd
-    tty: true
-    networks:
-      services:
-    ports: 
-        - 20:20
-        - 21:21
-    restart: unless-stopped
-
-  keepalived1:
-    container_name: keepalived1
-    image: osixia/keepalived:stable
-    restart: unless-stopped
-    # command: # CLI arguments
-      # - --FOSS
-    network_mode: "host"
-    environment:
-      - KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.1.2', '192.168.1.3']"
-      - KEEPALIVED_VIRTUAL_IPS=192.168.1.7
-      - KEEPALIVED_PRIORITY=100
-      # - KEEPALIVED_INTERFACE=eth0
-    cap_add:
-      - NET_ADMIN
-      - NET_BROADCAST
-      - NET_RAW
