@@ -5,11 +5,11 @@ networks:
     external: true
   warehouse:
     external: true
-  local0:
-    driver: bridge    
-    ipam:
-      config:
-        - subnet: 192.168.0.0/24
+  # local0:
+  #   driver: bridge    
+  #   ipam:
+  #     config:
+  #       - subnet: 192.168.0.0/24
   rollcall:
     driver: macvlan
     driver_opts: 
@@ -32,10 +32,66 @@ services:
       DNS1: 127.0.0.1
       DNS2: 1.0.0.1
     volumes:
-      - $CONFIGDIR/pihole/pihole_etc:/etc/pihole
-      - $CONFIGDIR/pihole/pihole_dnsmasq:/etc/dnsmasq.d
+      - ${CONFIGDIR}/pihole/pihole_etc:/etc/pihole
+      - ${CONFIGDIR}/pihole/pihole_dnsmasq:/etc/dnsmasq.d
     cap_add:
       - NET_ADMIN
     dns:
       - 127.0.0.1
+    restart: unless-stopped
+
+  delugevpn:
+    image: binhex/arch-delugevpn
+    container_name: delugevpn
+    env_file: /docker/.env
+    environment: 
+      - TZ=${TZ}
+      - VPN_ENABLED=yes
+      - VPN_USER=${VPNUSER}
+      - VPN_PASS=${VPNPASSWORD}
+      - VPN_PROV=${VPNPROVIDER}
+      - STRICT_PORT_FORWARD=no 
+      - ENABLE_PRIVOXY=yes
+      - LAN_NETWORK=${SETNETWORK}
+      - NAME_SERVERS=${DNSSERVERS}
+      - DELUGE_DAEMON_LOG_LEVEL=info
+      - DELUGE_WEB_LOG_LEVEL=info
+      - ADDITIONAL_PORTS=1234
+      - DEBUG=false
+      - UMASK=${UMASK}
+      - PUID=${PUID}
+      - PGID=${PGID}
+    volumes: 
+      - ${CONFIGDIR}:/config
+      - ${DATADIR}:/data
+      - ${TEMPDIR}:/tmp 
+      - ${DOWNLOADDIR}:/downloads
+      - ${WATCHDIR}:/watch 
+    tty: true
+    networks:
+      - marketplace
+    cap_add: 
+      - NET_ADMIN
+    ports: 
+      - 58846:58846
+      - 58946:58946
+      - ${DELUGEPORT}:8112
+      - ${PRIVOXYPORT}:8118
+    restart: unless-stopped
+  
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    environment: 
+      - TZ=${TZ}
+      - PGID=${PGID}
+      - PUID=${PUID}
+    volumes: 
+      - jackett_config:/config
+      - ${WATCHDIR}:/watch
+    tty: true
+    networks:
+      - marketplace
+    ports: 
+      - ${PORT}:9117
     restart: unless-stopped
