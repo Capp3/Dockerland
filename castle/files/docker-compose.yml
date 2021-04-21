@@ -300,3 +300,6 @@ services:
       ## HTTP Services
       - "traefik.http.routers.ombi-rtr.service=ombi-svc"
       - "traefik.http.services.ombi-svc.loadbalancer.server.port=3579"
+
+
+      ssh-keygen -t ed25519 -C "dcapp3@gmail.com"
