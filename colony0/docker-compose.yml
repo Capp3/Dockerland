@@ -22,7 +22,8 @@ services:
   heimdall:
     image: linuxserver/heimdall
     container_name: heimdall
-    env_file: /docker/.env
+    env_file: 
+      - /docker/.env
     networks: 
       rollcall:
         ipv4_address: ${HEIMDALLIPADDR}
