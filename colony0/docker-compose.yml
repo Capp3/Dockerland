@@ -1,0 +1,40 @@
+version: "3.7"
+########################### Networks
+networks:
+  marketplace:
+    external: true
+  warehouse:
+    external: true
+  # local0:
+  #   driver: bridge    
+  #   ipam:
+  #     config:
+  #       - subnet: 192.168.0.0/24
+  rollcall:
+    driver: macvlan
+    driver_opts: 
+      parent: eth0
+    ipam:
+      config: 
+        - subnet: 192.168.1.0/24
+########################### SERVICES
+services:
+  heimdall:
+    image: linuxserver/heimdall
+    container_name: heimdall
+    env_file: /docker/.env
+    networks: 
+      rollcall:
+        ipv4_address: ${HEIMDALLIPADDR}
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${CONFIGDIR}/heimdall_config:/config
+    # ports:
+    #   - 80:80
+    #   - 443:443
+    restart: unless-stopped
+
+  
