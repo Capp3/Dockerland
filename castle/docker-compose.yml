@@ -22,7 +22,6 @@ services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
-    env_file: /docker/.env
     networks: 
       rollcall:
         ipv4_address: ${PIHOLEIPADDR}
@@ -43,7 +42,6 @@ services:
   delugevpn:
     image: binhex/arch-delugevpn
     container_name: delugevpn
-    env_file: /docker/.env
     environment: 
       - TZ=${TZ}
       - VPN_ENABLED=yes
@@ -93,5 +91,5 @@ services:
     networks:
       - marketplace
     ports: 
-      - ${PORT}:9117
+      - 6003:9117
     restart: unless-stopped
