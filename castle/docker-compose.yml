@@ -60,8 +60,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
     volumes: 
-      - ${CONFIGDIR}/deluge:/config
-      - ${DATADIR}:/data
+      - ${CONFIGDIR}/deluge/config:/config
+      - ${CONFIGDIR}/deluge/data:/data
       - ${TEMPDIR}:/tmp 
       - ${DOWNLOADDIR}:/downloads
       - ${WATCHDIR}:/watch 
