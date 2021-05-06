@@ -23,7 +23,6 @@ services:
     image: ghcr.io/linuxserver/heimdall
     container_name: heimdall
     networks: 
-      marketplace:
       rollcall:
         ipv4_address: ${HEIMDALLIPADDR}
     environment:
