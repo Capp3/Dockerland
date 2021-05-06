@@ -31,7 +31,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /netdata/config/heimdall_config:/config
+      - ${CONFIGDIR}/heimdall_config:/config
     networks: 
       - local1
     ports:
