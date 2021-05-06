@@ -20,7 +20,7 @@ networks:
 ########################### SERVICES
 services:
   heimdall:
-    image: linuxserver/heimdall
+    image: ghcr.io/linuxserver/heimdall
     container_name: heimdall
     networks: 
       rollcall:
