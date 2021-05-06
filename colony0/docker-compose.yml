@@ -1,6 +1,7 @@
 version: "3.7"
 ########################### Networks
 networks:
+  local1:
   marketplace:
     external: true
   warehouse:
@@ -10,13 +11,13 @@ networks:
   #   ipam:
   #     config:
   #       - subnet: 192.168.0.0/24
-  rollcall:
-    driver: macvlan
-    driver_opts: 
-      parent: wlan0
-    ipam:
-      config: 
-        - subnet: 192.168.1.0/24
+  # rollcall:
+  #   driver: macvlan
+  #   driver_opts: 
+  #     parent: wlan0
+  #   ipam:
+  #     config: 
+  #       - subnet: 192.168.1.0/24
 ########################### SERVICES
 services:
   heimdall:
@@ -31,9 +32,11 @@ services:
       - TZ=${TZ}
     volumes:
       - ${CONFIGDIR}/heimdall_config:/config
-    # ports:
-    #   - 80:80
-    #   - 443:443
+    networks: 
+      - local1
+    ports:
+      - 80:80
+      - 443:443
     restart: unless-stopped
 
   
