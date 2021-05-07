@@ -24,10 +24,10 @@ services:
     image: ghcr.io/linuxserver/tvheadend
     container_name: tvheadend
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-      - RUN_OPTS=<run options here> #optional
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      # - RUN_OPTS=<run options here> #optional
     volumes:
       - <path to data>:/config
       - <path to recordings>:/recordings
