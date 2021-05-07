@@ -51,3 +51,78 @@ services:
       ports:
         - ${SONARRPORT}:8989
       restart: unless-stopped
+
+  mylar3:
+      image: ghcr.io/linuxserver/mylar3
+      container_name: mylar3
+      environment:
+        - PUID=1000
+        - PGID=1000
+      volumes:
+        - /path/to/data:/config
+        - /path/to/comics:/comics
+        - /path/to/downloads:/downloads
+      ports:
+        - 8090:8090
+      restart: unless-stopped
+
+    bazarr:
+      image: ghcr.io/linuxserver/bazarr
+      container_name: bazarr
+      environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=Europe/London
+      volumes:
+        - /path/to/bazarr/config:/config
+        - /path/to/movies:/movies #optional
+        - /path/to/tv:/tv #optional
+      ports:
+        - 6767:6767
+      restart: unless-stopped
+
+    lidarr:
+      image: ghcr.io/linuxserver/lidarr
+      container_name: lidarr
+      environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=Europe/London
+      volumes:
+        - /path/to/appdata/config:/config
+        - /path/to/music:/music
+        - /path/to/downloads:/downloads
+      ports:
+        - 8686:8686
+      restart: unless-stopped
+
+    calibre:
+      image: ghcr.io/linuxserver/calibre
+      container_name: calibre
+      environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=Europe/London
+        - PASSWORD= #optional
+        - CLI_ARGS= #optional
+      volumes:
+        - /path/to/data:/config
+      ports:
+        - 8080:8080
+        - 8081:8081
+      restart: unless-stopped
+
+    calibre-web:
+      image: ghcr.io/linuxserver/calibre-web
+      container_name: calibre-web
+      environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=Europe/London
+        - DOCKER_MODS=linuxserver/calibre-web:calibre
+      volumes:
+        - <path to data>:/config
+        - <path to calibre library>:/books
+      ports:
+        - 8083:8083
+      restart: unless-stopped
