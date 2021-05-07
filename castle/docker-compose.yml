@@ -98,60 +98,64 @@ services:
     image: ghcr.io/linuxserver/dokuwiki
     container_name: dokuwiki
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
-      - /path/to/appdata/config:/config
-    ports:
-      - 80:80
-      - 443:443 #optional
+      - /local/dokuwiki/config:/config
+    networks: 
+      rollcall:
+        ipv4_address: ${DOCUWIKIIP}
+    # ports:
+    #   - ${DOCUWIKIPORT}:80
+    #   - ${DOCUWIKIHTTPS}:443 #optional
     restart: unless-stopped
 
   tautulli:
     image: ghcr.io/linuxserver/tautulli
     container_name: tautulli
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
-      - <path to data>:/config
+      - ${CONFIGDIR}/tautulli:/config
     ports:
-      - 8181:8181
+      - ${TAUTULLIPORT}:8181
     restart: unless-stopped
 
   bookstack:
     image: ghcr.io/linuxserver/bookstack
     container_name: bookstack
     environment:
-      - PUID=1000
-      - PGID=1000
-      - APP_URL=
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - APP_URL=http://192.168.1.1:${BOOKSTACKPORT}
       - DB_HOST=bookstack_db
       - DB_USER=bookstack
-      - DB_PASS=<yourdbpass>
+      - DB_PASS=${PIHOLEGUIPASSWORD}
       - DB_DATABASE=bookstackapp
     volumes:
-      - /path/to/data:/config
+      - /local/bookstack/config:/config
     ports:
-      - 6875:80
+      - ${BOOKSTACKPORT}:80
     restart: unless-stopped
     depends_on:
       - bookstack_db
+
   bookstack_db:
     image: ghcr.io/linuxserver/mariadb
     container_name: bookstack_db
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - MYSQL_ROOT_PASSWORD=<yourdbpass>
-      - TZ=Europe/London
+      - TZ=${TZ}
       - MYSQL_DATABASE=bookstackapp
       - MYSQL_USER=bookstack
-      - MYSQL_PASSWORD=<yourdbpass>
+      - MYSQL_PASSWORD=${PIHOLEGUIPASSWORD}
     volumes:
-      - /path/to/data:/config
+      - /local/bookstack/dbconfig:/config
     restart: unless-stopped
 
   swag:
@@ -161,23 +165,23 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-      - URL=yourdomain.url
-      - SUBDOMAINS=www,
-      - VALIDATION=http
-      - CERTPROVIDER= #optional
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - URL=${DOMAINNAME}
+      - SUBDOMAINS=www,docuwiki,bookstack,portainer,ombi
+      - VALIDATION=dns
+      # - CERTPROVIDER= #optional
       - DNSPLUGIN=cloudflare #optional
-      - PROPAGATION= #optional
-      - DUCKDNSTOKEN= #optional
-      - EMAIL= #optional
+      # - PROPAGATION= #optional
+      # - DUCKDNSTOKEN= #optional
+      - EMAIL=${CLOUDFLARE_EMAIL}
       - ONLY_SUBDOMAINS=false #optional
-      - EXTRA_DOMAINS= #optional
-      - STAGING=false #optional
-      - MAXMINDDB_LICENSE_KEY= #optional
+      # - EXTRA_DOMAINS= #optional
+      - STAGING=true
+      - MAXMINDDB_LICENSE_KEY=${MAXMINDDB_LICENSE}
     volumes:
-      - /path/to/appdata/config:/config
+      - /local/data/swag/config:/config
     ports:
       - 443:443
       - 80:80 #optional
