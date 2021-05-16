@@ -196,7 +196,7 @@ services:
       - EMAIL=${CLOUDFLARE_EMAIL}
       - ONLY_SUBDOMAINS=false #optional
       # - EXTRA_DOMAINS= #optional
-      - STAGING=true
+      - STAGING=false
       - MAXMINDDB_LICENSE_KEY=${MAXMINDDB_LICENSE}
     volumes:
       - /local/data/swag/config:/config
