@@ -4,6 +4,10 @@ version: "3.7"
 networks:
   local1:
     driver: bridge
+    marketplace:
+      external: true
+    warehouse:
+      external: true
   # t2_proxy:
   #   driver: bridge
   # homelab:
@@ -25,6 +29,9 @@ services:
   radarr:
     image: ghcr.io/linuxserver/radarr
     container_name: radarr
+    networks:
+      marketplace:
+      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -40,6 +47,9 @@ services:
   sonarr:
     image: ghcr.io/linuxserver/sonarr
     container_name: sonarr
+    networks:
+      marketplace:
+      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -55,6 +65,9 @@ services:
   mylar3:
     image: ghcr.io/linuxserver/mylar3
     container_name: mylar3
+    networks:
+      marketplace:
+      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -69,6 +82,9 @@ services:
   bazarr:
     image: ghcr.io/linuxserver/bazarr
     container_name: bazarr
+    networks:
+      marketplace:
+      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -84,6 +100,9 @@ services:
   lidarr:
     image: ghcr.io/linuxserver/lidarr
     container_name: lidarr
+    networks:
+      marketplace:
+      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -99,6 +118,9 @@ services:
   calibre:
     image: ghcr.io/linuxserver/calibre
     container_name: calibre
+    networks:
+      marketplace:
+      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -116,6 +138,9 @@ services:
   calibre-web:
     image: ghcr.io/linuxserver/calibre-web
     container_name: calibre-web
+    networks:
+      marketplace:
+      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
