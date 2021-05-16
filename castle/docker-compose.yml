@@ -5,11 +5,8 @@ networks:
     external: true
   warehouse:
     external: true
-  # local0:
-  #   driver: bridge    
-  #   ipam:
-  #     config:
-  #       - subnet: 192.168.0.0/24
+  local1:
+    driver: bridge    
   rollcall:
     driver: macvlan
     driver_opts: 
@@ -42,6 +39,9 @@ services:
   delugevpn:
     image: binhex/arch-delugevpn
     container_name: delugevpn
+    networks:
+      marketplace:
+      local1:
     environment: 
       - TZ=${TZ}
       - VPN_ENABLED=yes
@@ -80,6 +80,9 @@ services:
   jackett:
     image: linuxserver/jackett
     container_name: jackett
+    networks:
+      marketplace:
+      local1:
     environment: 
       - TZ=${TZ}
       - PGID=${PGID}
@@ -97,6 +100,9 @@ services:
   dokuwiki:
     image: ghcr.io/linuxserver/dokuwiki
     container_name: dokuwiki
+    networks:
+      marketplace:
+      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -114,6 +120,9 @@ services:
   tautulli:
     image: ghcr.io/linuxserver/tautulli
     container_name: tautulli
+    networks:
+      marketplace:
+      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -127,6 +136,9 @@ services:
   bookstack:
     image: ghcr.io/linuxserver/bookstack
     container_name: bookstack
+    networks:
+      marketplace:
+      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -146,6 +158,9 @@ services:
   bookstack_db:
     image: ghcr.io/linuxserver/mariadb
     container_name: bookstack_db
+    networks:
+      marketplace:
+      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -162,6 +177,9 @@ services:
     # https://github.com/linuxserver/docker-swag
     image: ghcr.io/linuxserver/swag
     container_name: swag
+    networks:
+      marketplace:
+      local1:
     cap_add:
       - NET_ADMIN
     environment:
@@ -184,5 +202,5 @@ services:
       - /local/data/swag/config:/config
     ports:
       - 443:443
-      - 80:80 #optional
+      # - 80:80 #optional
     restart: unless-stopped
