@@ -112,9 +112,9 @@ services:
     networks: 
       rollcall:
         ipv4_address: ${DOCUWIKIIP}
-    # ports:
-    #   - ${DOCUWIKIPORT}:80
-    #   - ${DOCUWIKIHTTPS}:443 #optional
+    ports:
+      - ${DOCUWIKIPORT}:80
+      - ${DOCUWIKIHTTPS}:443 #optional
     restart: unless-stopped
 
   tautulli:
