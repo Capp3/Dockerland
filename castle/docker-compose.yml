@@ -218,6 +218,9 @@ services:
       - MYSQL_DATABASE=${WP_MYSQL_DATABASE}
       - MYSQL_USER=${WP_MYSQL_USER}
       - MYSQL_PASSWORD=${WP_MYSQL_PASSWORD}
+    networks:
+      marketplace:
+      local1:
     volumes:
       - /local/data/mariadb/wordpress:/config
     restart: unless-stopped
