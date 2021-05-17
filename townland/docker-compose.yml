@@ -4,10 +4,10 @@ version: "3.7"
 networks:
   local1:
     driver: bridge
-    marketplace:
-      external: true
-    warehouse:
-      external: true
+  marketplace:
+    external: true
+  warehouse:
+    external: true
   # t2_proxy:
   #   driver: bridge
   # homelab:
