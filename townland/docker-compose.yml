@@ -31,6 +31,7 @@ services:
     container_name: radarr
     networks:
       marketplace:
+        ipv4_address: 10.0.1.41
       local1:
     environment:
       - PUID=${PUID}
@@ -49,6 +50,7 @@ services:
     container_name: sonarr
     networks:
       marketplace:
+        ipv4_address: 10.0.1.42
       local1:
     environment:
       - PUID=${PUID}
@@ -67,6 +69,7 @@ services:
     container_name: mylar3
     networks:
       marketplace:
+        ipv4_address: 10.0.1.43
       local1:
     environment:
       - PUID=${PUID}
@@ -84,6 +87,7 @@ services:
     container_name: bazarr
     networks:
       marketplace:
+        ipv4_address: 10.0.1.44
       local1:
     environment:
       - PUID=${PUID}
@@ -102,6 +106,7 @@ services:
     container_name: lidarr
     networks:
       marketplace:
+        ipv4_address: 10.0.1.45
       local1:
     environment:
       - PUID=${PUID}
@@ -120,6 +125,7 @@ services:
     container_name: calibre
     networks:
       marketplace:
+        ipv4_address: 10.0.1.46
       local1:
     environment:
       - PUID=${PUID}
@@ -140,6 +146,7 @@ services:
     container_name: calibre-web
     networks:
       marketplace:
+        ipv4_address: 10.0.1.47
       local1:
     environment:
       - PUID=${PUID}
