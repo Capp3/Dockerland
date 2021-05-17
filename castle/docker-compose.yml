@@ -200,7 +200,24 @@ services:
       - MAXMINDDB_LICENSE_KEY=${MAXMINDDB_LICENSE}
     volumes:
       - /local/data/swag/config:/config
+    depends_on:
+      - mariadb
     ports:
       - 443:443
       # - 80:80 #optional
+    restart: unless-stopped
+
+  mariadb:
+    image: ghcr.io/linuxserver/mariadb
+    container_name: mariadb
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - MYSQL_ROOT_PASSWORD=mariadbpassword
+      - TZ=${TZ}
+      - MYSQL_DATABASE=${WP_MYSQL_DATABASE}
+      - MYSQL_USER=${WP_MYSQL_USER}
+      - MYSQL_PASSWORD=${WP_MYSQL_PASSWORD}
+    volumes:
+      - /local/data/mariadb/wordpress:/config
     restart: unless-stopped
