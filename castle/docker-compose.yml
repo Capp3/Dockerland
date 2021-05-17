@@ -104,16 +104,12 @@ services:
     networks:
       marketplace:
         ipv4_address: 10.0.1.37
-      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
       - /local/dokuwiki/config:/config
-    networks: 
-      rollcall:
-        ipv4_address: ${DOCUWIKIIP}
     ports:
       - ${DOCUWIKIPORT}:80
       - ${DOCUWIKIHTTPS}:443 #optional
