@@ -192,7 +192,7 @@ services:
     restart: unless-stopped
     networks: 
       marketplace:
-        ipv4_address: 10.0.1.254
+        ipv4_address: 10.0.1.250
     ports:
       - target: 80
         published: 80
