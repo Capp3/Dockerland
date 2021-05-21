@@ -68,7 +68,7 @@ services:
       - DELUGE_WEB_LOG_LEVEL=info
       - ADDITIONAL_PORTS=1234
       - DEBUG=false
-      - UMASK=${UMASK}
+      - UMASK=${DELUGE_UMASK}
       - PUID=${PUID}
       - PGID=${PGID}
     volumes: 
@@ -157,7 +157,7 @@ services:
       - APP_URL=http://192.168.1.2:${BOOKSTACKPORT}
       - DB_HOST=bookstack_db
       - DB_USER=bookstack
-      - DB_PASS=${PIHOLEGUIPASSWORD}
+      - DB_PASS=${BS_DB_PASSWD}
       - DB_DATABASE=bookstackapp
     volumes:
       - /local/bookstack/config:/config
@@ -177,11 +177,11 @@ services:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
-      - MYSQL_ROOT_PASSWORD=<yourdbpass>
+      - MYSQL_ROOT_PASSWORD=${BS_DB_ROOT_PASSWD}
       - TZ=${TZ}
       - MYSQL_DATABASE=bookstackapp
       - MYSQL_USER=bookstack
-      - MYSQL_PASSWORD=${PIHOLEGUIPASSWORD}
+      - MYSQL_PASSWORD=${BS_DB_PASSWD}
     volumes:
       - /local/bookstack/dbconfig:/config
     restart: unless-stopped
