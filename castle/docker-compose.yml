@@ -193,6 +193,7 @@ services:
     networks: 
       marketplace:
         ipv4_address: 10.0.1.250
+      local1:
     ports:
       - target: 80
         published: 80
