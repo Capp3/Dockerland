@@ -257,7 +257,7 @@ services:
       marketplace:
         ipv4_address: 10.0.1.42
     volumes:
-      - $DOCKERDIR:/home/coder/docker
+      - /docker:/home/coder/docker
       - $DOCKERDIR/vscode:/home/coder
     environment:
       PASSWORD: $VSCODE_PASSWORD
@@ -274,3 +274,22 @@ services:
       ## HTTP Services
       - "traefik.http.routers.vscode-rtr.service=vscode-svc"
       - "traefik.http.services.vscode-svc.loadbalancer.server.port=8080"
+
+    mariadb:
+      container_name: mariadb
+      image: linuxserver/mariadb:110.4.14mariabionic-ls77
+      restart: always
+      networks:
+        marketplace:
+          ipv4_address: 10.0.1.51
+      security_opt:
+        - no-new-privileges:true
+      volumes:
+        - $DOCKERDIR/mariadb/data:/config
+        - /etc/timezone:/etc/timezone:ro
+        - /etc/localtime:/etc/localtime:ro
+      environment:
+        - PUID=$PUID
+        - PGID=$PGID
+        - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWD}
+        - TZ=${TZ}
