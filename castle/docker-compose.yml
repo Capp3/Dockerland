@@ -293,3 +293,19 @@ services:
       - PGID=$PGID
       - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWD}
       - TZ=${TZ}
+
+  php7:
+    container_name: php7
+    image: php:7.4-fpm-custom
+    build:
+      context: $DOCKERDIR/custom/
+      dockerfile: Dockerfile-php7
+    restart: unless-stopped
+    user: $PUID:$PGID # allows upgrading WP and plugins
+    networks:
+      - t2_proxy
+    volumes:
+      - $DOCKERDIR/sites/wordpress/html:/var/www/html/wordpress
+      - $DOCKERDIR/php/php7:/usr/local/etc/php
+      - $DOCKERDIR/sites/khub/html:/var/www/html/khub
+      - $DOCKERDIR/sites/dash/html:/var/www/html/dash
