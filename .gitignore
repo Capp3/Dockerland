@@ -6,4 +6,4 @@ _archive*
 *passwd*
 #acme.json
 /vscode
-/sites/wordpress
+*/sites/wordpress/*
