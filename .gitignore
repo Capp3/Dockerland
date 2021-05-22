@@ -5,3 +5,4 @@ _archive*
 */.env*
 *passwd*
 #acme.json
+/vscode
