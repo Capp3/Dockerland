@@ -120,8 +120,8 @@ services:
     environment: 
       - SECRET_KEY_BASE=${OPENPROJECT_SECRET_KEY_BASE}
     volumes: 
-      ${OPENPROJECTDIR}/pgdata:/var/openproject/pgdata
-      ${OPENPROJECTDIR}/assets:/var/openproject/assets
+      - ${OPENPROJECTDIR}/pgdata:/var/openproject/pgdata
+      - ${OPENPROJECTDIR}/assets:/var/openproject/assets
     tty: true
     ports:
       - 8081:80
