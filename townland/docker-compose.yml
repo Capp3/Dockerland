@@ -2,12 +2,14 @@ version: "3.7"
 
 ########################### NETWORKS
 networks:
-  local1:
-    driver: bridge
   marketplace:
     external: true
   warehouse:
     external: true
+  socket_proxy:
+    external: true
+  local1:
+    driver: bridge 
   # t2_proxy:
   #   driver: bridge
   # homelab:
