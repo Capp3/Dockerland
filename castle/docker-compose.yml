@@ -281,31 +281,31 @@ services:
       ## Middlewares
       - "traefik.http.routers.traefik-rtr.middlewares=chain-basic-auth@file"
 
-  vscode:
-    image: codercom/code-server:latest
-    container_name: vscode
-    restart: unless-stopped
-    networks:
-      marketplace:
-        ipv4_address: 10.0.1.42
-    volumes:
-      - /docker:/home/coder/docker
-      - $DOCKERDIR/vscode:/home/coder
-    environment:
-      PASSWORD: $VSCODE_PASSWORD
-      # Run as root first time (user: 0), then stop container, then change permissions to user:docker and 775. Disable run as root below.
-      user: $PUID:$PGID
-      # user: "0"
-    labels:
-      - "traefik.enable=true"
-      ## HTTP Routers
-      - "traefik.http.routers.vscode-rtr.entrypoints=https"
-      - "traefik.http.routers.vscode-rtr.rule=Host(`code.$DOMAINNAME`)"
-      ## Middlewares
-      - "traefik.http.routers.vscode-rtr.middlewares=chain-oauth@file"
-      ## HTTP Services
-      - "traefik.http.routers.vscode-rtr.service=vscode-svc"
-      - "traefik.http.services.vscode-svc.loadbalancer.server.port=8080"
+  # vscode:
+  #   image: codercom/code-server:latest
+  #   container_name: vscode
+  #   restart: unless-stopped
+  #   networks:
+  #     marketplace:
+  #       ipv4_address: 10.0.1.42
+  #   volumes:
+  #     - /docker:/home/coder/docker
+  #     - $DOCKERDIR/vscode:/home/coder
+  #   environment:
+  #     PASSWORD: $VSCODE_PASSWORD
+  #     # Run as root first time (user: 0), then stop container, then change permissions to user:docker and 775. Disable run as root below.
+  #     user: $PUID:$PGID
+  #     # user: "0"
+  #   labels:
+  #     - "traefik.enable=true"
+  #     ## HTTP Routers
+  #     - "traefik.http.routers.vscode-rtr.entrypoints=https"
+  #     - "traefik.http.routers.vscode-rtr.rule=Host(`code.$DOMAINNAME`)"
+  #     ## Middlewares
+  #     - "traefik.http.routers.vscode-rtr.middlewares=chain-oauth@file"
+  #     ## HTTP Services
+  #     - "traefik.http.routers.vscode-rtr.service=vscode-svc"
+  #     - "traefik.http.services.vscode-svc.loadbalancer.server.port=8080"
 
   mariadb:
     container_name: mariadb
