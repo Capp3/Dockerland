@@ -6,7 +6,7 @@ networks:
   warehouse:
     external: true
   local1:
-    driver: bridge    
+    driver: bridge  
   rollcall:
     driver: macvlan
     driver_opts: 
@@ -116,7 +116,6 @@ services:
     networks:
       marketplace:
         ipv4_address: 10.0.1.46
-      local1:
     environment: 
       - SECRET_KEY_BASE=${OPENPROJECT_SECRET_KEY_BASE}
     volumes: 
