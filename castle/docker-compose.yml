@@ -55,7 +55,7 @@ services:
     container_name: delugevpn
     networks:
       marketplace:
-        ipv4_address: 10.0.1.28
+        ipv4_address: 192.168.90.11
     environment: 
       - TZ=${TZ}
       - VPN_ENABLED=yes
@@ -96,8 +96,7 @@ services:
     container_name: jackett
     networks:
       marketplace:
-        ipv4_address: 10.0.1.32
-      socket_proxy:
+        ipv4_address: 192.168.90.12
     environment: 
       - TZ=${TZ}
       - PGID=${PGID}
@@ -117,7 +116,7 @@ services:
     container_name: openproject
     networks:
       marketplace:
-        # ipv4_address: 10.0.1.46
+        ipv4_address: 192.168.90.13
       socket_proxy:
     environment: 
       - SECRET_KEY_BASE=${OPENPROJECT_SECRET_KEY_BASE}
@@ -133,7 +132,7 @@ services:
     container_name: dokuwiki
     networks:
       marketplace:
-        ipv4_address: 10.0.1.37
+        ipv4_address: 192.168.90.14
       socket_proxy:
     environment:
       - PUID=${PUID}
@@ -151,8 +150,7 @@ services:
     container_name: bookstack
     networks:
       marketplace:
-        ipv4_address: 10.0.1.35
-      local1:
+        ipv4_address: 192.168.90.15
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -174,7 +172,7 @@ services:
     container_name: bookstack_db
     networks:
       marketplace:
-        ipv4_address: 10.0.1.33
+        ipv4_address: 192.168.90.16
       socket_proxy:
     environment:
       - PUID=${PUID}
