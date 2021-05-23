@@ -124,8 +124,8 @@ services:
       - ${OPENPROJECTDIR}/assets:/var/openproject/assets
     tty: true
     ports:
-      - 8081:80
-      - 8443:443
+      - 11080:80
+      - 11443:443
     labels:
       - "traefik.enable=true"
       # HTTP-to-HTTPS Redirect
