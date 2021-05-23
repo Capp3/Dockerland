@@ -124,16 +124,16 @@ services:
     tty: true
     ports:
       - 11080:80
-    labels:
-      - "traefik.enable=true"
-      ## HTTP Routers
-      - "traefik.http.routers.project-rtr.entrypoints=https"
-      - "traefik.http.routers.project-rtr.rule=Host(`project.$DOMAINNAME`)"
-      ## Middlewares
-      - "traefik.http.routers.project-rtr.middlewares=chain-oauth@file"
-      ## HTTP Services
-      - "traefik.http.routers.project-rtr.service=project-svc"
-      - "traefik.http.services.project-svc.loadbalancer.server.port=8080"
+    # labels:
+    #   - "traefik.enable=true"
+    #   ## HTTP Routers
+    #   - "traefik.http.routers.project-rtr.entrypoints=https"
+    #   - "traefik.http.routers.project-rtr.rule=Host(`project.$DOMAINNAME`)"
+    #   ## Middlewares
+    #   - "traefik.http.routers.project-rtr.middlewares=chain-oauth@file"
+    #   ## HTTP Services
+    #   - "traefik.http.routers.project-rtr.service=project-svc"
+    #   - "traefik.http.services.project-svc.loadbalancer.server.port=8080"
 
   dokuwiki:
     image: ghcr.io/linuxserver/dokuwiki
