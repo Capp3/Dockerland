@@ -287,7 +287,7 @@ services:
     restart: always
     networks:
       socket_proxy:
-        ipv4_address: 192.168.91.254 
+        ipv4_address: 192.168.92.254 
     privileged: true
     ports:
       #- "127.0.0.1:2375:2375" # Port 2375 should only ever get exposed to the internal network. When possible use this line.
@@ -335,3 +335,57 @@ services:
       # DELETE Options
       - CONTAINERS_DELETE=1 # WatchTower
       - IMAGES_DELETE=1 # WatchTower
+
+  vscode:
+    image: codercom/code-server:latest
+    container_name: vscode
+    restart: unless-stopped
+    networks:
+      - marketplace:
+
+    ports:
+      - "$VSCODE_PORT:8080"
+    volumes:
+      - $USERDIR/server:/home/coder/server
+      - $DOCKERDIR:/home/coder/docker
+      - $DOCKERDIR/hassio/homeassistant:/home/coder/hassio
+      - $DOCKERDIR/homeassistant:/home/coder/homeassistant
+      - $USERDIR/Downloads:/home/coder/Downloads
+      - $DOCKERDIR/vscode:/home/coder
+      - /media/sdocker:/home/coder/sdocker
+    environment:
+      PASSWORD: $VSCODE_PASSWORD
+      # Run as root first, create the directories, then change permissions to user:docker and 775. Disable run as root below.
+      user: $PUID:$PGID
+      # user: "0"
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.vscode-rtr.entrypoints=https"
+      - "traefik.http.routers.vscode-rtr.rule=Host(`codeh.$DOMAINNAME`)"
+      ## Middlewares
+      - "traefik.http.routers.vscode-rtr.middlewares=chain-oauth@file"
+      ## HTTP Services
+      - "traefik.http.routers.vscode-rtr.service=vscode-svc"
+      - "traefik.http.services.vscode-svc.loadbalancer.server.port=8080"
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    networks:
+      - local1:
+      - socket_proxy:
+          ipv4_address: 192.168.92.11
+    depends_on:
+      - socket-proxy
+    environment:
+      TZ: $TZ
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_REMOVE_VOLUMES: "true"
+      WATCHTOWER_INCLUDE_STOPPED: "true"
+      WATCHTOWER_NO_STARTUP_MESSAGE: "false"
+      WATCHTOWER_SCHEDULE: "0 30 02 * * *" # Everyday at 12:30
+      WATCHTOWER_NOTIFICATIONS_LEVEL: info
+      DOCKER_HOST: tcp://socket-proxy:2375
+      DOCKER_API_VERSION: "1.40"
