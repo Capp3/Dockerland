@@ -192,8 +192,9 @@ services:
     restart: unless-stopped
     networks: 
       marketplace:
-        ipv4_address: 10.0.1.250
-        socket_proxy:
+        ipv4_address: 192.168.90.250
+      socket_proxy:
+        ipv4_address: 192.168.1.92.12
     ports:
       - target: 80
         published: 80
@@ -341,10 +342,10 @@ services:
     container_name: vscode
     restart: unless-stopped
     networks:
-      - marketplace:
-
+      marketplace:
+        ipv4_address: 192.168.90.17
     ports:
-      - "$VSCODE_PORT:8080"
+      - ${VSCODE_PORT}:8080
     volumes:
       - $USERDIR/server:/home/coder/server
       - $DOCKERDIR:/home/coder/docker
@@ -374,8 +375,8 @@ services:
     container_name: watchtower
     restart: unless-stopped
     networks:
-      - local1:
-      - socket_proxy:
+      local1:
+      socket_proxy:
           ipv4_address: 192.168.92.11
     depends_on:
       - socket-proxy
