@@ -22,15 +22,15 @@ services:
     volumes:
       - /mineos:/data
     environment:
-      - EULA: TRUE
-      - VERSION: LATEST
-      - TYPE: FORGE
-      - DIFFICULTY: NORMAL
-      - MAX_PLAYERS: 10
-      - ALLOW_NETHER: true
-      - ENABLE_COMMAND_BLOCK: true
-      - SEED: "-43121277"
-      - ALLOW_FLIGHT: true
-      
+      - EULA=TRUE
+      - VERSION=LATEST
+      - TYPE=FORGE
+      - DIFFICULTY=NORMAL
+      - MAX_PLAYERS=10
+      - ALLOW_NETHER=true
+      - ENABLE_COMMAND_BLOCK=true
+      - SEED="-43121277"
+      - ALLOW_FLIGHT=true
+
     restart: always
 
