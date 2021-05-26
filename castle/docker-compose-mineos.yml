@@ -16,6 +16,7 @@ services:
     networks: 
       marketplace:
         ipv4_address: 192.168.90.71
+      socket_proxy:
     ports:
       - ${MINEOSPORT}:8443
       - 25565-25570:25565-25570
