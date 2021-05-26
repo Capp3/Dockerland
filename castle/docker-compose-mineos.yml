@@ -1,0 +1,29 @@
+version: "3.7"
+########################### Networks
+networks:
+  marketplace:
+    external: true
+  # warehouse:
+  #   external: true
+  socket_proxy:
+    external: true
+
+########################### SERVICES
+services:
+	mineos:
+		image: binhex/arch-mineos-node
+		container_name: mineos
+		networks: 
+			marketplace:
+				ipv4_address: 192.168.1.90.71
+		ports: 
+			- ${MINEOSPORT}:8443/tcp
+			- 25565-25570:25565-25570
+		environment: 
+			- WEBUI_PASSWORD=${MINEOSPASSWD}
+			- UMASK=000
+			- PUID=0
+			- PGID=0
+		volumes: 
+			- /etc/localtime:/etc/localtime:ro
+			- ${MINEOSDIR}:/config
