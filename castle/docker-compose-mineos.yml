@@ -10,21 +10,27 @@ networks:
 
 ########################### SERVICES
 services:
-  mineos:
-    image: binhex/arch-mineos-node
-    container_name: mineos
+  minecraft:
+    image: itzg/minecraft-server
+    container_name: minecraft
+    tty: true
     networks: 
       marketplace:
-        ipv4_address: 192.168.90.71
-      socket_proxy:
+        ipv4_address: 192.168.90.72
     ports:
-      - ${MINEOSPORT}:8443/tcp
-      - 25565-25570:25565-25570
-    environment: 
-      - WEBUI_PASSWORD=${MINEOSPASSWD}
-      - UMASK=000
-      - PUID=0
-      - PGID=0
-    volumes: 
-      - /etc/localtime:/etc/localtime:ro
-      - ${MINEOSDIR}:/config
+      - "25565:25565"
+    volumes:
+      - /mineos:/data
+    environment:
+      - EULA: TRUE
+      - VERSION: LATEST
+      - TYPE: FORGE
+      - DIFFICULTY: NORMAL
+      - MAX_PLAYERS: 10
+      - ALLOW_NETHER: true
+      - ENABLE_COMMAND_BLOCK: true
+      - SEED: "-43121277"
+      - ALLOW_FLIGHT: true
+      
+    restart: always
+
