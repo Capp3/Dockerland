@@ -17,7 +17,7 @@ services:
       marketplace:
         ipv4_address: 192.168.1.90.71
       ports: 
-      - ${MINEOSPORT}:8443/tcp
+      - ${MINEOSPORT}:8443
       - 25565-25570:25565-25570
     environment: 
       - WEBUI_PASSWORD=${MINEOSPASSWD}
