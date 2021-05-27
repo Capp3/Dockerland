@@ -6,8 +6,8 @@ networks:
     external: true
   # warehouse:
   #   external: true
-  # socket_proxy:
-  #   external: true
+  socket_proxy:
+    external: true
   # local1:
   #   driver: bridge 
   # t2_proxy:
@@ -52,7 +52,6 @@ services:
     networks:
       marketplace:
         ipv4_address: 192.168.90.22
-      local1:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
