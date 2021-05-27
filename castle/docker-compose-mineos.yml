@@ -31,6 +31,6 @@ services:
       - ENABLE_COMMAND_BLOCK=true
       - SEED="-43121277"
       - ALLOW_FLIGHT=true
-
+      - ENABLE_AUTOPAUSE=false
     restart: always
 
