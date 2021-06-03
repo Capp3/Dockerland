@@ -167,6 +167,7 @@ services:
       - TZ=${TZ}
       - VERSION=docker
       - UMASK=002
+      - PLEX_CLAIM=claim-3gKz8Bp6saaiJbNJDxfP
     volumes: 
       - /netdata/plex/data:/config
       - ${TVDIR}:/tv
