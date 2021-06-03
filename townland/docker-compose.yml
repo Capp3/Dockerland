@@ -12,15 +12,15 @@ networks:
   #   driver: bridge 
   # t2_proxy:
   #   driver: bridge
-  # homelab:
-  #   name: homelab_lan1
-  #   driver: macvlan
-  #   driver_opts: 
-  #     parent: enp1s0
-  #   ipam:
-  #     driver: default
-  #     config: 
-  #       - subnet: 192.168.1.0/24
+  homelab:
+    name: homelab_lan1
+    driver: macvlan
+    driver_opts: 
+      parent: enp1s0
+    ipam:
+      driver: default
+      config: 
+        - subnet: 192.168.1.0/24
 
 ########################### VOLUMES
 # volumes:
@@ -154,3 +154,19 @@ services:
     ports:
       - ${CALIBREWEBPORT}:8083
     restart: unless-stopped
+
+  plexms:
+    image: ghcr.io/linuxserver/plex
+    container_name: plexms
+    networks: 
+      homelab:
+        ipv4_address: 192.168.1.105
+    environment: 
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - VERSION=docker
+    volumes: 
+      - /netdata/plex/data:/config
+      - ${TVDIR}:/tv
+      - ${MOVIESDIR}:/movies
