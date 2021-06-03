@@ -166,6 +166,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
       - VERSION=docker
+      - UMASK=002
     volumes: 
       - /netdata/plex/data:/config
       - ${TVDIR}:/tv
