@@ -16,7 +16,7 @@ networks:
     name: homelab_lan1
     driver: macvlan
     driver_opts: 
-      parent: enp1s0
+      parent: eth1
     ipam:
       driver: default
       config: 
