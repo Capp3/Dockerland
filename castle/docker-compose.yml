@@ -286,6 +286,8 @@ services:
   nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: always
+    networks:
+      marketplace:
     ports:
       # Public HTTP Port:
       - '80:80'
@@ -315,6 +317,8 @@ services:
   nginxdb:
     image: 'jc21/mariadb-aria:latest'
     restart: always
+    networks:
+      marketplace:
     environment:
       MYSQL_ROOT_PASSWORD: 'npm'
       MYSQL_DATABASE: 'npm'
