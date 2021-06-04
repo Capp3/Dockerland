@@ -310,8 +310,8 @@ services:
       # Uncomment this if IPv6 is not enabled on your host
       # DISABLE_IPV6: 'true'
     volumes:
-      - /netdata/data/nginx:/data
-      - /netdata/letsencrypt:/etc/letsencrypt
+      - /local/data/nginx:/data
+      - /local/letsencrypt:/etc/letsencrypt
     depends_on:
       - nginxdb
   nginxdb:
@@ -325,4 +325,4 @@ services:
       MYSQL_USER: 'npm'
       MYSQL_PASSWORD: 'npm'
     volumes:
-      - /netdata/data/mysql:/var/lib/mysql
+      - /local/data/mysql:/var/lib/mysql
