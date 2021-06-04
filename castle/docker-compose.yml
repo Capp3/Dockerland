@@ -319,6 +319,6 @@ services:
       MYSQL_ROOT_PASSWORD: "npm"
       MYSQL_DATABASE: "npm"
       MYSQL_USER: "npm"
-          MYSQL_PASSWORD: "npm"
-        volumes:
-          - /netdata/data/mysql:/var/lib/mysql
+      MYSQL_PASSWORD: "npm"
+    volumes:
+      - /netdata/data/mysql:/var/lib/mysql
