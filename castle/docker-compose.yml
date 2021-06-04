@@ -192,9 +192,8 @@ services:
     restart: unless-stopped
     networks: 
       marketplace:
-        ipv4_address: 192.168.90.250
+        ipv4_address: 192.168.90.245
       socket_proxy:
-        ipv4_address: 192.168.1.92.12
     ports:
       - target: 80
         published: 80
@@ -203,7 +202,7 @@ services:
         published: 443
         protocol: tcp
       - target: 8080
-        published: 8080
+        published: 7001
         protocol: tcp
     environment:
       - CF_API_EMAIL=$CLOUDFLARE_EMAIL
