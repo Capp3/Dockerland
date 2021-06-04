@@ -374,9 +374,7 @@ services:
     container_name: watchtower
     restart: unless-stopped
     networks:
-      local1:
-      socket_proxy:
-          ipv4_address: 192.168.92.11
+      marketplace:
     depends_on:
       - socket-proxy
     environment:
