@@ -316,9 +316,9 @@ services:
     image: 'jc21/mariadb-aria:latest'
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 'npm'
-      MYSQL_DATABASE: 'npm'
-      MYSQL_USER: 'npm'
-          MYSQL_PASSWORD: 'npm'
+      MYSQL_ROOT_PASSWORD: "npm"
+      MYSQL_DATABASE: "npm"
+      MYSQL_USER: "npm"
+          MYSQL_PASSWORD: "npm"
         volumes:
           - /netdata/data/mysql:/var/lib/mysql
