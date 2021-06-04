@@ -297,7 +297,7 @@ services:
       # - '21:21' # FTP
     environment:
       # These are the settings to access your db
-      DB_MYSQL_HOST: "nginx_db"
+      DB_MYSQL_HOST: "nginxdb"
       DB_MYSQL_PORT: 3306
       DB_MYSQL_USER: "npm"
       DB_MYSQL_PASSWORD: "npm"
@@ -311,14 +311,14 @@ services:
       - /netdata/data/nginx:/data
       - /netdata/letsencrypt:/etc/letsencrypt
     depends_on:
-      - nginx_db
-  nginx_db:
+      - nginxdb
+  nginxdb:
     image: 'jc21/mariadb-aria:latest'
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "npm"
-      MYSQL_DATABASE: "npm"
-      MYSQL_USER: "npm"
-      MYSQL_PASSWORD: "npm"
+      MYSQL_ROOT_PASSWORD: 'npm'
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: 'npm'
     volumes:
       - /netdata/data/mysql:/var/lib/mysql
