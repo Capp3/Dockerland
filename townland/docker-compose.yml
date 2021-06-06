@@ -159,13 +159,12 @@ services:
     image: plexinc/pms-docker
     container_name: plexms
     networks: 
-      homelab:
-        ipv4_address: 192.168.1.105
+      marketplace:
     environment: 
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - PLEX_CLAIM=claim-QcQVdWkggKJpSG3Jeq-H
+      - PLEX_CLAIM=claim-yFm-8D_3evuEH5TnPSie
       - UMASK=002
       # - ADVERTISE_IP=http://192.168.1.105:32400
     volumes: 
