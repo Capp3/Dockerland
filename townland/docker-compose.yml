@@ -33,7 +33,6 @@ services:
     container_name: radarr
     networks:
       marketplace:
-        ipv4_address: 192.168.90.21
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -51,7 +50,6 @@ services:
     container_name: sonarr
     networks:
       marketplace:
-        ipv4_address: 192.168.90.22
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -69,7 +67,6 @@ services:
     container_name: mylar3
     networks:
       marketplace:
-        ipv4_address: 192.168.90.23
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -86,7 +83,6 @@ services:
     container_name: bazarr
     networks:
       marketplace:
-        ipv4_address: 192.168.90.24
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -104,7 +100,6 @@ services:
     container_name: lidarr
     networks:
       marketplace:
-        ipv4_address: 192.168.90.25
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -122,7 +117,6 @@ services:
     container_name: calibre
     networks:
       marketplace:
-        ipv4_address: 192.168.90.26
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -142,7 +136,6 @@ services:
     container_name: calibre-web
     networks:
       marketplace:
-        ipv4_address: 192.168.90.27
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -161,7 +154,6 @@ services:
     # network_mode: "host"
     networks:
       homelab:
-        ipv4_address: 192.168.1.105
     environment: 
       - PUID=${PUID}
       - PGID=${PGID}
