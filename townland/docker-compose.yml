@@ -31,7 +31,7 @@ services:
   radarr:
     image: ghcr.io/linuxserver/radarr
     container_name: radarr
-    networks:
+    # networks:
       # marketplace:
     environment:
       - PUID=${PUID}
@@ -48,7 +48,7 @@ services:
   sonarr:
     image: ghcr.io/linuxserver/sonarr
     container_name: sonarr
-    networks:
+    # networks:
       # marketplace:
     environment:
       - PUID=${PUID}
@@ -65,7 +65,7 @@ services:
   mylar3:
     image: ghcr.io/linuxserver/mylar3
     container_name: mylar3
-    networks:
+    # networks:
       # marketplace:
     environment:
       - PUID=${PUID}
@@ -81,7 +81,7 @@ services:
   bazarr:
     image: ghcr.io/linuxserver/bazarr
     container_name: bazarr
-    networks:
+    # networks:
       # marketplace:
     environment:
       - PUID=${PUID}
@@ -98,7 +98,7 @@ services:
   lidarr:
     image: ghcr.io/linuxserver/lidarr
     container_name: lidarr
-    networks:
+    # networks:
       # marketplace:
     environment:
       - PUID=${PUID}
@@ -115,7 +115,7 @@ services:
   calibre:
     image: ghcr.io/linuxserver/calibre
     container_name: calibre
-    networks:
+    # networks:
       # marketplace:
     environment:
       - PUID=${PUID}
@@ -134,7 +134,7 @@ services:
   calibre-web:
     image: ghcr.io/linuxserver/calibre-web
     container_name: calibre-web
-    networks:
+    # networks:
       # marketplace:
     environment:
       - PUID=${PUID}
