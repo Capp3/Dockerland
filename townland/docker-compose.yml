@@ -159,29 +159,18 @@ services:
     image: plexinc/pms-docker
     container_name: plexms
     networks: 
-      homelab_lan1:
+      homelab:
         ipv4_address: ${PLEXIPADDR}
     environment: 
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - PLEX_CLAIM=
+      - PLEX_CLAIM=claim-zr9CZXx2gFVDfTyLFYUs
       - UMASK=002
-      - ADVERTISE_IP="http://192.168.1.3:32400/"
+      - ADVERTISE_IP=http://${PLEXIPADDR}:32400
     volumes: 
       - /netdata/plex/data:/config
       - ${TVDIR}:/tv
       - ${MOVIESDIR}:/movies
     restart: unless-stopped
     tty: true
-    ports:
-      - 32400:32400
-      - 1900:1900/udp
-      - 3005:3005
-      - 5353:5353/udp
-      - 8324:8324
-      - 32410:32410/udp 
-      - 32412:32412/udp 
-      - 32413:32413/udp
-      - 32414:32414/udp
-      - 32469:32469
