@@ -160,14 +160,14 @@ services:
     container_name: plexms
     networks: 
       homelab:
-        ipv4_address: ${PLEXIPADDR}
+        ipv4_address: 192.168.1.105
     environment: 
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
       - PLEX_CLAIM=claim-zr9CZXx2gFVDfTyLFYUs
       - UMASK=002
-      - ADVERTISE_IP=http://${PLEXIPADDR}:32400
+      - ADVERTISE_IP=http://192.168.1.105:32400
     volumes: 
       - /netdata/plex/data:/config
       - ${TVDIR}:/tv
