@@ -154,6 +154,7 @@ services:
     # network_mode: "host"
     networks:
       homelab:
+        ipv4_address: 192.168.1.105
     environment: 
       - PUID=${PUID}
       - PGID=${PGID}
