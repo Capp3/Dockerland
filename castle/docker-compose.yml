@@ -79,6 +79,7 @@ services:
       - ${TEMPDIR}:/tmp 
       - ${DOWNLOADDIR}:/downloads
       - ${WATCHDIR}:/watch 
+      - /local/drop:/localdrop
     tty: true
     networks:
       - marketplace
@@ -104,6 +105,7 @@ services:
     volumes: 
       - ${CONFIGDIR}/jackett:/config
       - ${WATCHDIR}:/watch
+      - /local/drop:/localdrop
     tty: true
     networks:
       - marketplace
