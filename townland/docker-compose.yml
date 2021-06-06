@@ -165,7 +165,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - PLEX_CLAIM=claim-zr9CZXx2gFVDfTyLFYUs
+      - PLEX_CLAIM=claim-QcQVdWkggKJpSG3Jeq-H
       - UMASK=002
       - ADVERTISE_IP=http://192.168.1.105:32400
     volumes: 
