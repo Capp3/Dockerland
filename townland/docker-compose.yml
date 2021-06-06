@@ -21,6 +21,7 @@ networks:
       driver: default
       config: 
         - subnet: 192.168.1.0/24
+        - gateway: 192.168.1.1
 
 ########################### VOLUMES
 # volumes:
@@ -174,3 +175,5 @@ services:
       - ${MOVIESDIR}:/movies
     restart: unless-stopped
     tty: true
+    ports:
+      
