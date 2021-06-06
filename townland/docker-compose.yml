@@ -12,15 +12,15 @@ networks:
   #   driver: bridge 
   # t2_proxy:
   #   driver: bridge
-  homelab:
-    name: homelab_lan1
-    driver: macvlan
-    driver_opts: 
-      parent: eth0
-    ipam:
-      driver: default
-      config: 
-        - subnet: 192.168.1.0/24
+  # homelab:
+  #   name: homelab_lan1
+  #   driver: macvlan
+  #   driver_opts: 
+  #     parent: eth0
+  #   ipam:
+  #     driver: default
+  #     config: 
+  #       - subnet: 192.168.1.0/24
 
 ########################### VOLUMES
 # volumes:
@@ -151,10 +151,10 @@ services:
   plexms:
     image: plexinc/pms-docker
     container_name: plexms
-    # network_mode: "host"
-    networks:
-      homelab:
-        ipv4_address: 192.168.1.105
+    network_mode: "host"
+    # networks:
+    #   homelab:
+    #     ipv4_address: 192.168.1.105
     environment: 
       - PUID=${PUID}
       - PGID=${PGID}
@@ -169,8 +169,6 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - 80:80
-      - 443:443
       - 32400:32400/tcp
       - 3005:3005/tcp
       - 8324:8324/tcp
