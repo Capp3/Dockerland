@@ -169,79 +169,79 @@ services:
     depends_on:
       - bookstack_db
 
-  bookstack_db:
-    image: ghcr.io/linuxserver/mariadb
-    container_name: bookstack_db
-    networks:
-      marketplace:
-        ipv4_address: 192.168.90.16
-      socket_proxy:
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - MYSQL_ROOT_PASSWORD=${BS_DB_ROOT_PASSWD}
-      - TZ=${TZ}
-      - MYSQL_DATABASE=bookstackapp
-      - MYSQL_USER=bookstack
-      - MYSQL_PASSWORD=${BS_DB_PASSWD}
-    volumes:
-      - /local/bookstack/dbconfig:/config
-    restart: unless-stopped
+  # bookstack_db:
+  #   image: ghcr.io/linuxserver/mariadb
+  #   container_name: bookstack_db
+  #   networks:
+  #     marketplace:
+  #       ipv4_address: 192.168.90.16
+  #     socket_proxy:
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - MYSQL_ROOT_PASSWORD=${BS_DB_ROOT_PASSWD}
+  #     - TZ=${TZ}
+  #     - MYSQL_DATABASE=bookstackapp
+  #     - MYSQL_USER=bookstack
+  #     - MYSQL_PASSWORD=${BS_DB_PASSWD}
+  #   volumes:
+  #     - /local/bookstack/dbconfig:/config
+  #   restart: unless-stopped
 
-  socket-proxy:
-    container_name: socket-proxy
-    image: fluencelabs/docker-socket-proxy
-    restart: always
-    networks:
-      socket_proxy:
-        ipv4_address: 192.168.92.254 
-    privileged: true
-    ports:
-      #- "127.0.0.1:2375:2375" # Port 2375 should only ever get exposed to the internal network. When possible use this line.
-      # I use the next line instead, as I want portainer to manage multiple docker endpoints within my home network.
-      - "2375:2375"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    environment:
-      - LOG_LEVEL=info # debug,info,notice,warning,err,crit,alert,emerg
-      ## Variables match the URL prefix (i.e. AUTH blocks access to /auth/* parts of the API, etc.).
-      # 0 to revoke access.
-      # 1 to grant access.
-      ## Granted by Default
-      - EVENTS=1
-      - PING=1
-      - VERSION=1
-      ## Revoked by Default
-      # Security critical
-      - AUTH=0
-      - SECRETS=0
-      - POST=1 # Watchtower
-      - DELETE=1 # Watchtower
-        # GET Optons
-      - BUILD=0
-      - COMMIT=0
-      - CONFIGS=0
-      - CONTAINERS=1 # Traefik, portainer, etc.
-      - DISTRIBUTION=0
-      - EXEC=0
-      - IMAGES=1 # Portainer, Watchtower
-      - INFO=1 # Portainer
-      - NETWORKS=1 # Portainer, Watchtower
-      - NODES=0
-      - PLUGINS=0
-      - SERVICES=1 # Portainer
-      - SESSION=0
-      - SWARM=0
-      - SYSTEM=0
-      - TASKS=1 # Portaienr
-      - VOLUMES=1 # Portainer
-      # POST Options
-      - CONTAINERS_CREATE=1 # WatchTower
-      - CONTAINERS_START=1 # WatchTower
-      - CONTAINERS_UPDATE=1 # WatchTower
-      # DELETE Options
-      - CONTAINERS_DELETE=1 # WatchTower
-      - IMAGES_DELETE=1 # WatchTower
+  # socket-proxy:
+  #   container_name: socket-proxy
+  #   image: fluencelabs/docker-socket-proxy
+  #   restart: always
+  #   networks:
+  #     socket_proxy:
+  #       ipv4_address: 192.168.92.254 
+  #   privileged: true
+  #   ports:
+  #     #- "127.0.0.1:2375:2375" # Port 2375 should only ever get exposed to the internal network. When possible use this line.
+  #     # I use the next line instead, as I want portainer to manage multiple docker endpoints within my home network.
+  #     - "2375:2375"
+  #   volumes:
+  #     - "/var/run/docker.sock:/var/run/docker.sock"
+  #   environment:
+  #     - LOG_LEVEL=info # debug,info,notice,warning,err,crit,alert,emerg
+  #     ## Variables match the URL prefix (i.e. AUTH blocks access to /auth/* parts of the API, etc.).
+  #     # 0 to revoke access.
+  #     # 1 to grant access.
+  #     ## Granted by Default
+  #     - EVENTS=1
+  #     - PING=1
+  #     - VERSION=1
+  #     ## Revoked by Default
+  #     # Security critical
+  #     - AUTH=0
+  #     - SECRETS=0
+  #     - POST=1 # Watchtower
+  #     - DELETE=1 # Watchtower
+  #       # GET Optons
+  #     - BUILD=0
+  #     - COMMIT=0
+  #     - CONFIGS=0
+  #     - CONTAINERS=1 # Traefik, portainer, etc.
+  #     - DISTRIBUTION=0
+  #     - EXEC=0
+  #     - IMAGES=1 # Portainer, Watchtower
+  #     - INFO=1 # Portainer
+  #     - NETWORKS=1 # Portainer, Watchtower
+  #     - NODES=0
+  #     - PLUGINS=0
+  #     - SERVICES=1 # Portainer
+  #     - SESSION=0
+  #     - SWARM=0
+  #     - SYSTEM=0
+  #     - TASKS=1 # Portaienr
+  #     - VOLUMES=1 # Portainer
+  #     # POST Options
+  #     - CONTAINERS_CREATE=1 # WatchTower
+  #     - CONTAINERS_START=1 # WatchTower
+  #     - CONTAINERS_UPDATE=1 # WatchTower
+  #     # DELETE Options
+  #     - CONTAINERS_DELETE=1 # WatchTower
+  #     - IMAGES_DELETE=1 # WatchTower
 
   vscode:
     image: codercom/code-server:latest
