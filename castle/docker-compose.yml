@@ -38,17 +38,17 @@ services:
       - 127.0.0.1
     restart: unless-stopped
 
-  cf-ddns:
-    container_name: cf-ddns
-    image: oznu/cloudflare-ddns:latest
-    restart: always
-    environment:
-      - API_KEY=${CF_DDNS_API_KEY}
-      - ZONE=${DOMAINNAME}
-      - PROXIED=true
-      - RRTYPE=A
-      - DELETE_ON_STOP=false
-      - DNS_SERVER=1.1.1.1
+  # cf-ddns:
+  #   container_name: cf-ddns
+  #   image: oznu/cloudflare-ddns:latest
+  #   restart: always
+  #   environment:
+  #     - API_KEY=${CF_DDNS_API_KEY}
+  #     - ZONE=${DOMAINNAME}
+  #     - PROXIED=true
+  #     - RRTYPE=A
+  #     - DELETE_ON_STOP=false
+  #     - DNS_SERVER=1.1.1.1
 
   delugevpn:
     image: binhex/arch-delugevpn
