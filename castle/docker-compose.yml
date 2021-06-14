@@ -147,27 +147,27 @@ services:
       - ${DOCUWIKIHTTPS}:443 #optional
     restart: unless-stopped
 
-  bookstack:
-    image: ghcr.io/linuxserver/bookstack
-    container_name: bookstack
-    networks:
-      marketplace:
-        ipv4_address: 192.168.90.15
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - APP_URL=http://192.168.1.2:${BOOKSTACKPORT}
-      - DB_HOST=bookstack_db
-      - DB_USER=bookstack
-      - DB_PASS=${BS_DB_PASSWD}
-      - DB_DATABASE=bookstackapp
-    volumes:
-      - /local/bookstack/config:/config
-    ports:
-      - ${BOOKSTACKPORT}:80
-    restart: unless-stopped
-    depends_on:
-      - bookstack_db
+  # bookstack:
+  #   image: ghcr.io/linuxserver/bookstack
+  #   container_name: bookstack
+  #   networks:
+  #     marketplace:
+  #       ipv4_address: 192.168.90.15
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - APP_URL=http://192.168.1.2:${BOOKSTACKPORT}
+  #     - DB_HOST=bookstack_db
+  #     - DB_USER=bookstack
+  #     - DB_PASS=${BS_DB_PASSWD}
+  #     - DB_DATABASE=bookstackapp
+  #   volumes:
+  #     - /local/bookstack/config:/config
+  #   ports:
+  #     - ${BOOKSTACKPORT}:80
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - bookstack_db
 
   # bookstack_db:
   #   image: ghcr.io/linuxserver/mariadb
