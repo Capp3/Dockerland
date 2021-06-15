@@ -328,3 +328,16 @@ services:
       MYSQL_PASSWORD: 'npm'
     volumes:
       - /local/data/mysql:/var/lib/mysql
+    
+  posteio:
+    image: analogic/poste.io
+    restart: always
+    tty: true
+    hostname: mail.capparelli.ie
+    networks: 
+      rollcall:
+        ipv4_address: 192.168.1.108
+    environment:
+      TZ: ${TZ}
+    volumes: 
+      - /local/data/email:/data
