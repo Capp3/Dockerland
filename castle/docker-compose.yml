@@ -15,7 +15,7 @@ networks:
       parent: enp1s0
     ipam:
       config: 
-        - subnet: 192.168.1.0/24
+        - subnet: 192.168.1.0/24 
 ########################### SERVICES
 services:
   pihole:
@@ -50,68 +50,6 @@ services:
   #     - DELETE_ON_STOP=false
   #     - DNS_SERVER=1.1.1.1
 
-  delugevpn:
-    image: binhex/arch-delugevpn
-    container_name: delugevpn
-    networks:
-      marketplace:
-        ipv4_address: 192.168.90.11
-    environment: 
-      - TZ=${TZ}
-      - VPN_ENABLED=yes
-      - VPN_USER=${VPNUSER}
-      - VPN_PASS=${VPNPASSWORD}
-      - VPN_PROV=${VPNPROVIDER}
-      - STRICT_PORT_FORWARD=no 
-      - ENABLE_PRIVOXY=yes
-      - LAN_NETWORK=${SETNETWORK}
-      - NAME_SERVERS=${DNSSERVERS}
-      - DELUGE_DAEMON_LOG_LEVEL=info
-      - DELUGE_WEB_LOG_LEVEL=info
-      - ADDITIONAL_PORTS=1234
-      - DEBUG=false
-      - UMASK=${DELUGE_UMASK}
-      - PUID=${PUID}
-      - PGID=${PGID}
-    volumes: 
-      - ${CONFIGDIR}/deluge/config:/config
-      - ${CONFIGDIR}/deluge/data:/data
-      - ${TEMPDIR}:/tmp 
-      - ${DOWNLOADDIR}:/downloads
-      - ${WATCHDIR}:/watch 
-      - /local/drop:/localdrop
-    tty: true
-    networks:
-      - marketplace
-    cap_add: 
-      - NET_ADMIN
-    ports: 
-      - 58846:58846
-      - 58946:58946
-      - ${DELUGEPORT}:8112
-      - ${PRIVOXYPORT}:8118
-    restart: unless-stopped
-  
-  jackett:
-    image: linuxserver/jackett
-    container_name: jackett
-    networks:
-      marketplace:
-        ipv4_address: 192.168.90.12
-    environment: 
-      - TZ=${TZ}
-      - PGID=${PGID}
-      - PUID=${PUID}
-    volumes: 
-      - ${CONFIGDIR}/jackett:/config
-      - ${WATCHDIR}:/watch
-      - /local/drop:/localdrop
-    tty: true
-    networks:
-      - marketplace
-    ports: 
-      - 6003:9117
-    restart: unless-stopped
 
   openproject:
     image: openproject/community:11
@@ -129,119 +67,6 @@ services:
     ports:
       - 11080:80
 
-  dokuwiki:
-    image: ghcr.io/linuxserver/dokuwiki
-    container_name: dokuwiki
-    networks:
-      marketplace:
-        ipv4_address: 192.168.90.14
-      socket_proxy:
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - /local/dokuwiki/config:/config
-    ports:
-      - ${DOCUWIKIPORT}:80
-      - ${DOCUWIKIHTTPS}:443 #optional
-    restart: unless-stopped
-
-  # bookstack:
-  #   image: ghcr.io/linuxserver/bookstack
-  #   container_name: bookstack
-  #   networks:
-  #     marketplace:
-  #       ipv4_address: 192.168.90.15
-  #   environment:
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - APP_URL=http://192.168.1.2:${BOOKSTACKPORT}
-  #     - DB_HOST=bookstack_db
-  #     - DB_USER=bookstack
-  #     - DB_PASS=${BS_DB_PASSWD}
-  #     - DB_DATABASE=bookstackapp
-  #   volumes:
-  #     - /local/bookstack/config:/config
-  #   ports:
-  #     - ${BOOKSTACKPORT}:80
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - bookstack_db
-
-  # bookstack_db:
-  #   image: ghcr.io/linuxserver/mariadb
-  #   container_name: bookstack_db
-  #   networks:
-  #     marketplace:
-  #       ipv4_address: 192.168.90.16
-  #     socket_proxy:
-  #   environment:
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - MYSQL_ROOT_PASSWORD=${BS_DB_ROOT_PASSWD}
-  #     - TZ=${TZ}
-  #     - MYSQL_DATABASE=bookstackapp
-  #     - MYSQL_USER=bookstack
-  #     - MYSQL_PASSWORD=${BS_DB_PASSWD}
-  #   volumes:
-  #     - /local/bookstack/dbconfig:/config
-  #   restart: unless-stopped
-
-  socket-proxy:
-    container_name: socket-proxy
-    image: fluencelabs/docker-socket-proxy
-    restart: always
-    networks:
-      socket_proxy:
-        ipv4_address: 192.168.92.254 
-    privileged: true
-    ports:
-      #- "127.0.0.1:2375:2375" # Port 2375 should only ever get exposed to the internal network. When possible use this line.
-      # I use the next line instead, as I want portainer to manage multiple docker endpoints within my home network.
-      - "2375:2375"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    environment:
-      - LOG_LEVEL=info # debug,info,notice,warning,err,crit,alert,emerg
-      ## Variables match the URL prefix (i.e. AUTH blocks access to /auth/* parts of the API, etc.).
-      # 0 to revoke access.
-      # 1 to grant access.
-      ## Granted by Default
-      - EVENTS=1
-      - PING=1
-      - VERSION=1
-      ## Revoked by Default
-      # Security critical
-      - AUTH=0
-      - SECRETS=0
-      - POST=1 # Watchtower
-      - DELETE=1 # Watchtower
-        # GET Optons
-      - BUILD=0
-      - COMMIT=0
-      - CONFIGS=0
-      - CONTAINERS=1 # Traefik, portainer, etc.
-      - DISTRIBUTION=0
-      - EXEC=0
-      - IMAGES=1 # Portainer, Watchtower
-      - INFO=1 # Portainer
-      - NETWORKS=1 # Portainer, Watchtower
-      - NODES=0
-      - PLUGINS=0
-      - SERVICES=1 # Portainer
-      - SESSION=0
-      - SWARM=0
-      - SYSTEM=0
-      - TASKS=1 # Portaienr
-      - VOLUMES=1 # Portainer
-      # POST Options
-      - CONTAINERS_CREATE=1 # WatchTower
-      - CONTAINERS_START=1 # WatchTower
-      - CONTAINERS_UPDATE=1 # WatchTower
-      # DELETE Options
-      - CONTAINERS_DELETE=1 # WatchTower
-      - IMAGES_DELETE=1 # WatchTower
 
   vscode:
     image: codercom/code-server:latest
@@ -265,25 +90,6 @@ services:
       # Run as root first, create the directories, then change permissions to user:docker and 775. Disable run as root below.
       user: $PUID:$PGID
       # user: "0"
-
-  watchtower:
-    image: containrrr/watchtower
-    container_name: watchtower
-    restart: unless-stopped
-    networks:
-      marketplace:
-    depends_on:
-      - socket-proxy
-    environment:
-      TZ: $TZ
-      WATCHTOWER_CLEANUP: "true"
-      WATCHTOWER_REMOVE_VOLUMES: "true"
-      WATCHTOWER_INCLUDE_STOPPED: "true"
-      WATCHTOWER_NO_STARTUP_MESSAGE: "false"
-      WATCHTOWER_SCHEDULE: "0 30 02 * * *" # Everyday at 12:30
-      WATCHTOWER_NOTIFICATIONS_LEVEL: info
-      DOCKER_HOST: tcp://socket-proxy:2375
-      DOCKER_API_VERSION: "1.40"
 
   nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
@@ -329,15 +135,3 @@ services:
     volumes:
       - /local/data/mysql:/var/lib/mysql
     
-  posteio:
-    image: analogic/poste.io
-    restart: always
-    tty: true
-    hostname: mail.capparelli.ie
-    networks: 
-      rollcall:
-        ipv4_address: 192.168.1.108
-    environment:
-      TZ: ${TZ}
-    volumes: 
-      - /local/data/email:/data
