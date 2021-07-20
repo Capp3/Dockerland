@@ -15,7 +15,7 @@ networks:
       parent: enp1s0
     ipam:
       config: 
-        - subnet: 192.168.1.0/24 
+        - subnet: 192.168.1.0/24
 ########################### SERVICES
 services:
   pihole:
@@ -50,7 +50,6 @@ services:
   #     - DELETE_ON_STOP=false
   #     - DNS_SERVER=1.1.1.1
 
-
   openproject:
     image: openproject/community:11
     container_name: openproject
@@ -67,7 +66,6 @@ services:
     ports:
       - 11080:80
 
-
   vscode:
     image: codercom/code-server:latest
     container_name: vscode
@@ -80,8 +78,6 @@ services:
     volumes:
       - $USERDIR/server:/home/coder/server
       - $DOCKERDIR:/home/coder/docker
-      - $DOCKERDIR/hassio/homeassistant:/home/coder/hassio
-      - $DOCKERDIR/homeassistant:/home/coder/homeassistant
       - $USERDIR/Downloads:/home/coder/Downloads
       - $DOCKERDIR/vscode:/home/coder
       - /media/sdocker:/home/coder/sdocker
@@ -122,6 +118,7 @@ services:
       - /local/letsencrypt:/etc/letsencrypt
     depends_on:
       - nginxdb
+
   nginxdb:
     image: 'jc21/mariadb-aria:latest'
     restart: always
@@ -135,3 +132,8 @@ services:
     volumes:
       - /local/data/mysql:/var/lib/mysql
     
+  watchtower:
+    image: containrrr/watchtower 
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
