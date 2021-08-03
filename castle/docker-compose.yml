@@ -115,7 +115,7 @@ services:
       # DISABLE_IPV6: 'true'
     volumes:
       - /local/data/nginx:/data
-      - /local/letsencrypt:/etc/letsencrypt
+      - /local/data/letsencrypt:/etc/letsencrypt
     labels: 
       - com.centurylinklabs.watchtower.enable="false"
     depends_on:
