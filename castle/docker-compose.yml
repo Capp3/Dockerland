@@ -116,6 +116,8 @@ services:
     volumes:
       - /local/data/nginx:/data
       - /local/letsencrypt:/etc/letsencrypt
+    labels: 
+      - com.centurylinklabs.watchtower.enable="false"
     depends_on:
       - nginxdb
 
@@ -129,6 +131,8 @@ services:
       MYSQL_DATABASE: 'npm'
       MYSQL_USER: 'npm'
       MYSQL_PASSWORD: 'npm'
+    labels: 
+      - com.centurylinklabs.watchtower.enable="false"
     volumes:
       - /local/data/mysql:/var/lib/mysql
     
