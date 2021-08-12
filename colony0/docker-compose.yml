@@ -39,6 +39,12 @@ services:
       - 443:443
     restart: unless-stopped
 
+  watchtower:
+    image: containrrr/watchtower 
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
   cf-ddns:
     container_name: cf-ddns
     image: oznu/cloudflare-ddns:latest
