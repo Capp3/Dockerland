@@ -56,3 +56,13 @@ services:
       - RRTYPE=A
       - DELETE_ON_STOP=false
       - DNS_SERVER=1.1.1.1
+
+  agent:
+    ports:
+        - '9001:9001'
+    container_name: portainer_agent
+    restart: always
+    volumes:
+        - '/var/run/docker.sock:/var/run/docker.sock'
+        - '/var/lib/docker/volumes:/var/lib/docker/volumes'
+    image: portainer/agent
