@@ -2,10 +2,10 @@ version: "3.7"
 ########################### Networks
 networks:
   local1:
-  marketplace:
-    external: true
-  warehouse:
-    external: true
+  # marketplace:
+  #   external: true
+  # warehouse:
+  #   external: true
   # local0:
   #   driver: bridge    
   #   ipam:
