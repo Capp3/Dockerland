@@ -35,8 +35,8 @@ services:
     networks: 
       - local1
     ports:
-      - 80:80
-      - 443:443
+      - 8080:80
+      - 4443:443
     restart: unless-stopped
 
   watchtower:
