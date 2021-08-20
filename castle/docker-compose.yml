@@ -15,7 +15,7 @@ networks:
       parent: enp1s0
     ipam:
       config: 
-        - subnet: 192.168.1.100/30
+        - subnet: 192.168.1.99/32
 ########################### SERVICES
 
 volumes: 
