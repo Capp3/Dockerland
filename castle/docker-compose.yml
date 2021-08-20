@@ -2,11 +2,14 @@ version: "3.7"
 ########################### Networks
 networks:
   marketplace:
-    external: true
+    driver: bridge
+    # external: true
   warehouse:
-    external: true
+    driver: bridge
+    # external: true
   socket_proxy:
-    external: true
+    driver: bridge
+    # external: true
   local1:
     driver: bridge  
   rollcall:
