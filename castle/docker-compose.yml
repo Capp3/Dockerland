@@ -15,7 +15,7 @@ networks:
       parent: enp1s0
     ipam:
       config: 
-        - subnet: 192.168.1.0/24
+        - subnet: 192.168.1.100/30
 ########################### SERVICES
 
 volumes: 
@@ -54,42 +54,42 @@ services:
   #     - DELETE_ON_STOP=false
   #     - DNS_SERVER=1.1.1.1
 
-  openproject:
-    image: openproject/community:11
-    container_name: openproject
-    networks:
-      marketplace:
-        ipv4_address: 192.168.90.13
-      socket_proxy:
-    environment: 
-      - SECRET_KEY_BASE=${OPENPROJECT_SECRET_KEY_BASE}
-    volumes: 
-      - ${OPENPROJECTDIR}/pgdata:/var/openproject/pgdata
-      - ${OPENPROJECTDIR}/assets:/var/openproject/assets
-    tty: true
-    ports:
-      - 11080:80
+  # openproject:
+  #   image: openproject/community:11
+  #   container_name: openproject
+  #   networks:
+  #     marketplace:
+  #       ipv4_address: 192.168.90.13
+  #     socket_proxy:
+  #   environment: 
+  #     - SECRET_KEY_BASE=${OPENPROJECT_SECRET_KEY_BASE}
+  #   volumes: 
+  #     - ${OPENPROJECTDIR}/pgdata:/var/openproject/pgdata
+  #     - ${OPENPROJECTDIR}/assets:/var/openproject/assets
+  #   tty: true
+  #   ports:
+  #     - 11080:80
 
-  vscode:
-    image: codercom/code-server:latest
-    container_name: vscode
-    restart: unless-stopped
-    networks:
-      marketplace:
-        ipv4_address: 192.168.90.17
-    ports:
-      - ${VSCODE_PORT}:8080
-    volumes:
-      - $USERDIR/server:/home/coder/server
-      - $DOCKERDIR:/home/coder/docker
-      - $USERDIR/Downloads:/home/coder/Downloads
-      - $DOCKERDIR/vscode:/home/coder
-      - /media/sdocker:/home/coder/sdocker
-    environment:
-      PASSWORD: $VSCODE_PASSWORD
-      # Run as root first, create the directories, then change permissions to user:docker and 775. Disable run as root below.
-      user: $PUID:$PGID
-      # user: "0"
+  # vscode:
+  #   image: codercom/code-server:latest
+  #   container_name: vscode
+  #   restart: unless-stopped
+  #   networks:
+  #     marketplace:
+  #       ipv4_address: 192.168.90.17
+  #   ports:
+  #     - ${VSCODE_PORT}:8080
+  #   volumes:
+  #     - $USERDIR/server:/home/coder/server
+  #     - $DOCKERDIR:/home/coder/docker
+  #     - $USERDIR/Downloads:/home/coder/Downloads
+  #     - $DOCKERDIR/vscode:/home/coder
+  #     - /media/sdocker:/home/coder/sdocker
+  #   environment:
+  #     PASSWORD: $VSCODE_PASSWORD
+  #     # Run as root first, create the directories, then change permissions to user:docker and 775. Disable run as root below.
+  #     user: $PUID:$PGID
+  #     # user: "0"
 
   nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
