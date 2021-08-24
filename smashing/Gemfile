@@ -1,0 +1,6 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+gem 'smashing'
+gem 'twitter', '>= 5.9.0'
