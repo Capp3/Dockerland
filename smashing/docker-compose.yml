@@ -1,0 +1,12 @@
+version: '3'
+services:
+  smashing:
+    hostname: smashing
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec smashing start -p 3030 -a '0.0.0.0'"
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 3030:3030
+    volumes:
+      - ./smashing:/smashing
