@@ -13,7 +13,8 @@ networks:
   local1:
     driver: bridge  
   rollcall:
-    external: true
+    driver: bridge
+    # external: true
     # driver: macvlan
     # driver_opts: 
     #   parent: enp1s0
@@ -30,9 +31,10 @@ services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
-    networks: 
-      rollcall:
-        ipv4_address: ${PIHOLEIPADDR}
+  network_mode: "host"
+    # networks: 
+    #   rollcall:
+    #     ipv4_address: ${PIHOLEIPADDR}
     environment:
       TZ: ${TZ}
       WEBPASSWORD: ${PIHOLEGUIPASSWORD}
@@ -103,9 +105,9 @@ services:
       marketplace:
     ports:
       # Public HTTP Port:
-      - '80:80'
+      - '9080:80'
       # Public HTTPS Port:
-      - '443:443'
+      - '9443:443'
       # Admin Web Port:
       - '81:81'
       # Add any other Stream port you want to expose
