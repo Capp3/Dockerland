@@ -43,3 +43,16 @@ services:
     ports:
       - 9283:80
     restart: unless-stopped
+
+  web:
+    image: odoo:14.0
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
