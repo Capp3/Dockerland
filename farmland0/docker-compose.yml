@@ -44,26 +44,3 @@ services:
       - 9283:80
     restart: unless-stopped
 
-  odoo:
-    image: odoo:14.0
-    container_name: odoo
-    depends_on:
-      - db
-    ports:
-      - "8069:8069"
-    volumes:
-      - /netdata/odoo/odoo-web-data:/var/lib/odoo
-      - /netdata/odoo/config:/etc/odoo
-      - /netdata/odoo/addons:/mnt/extra-addons
-  db:
-    image: postgres:13
-    container_name: db
-    volumes:
-      - odoo-db-data:/var/lib/postgresql/data/pgdata
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_PASSWORD=odoo
-      - POSTGRES_USER=odoo
-
-volumes:
-  odoo-db-data:
