@@ -56,3 +56,29 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
+
+          mariadb:
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: dolibarr
+
+  mariadb:
+      image: mariadb:latest
+      environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: dolibarr
+
+  dolibar:
+      image: tuxgasy/dolibarr
+      environment:
+          DOLI_DB_HOST: mariadb
+          DOLI_DB_USER: root
+          DOLI_DB_PASSWORD: root
+          DOLI_DB_NAME: dolibarr
+          DOLI_URL_ROOT: 'http://192.168.1.6'
+          PHP_INI_DATE_TIMEZONE: 'Europe/Dublin'
+      ports:
+          - "8070:80"
+      links:
+          - mariadb
