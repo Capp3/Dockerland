@@ -57,12 +57,6 @@ services:
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
 
-          mariadb:
-        image: mariadb:latest
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: dolibarr
-
   mariadb:
       image: mariadb:latest
       environment:
