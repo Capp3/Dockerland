@@ -48,16 +48,16 @@ services:
     image: odoo:14.0
     container_name: odoo
     depends_on:
-      - odoodb
+      - db
     ports:
       - "8069:8069"
     volumes:
       - /netdata/odoo/odoo-web-data:/var/lib/odoo
       - /netdata/odoo/config:/etc/odoo
       - /netdata/odoo/addons:/mnt/extra-addons
-  odoodb:
+  db:
     image: postgres:13
-    container_name: odoodb
+    container_name: db
     volumes:
       - /netdata/odoo/odoo-db-data:/var/lib/postgresql/data/pgdata
     environment:
