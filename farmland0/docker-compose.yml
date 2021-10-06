@@ -59,7 +59,7 @@ services:
     image: postgres:13
     container_name: db
     volumes:
-      - /netdata/odoo/odoo-db-data:/var/lib/postgresql/data/pgdata
+      - ./odoo-db-data:/var/lib/postgresql/data/pgdata
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=odoo
