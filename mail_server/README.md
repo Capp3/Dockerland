@@ -1,3 +1,6 @@
+sudo docker run -it --rm --name certbot -v "/netdata/data/certs/certbot:/etc/letsencrypt" -v "/netdata/data/certs/certbot/cloudflare.ini:/cloudflare.ini" certbot/dns-cloudflare certonly --dns-cloudflare --dns-cloudflare-credentials /cloudflare.ini -m dcapp3@gmil.com --agree-tos --no-eff-email --dns-cloudflare-propagation-seconds 20 --cert-name capparelli.ie -d '*.capparelli.ie' -d mail.capparelli.ie
+
+
 # Docker Mailserver
 
 [![ci::status]][ci::github] [![docker::pulls]][docker::hub] [![documentation::badge]][documentation::web]
