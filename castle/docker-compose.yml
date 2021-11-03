@@ -125,7 +125,28 @@ services:
         - '/var/lib/docker/volumes:/var/lib/docker/volumes'
     image: portainer/agent
   
-  certbot:
-    container_name: certbot_email
-    restart: unless-stopped
-    image: 
+ my_database:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: WZB62Q4ySxswUK
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: VuQcTbRuPA7oGc
+    volumes:
+      - mysql:/var/lib/mysql
+
+  wordpress:
+    depends_on:
+      - my_database
+    image: wordpress:latest
+    restart: always
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: my_database:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: VuQcTbRuPA7oGc
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      ["./:/var/www/html"]
