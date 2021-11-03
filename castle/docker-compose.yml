@@ -134,7 +134,7 @@ services:
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: VuQcTbRuPA7oGc
     volumes:
-      - mysql:/var/lib/mysql
+      - /data/wordpress/mysql:/var/lib/mysql
 
   wordpress:
     depends_on:
@@ -149,4 +149,4 @@ services:
       WORDPRESS_DB_PASSWORD: VuQcTbRuPA7oGc
       WORDPRESS_DB_NAME: wordpress
     volumes:
-      ["./:/var/www/html"]
+      ["/netdata/data/wordpress:/var/www/html"]
