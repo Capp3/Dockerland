@@ -125,7 +125,7 @@ services:
         - '/var/lib/docker/volumes:/var/lib/docker/volumes'
     image: portainer/agent
   
- my_database:
+  my_database:
     image: mysql
     restart: always
     environment:
