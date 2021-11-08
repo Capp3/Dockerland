@@ -150,3 +150,23 @@ services:
       WORDPRESS_DB_NAME: wordpress
     volumes:
       ["/netdata/data/wordpress:/var/www/html"]
+
+  wireguard:
+      container_name: wireguard
+      environment:
+          - PUID=1000
+          - PGID=1000
+          - TZ=Europe/Dublin
+          - SERVERURL=wireguard.capparelli.ie
+          - SERVERPORT=51820
+          - PEERS=1
+          - PEERDNS=auto
+          - INTERNAL_SUBNET=10.13.13.0
+          - ALLOWEDIPS=0.0.0.0/0
+      ports:
+          - '51820:51820/udp'
+      volumes:
+          - '/data/wireguard:/config'
+          - '/lib/modules:/lib/modules'
+      restart: unless-stopped
+      image: linuxserver/wireguard
