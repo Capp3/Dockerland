@@ -45,6 +45,7 @@ services:
       - ${CONFIGDIR}/pihole/pihole_dnsmasq:/etc/dnsmasq.d
     cap_add:
       - NET_ADMIN
+      - SYS_ADMIN
     dns:
       - 127.0.0.1
     restart: unless-stopped
@@ -159,10 +160,13 @@ services:
           - TZ=Europe/Dublin
           - SERVERURL=wireguard.capparelli.ie
           - SERVERPORT=51820
-          - PEERS=1
+          - PEERS=laptop,tablet,phone
           - PEERDNS=auto
           - INTERNAL_SUBNET=10.13.13.0
           - ALLOWEDIPS=0.0.0.0/0
+      cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
       ports:
           - '51820:51820/udp'
       volumes:
