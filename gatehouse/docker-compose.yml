@@ -126,31 +126,31 @@ services:
         - '/var/lib/docker/volumes:/var/lib/docker/volumes'
     image: portainer/agent
   
-  my_database:
-    image: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: WZB62Q4ySxswUK
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: VuQcTbRuPA7oGc
-    volumes:
-      - /data/wordpress/mysql:/var/lib/mysql
+  # my_database:
+  #   image: mysql
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: WZB62Q4ySxswUK
+  #     MYSQL_DATABASE: wordpress
+  #     MYSQL_USER: wordpress
+  #     MYSQL_PASSWORD: VuQcTbRuPA7oGc
+  #   volumes:
+  #     - /data/wordpress/mysql:/var/lib/mysql
 
-  wordpress:
-    depends_on:
-      - my_database
-    image: wordpress:latest
-    restart: always
-    ports:
-      - "8080:80"
-    environment:
-      WORDPRESS_DB_HOST: my_database:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: VuQcTbRuPA7oGc
-      WORDPRESS_DB_NAME: wordpress
-    volumes:
-      ["/netdata/data/wordpress:/var/www/html"]
+  # wordpress:
+  #   depends_on:
+  #     - my_database
+  #   image: wordpress:latest
+  #   restart: always
+  #   ports:
+  #     - "8080:80"
+  #   environment:
+  #     WORDPRESS_DB_HOST: my_database:3306
+  #     WORDPRESS_DB_USER: wordpress
+  #     WORDPRESS_DB_PASSWORD: VuQcTbRuPA7oGc
+  #     WORDPRESS_DB_NAME: wordpress
+  #   volumes:
+  #     ["/netdata/data/wordpress:/var/www/html"]
 
   wireguard:
       container_name: wireguard
@@ -160,9 +160,9 @@ services:
           - TZ=Europe/Dublin
           - SERVERURL=wireguard.capparelli.ie
           - SERVERPORT=51820
-          - PEERS=laptop,tablet,phone
+          - PEERS=
           - PEERDNS=auto
-          - INTERNAL_SUBNET=10.13.13.0
+          - INTERNAL_SUBNET=192.168.1.0
           - ALLOWEDIPS=0.0.0.0/0
       cap_add:
       - NET_ADMIN
