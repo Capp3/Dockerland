@@ -29,8 +29,8 @@ services:
       - TZ=${TZ}
       # - RUN_OPTS=<run options here> #optional
     volumes:
-      - <path to data>:/config
-      - <path to recordings>:/recordings
+      - <CONFIGDIR>/tvh/config:/config
+      - <CONFIGDIR>/tvh/recordings:/recordings
     ports:
       - 9981:9981
       - 9982:9982
