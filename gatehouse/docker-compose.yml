@@ -155,15 +155,15 @@ services:
   wireguard:
       container_name: wireguard
       environment:
-          - PUID=1000
-          - PGID=1000
-          - TZ=Europe/Dublin
-          - SERVERURL=wireguard.capparelli.ie
-          - SERVERPORT=51820
-          - PEERS=
-          - PEERDNS=auto
-          - INTERNAL_SUBNET=192.168.1.0
-          - ALLOWEDIPS=0.0.0.0/0
+          - PUID: 1000
+          - PGID: 1000
+          - TZ: Europe/Dublin
+          - SERVERURL: wireguard.capparelli.ie
+          - SERVERPORT: 51820
+          - PEERS: lap-dc3,lap-eos,lap-gc0,phn-dc3,phn-dc3,phn-rc4
+          - PEERDNS: auto
+          - INTERNAL_SUBNET: 192.168.1.0
+          - ALLOWEDIPS: 0.0.0.0/0
       cap_add:
       - NET_ADMIN
       - SYS_ADMIN
