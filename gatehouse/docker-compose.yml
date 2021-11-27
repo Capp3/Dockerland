@@ -41,7 +41,7 @@ services:
       WEBPASSWORD: 'homeland'
       PIHOLE_DNS_: 8.8.8.8;0.0.0.0
       FTLCONF_REPLY_ADDR4: 192.168.1.2
-      DNSSEC: true
+      DNSSEC: "true"
       WEBTHEME: default-dark
     volumes:
       - '/data/pihole/etc-pihole/:/etc/pihole/'
