@@ -39,7 +39,10 @@ services:
     environment:
       TZ: 'Europe/Dublin'
       WEBPASSWORD: 'homeland'
-    # Volumes store your data between container upgrades
+      PIHOLE_DNS_: 8.8.8.8;0.0.0.0
+      FTLCONF_REPLY_ADDR4: 192.168.1.2
+      DNSSEC: true
+      WEBTHEME: default-dark
     volumes:
       - '/data/pihole/etc-pihole/:/etc/pihole/'
       - '/data/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
