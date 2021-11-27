@@ -31,24 +31,23 @@ services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
-    network_mode: "host"
-    # networks: 
-    #   rollcall:
-    #     ipv4_address: ${PIHOLEIPADDR}
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
     environment:
-      TZ: ${TZ}
-      WEBPASSWORD: ${PIHOLEGUIPASSWORD}
-      DNS1: 127.0.0.1
-      DNS2: 1.0.0.1
+      TZ: 'Europe/Dublin'
+      WEBPASSWORD: 'homeland'
+    # Volumes store your data between container upgrades
     volumes:
-      - ${CONFIGDIR}/pihole/pihole_etc:/etc/pihole
-      - ${CONFIGDIR}/pihole/pihole_dnsmasq:/etc/dnsmasq.d
+      - '/data/pihole/etc-pihole/:/etc/pihole/'
+      - '/data/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
     cap_add:
       - NET_ADMIN
-      - SYS_ADMIN
+    restart: unless-stopped
     dns:
       - 127.0.0.1
-    restart: unless-stopped
 
   nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
