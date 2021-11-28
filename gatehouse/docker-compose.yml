@@ -4,24 +4,24 @@ networks:
   marketplace:
     driver: bridge
     # external: true
-  warehouse:
-    driver: bridge
+  # warehouse:
+  #   driver: bridge
     # external: true
-  socket_proxy:
-    driver: bridge
+  # socket_proxy:
+  #   driver: bridge
     # external: true
-  local1:
-    driver: bridge  
+  # local1:
+  #   driver: bridge  
   rollcall:
-    driver: bridge
-    # external: true
-    # driver: macvlan
-    # driver_opts: 
-    #   parent: enp1s0
-    # ipam:
-    #   config: 
-    #     - subnet: 192.168.1.0/24
-    #       ip-range: 192.168.1.100/30
+    name: rollcall
+    driver: macvlan
+    driver_opts: 
+      parent: ens18
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+          ip_range: 192.168.1.100/30
+          gateway: 192.168.1.1
 ########################### SERVICES
 
 volumes: 
@@ -31,6 +31,9 @@ services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
+    networks:
+      rollcall:
+        ipv4_address: 192.168.1.254
     ports:
       - "53:53/tcp"
       - "53:53/udp"
