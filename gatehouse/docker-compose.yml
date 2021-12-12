@@ -139,7 +139,7 @@ services:
           - TZ=Europe/Dublin
           - SERVERURL=wireguard.capparelli.ie
           - SERVERPORT=51820
-          - PEERS=lap-dc3,lap-eos,lap-gc0,phn-dc3,phn-dc3,phn-rc4
+          - PEERS=lapdc3,lapeos,lapgc0,phndc3,phndc3,phnrc4
           - PEERDNS=auto
           - INTERNAL_SUBNET=192.168.2.0
           - ALLOWEDIPS=0.0.0.0/0
@@ -164,8 +164,9 @@ services:
       # - CLI_ARGS= #optional
     volumes:
       - /data/duplicati/config:/config
-      - /data/duplicati//backups:/backups
-      - /data/duplicati//source:/source
+      - /data/duplicati/backups:/backups
+      - /data/duplicati/source:/source
+      - /data:/localdata
     ports:
       - 8200:8200
     restart: unless-stopped
