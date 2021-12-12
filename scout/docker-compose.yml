@@ -20,24 +20,24 @@ networks:
   #       - subnet: 192.168.1.0/24
 ########################### SERVICES
 services: 
-  tvheadend:
-    image: ghcr.io/linuxserver/tvheadend
-    container_name: tvheadend
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      # - RUN_OPTS=<run options here> #optional
-    volumes:
-      - <CONFIGDIR>/tvh/config:/config
-      - <CONFIGDIR>/tvh/recordings:/recordings
-    ports:
-      - 9981:9981
-      - 9982:9982
-    devices:
-      - /dev/dri:/dev/dri #optional
-      - /dev/dvb:/dev/dvb #optional
-    restart: unless-stopped
+  # tvheadend:
+  #   image: ghcr.io/linuxserver/tvheadend
+  #   container_name: tvheadend
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #     # - RUN_OPTS=<run options here> #optional
+  #   volumes:
+  #     - /data/tvh/config:/config
+  #     - /data/tvh/recordings:/recordings
+  #   ports:
+  #     - 9981:9981
+  #     - 9982:9982
+  #   devices:
+  #     - /dev/dri:/dev/dri #optional
+  #     - /dev/dvb:/dev/dvb #optional
+  #   restart: unless-stopped
 
   agent:
     ports:
