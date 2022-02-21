@@ -10,14 +10,14 @@ services:
   odoo_web:
     image: odoo:15.0
     depends_on:
-      - odoo_db
+      - db
     volumes:
       - /local/data/odoo-web-data:/var/lib/odoo
       - /local/data/odoo/config:/etc/odoo
       - /local/data/odoo/addons:/mnt/extra-addons
     ports:
       - "8069:8069"
-  odoo_db:
+  db:
     image: postgres:13
     environment:
       - POSTGRES_DB=postgres
