@@ -5,6 +5,7 @@ networks:
     driver: bridge
 
 ########################### SERVICES
+services:
 
   watchtower:
     image: containrrr/watchtower 
