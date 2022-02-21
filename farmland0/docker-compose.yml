@@ -31,16 +31,5 @@ services:
         - '/var/lib/docker/volumes:/var/lib/docker/volumes'
     image: portainer/agent
 
-  grocy:
-    image: ghcr.io/linuxserver/grocy
-    container_name: grocy
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-    volumes:
-      - /home/server/data/grocy:/config
-    ports:
-      - 9283:80
-    restart: unless-stopped
+
 

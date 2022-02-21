@@ -42,10 +42,10 @@ networks:
       - TZ=Europe/Dublin
       # - CLI_ARGS= #optional
     volumes:
-      - /data/duplicati/config:/config
-      - /data/duplicati/backups:/backups
-      - /data/duplicati/source:/source
-      - /data:/localdata
+      - /local/data/duplicati/config:/config
+      - /local/data/duplicati/backups:/backups
+      - /local/data/duplicati/source:/source
+      - /local:/localdata
     ports:
       - 8200:8200
     restart: unless-stopped
