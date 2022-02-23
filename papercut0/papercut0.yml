@@ -27,5 +27,30 @@ services:
       # - /local/data/odoo-db-data/pgdata:/var/lib/postgresql/data/pgdata
       - /local/data/odoo-db-data:/var/lib/postgresql/data/
 
+  mariadb:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dolibarr
+    volumes:
+      - /local/data/dolibarr/mariadb:/local
+
+  web:
+    image: tuxgasy/dolibarr
+    environment:
+      DOLI_DB_HOST: mariadb
+      DOLI_DB_USER: root
+      DOLI_DB_PASSWORD: root
+      DOLI_DB_NAME: dolibarr
+      DOLI_URL_ROOT: 'http://192.168.1.3'
+      PHP_INI_DATE_TIMEZONE: 'Europe/Dublin'
+    ports:
+        - "8080:80"
+    links:
+        - mariadb
+    volumes:
+      - /local/data/dolibarr/dolibarr:/local
+      - /local/data/dolibarr-docs:/var/www/documents
+
 volumes:
   odoo-web-data:
