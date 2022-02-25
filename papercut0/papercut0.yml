@@ -35,13 +35,14 @@ services:
     volumes:
       - /local/data/dolibarr/mariadb:/local
 
-  web:
+  dolibarr:
     image: tuxgasy/dolibarr
     environment:
       DOLI_DB_HOST: mariadb
       DOLI_DB_USER: root
       DOLI_DB_PASSWORD: DuAnxLJ4NEN4Gd
       DOLI_DB_NAME: dolibarr
+      DOLI_ADMIN_PASSWORD: GjoGKAN6e2qcT8
       DOLI_URL_ROOT: 'http://192.168.1.3'
       PHP_INI_DATE_TIMEZONE: 'Europe/Dublin'
     ports:
