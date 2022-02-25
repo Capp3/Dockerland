@@ -28,14 +28,17 @@ services:
   #     - /local/data/odoo-db-data:/var/lib/postgresql/data/
 
   mariadb:
+    container_name: dolibarr_db
     image: mariadb:latest
     environment:
       MYSQL_ROOT_PASSWORD: DuAnxLJ4NEN4Gd
       MYSQL_DATABASE: dolibarr
     volumes:
       - /local/data/dolibarr/mariadb:/local
+      - /local/data/dolibarr/db:/var/lib/mysql
 
   dolibarr:
+    container_name: dolibarr
     image: tuxgasy/dolibarr
     environment:
       DOLI_DB_HOST: mariadb
@@ -52,8 +55,10 @@ services:
     volumes:
       - /local/data/dolibarr/dolibarr:/local
       - /local/data/dolibarr-docs:/var/www/documents
+      - /local/data/dolibar/www:/var/www/html/custom
 
   nginxpm:
+    container_name: proxymanager
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     ports:
@@ -71,6 +76,7 @@ services:
       - "3306:3306"
     volumes:
       - /local/data/wordpress/wp_db/dep/mysql:/docker-entrypoint-initdb.d
+      - /local/data/wordpress/db:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: T7Jbc9yymJkk3P
       MYSQL_DATABASE: wordpress
@@ -89,6 +95,7 @@ services:
       - /local/data/wordpress/theme:/var/www/html/wp-content/themes/theme_name
       - /local/data/wordpress/dep/plugins:/var/www/html/wp-content/plugins
       - /local/data/wordpress/dep/uploads:/var/www/html/wp-content/uploads
+      - /local/data/wordpress/var/www:/var/www/html
     links: 
       - wp_db
     restart: always
