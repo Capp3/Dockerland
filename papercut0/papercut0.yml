@@ -61,8 +61,8 @@ services:
       - '443:443' # Public HTTPS Port
       - '81:81'
     volumes:
-      - local/data/nginxpm/data:/data
-      - local/data/nginxpm/letsencrypt:/etc/letsencrypt
+      - /local/data/nginxpm/data:/data
+      - /local/data/nginxpm/letsencrypt:/etc/letsencrypt
 
   wp_db:
     container_name:  wp_database
