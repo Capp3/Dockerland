@@ -46,7 +46,7 @@ services:
       DOLI_DB_PASSWORD: DuAnxLJ4NEN4Gd
       DOLI_DB_NAME: dolibarr
       DOLI_ADMIN_PASSWORD: GjoGKAN6e2qcT8
-      DOLI_URL_ROOT: 'http://192.168.1.3'
+      DOLI_URL_ROOT: 'http://192.168.1.11'
       PHP_INI_DATE_TIMEZONE: 'Europe/Dublin'
     ports:
         - "9080:80"
