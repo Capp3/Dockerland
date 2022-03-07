@@ -43,13 +43,33 @@ services:
       - TZ=Europe/Dublin
       # - CLI_ARGS= #optional
     volumes:
-      - /local/data/duplicati/config:/config
-      - /local/data/duplicati/backups:/backups
-      - /local/data/duplicati/source:/source
+      - ${DATADIR}/duplicati/config:/config
+      - ${DATADIR}/duplicati/backups:/backups
+      - ${DATADIR}/duplicati/source:/source
       - /local:/localdata
     ports:
       - 8200:8200
     restart: unless-stopped
+
+  wireguard:
+    container_name: wireguard
+    environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=${TZ}
+        - SERVERURL=${WCDOMAIN}
+        - SERVERPORT=${WCSERVERPORT}
+        - PEERS=${PEERS}
+        - PEERDNS=auto
+        - INTERNAL_SUBNET=${WCINTERNALIP}
+        - ALLOWEDIPS=${VCALLOWEDIPS}
+    ports:
+        - ${WCSERVERPORT}:51820/udp
+    volumes:
+        - ${DATADIR}/wireguard/config:/config
+        - /lib/modules:/lib/modules
+    restart: unless-stopped
+    image: linuxserver/wireguard
 
 ########################### volumes
 volumes:
