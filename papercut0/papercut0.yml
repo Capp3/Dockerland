@@ -69,50 +69,50 @@ services:
       - /local/data/nginxpm/data:/data
       - /local/data/nginxpm/letsencrypt:/etc/letsencrypt
 
-  wp_db:
-    container_name:  wp_database
-    image: mariadb 
-    ports: 
-      - "3306:3306"
-    volumes:
-      - /local/data/wordpress/wp_db/dep/mysql:/docker-entrypoint-initdb.d
-      - /local/data/wordpress/db:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: T7Jbc9yymJkk3P
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: eS59ihkyewHsH2
+  # wp_db:
+  #   container_name:  wp_database
+  #   image: mariadb 
+  #   ports: 
+  #     - "3306:3306"
+  #   volumes:
+  #     - /local/data/wordpress/wp_db/dep/mysql:/docker-entrypoint-initdb.d
+  #     - /local/data/wordpress/db:/var/lib/mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: T7Jbc9yymJkk3P
+  #     MYSQL_DATABASE: wordpress
+  #     MYSQL_USER: wordpress
+  #     MYSQL_PASSWORD: eS59ihkyewHsH2
 
-  wordpress:
-    image: wordpress
-    container_name: wordpress 
-    depends_on:
-      - wp_db
-    ports:
-      - "8080:80"
-      - "8443:443"
-    volumes: 
-      - /local/data/wordpress/theme:/var/www/html/wp-content/themes/theme_name
-      - /local/data/wordpress/dep/plugins:/var/www/html/wp-content/plugins
-      - /local/data/wordpress/dep/uploads:/var/www/html/wp-content/uploads
-      - /local/data/wordpress/var/www:/var/www/html
-    links: 
-      - wp_db
-    restart: always
-    environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_PASSWORD: eS59ihkyewHsH2
+  # wordpress:
+  #   image: wordpress
+  #   container_name: wordpress 
+  #   depends_on:
+  #     - wp_db
+  #   ports:
+  #     - "10080:80"
+  #     - "10443:443"
+  #   volumes: 
+  #     - /local/data/wordpress/theme:/var/www/html/wp-content/themes/theme_name
+  #     - /local/data/wordpress/dep/plugins:/var/www/html/wp-content/plugins
+  #     - /local/data/wordpress/dep/uploads:/var/www/html/wp-content/uploads
+  #     - /local/data/wordpress/var/www:/var/www/html
+  #   links: 
+  #     - wp_db
+  #   restart: always
+  #   environment:
+  #     WORDPRESS_DB_HOST: db:3306
+  #     WORDPRESS_DB_PASSWORD: eS59ihkyewHsH2
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    depends_on: 
-      - wp_db
-    restart: always
-    ports:
-      - "8081:80"
-    environment:
-     - PMA_ARBITRARY=1
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   container_name: phpmyadmin
+  #   depends_on: 
+  #     - wp_db
+  #   restart: always
+  #   ports:
+  #     - "8081:80"
+  #   environment:
+  #    - PMA_ARBITRARY=1
 
 ################ Volumes
 
