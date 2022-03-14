@@ -27,7 +27,9 @@ services:
     volumes:
       - /dev/net:/dev/net:z
       - ./vpn:/vpn
-    # command: 'server;user;password[;port]'
+    command: 'france;user;password[;port]'
+
+
 
   # Replace "service1" with and image with an actual service you want to run
   service1:
@@ -43,27 +45,3 @@ services:
     volumes:
       - /srv/service1:/var/lib/service1:Z
 
-  web:
-    image: dperson/nginx
-    depends_on:
-      - service1
-    environment:
-      TZ: 'EST5EDT'
-    links:
-      - vpn:service1
-    networks:
-      - default
-    ports:
-      - "80:80"
-      - "443:443"
-    read_only: true
-    tmpfs:
-      - /run
-      - /tmp
-      - /var/cache/nginx
-    restart: unless-stopped
-    stdin_open: true
-    tty: true
-    command: -w "http://service1:8888;/service1"
-    # service1 shares the network stack of vpn. The service can by reached using
-    # the name of the service as a hostname.
