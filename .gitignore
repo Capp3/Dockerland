@@ -7,3 +7,5 @@ _archive*
 #acme.json
 /vscode
 */sites/wordpress/*
+.DS_Store
+.DS_store
