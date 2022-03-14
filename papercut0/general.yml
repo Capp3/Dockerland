@@ -4,6 +4,17 @@ networks:
   marketplace:
     driver: bridge
 
+  dockervlan:
+    name: dockervlan
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: "192.168.1.0/24"
+          ip_range: "192.168.1.252/31"
+          gateway: "192.168.1.1"
+
 ########################### SERVICES
 services:
 
@@ -71,6 +82,65 @@ services:
     restart: unless-stopped
     image: linuxserver/wireguard
 
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    networks:
+      dockervlan:
+        ipv4_address: 192.168.1.254
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
+      - "80:80/tcp"
+    environment:
+      TZ: ${TZ}
+      WEBPASSWORD: ${PIHOLEGUIPASSWORD}
+    volumes:
+      - '/local/data/pihole/etc-pihole:/etc/pihole'
+      - '/local/data/pihole/etc-dnsmasq.d:/etc/dnsmasq.d'    
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
+  db_recipes:
+    restart: always
+    image: postgres:11-alpine
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data
+    env_file:
+      - ./.eatenv
+
+  web_recipes:
+    image: vabene1111/recipes
+    env_file:
+      - ./.env
+    volumes:
+      - staticfiles:/opt/recipes/staticfiles
+      - nginx_config:/opt/recipes/nginx/conf.d
+      - ./mediafiles:/opt/recipes/mediafiles
+    depends_on:
+      - db_recipes
+
+  nginx_recipes:
+    image: nginx:mainline-alpine
+    restart: always
+    ports:
+      - 80:80
+    env_file:
+      - ./.env
+    depends_on:
+      - web_recipes
+    volumes:
+      - nginx_config:/etc/nginx/conf.d:ro
+      - staticfiles:/static
+      - ./mediafiles:/media
+
+
+
+
 ########################### volumes
 volumes:
   portainer_data:
+  nginx_config:
+  staticfiles:
