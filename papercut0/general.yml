@@ -107,7 +107,7 @@ services:
     restart: always
     image: postgres:11-alpine
     volumes:
-      - ./postgresql:/var/lib/postgresql/data
+      - /local/data/eat/postgresql:/var/lib/postgresql/data
     env_file:
       - ./.eatenv
 
@@ -116,9 +116,9 @@ services:
     env_file:
       - ./.env
     volumes:
-      - staticfiles:/opt/recipes/staticfiles
-      - nginx_config:/opt/recipes/nginx/conf.d
-      - ./mediafiles:/opt/recipes/mediafiles
+      - /local/data/eat/staticfiles:/opt/recipes/staticfiles
+      - /local/data/eat/nginx_config:/opt/recipes/nginx/conf.d
+      - /local/data/eat/mediafiles:/opt/recipes/mediafiles
     depends_on:
       - db_recipes
 
@@ -128,13 +128,13 @@ services:
     ports:
       - 80:80
     env_file:
-      - ./.env
+      - ./.eatenv
     depends_on:
       - web_recipes
     volumes:
-      - nginx_config:/etc/nginx/conf.d:ro
-      - staticfiles:/static
-      - ./mediafiles:/media
+      - /local/data/eat/nginx_config:/etc/nginx/conf.d:ro
+      - /local/data/eat/staticfiles:/static
+      - /local/data/eat/mediafiles:/media
 
 
 
@@ -142,5 +142,3 @@ services:
 ########################### volumes
 volumes:
   portainer_data:
-  nginx_config:
-  staticfiles:
