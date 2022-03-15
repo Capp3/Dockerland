@@ -31,6 +31,7 @@ services:
   deluge:
     image: lscr.io/linuxserver/deluge
     container_name: deluge
+    network_mode: "service:vpn"
     environment:
       - PUID=1000
       - PGID=1000
@@ -39,25 +40,32 @@ services:
     volumes:
       - ${DATADIR}/deluge/config:/config
       - ${DATADIR}/downloads:/downloads
+      - ${DATADIR}/deluge/blackhole:/blackhole
     ports:
       - 8112:8112
       - 6881:6881
       - 6881:6881/udp
-    restart: unless-stopped
-
-
-
-  # Replace "service1" with and image with an actual service you want to run
-  service1:
-    image: docker_hub_user/container_name
     depends_on:
       - vpn
-    environment:
-      TZ: ${TZ}
-    network_mode: "service:vpn"
-    restart: unless-stopped
     stdin_open: true
     tty: true
-    volumes:
-      - /srv/service1:/var/lib/service1:Z
+    restart: unless-stopped
 
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:develop
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - ${DATADIR}/prowlarr/config:/config
+      - ${DATADIR}/deluge/blackhole:/blackhole
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+    network_mode: "service:vpn"
+    depends_on:
+      - vpn
+    stdin_open: true
+    tty: true
