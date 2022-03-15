@@ -126,7 +126,7 @@ services:
     image: nginx:mainline-alpine
     restart: always
     ports:
-      - 80:80
+      - 9080:80
     env_file:
       - ./.eatenv
     depends_on:
