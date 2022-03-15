@@ -27,35 +27,35 @@ services:
   #     # - /local/data/odoo-db-data/pgdata:/var/lib/postgresql/data/pgdata
   #     - /local/data/odoo-db-data:/var/lib/postgresql/data/
 
-  mariadb:
-    container_name: dolibarr_db
-    image: mariadb:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: DuAnxLJ4NEN4Gd
-      MYSQL_DATABASE: dolibarr
-    volumes:
-      - /local/data/dolibarr/mariadb:/local
-      - /local/data/dolibarr/db:/var/lib/mysql
+  # mariadb:
+  #   container_name: dolibarr_db
+  #   image: mariadb:latest
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: DuAnxLJ4NEN4Gd
+  #     MYSQL_DATABASE: dolibarr
+  #   volumes:
+  #     - /local/data/dolibarr/mariadb:/local
+  #     - /local/data/dolibarr/db:/var/lib/mysql
 
-  dolibarr:
-    container_name: dolibarr
-    image: tuxgasy/dolibarr
-    environment:
-      DOLI_DB_HOST: mariadb
-      DOLI_DB_USER: root
-      DOLI_DB_PASSWORD: DuAnxLJ4NEN4Gd
-      DOLI_DB_NAME: dolibarr
-      DOLI_ADMIN_PASSWORD: GjoGKAN6e2qcT8
-      DOLI_URL_ROOT: 'http://192.168.1.11'
-      PHP_INI_DATE_TIMEZONE: 'Europe/Dublin'
-    ports:
-        - "9080:80"
-    links:
-        - mariadb
-    volumes:
-      - /local/data/dolibarr/dolibarr:/local
-      - /local/data/dolibarr-docs:/var/www/documents
-      - /local/data/dolibar/www:/var/www/html/custom
+  # dolibarr:
+  #   container_name: dolibarr
+  #   image: tuxgasy/dolibarr
+  #   environment:
+  #     DOLI_DB_HOST: mariadb
+  #     DOLI_DB_USER: root
+  #     DOLI_DB_PASSWORD: DuAnxLJ4NEN4Gd
+  #     DOLI_DB_NAME: dolibarr
+  #     DOLI_ADMIN_PASSWORD: GjoGKAN6e2qcT8
+  #     DOLI_URL_ROOT: 'http://192.168.1.11'
+  #     PHP_INI_DATE_TIMEZONE: 'Europe/Dublin'
+  #   ports:
+  #       - "9080:80"
+  #   links:
+  #       - mariadb
+  #   volumes:
+  #     - /local/data/dolibarr/dolibarr:/local
+  #     - /local/data/dolibarr-docs:/var/www/documents
+  #     - /local/data/dolibar/www:/var/www/html/custom
 
   nginxpm:
     container_name: proxymanager
@@ -113,6 +113,40 @@ services:
   #     - "8081:80"
   #   environment:
   #    - PMA_ARBITRARY=1
+
+  db_recipes:
+    restart: always
+    image: postgres:11-alpine
+    volumes:
+      - /local/data/eat/postgresql:/var/lib/postgresql/data
+    env_file:
+      - ./.eatenv
+
+  web_recipes:
+    image: vabene1111/recipes
+    env_file:
+      - ./.env
+    volumes:
+      - /local/data/eat/staticfiles:/opt/recipes/staticfiles
+      - /local/data/eat/nginx_config:/opt/recipes/nginx/conf.d
+      - /local/data/eat/mediafiles:/opt/recipes/mediafiles
+    depends_on:
+      - db_recipes
+
+  nginx_recipes:
+    image: nginx:mainline-alpine
+    restart: always
+    ports:
+      - 9080:80
+    env_file:
+      - ./.eatenv
+    depends_on:
+      - web_recipes
+    volumes:
+      - /local/data/eat/nginx_config:/etc/nginx/conf.d:ro
+      - /local/data/eat/staticfiles:/static
+      - /local/data/eat/mediafiles:/media
+
 
 ################ Volumes
 

@@ -96,47 +96,14 @@ services:
     environment:
       TZ: ${TZ}
       WEBPASSWORD: ${PIHOLEGUIPASSWORD}
+      PIHOLE_DNS_: 1.1.1.1;8.8.8.8
+      WEBTHEME: "default-auto"
     volumes:
       - '/local/data/pihole/etc-pihole:/etc/pihole'
       - '/local/data/pihole/etc-dnsmasq.d:/etc/dnsmasq.d'    
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
-
-  db_recipes:
-    restart: always
-    image: postgres:11-alpine
-    volumes:
-      - /local/data/eat/postgresql:/var/lib/postgresql/data
-    env_file:
-      - ./.eatenv
-
-  web_recipes:
-    image: vabene1111/recipes
-    env_file:
-      - ./.env
-    volumes:
-      - /local/data/eat/staticfiles:/opt/recipes/staticfiles
-      - /local/data/eat/nginx_config:/opt/recipes/nginx/conf.d
-      - /local/data/eat/mediafiles:/opt/recipes/mediafiles
-    depends_on:
-      - db_recipes
-
-  nginx_recipes:
-    image: nginx:mainline-alpine
-    restart: always
-    ports:
-      - 9080:80
-    env_file:
-      - ./.eatenv
-    depends_on:
-      - web_recipes
-    volumes:
-      - /local/data/eat/nginx_config:/etc/nginx/conf.d:ro
-      - /local/data/eat/staticfiles:/static
-      - /local/data/eat/mediafiles:/media
-
-
 
 
 ########################### volumes
