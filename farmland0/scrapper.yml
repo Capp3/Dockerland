@@ -20,6 +20,8 @@ services:
       - /run
       - /tmp
     restart: unless-stopped
+    dns: 
+      - 8.8.4.4
     security_opt:
       - label:disable
     stdin_open: true
