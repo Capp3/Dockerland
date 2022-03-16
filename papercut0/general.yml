@@ -109,5 +109,5 @@ services:
 ########################### volumes
 volumes:
   portainer_data:
-  pihole_etc-pihole:/etc/pihole:
-  pihole_etc-dnsmasq.d:/etc/dnsmasq.d:
+  pihole_etc-pihole:
+  pihole_etc-dnsmasq.d:
