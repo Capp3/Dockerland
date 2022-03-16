@@ -99,8 +99,8 @@ services:
       PIHOLE_DNS_: 1.1.1.1;8.8.8.8
       WEBTHEME: "default-auto"
     volumes:
-      - '/local/data/pihole/etc-pihole:/etc/pihole'
-      - '/local/data/pihole/etc-dnsmasq.d:/etc/dnsmasq.d'    
+      - 'pihole_etc-pihole:/etc/pihole'
+      - 'pihole_etc-dnsmasq.d:/etc/dnsmasq.d'    
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
@@ -109,3 +109,5 @@ services:
 ########################### volumes
 volumes:
   portainer_data:
+  pihole_etc-pihole:/etc/pihole:
+  pihole_etc-dnsmasq.d:/etc/dnsmasq.d:
