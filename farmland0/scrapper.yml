@@ -24,6 +24,7 @@ services:
       - 8112:8112
       - 9696:9696
       - 7878:7878
+      - 8989:8989
     dns: 
       - 8.8.4.4
     security_opt:
@@ -109,3 +110,8 @@ services:
     ports:
       - 8989:8989
     restart: unless-stopped
+    network_mode: "service:vpn"
+    depends_on:
+      - vpn
+    stdin_open: true
+    tty: true
