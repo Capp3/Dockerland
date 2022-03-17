@@ -53,21 +53,21 @@ services:
     tty: true
     restart: unless-stopped
 
-  prowlarr:
-    image: lscr.io/linuxserver/prowlarr:develop
-    container_name: prowlarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-    volumes:
-      - ${DATADIR}/prowlarr/config:/config
-      - ${DATADIR}/deluge/blackhole:/blackhole
-    ports:
-      - 9696:9696
-    restart: unless-stopped
-    network_mode: "service:vpn"
-    depends_on:
-      - vpn
-    stdin_open: true
-    tty: true
+  # prowlarr:
+  #   image: lscr.io/linuxserver/prowlarr:develop
+  #   container_name: prowlarr
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${DATADIR}/prowlarr/config:/config
+  #     - ${DATADIR}/deluge/blackhole:/blackhole
+  #   ports:
+  #     - 9696:9696
+  #   restart: unless-stopped
+  #   network_mode: "service:vpn"
+  #   depends_on:
+  #     - vpn
+  #   stdin_open: true
+  #   tty: true
