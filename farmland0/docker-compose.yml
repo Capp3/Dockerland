@@ -31,10 +31,10 @@ services:
       - TZ=Europe/Dublin
       # - CLI_ARGS= #optional
     volumes:
-      - ${DATADIR}/duplicati/config:/config
-      - ${DATADIR}/duplicati/backups:/backups
-      - ${DATADIR}/duplicati/source:/source
-      - /local:/localdata
+      - C:\dockerdata\duplicati\config:/config
+      - C:\dockerdata\duplicati\backups:/backups
+      - C:\dockerdata\duplicati\source:/source
+      - C:\dockerdata:/localdata
     ports:
       - 8200:8200
     restart: unless-stopped
