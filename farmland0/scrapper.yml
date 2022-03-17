@@ -107,8 +107,8 @@ services:
       - D:\media\tvshows:/tv #optional
       - D:\transfer\downloads:/downloads
       - D:\transfer\completed:/completed
-    ports:
-      - 8989:8989
+    # ports:
+    #   - 8989:8989
     restart: unless-stopped
     network_mode: "service:vpn"
     depends_on:
