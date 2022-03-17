@@ -20,6 +20,8 @@ services:
       - /run
       - /tmp
     restart: unless-stopped
+    ports:
+      - 8112:8112
     dns: 
       - 8.8.4.4
     security_opt:
@@ -40,13 +42,13 @@ services:
       - TZ=${TZ}
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - ${DATADIR}/deluge/config:/config
-      - ${DATADIR}/downloads:/downloads
-      - ${DATADIR}/deluge/blackhole:/blackhole
-    ports:
-      - 8112:8112
-      - 6881:6881
-      - 6881:6881/udp
+      - ./deluge/config:/config
+      - ./downloads:/downloads
+      - ./deluge/blackhole:/blackhole
+    # ports:
+    #   - 8112:8112
+    #   - 6881:6881
+    #   - 6881:6881/udp
     depends_on:
       - vpn
     stdin_open: true
