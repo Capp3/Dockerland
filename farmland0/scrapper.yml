@@ -1,4 +1,4 @@
-version: "3.7"
+version: "2.1"
 ########################### Networks
 networks:
   local1:
@@ -22,6 +22,8 @@ services:
     restart: unless-stopped
     ports:
       - 8112:8112
+      - 9696:9696
+      - 7878:7878
     dns: 
       - 8.8.4.4
     security_opt:
@@ -42,9 +44,10 @@ services:
       - TZ=${TZ}
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - ./deluge/config:/config
-      - ./downloads:/downloads
-      - ./deluge/blackhole:/blackhole
+      - C:\dockerdata\deluge\config:/config
+      - D:\transfer\downloads:/downloads
+      - D:\transfer\blackhole:/blackhole
+      - D:\transfer\completed:/completed
     # ports:
     #   - 8112:8112
     #   - 6881:6881
@@ -55,21 +58,38 @@ services:
     tty: true
     restart: unless-stopped
 
-  # prowlarr:
-  #   image: lscr.io/linuxserver/prowlarr:develop
-  #   container_name: prowlarr
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=${TZ}
-  #   volumes:
-  #     - ${DATADIR}/prowlarr/config:/config
-  #     - ${DATADIR}/deluge/blackhole:/blackhole
-  #   ports:
-  #     - 9696:9696
-  #   restart: unless-stopped
-  #   network_mode: "service:vpn"
-  #   depends_on:
-  #     - vpn
-  #   stdin_open: true
-  #   tty: true
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:develop
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - C:\dockerdata\prowlarr\config:/config
+      - D:\transfer\blackhole:/blackhole
+    restart: unless-stopped
+    network_mode: "service:vpn"
+    depends_on:
+      - vpn
+    stdin_open: true
+    tty: true
+
+  radarr:
+    image: lscr.io/linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - C:\dockerdata\radarr\config:/config
+      - D:\media\movies:/movies #optional
+      - D:\transfer\downloads:/downloads
+      - D:\transfer\completed:/completed
+    restart: unless-stopped
+    network_mode: "service:vpn"
+    depends_on:
+      - vpn
+    stdin_open: true
+    tty: true
