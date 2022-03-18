@@ -147,6 +147,15 @@ services:
       - /local/data/eat/staticfiles:/static
       - /local/data/eat/mediafiles:/media
 
+  antennas:
+      container_name: antennas
+      environment:
+          - 'ANTENNAS_URL=http://192.168.1.11:5004'
+          - 'TVHEADEND_URL=http://server:homeland@192.168.1.13:9981'
+          - TUNER_COUNT=1
+      ports:
+          - '5004:5004'
+      image: thejf/antennas
 
 ################ Volumes
 
