@@ -32,9 +32,10 @@ services:
     volumes:
       - /data/tvh/config:/config
       - /data/tvh/recordings:/recordings
-    ports:
-      - 9981:9981
-      - 9982:9982
+    network_mode: host
+    # ports:
+    #   - 9981:9981
+    #   - 9982:9982
     devices:
       - /dev/dri:/dev/dri #optional
       - /dev/dvb:/dev/dvb #optional
