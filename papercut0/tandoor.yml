@@ -1,0 +1,44 @@
+version: "3.7"
+########################### Networks
+networks:
+  marketplace:
+    external: true
+
+########################### SERVICES
+services:
+
+  db_recipes:
+    container_name: tandoor_db
+    restart: always
+    image: postgres:11-alpine
+    volumes:
+      - /local/data/eat/postgresql:/var/lib/postgresql/data
+    env_file:
+      - ./.eatenv
+
+  web_recipes:
+    container_name: tandoor_thingy
+    image: vabene1111/recipes
+    env_file:
+      - ./.eatenv
+    volumes:
+      - /local/data/eat/staticfiles:/opt/recipes/staticfiles
+      - /local/data/eat/nginx_config:/opt/recipes/nginx/conf.d
+      - /local/data/eat/mediafiles:/opt/recipes/mediafiles
+    depends_on:
+      - db_recipes
+
+  nginx_recipes:
+    container_name: tandoor_nginx
+    image: nginx:mainline-alpine
+    restart: always
+    ports:
+      - 9080:80
+    env_file:
+      - ./.eatenv
+    depends_on:
+      - web_recipes
+    volumes:
+      - /local/data/eat/nginx_config:/etc/nginx/conf.d:ro
+      - /local/data/eat/staticfiles:/static
+      - /local/data/eat/mediafiles:/media
