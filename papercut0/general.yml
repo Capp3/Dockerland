@@ -105,7 +105,18 @@ services:
       - NET_ADMIN
     restart: unless-stopped
 
-
+  nginxpm:
+    container_name: proxymanager
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80' # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+      - '81:81'
+    volumes:
+      - /local/data/nginxpm/data:/data
+      - /local/data/nginxpm/letsencrypt:/etc/letsencrypt
+      
 ########################### volumes
 volumes:
   portainer_data:
