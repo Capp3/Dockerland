@@ -13,13 +13,13 @@ services:
     environment:
       DOLI_DB_HOST: mariadb
       DOLI_DB_USER: root
-      DOLI_DB_PASSWORD: DuAnxLJ4NEN4Gd
+      DOLI_DB_PASSWORD: ${DOLI_DB_PASS}
       DOLI_DB_NAME: dolibarr
-      DOLI_ADMIN_PASSWORD: GjoGKAN6e2qcT8
-      DOLI_URL_ROOT: 'http://192.168.1.11'
-      PHP_INI_DATE_TIMEZONE: 'Europe/Dublin'
+      DOLI_ADMIN_PASSWORD: ${DOLI_ADMIN_PASS}
+      DOLI_URL_ROOT: ${DOLI_URL_ROOT}
+      PHP_INI_DATE_TIMEZONE: ${TZ}
     ports:
-        - "9080:80"
+        - "8081:80"
     links:
         - mariadb
     volumes:
