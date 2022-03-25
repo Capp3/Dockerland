@@ -19,7 +19,7 @@ services:
       DOLI_URL_ROOT: ${DOLI_URL_ROOT}
       PHP_INI_DATE_TIMEZONE: ${TZ}
     ports:
-        - "8081:80"
+        - "8880:80"
     links:
         - wp_db
     volumes:
