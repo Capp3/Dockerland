@@ -21,7 +21,7 @@ services:
     ports:
         - "8081:80"
     links:
-        - mariadb
+        - wp_db
     volumes:
       - /local/data/dolibarr/dolibarr:/local
       - /local/data/dolibarr-docs:/var/www/documents
