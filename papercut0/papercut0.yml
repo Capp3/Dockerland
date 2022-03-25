@@ -28,7 +28,7 @@ services:
       - /local/data/dolibar/www:/var/www/html/custom
 
   wp_db:
-    container_name:  wp_database
+    container_name:  pcd_wp_database
     image: mariadb 
     ports: 
       - "3306:3306"
@@ -43,7 +43,7 @@ services:
 
   wordpress:
     image: wordpress
-    container_name: wordpress 
+    container_name: pcd_wordpress 
     depends_on:
       - wp_db
     ports:
@@ -71,8 +71,6 @@ services:
       - "8081:80"
     environment:
      - PMA_ARBITRARY=1
-
-
 
   antennas:
       container_name: antennas
