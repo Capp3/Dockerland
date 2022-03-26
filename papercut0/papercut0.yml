@@ -35,7 +35,7 @@ services:
 
   wordpress:
     image: wordpress:${WORDPRESS_VERSION:-latest}
-    container_name: ${COMPOSE_PROJECT_NAME:-wordpress}
+    container_name: ${WP_COMPOSE_PROJECT_NAME:-wordpress}
     volumes:
       - ./wordpress/config/php.conf.ini:/usr/local/etc/php/conf.d/php.ini
       - ${WORDPRESS_DATA_DIR:-./wordpress}:/var/www/html
@@ -54,21 +54,21 @@ services:
 
   mysql:
     image: mariadb:${MARIADB_VERSION:-latest}
-    container_name: ${COMPOSE_PROJECT_NAME}_mysql
+    container_name: ${WP_COMPOSE_PROJECT_NAME}_mysql
     volumes:
       - ./wordpress/mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD:-password}
       - MYSQL_USER=${DATABASE_USER:-root}
       - MYSQL_PASSWORD=${DATABASE_PASSWORD:-password}
-      - MYSQL_DATABASE=${COMPOSE_PROJECT_NAME:-wordpress}
+      - MYSQL_DATABASE=${WP_COMPOSE_PROJECT_NAME:-wordpress}
     restart: always
 
   phpmyadmin:
     depends_on:
       - mysql
     image: phpmyadmin/phpmyadmin:${PHPMYADMIN_VERSION:-latest}
-    container_name: ${COMPOSE_PROJECT_NAME}_phpmyadmin
+    container_name: ${WP_COMPOSE_PROJECT_NAME}_phpmyadmin
     restart: always
     ports:
       - ${PHPMYADMIN_PORT}:80
@@ -80,7 +80,7 @@ services:
   wpcli:
     build: ./wordpress/wpcli/
     image: wpcli
-    container_name: ${COMPOSE_PROJECT_NAME}_wpcli
+    container_name: ${WP_COMPOSE_PROJECT_NAME}_wpcli
     volumes:
       - ${WORDPRESS_DATA_DIR:-./wordpress}:/var/www/html
     working_dir: /var/www/html
@@ -89,7 +89,7 @@ services:
   healthcheck:
     image: wpcli
     build: ./wordpress/wpcli/
-    container_name: ${COMPOSE_PROJECT_NAME}_healthcheck
+    container_name: ${WP_COMPOSE_PROJECT_NAME}_healthcheck
     command: sh -c "/wait"
     environment:
       - WAIT_HOSTS=mysql:3306, wordpress:80
