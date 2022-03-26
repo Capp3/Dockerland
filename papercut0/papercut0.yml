@@ -32,7 +32,8 @@ services:
     volumes:
       - /local/data/dolibarr/dolibarr:/local
       - /local/data/dolibarr-docs:/var/www/documents
-      - /local/data/dolibar/www:/var/www/html/custom
+      - /local/data/dolibarr/www:/var/www/html/custom
+      - /local/data/dolibarr/backup:/backup
 
   mariadb:
     container_name: dolibarr_mariadb
