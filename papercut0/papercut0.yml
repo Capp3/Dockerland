@@ -50,7 +50,7 @@ services:
       - phpmyadmin
     restart: always
     ports:
-        - 80:80
+        - ${WP_PORT}:80
 
   mysql:
     image: mariadb:${MARIADB_VERSION:-latest}
