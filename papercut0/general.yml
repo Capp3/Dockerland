@@ -19,6 +19,7 @@ networks:
 services:
 
   watchtower:
+    container_name: pcd0_watchtower
     image: containrrr/watchtower 
     restart: unless-stopped
     volumes:
@@ -28,7 +29,7 @@ services:
     ports:
         - '8000:8000'
         - '9000:9000'
-    container_name: portainer
+    container_name: pcd0_portainer
     restart: always
     volumes:
         - '/var/run/docker.sock:/var/run/docker.sock'
@@ -38,7 +39,7 @@ services:
   agent:
     ports:
         - '9001:9001'
-    container_name: portainer_agent
+    container_name: pcd0_portainer_agent
     restart: always
     volumes:
         - '/var/run/docker.sock:/var/run/docker.sock'
@@ -47,7 +48,7 @@ services:
 
   duplicati:
     image: lscr.io/linuxserver/duplicati
-    container_name: duplicati
+    container_name: pcd0_duplicati
     environment:
       - PUID=1000
       - PGID=1000
@@ -63,7 +64,7 @@ services:
     restart: unless-stopped
 
   wireguard:
-    container_name: wireguard
+    container_name: pcd0_wireguard
     environment:
         - PUID=1000
         - PGID=1000
@@ -83,7 +84,7 @@ services:
     image: linuxserver/wireguard
 
   pihole:
-    container_name: pihole
+    container_name: pcd0_pihole
     image: pihole/pihole:latest
     networks:
       dockervlan:
@@ -106,7 +107,7 @@ services:
     restart: unless-stopped
 
   nginxpm:
-    container_name: proxymanager
+    container_name: pcd0_proxymanager
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     ports:
@@ -118,7 +119,7 @@ services:
       - /local/data/nginxpm/letsencrypt:/etc/letsencrypt
       
   antennas:
-    container_name: antennas
+    container_name: pcd0_antennas
     environment:
         - 'ANTENNAS_URL=http://192.168.1.11:5004'
         - 'TVHEADEND_URL=http://pi:homeland@192.168.1.13:9981'
