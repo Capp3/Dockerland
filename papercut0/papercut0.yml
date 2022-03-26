@@ -4,6 +4,12 @@ networks:
   marketplace:
     external: true
 
+########################### VOLUMES
+
+volumes:
+  dolibarr_mariadb:
+  wp_healthcheck:
+
 ########################### SERVICES
 services:
 
@@ -30,8 +36,11 @@ services:
   mariadb:
       image: mariadb:latest
       environment:
-          MYSQL_ROOT_PASSWORD: ${DOLI_DB_PASS}
-          MYSQL_DATABASE: dolibarr
+        MYSQL_ROOT_PASSWORD: ${DOLI_DB_PASS}
+        MYSQL_DATABASE: dolibarr
+      volumes:
+        dolibarr_mariadb:/var/lib/mysql
+
 
   wordpress:
     image: wordpress:${WORDPRESS_VERSION:-latest}
@@ -98,8 +107,5 @@ services:
       - WAIT_HOSTS_TIMEOUT=${WAIT_HOSTS_TIMEOUT:-300}
       - WAIT_SLEEP_INTERVAL=${WAIT_SLEEP_INTERVAL:-30}
       - WAIT_HOST_CONNECT_TIMEOUT=${WAIT_HOST_CONNECT_TIMEOUT:-30}
-
-################ Volumes
-
-# volumes:
-  # odoo-web-data:
+    volumes:
+      - wp_healthcheck:/var/www/html
