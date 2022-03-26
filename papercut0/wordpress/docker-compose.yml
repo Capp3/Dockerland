@@ -5,7 +5,7 @@ services:
     image: wordpress:${WORDPRESS_VERSION:-latest}
     container_name: ${COMPOSE_PROJECT_NAME:-wordpress}
     volumes:
-      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./wordpress/config/php.conf.ini:/usr/local/etc/php/conf.d/php.ini
       - ${WORDPRESS_DATA_DIR:-./wordpress}:/var/www/html
     environment:
       - WORDPRESS_DB_NAME=${COMPOSE_PROJECT_NAME:-wordpress}
@@ -24,7 +24,7 @@ services:
     image: mariadb:${MARIADB_VERSION:-latest}
     container_name: ${COMPOSE_PROJECT_NAME}_mysql
     volumes:
-      - ./mysql:/var/lib/mysql
+      - ./wordpress/mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD:-password}
       - MYSQL_USER=${DATABASE_USER:-root}
@@ -46,7 +46,7 @@ services:
 
   # Command line interface to wordpress
   wpcli:
-    build: ./wpcli/
+    build: ./wordpress/wpcli/
     image: wpcli
     container_name: ${COMPOSE_PROJECT_NAME}_wpcli
     volumes:
@@ -56,7 +56,7 @@ services:
 # Check availability of essential services
   healthcheck:
     image: wpcli
-    build: ./wpcli/
+    build: ./wordpress/wpcli/
     container_name: ${COMPOSE_PROJECT_NAME}_healthcheck
     command: sh -c "/wait"
     environment:
