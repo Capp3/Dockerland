@@ -25,21 +25,21 @@ services:
       DOLI_URL_ROOT: ${DOLI_URL_ROOT}
       PHP_INI_DATE_TIMEZONE: ${TZ}
     ports:
-        - "8880:80"
+      - "8880:80"
     links:
-        - mariadb
+      - mariadb
     volumes:
       - /local/data/dolibarr/dolibarr:/local
       - /local/data/dolibarr-docs:/var/www/documents
       - /local/data/dolibar/www:/var/www/html/custom
 
   mariadb:
-      image: mariadb:latest
-      environment:
-        MYSQL_ROOT_PASSWORD: ${DOLI_DB_PASS}
-        MYSQL_DATABASE: dolibarr
-      volumes:
-        dolibarr_mariadb:/var/lib/mysql
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DOLI_DB_PASS}
+      MYSQL_DATABASE: dolibarr
+    volumes:
+      - dolibarr_mariadb:/var/lib/mysql
 
 
   wordpress:
