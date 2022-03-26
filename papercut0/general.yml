@@ -117,6 +117,16 @@ services:
       - /local/data/nginxpm/data:/data
       - /local/data/nginxpm/letsencrypt:/etc/letsencrypt
       
+  antennas:
+    container_name: antennas
+    environment:
+        - 'ANTENNAS_URL=http://192.168.1.11:5004'
+        - 'TVHEADEND_URL=http://pi:homeland@192.168.1.13:9981'
+        - TUNER_COUNT=1
+    ports:
+        - '5004:5004'
+    image: thejf/antennas
+    
 ########################### volumes
 volumes:
   portainer_data:
