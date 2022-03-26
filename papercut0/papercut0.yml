@@ -17,6 +17,7 @@ services:
     container_name: dolibarr
     image: tuxgasy/dolibarr
     environment:
+      DOLI_ADMIN_LOGIN: admin
       DOLI_DB_HOST: mariadb
       DOLI_DB_USER: root
       DOLI_DB_PASSWORD: ${DOLI_DB_PASS}
