@@ -8,4 +8,16 @@ _archive*
 /vscode
 */sites/wordpress/*
 .DS_Store
-.DS_store
+.Rbuildignore
+.deploy-wordpress-localhost.Rproj
+.Rproj.user
+.Rhistory
+.RData
+wordpress/*
+!wordpress/.keep
+mysql/*
+!mysql/.keep
+logs/nginx/*
+!logs/nginx/.keep
+_trash
+*.Rproj
