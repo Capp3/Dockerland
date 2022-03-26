@@ -35,6 +35,7 @@ services:
       - /local/data/dolibar/www:/var/www/html/custom
 
   mariadb:
+    container_name: dolibarr_mariadb
     image: mariadb:latest
     environment:
       MYSQL_ROOT_PASSWORD: ${DOLI_DB_PASS}
