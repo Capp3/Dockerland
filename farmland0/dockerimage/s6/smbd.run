@@ -1,3 +1,0 @@
-#!/usr/bin/execlineb -P
-
-smbd --foreground --no-process-group --log-stdout

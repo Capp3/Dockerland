@@ -1,3 +1,0 @@
-#!/usr/bin/execlineb -P
-
-nmbd --foreground --no-process-group --log-stdout

@@ -39,21 +39,16 @@ services:
       - 8200:8200
     restart: unless-stopped
 
-  samba:
-      container_name: samba
-      build: 
-          context: ./docker-templates/samba/dockerimage/
-          dockerfile: Dockerfile
-      network_mode: host
-      restart: unless-stopped
-      volumes:
-          - "${PERSISTENT_ROOT}/docker-data/samba/smb.conf:/etc/samba/smb.conf"
-          - "${PERSISTENT_ROOT}:${PERSISTENT_ROOT}"
-          - "${PLEX_DATA}:${PLEX_DATA}"
-      ports:
-          - "137:137/udp"
-          - "138:138/udp"
-          - "139:139/tcp"
-          - "445:445/tcp"
-      environment:
-          - SAMBA_USERMAP
+  nfs-server-alpine:
+    container_name: nfs
+    privileged: true
+    volumes:
+      - D:\data:/netdata
+      - D:\media:/homemedia
+    environment:
+      - SHARED_DIRECTORY=/netdata
+      - SHARED_DIRECTORY_2=/homemedia
+    image: 'itsthenetwork/nfs-server-alpine:latest'
+    cap_add:
+      - SYS_ADMIN
+      - SETPCAP
