@@ -130,7 +130,7 @@ services:
     
 ########################### volumes
 volumes:
-  nginxpm:
+  nginxpm_data:
   portainer_data:
   pihole_etc-pihole:
   pihole_etc-dnsmasq.d:
