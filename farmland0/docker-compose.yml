@@ -31,24 +31,10 @@ services:
       - TZ=Europe/Dublin
       # - CLI_ARGS= #optional
     volumes:
-      - C:\dockerdata\duplicati\config:/config
-      - C:\dockerdata\duplicati\backups:/backups
-      - C:\dockerdata\duplicati\source:/source
-      - C:\dockerdata:/localdata
+      - 'C:\dockerdata\duplicati\config:/config'
+      - 'C:\dockerdata\duplicati\backups:/backups'
+      - 'C:\dockerdata\duplicati\source:/source'
+      - 'C:\dockerdata:/localdata'
     ports:
       - 8200:8200
     restart: unless-stopped
-
-  nfs-server-alpine:
-    container_name: nfs
-    privileged: true
-    volumes:
-      - D:\data:/netdata
-      - D:\media:/homemedia
-    environment:
-      - SHARED_DIRECTORY=/netdata
-      - SHARED_DIRECTORY_2=/homemedia
-    image: 'itsthenetwork/nfs-server-alpine:latest'
-    cap_add:
-      - SYS_ADMIN
-      - SETPCAP
