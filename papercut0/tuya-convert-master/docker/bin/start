@@ -1,3 +1,0 @@
-#!/bin/bash
-cd /usr/bin/tuya-convert
-./start_flash.sh
