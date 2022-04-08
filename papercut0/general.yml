@@ -128,16 +128,16 @@ services:
         - '5004:5004'
     image: thejf/antennas
 
-  # tuya:
-  #   image: tuya:latest
-  #   privileged: true
-  #   network_mode: "host"
-  #   environment:
-  #     - WLAN=wlp3s0
-  #     - AP=vtrust-flash
-  #     - GATEWAY=192.168.1.1
-  #   volumes:
-  #     - /local/data/tuya/backups:/usr/bin/tuya-convert/backups
+  tuya:
+    image: tuya:latest
+    privileged: true
+    network_mode: "host"
+    environment:
+      - WLAN=wlp3s0
+      - AP=vtrust-flash
+      - GATEWAY=192.168.1.1
+    volumes:
+      - /local/data/tuya/backups:/usr/bin/tuya-convert/backups
     
 ########################### volumes
 volumes:
