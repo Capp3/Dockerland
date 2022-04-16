@@ -79,7 +79,7 @@ services:
       - SERVERURL=${WCDOMAIN}
       - SERVERPORT=${WCSERVERPORT}
       - PEERS=${PEERS}
-      - PEERDNS=192.168.1.254
+      - PEERDNS=8.8.8.8
       # - INTERNAL_SUBNET=${WCINTERNALIP}
       - ALLOWEDIPS=${VCALLOWEDIPS}
     ports:
