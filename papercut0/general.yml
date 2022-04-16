@@ -65,21 +65,28 @@ services:
 
   wireguard:
     container_name: pcd0_wireguard
+    cap_add:
+      - NET_ADMIN 
+      - SYS_MODULE
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv4.ip_forward=1
+      - net.ipv6.conf.all.forwarding=1
     environment:
-        - PUID=1000
-        - PGID=1000
-        - TZ=${TZ}
-        - SERVERURL=${WCDOMAIN}
-        - SERVERPORT=${WCSERVERPORT}
-        - PEERS=${PEERS}
-        - PEERDNS=auto
-        - INTERNAL_SUBNET=${WCINTERNALIP}
-        - ALLOWEDIPS=${VCALLOWEDIPS}
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - SERVERURL=${WCDOMAIN}
+      - SERVERPORT=${WCSERVERPORT}
+      - PEERS=${PEERS}
+      - PEERDNS=192.168.1.254
+      # - INTERNAL_SUBNET=${WCINTERNALIP}
+      - ALLOWEDIPS=${VCALLOWEDIPS}
     ports:
-        - ${WCSERVERPORT}:51820/udp
+      - ${WCSERVERPORT}:51820/udp
     volumes:
-        - ${DATADIR}/wireguard/config:/config
-        - /lib/modules:/lib/modules
+      - ${DATADIR}/wireguard/config:/config
+      - /lib/modules:/lib/modules
     restart: unless-stopped
     image: linuxserver/wireguard
 
