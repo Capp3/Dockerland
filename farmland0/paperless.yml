@@ -1,6 +1,7 @@
 version: "3.4"
 services:
   broker:
+    container_name: broker
     image: redis:6.0
     restart: unless-stopped
 
