@@ -39,7 +39,3 @@ services:
   tika:
     image: apache/tika
     restart: unless-stopped
-
-volumes:
-  data:
-  media:
