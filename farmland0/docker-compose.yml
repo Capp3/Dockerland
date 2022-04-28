@@ -38,3 +38,24 @@ services:
     ports:
       - 8200:8200
     restart: unless-stopped
+
+  drawio:
+    image: jgraph/drawio
+    container_name: drawio
+    restart: unless-stopped
+    ports:
+      - 8383:8080
+      - 8883:8443
+    environment:
+      PUBLIC_DNS: mind.capparelli.ie
+      ORGANISATION_UNIT: unit
+      ORGANISATION: org
+      CITY: Belfast
+      STATE: NIreland
+      COUNTRY_CODE: UK
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://mind.capparelli.ie || exit 1"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
