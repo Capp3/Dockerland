@@ -49,10 +49,12 @@ services:
     environment:
       PUBLIC_DNS: mind.capparelli.ie
       ORGANISATION_UNIT: unit
-      ORGANISATION: org
+      ORGANISATION: papercut
       CITY: Belfast
       STATE: NIreland
       COUNTRY_CODE: UK
+    volumes:
+      - C:\dockerdata\drawio:/data
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://mind.capparelli.ie || exit 1"]
       interval: 1m30s
