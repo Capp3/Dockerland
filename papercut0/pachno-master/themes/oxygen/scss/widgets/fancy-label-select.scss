@@ -1,0 +1,64 @@
+@import '../variables';
+
+.fancy-label-select {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: row;
+  border: 1px solid $theme-primary-color;
+  background-color: transparent;
+  color: $theme-text-color;
+  border-radius: 4px;
+
+  input {
+    display: none;
+
+    &:disabled {
+      + label {
+        color: #DDD;
+      }
+    }
+
+    &,
+    &.fancy-checkbox {
+      &:checked:not(:disabled) {
+        + label {
+          background-color: $theme-primary-color;
+          color: #FFF;
+
+          .fas,
+          .far {
+            font-size: .85em;
+            margin: 0 1em 0 0;
+          }
+
+          + input + label::after {
+            border-right: none;
+          }
+        }
+      }
+    }
+  }
+
+  label {
+    flex: 0 0 auto;
+    color: #555;
+    transition: color .2s ease-in-out, background-color .2s ease-in-out;
+    text-transform: none;
+    padding: .25rem 1rem;
+    position: relative;
+
+    &:hover {
+      background-color: rgba(225, 225, 225, .15);
+    }
+
+    &:not(:first-of-type)::after {
+      display: block;
+      content: '';
+      border-right: 1px solid $theme-primary-color;
+      height: calc(100% - .5rem);
+      position: absolute;
+      left: 1px;
+      top: .25rem;
+    }
+  }
+}

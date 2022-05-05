@@ -1,0 +1,233 @@
+@import "../variables";
+
+.dropper-container {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1em;
+
+  & + .dropper-container {
+    margin-left: .5em;
+  }
+
+  .dropdown-container {
+    list-style: none;
+    font-size: 1em;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin: 0;
+    z-index: 1000;
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: opacity 0.3s ease, transform 0.3s ease-in-out;
+    max-height: 550px;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 5px 0;
+    background: #FFF;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+    border-radius: 4px;
+    top: calc(100% + 3px);
+    right: 0;
+
+    &.from-left {
+      right: auto;
+      left: 0;
+
+      &.slide-out {
+        position: fixed;
+        left: 0;
+        top: 89px;
+        z-index: 1;
+        height: calc(100% - 3.5em);
+        transform-origin: left;
+        transform: translateX(-120%);
+        width: 350px;
+        border-radius: 0;
+        max-height: none;
+
+      }
+
+      &.pop-out {
+        left: 20px;
+        top: 0;
+        z-index: 2000;
+      }
+    }
+
+    &.from-center {
+      right: auto;
+      left: 50%;
+      transform: scaleY(0) translateX(-50%);
+    }
+
+    &.from-bottom {
+      top: auto;
+      bottom: 37px;
+      transform-origin: bottom;
+    }
+
+    &.columns {
+      flex-direction: row;
+
+      .column {
+        &.hidden {
+          display: none;
+        }
+      }
+
+      &.three-columns .column {
+        flex: 1 1 33%;
+      }
+
+      &.two-columns .column {
+        flex: 1 1 50%;
+        min-width: 260px;
+        overflow: auto;
+      }
+    }
+
+    &:not(.slide-out) {
+      .list-mode {
+        max-height: 450px;
+      }
+    }
+
+    .list-mode {
+      overflow-y: auto;
+      overflow-x: hidden;
+      min-width: 260px;
+      max-width: 350px;
+
+      .header-banner {
+        .header-name {
+          padding: .3em;
+
+          .image-container {
+            padding-right: .3em;
+            margin-right: 0;
+          }
+
+          .name-container {
+            padding: .3em 0;
+          }
+        }
+      }
+
+      .header {
+        padding-left: .7em;
+        padding-top: 1.5em;
+        font-size: .85em;
+        text-transform: uppercase;
+        font-weight: 500;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        &:first-child {
+          padding-top: .5em;
+        }
+      }
+
+      .list-item:not(.separator) {
+        &,
+        &:hover {
+          margin-left: 0;
+          margin-right: 0;
+          padding-left: .7em;
+          padding-right: .7em;
+          border-radius: 0;
+
+          .icon {
+            flex: 0 0 auto;
+            min-width: 20px;
+            width: 20px;
+          }
+        }
+      }
+    }
+  }
+
+  &.mentions-container {
+    position: absolute;
+    margin-left: .5em;
+
+    .dropdown-container {
+      position: relative;
+      transform: scaleY(1);
+      opacity: 1;
+
+      .list-mode {
+        max-width: 60em;
+      }
+    }
+  }
+
+  .dropper {
+    cursor: pointer;
+
+    + .dropdown-container {
+      &.slide-out {
+        opacity: 1;
+      }
+    }
+
+    &.active + .dropdown-container {
+      transform: scaleY(1);
+      opacity: 1;
+
+      &.slide-out {
+        transform-origin: left;
+        transform: translateX(0);
+        box-shadow: none;
+        box-sizing: border-box;
+        border-right: 2px solid $theme-border-color;
+      }
+
+      &.from-center {
+        transform: scaleY(1) translateX(-50%);
+      }
+    }
+  }
+
+}
+
+.collapsed {
+  .dropper-container {
+    .dropper {
+      &::after {
+        display: block;
+        content: '';
+        background: rgba(255, 255, 255, .8);
+        position: fixed;
+        left: 0;
+        height: 100%;
+        top: 0;
+        z-index: 100;
+        width: calc(100vw - 350px);
+        transform: scaleX(0);
+        opacity: 0;
+        transform-origin: left;
+        transition: opacity .3s ease-in-out, left .3s ease-in-out;
+      }
+
+      &.active {
+        &::after {
+          left: 350px;
+          transform: scaleX(1);
+          opacity: 1;
+        }
+
+        + .dropdown-container {
+          &.slide-out {
+            box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+            overflow: visible;
+          }
+        }
+      }
+    }
+  }
+}
+

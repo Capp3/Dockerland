@@ -1,0 +1,1 @@
+<div class="column info-icons large centered header"><?= fa_image_tag('at', ['class' => 'icon']); ?></div>

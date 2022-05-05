@@ -1,0 +1,41 @@
+@import "../variables";
+
+/* paginator */
+.paginator {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding: .35rem;
+  justify-content: center;
+  width: 100%;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+
+  .prev-buttons,
+  .next-buttons {
+    flex: 0 0 100px;
+    align-items: center;
+    display: flex;
+  }
+
+  .prev-buttons {
+    justify-content: flex-end;
+  }
+
+  .next-buttons {
+    justify-content: flex-start;
+  }
+
+  .page-buttons {
+    max-width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+
+    .highlight {
+      border: 1px solid $theme-primary-color;
+    }
+  }
+}
