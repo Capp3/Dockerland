@@ -1,0 +1,33 @@
+version: "3.7"
+########################### Networks
+# networks:
+
+########################### VOLUMES
+# volumes:
+
+########################### SERVICES
+services: 
+
+  mongo:
+    container_name: mongodb
+    volumes:
+      - '/local/data/trudesk/db:/data/db'
+      - '/local/data/trudesk/configdb:/data/configdb'
+    image: 'mongo:3.6'
+
+  trudesk:
+    container_name: trudesk
+    links:
+      - 'mongodb:mongodb'
+    volumes:
+      - '/local/data/trudesk/uploads:/usr/src/trudesk/public/uploads'
+      - '/local/data/trudesk/plugins:/usr/src/trudesk/plugins'
+      - '/local/data/trudesk/backups:/usr/src/trudesk/backups'
+    environment:
+      - NODE_ENV=production
+      - TRUDESK_DOCKER=true
+      - TD_MONGODB_SERVER=mongodb
+      - TD_MONGODB_DATABASE=trudesk
+    image: polonel/trudesk
+    ports:
+      - 32772:9696
