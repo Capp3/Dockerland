@@ -19,6 +19,7 @@ services:
     volumes:
       - zammad-backup:/var/tmp/zammad
       - zammad-data:/opt/zammad
+      - zammad-bu-data:/var/lib/postgresql/data
 
   zammad-elasticsearch:
     environment:
@@ -84,6 +85,8 @@ services:
   zammad-redis:
     image: redis:6.2.5-alpine
     restart: ${RESTART}
+    volumes:
+      - zammad-redis:/data
 
   zammad-scheduler:
     command: ["zammad-scheduler"]
@@ -121,4 +124,8 @@ volumes:
   zammad-backup:
     driver: local
   zammad-data:
+    driver: local
+  zammad-bu-data:
+    driver: local
+  zammad-redis:
     driver: local
