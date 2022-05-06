@@ -1,0 +1,34 @@
+# Dolibarr language file - Source file is en_US - loan
+Loan=Credit
+Loans=Credite
+NewLoan=Credit nou
+ShowLoan=Afișează credit
+PaymentLoan=Plată credit
+LoanPayment=Plată credit
+ShowLoanPayment=Afișează plată credit
+LoanCapital=Capital
+Insurance=Asigurari
+Interest=Dobândă
+Nbterms=Numarul termenelor
+Term=Termen
+LoanAccountancyCapitalCode=Contabilitatea capitalului contului
+LoanAccountancyInsuranceCode=Asigurarea contului contabil
+LoanAccountancyInterestCode=Dobânda contului contabil
+ConfirmDeleteLoan=Confirmaţi ştergerea acestui credit
+LoanDeleted=Credit șters cu succes
+ConfirmPayLoan=Confirmați clasificarea plătită acest împrumut
+LoanPaid=Credit achitat
+ListLoanAssociatedProject=Lista împrumuturilor asociate proiectului
+AddLoan=Creați împrumut
+FinancialCommitment=Angajament financiar
+InterestAmount=Dobândă
+CapitalRemain=Capitalul rămâne
+TermPaidAllreadyPaid = Acest element este plătit deja
+CantUseScheduleWithLoanStartedToPaid = Nu poţi folosi programatorul pentru un credit pentru care au început plăţile
+CantModifyInterestIfScheduleIsUsed = Nu poţi modifica dobânda dacă foloseşti programatorul
+# Admin
+ConfigLoan=Configurarea împrumutului modulului
+LOAN_ACCOUNTING_ACCOUNT_CAPITAL=Contabilitatea contului de capital în mod implicit
+LOAN_ACCOUNTING_ACCOUNT_INTEREST=Dobânda contului contabil în mod implicit
+LOAN_ACCOUNTING_ACCOUNT_INSURANCE=Asigurarea contului de contabilitate în mod implicit
+CreateCalcSchedule=Editați angajamentul financiar

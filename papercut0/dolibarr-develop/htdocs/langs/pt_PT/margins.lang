@@ -1,0 +1,45 @@
+# Dolibarr language file - Source file is en_US - marges
+
+Margin=Margem
+Margins=Margens
+TotalMargin=Margem total
+MarginOnProducts=Margem / Produtos
+MarginOnServices=Margem / Serviços
+MarginRate=Taxa de margem
+MarkRate=Taxa de marca
+DisplayMarginRates=Exibir taxas de margem
+DisplayMarkRates=Exibir taxas de marca
+InputPrice=Inserir preço
+margin=Gestão de margens de lucro
+margesSetup=Configuração de gerenciamento de margens de lucro
+MarginDetails=Detalhes da margem
+ProductMargins=Margens do produto
+CustomerMargins=Margens do cliente
+SalesRepresentativeMargins=Margens de representantes de vendas
+ContactOfInvoice=Contact of invoice
+UserMargins=Margens do utilizador
+ProductService=Produto ou Serviço
+AllProducts=Todos os produtos e serviços
+ChooseProduct/Service=Escolher produto ou serviço
+ForceBuyingPriceIfNull=Forçar compra / preço de custo ao preço de venda, se não definido
+ForceBuyingPriceIfNullDetails=If buying/cost price not provided when we add a new line, and this option is "ON", the margin will be 0%% on the new line (buying/cost price = selling price). If this option is "OFF" (recommended), margin will be equal to the value suggested by default (and may be 100%% if no default value can be found).
+MARGIN_METHODE_FOR_DISCOUNT=Método de margem para descontos globais
+UseDiscountAsProduct=Como um produto
+UseDiscountAsService=Como um serviço
+UseDiscountOnTotal=No subtotal
+MARGIN_METHODE_FOR_DISCOUNT_DETAILS=Define se um desconto global é tratado como um produto, um serviço, ou apenas no subtotal para cálculo de margem
+MARGIN_TYPE=Preço de compra / custo sugerido por padrão para cálculo de margem
+MargeType1=Margem no melhor preço do fornecedor
+MargeType2=Margem no Preço Médio Ponderado (WAP)
+MargeType3=Margem no Preço de Custo
+MarginTypeDesc=* Margin on best buying price = Selling price - Best vendor price defined on product card<br>* Margin on Weighted Average Price (WAP) = Selling price - Product Weighted Average Price (WAP) or best vendor price if WAP not yet defined<br>* Margin on Cost price = Selling price - Cost price defined on product card or WAP if cost price not defined, or best vendor price if WAP not yet defined
+CostPrice=Preço de custo
+UnitCharges=Custos unitários
+Charges=Custos
+AgentContactType=Tipo de contacto usado para comissionamento
+AgentContactTypeDetails=Define what contact type (linked on invoices) will be used for margin report per contact/address. Note that reading statistics on a contact is not reliable since in most cases the contact may not be defined explicitely on the invoices.
+rateMustBeNumeric=A taxa deve ser um valor numérico
+markRateShouldBeLesserThan100=A taxa de marca deve ser menor que 100
+ShowMarginInfos=Mostrar informações da margem
+CheckMargins=Detalhe de margens
+MarginPerSaleRepresentativeWarning=O relatório de margem por usuário usa o link entre terceiros e representantes de vendas para calcular a margem de cada representante de vendas. Como alguns terceiros podem não ter qualquer representante de vendas dedicado e alguns terceiros podem estar vinculados a vários, alguns valores podem não ser incluídos neste relatório (se não houver representante de vendas) e alguns podem aparecer em linhas diferentes (para cada representante de vendas) .

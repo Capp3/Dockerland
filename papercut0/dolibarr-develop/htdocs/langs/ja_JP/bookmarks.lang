@@ -1,0 +1,22 @@
+# Dolibarr language file - Source file is en_US - marque pages
+AddThisPageToBookmarks=現在のページをブックマークに追加 
+Bookmark=ブックマーク
+Bookmarks=ブックマーク
+ListOfBookmarks=ブックマークのリスト
+EditBookmarks=ブックマークの一覧表示/編集
+NewBookmark=新規ブックマーク
+ShowBookmark=ブックマークを表示
+OpenANewWindow=新規タブを開く
+ReplaceWindow=現在のタブを置き換える
+BookmarkTargetNewWindowShort=新規タブ
+BookmarkTargetReplaceWindowShort=現在のタブ
+BookmarkTitle=ブックマーク名
+UrlOrLink=URL
+BehaviourOnClick=ブックマークURLを選択した場合の動作
+CreateBookmark=ブックマークを作成。
+SetHereATitleForLink=ブックマークの名前を設定 
+UseAnExternalHttpLinkOrRelativeDolibarrLink=外部/絶対リンク (https://externalurl.com) または内部/相対リンク (/mypage.php) を使用する。 tel:0123456 のような電話を使用することもできる。
+ChooseIfANewWindowMustBeOpenedOnClickOnBookmark=リンクされたページを現在のタブで開くか、新規タブで開くかを選択 
+BookmarksManagement=ブックマークの管理
+BookmarksMenuShortCut=Ctrl +シフト+ m
+NoBookmarks=ブックマークが未定義

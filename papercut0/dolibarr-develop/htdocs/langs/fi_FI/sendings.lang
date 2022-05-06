@@ -1,0 +1,76 @@
+# Dolibarr language file - Source file is en_US - sendings
+RefSending=Toimituksen viite
+Sending=Lähetys
+Sendings=Lähetykset
+AllSendings=All Shipments
+Shipment=Lähetys
+Shipments=Toimitukset
+ShowSending=Show Shipments
+Receivings=Toimituskuittaukset
+SendingsArea=Lähetys alue
+ListOfSendings=Lista lähetyksistä
+SendingMethod=Toimitustapa
+LastSendings=Viimeisimmät %s toimitukset
+StatisticsOfSendings=Toimitusten tilastot
+NbOfSendings=Toimitusten lukumäärä
+NumberOfShipmentsByMonth=Number of shipments by month
+SendingCard=Toimituskortti
+NewSending=Uusi toimitus
+CreateShipment=Luo lähetys
+QtyShipped=Kpl lähetetty
+QtyShippedShort=Qty ship.
+QtyPreparedOrShipped=Qty prepared or shipped
+QtyToShip=Kpl lähetettävänä
+QtyToReceive=Qty to receive
+QtyReceived=Kpl saapunut
+QtyInOtherShipments=Qty in other shipments
+KeepToShip=Lähettämättä
+KeepToShipShort=Remain
+OtherSendingsForSameOrder=Tämän tilauksen muut toimitukset
+SendingsAndReceivingForSameOrder=Tämän tilauksen toimitukset ja kuittaukset
+SendingsToValidate=Toimitu
+StatusSendingCanceled=Peruttu
+StatusSendingCanceledShort=Peruttu
+StatusSendingDraft=Vedos
+StatusSendingValidated=Validoidut (lähetettävät tai lähetetyt tuotteet)
+StatusSendingProcessed=Jalostettu
+StatusSendingDraftShort=Vedos
+StatusSendingValidatedShort=Validoidut
+StatusSendingProcessedShort=Jalostettu
+SendingSheet=Lähetyslista
+ConfirmDeleteSending=Are you sure you want to delete this shipment?
+ConfirmValidateSending=Are you sure you want to validate this shipment with reference <b>%s</b>?
+ConfirmCancelSending=Are you sure you want to cancel this shipment?
+DocumentModelMerou=Merou A5 malli
+WarningNoQtyLeftToSend=Varoitus, ei tuotteet odottavat lähettämistä.
+StatsOnShipmentsOnlyValidated=Statistics are only for validated shipments. Date used is the date of validation of shipment (planned delivery date is not always known)
+DateDeliveryPlanned=Suunniteltu toimituspäivä
+RefDeliveryReceipt=Ref delivery receipt
+StatusReceipt=Status delivery receipt
+DateReceived=Päivämäärä toimitus sai
+ClassifyReception=Classify reception
+SendShippingByEMail=Send shipment by email
+SendShippingRef=Submission of shipment %s
+ActionsOnShipping=Tapahtumat lähetystä
+LinkToTrackYourPackage=Linkki seurata pakettisi
+ShipmentCreationIsDoneFromOrder=For the moment, creation of a new shipment is done from the Sales Order record.
+ShipmentLine=Shipment line
+ProductQtyInCustomersOrdersRunning=Product quantity from open sales orders
+ProductQtyInSuppliersOrdersRunning=Product quantity from open purchase orders
+ProductQtyInShipmentAlreadySent=Product quantity from open sales order already sent
+ProductQtyInSuppliersShipmentAlreadyRecevied=Product quantity from open purchase orders already received
+NoProductToShipFoundIntoStock=No product to ship found in warehouse <b>%s</b>. Correct stock or go back to choose another warehouse.
+WeightVolShort=Til./paino
+ValidateOrderFirstBeforeShipment=You must first validate the order before being able to make shipments.
+
+# Sending methods
+# ModelDocument
+DocumentModelTyphon=Täydellisempi mallin toimitusten kuitit (logo. ..)
+DocumentModelStorm=More complete document model for delivery receipts and extrafields compatibility (logo...)
+Error_EXPEDITION_ADDON_NUMBER_NotDefined=Jatkuva EXPEDITION_ADDON_NUMBER ei määritelty
+SumOfProductVolumes=Sum of product volumes
+SumOfProductWeights=Sum of product weights
+
+# warehouse details
+DetailWarehouseNumber= Warehouse details
+DetailWarehouseFormat= W:%s (Qty: %d)

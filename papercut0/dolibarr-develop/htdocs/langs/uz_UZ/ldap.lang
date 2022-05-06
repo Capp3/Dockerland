@@ -1,0 +1,27 @@
+# Dolibarr language file - Source file is en_US - ldap
+YouMustChangePassNextLogon=<b> %s </b> domenidagi <b> %s </b> foydalanuvchisi uchun parol o'zgartirilishi kerak.
+UserMustChangePassNextLogon=Foydalanuvchi %s domenidagi parolni o'zgartirishi kerak
+LDAPInformationsForThisContact=Ushbu aloqa uchun LDAP ma'lumotlar bazasidagi ma'lumotlar
+LDAPInformationsForThisUser=Ushbu foydalanuvchi uchun LDAP ma'lumotlar bazasidagi ma'lumotlar
+LDAPInformationsForThisGroup=Ushbu guruh uchun LDAP ma'lumotlar bazasidagi ma'lumotlar
+LDAPInformationsForThisMember=Ushbu a'zo uchun LDAP ma'lumotlar bazasidagi ma'lumotlar
+LDAPInformationsForThisMemberType=Ushbu a'zoning turi uchun LDAP ma'lumotlar bazasidagi ma'lumotlar
+LDAPAttributes=LDAP atributlari
+LDAPCard=LDAP karta
+LDAPRecordNotFound=Yozuv LDAP ma'lumotlar bazasida topilmadi
+LDAPUsers=LDAP ma'lumotlar bazasidagi foydalanuvchilar
+LDAPFieldStatus=Holat
+LDAPFieldFirstSubscriptionDate=Birinchi obuna sanasi
+LDAPFieldFirstSubscriptionAmount=Birinchi obuna miqdori
+LDAPFieldLastSubscriptionDate=Oxirgi obuna sanasi
+LDAPFieldLastSubscriptionAmount=Oxirgi obuna miqdori
+LDAPFieldSkype=Skype identifikatori
+LDAPFieldSkypeExample=Misol: skypeName
+UserSynchronized=Foydalanuvchi sinxronlashtirildi
+GroupSynchronized=Guruh sinxronlashtirildi
+MemberSynchronized=A'zo sinxronlashtirildi
+MemberTypeSynchronized=Ro'yxatdan turi sinxronlashtirildi
+ContactSynchronized=Aloqa sinxronlashtirildi
+ForceSynchronize=Dolibarr -> LDAP-ni sinxronlashtirishni majburlash
+ErrorFailedToReadLDAP=LDAP ma'lumotlar bazasini o'qib bo'lmadi. LDAP modulini sozlashni va ma'lumotlar bazasiga kirishni tekshiring.
+PasswordOfUserInLDAP=LDAP-dagi foydalanuvchi paroli

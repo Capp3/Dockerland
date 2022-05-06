@@ -1,0 +1,324 @@
+# en_US lang file for module ticket
+# Copyright (C) 2013  Jean-François FERRY <hello@librethic.io>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#
+# Generic
+#
+
+Module56000Name=Tickets
+Module56000Desc=Σύστημα ticket για διαχείριση θεμάτων ή αιτήσεων
+
+Permission56001=Δείτε τα tickets
+Permission56002=Τροποποίηση tickets
+Permission56003=Διαγραφή tickets
+Permission56004=Διαχείριση tickets
+Permission56005=Δείτε τα tickets όλων των τρίτων (δεν ισχύει για εξωτερικούς χρήστες, πάντα περιορίζονται στο τρίτο μέρος από το οποίο εξαρτώνται)
+
+TicketDictType=Ticket - Τύποι
+TicketDictCategory=Ticket - Ομάδες
+TicketDictSeverity=Ticket - Σημαντικότητα
+TicketDictResolution=Ticket - Επίλυση
+
+TicketTypeShortCOM=Εμπορική ερώτηση
+TicketTypeShortHELP=Αίτημα για λειτουργική βοήθεια
+TicketTypeShortISSUE=Θέμα ή σφάλμα
+TicketTypeShortPROBLEM=Πρόβλημα
+TicketTypeShortREQUEST=Αίτημα αλλαγής ή βελτίωσης
+TicketTypeShortPROJET=Έργο
+TicketTypeShortOTHER=Άλλο
+
+TicketSeverityShortLOW=Χαμηλή
+TicketSeverityShortNORMAL=Κανονικός
+TicketSeverityShortHIGH=Υψηλή
+TicketSeverityShortBLOCKING=Κρίσιμο, Blocking
+
+TicketCategoryShortOTHER=Άλλο
+
+ErrorBadEmailAddress=Το πεδίο '%s' είναι εσφαλμένο
+MenuTicketMyAssign=Τα tickets μου
+MenuTicketMyAssignNonClosed=Τα ανοιχτά tickets μου
+MenuListNonClosed=Ανοίξτε ticket
+
+TypeContact_ticket_internal_CONTRIBUTOR=Συνεισφέρων
+TypeContact_ticket_internal_SUPPORTTEC=Χρήστης σε ανάθεση
+TypeContact_ticket_external_SUPPORTCLI=Επαφή πελάτη / παρακολούθηση συμβάντος
+TypeContact_ticket_external_CONTRIBUTOR=Εξωτερικός συνεισφέρων
+
+OriginEmail=Αναφερόμενο Email
+Notify_TICKET_SENTBYMAIL=Στείλτε μήνυμα ticket μέσω email
+
+# Status
+Read=Έχει αναγνωστεί
+Assigned=Έχει ανατεθεί
+InProgress=Σε εξέλιξη
+NeedMoreInformation=Σε αναμονή feedback από τον δημιουργό
+NeedMoreInformationShort=Σε αναμονή feedback
+Answered=Απαντήθηκε
+Waiting=Σε αναμονή
+SolvedClosed=Επιλύθηκε 
+Deleted=Διαγράφηκε
+
+# Dict
+Type=Τύπος
+Severity=Κρισιμότητα 
+TicketGroupIsPublic=Η ομάδα είναι δημόσια
+TicketGroupIsPublicDesc=Αν η ομάδα του ticket είναι δημόσια, θα είναι ορατή στην φόρμα όταν δημιουργείται ένα ticket από την δημόσια διεπαφή
+
+# Email templates
+MailToSendTicketMessage=Για να στείλετε email από το μήνυμα ticket
+
+#
+# Admin page
+#
+TicketSetup=Ρύθμιση μονάδας ticket
+TicketSettings=Ρυθμίσεις
+TicketSetupPage=
+TicketPublicAccess=Μια δημόσια διεπαφή που δεν απαιτεί αναγνώριση είναι διαθέσιμη στην παρακάτω διεύθυνση URL
+TicketSetupDictionaries=Ο τύπος του ticket, ο βαθμός σοβαρότητας και οι αναλυτικοί κωδικοί ρυθμίζονται από λεξικά
+TicketParamModule=Ρύθμιση μεταβλητής μονάδας
+TicketParamMail=Ρύθμιση ηλεκτρονικού ταχυδρομείου
+TicketEmailNotificationFrom=Ειδοποίηση ηλεκτρονικού ταχυδρομείου από
+TicketEmailNotificationFromHelp=Χρησιμοποιείται στο μήνυμα του εισιτηρίου με το παράδειγμα
+TicketEmailNotificationTo=Οι ειδοποιήσεις αποστέλλονται ηλεκτρονικά στο
+TicketEmailNotificationToHelp=Στείλτε ειδοποιήσεις μέσω ηλεκτρονικού ταχυδρομείου σε αυτήν τη διεύθυνση.
+TicketNewEmailBodyLabel=Μήνυμα κειμένου που αποστέλλεται μετά τη δημιουργία ενός ticket
+TicketNewEmailBodyHelp=Το κείμενο που καθορίζεται εδώ θα εισαχθεί στο μήνυμα ηλεκτρονικού ταχυδρομείου που επιβεβαιώνει τη δημιουργία νέου ticket από το δημόσιο περιβάλλον. Οι πληροφορίες σχετικά με τη διαβούλευση με το ticket προστίθενται αυτόματα.
+TicketParamPublicInterface=Ρύθμιση δημόσιας διεπαφής
+TicketsEmailMustExist=Απαιτήστε μια υπάρχουσα διεύθυνση ηλεκτρονικού ταχυδρομείου για να δημιουργήσετε ένα ticket
+TicketsEmailMustExistHelp=Στη δημόσια διεπαφή, η διεύθυνση ηλεκτρονικού ταχυδρομείου θα πρέπει ήδη να συμπληρωθεί στη βάση δεδομένων για να δημιουργηθεί ένα νέο ticket.
+PublicInterface=Δημόσια διεπαφή
+TicketUrlPublicInterfaceLabelAdmin=Εναλλακτική διεύθυνση URL για δημόσια διασύνδεση
+TicketUrlPublicInterfaceHelpAdmin=Είναι δυνατόν να ορίσετε ένα ψευδώνυμο στον διακομιστή ιστού και έτσι να διαθέσετε τη δημόσια διασύνδεση με μια άλλη διεύθυνση URL (ο διακομιστής πρέπει να ενεργεί ως διακομιστής μεσολάβησης σε αυτήν τη νέα διεύθυνση URL)
+TicketPublicInterfaceTextHomeLabelAdmin=Καλωσόρισμα κειμένου της δημόσιας διασύνδεσης
+TicketPublicInterfaceTextHome=Μπορείτε να δημιουργήσετε ένα ticket υποστήριξης ή να προβάλετε ένα υπάρχον από το αναγνωριστικό παρακολούθησης ticket.
+TicketPublicInterfaceTextHomeHelpAdmin=Το κείμενο που ορίζεται εδώ θα εμφανιστεί στην αρχική σελίδα της δημόσιας διασύνδεσης.
+TicketPublicInterfaceTopicLabelAdmin=Τίτλος διεπαφής
+TicketPublicInterfaceTopicHelp=Αυτό το κείμενο θα εμφανιστεί ως ο τίτλος της δημόσιας διασύνδεσης.
+TicketPublicInterfaceTextHelpMessageLabelAdmin=Βοήθεια κειμένου στην καταχώρηση μηνύματος
+TicketPublicInterfaceTextHelpMessageHelpAdmin=Αυτό το κείμενο θα εμφανιστεί πάνω από την περιοχή εισαγωγής μηνυμάτων του χρήστη.
+ExtraFieldsTicket=Επιπλέον χαρακτηριστικά
+TicketCkEditorEmailNotActivated=Ο επεξεργαστής HTML δεν είναι ενεργοποιημένος. Καταχωρίστε το περιεχόμενο FCKEDITOR_ENABLE_MAIL σε 1 για να το αποκτήσετε.
+TicketsDisableEmail=Μην αποστέλλετε μηνύματα ηλεκτρονικού ταχυδρομείου για τη δημιουργία εισιτηρίων ή την εγγραφή μηνυμάτων
+TicketsDisableEmailHelp=Από προεπιλογή, αποστέλλονται μηνύματα ηλεκτρονικού ταχυδρομείου όταν δημιουργούνται νέα εισιτήρια ή μηνύματα. Ενεργοποιήστε αυτήν την επιλογή για να απενεργοποιήσετε όλες τις * ειδοποιήσεις ηλεκτρονικού ταχυδρομείου
+TicketsLogEnableEmail=Ενεργοποιήστε το αρχείο καταγραφής μέσω ηλεκτρονικού ταχυδρομείου
+TicketsLogEnableEmailHelp=Σε κάθε αλλαγή, θα σταλεί ένα μήνυμα ηλεκτρονικού ταχυδρομείου ** σε κάθε επαφή ** που σχετίζεται με το εισιτήριο.
+TicketParams=Params
+TicketsShowModuleLogo=Εμφανίστε το λογότυπο της ενότητας στη δημόσια διεπαφή
+TicketsShowModuleLogoHelp=Ενεργοποιήστε αυτήν την επιλογή για να αποκρύψετε τη λειτουργική μονάδα λογότυπου στις σελίδες της δημόσιας διασύνδεσης
+TicketsShowCompanyLogo=Εμφανίστε το λογότυπο της εταιρείας στο δημόσιο περιβάλλον
+TicketsShowCompanyLogoHelp=Ενεργοποιήστε αυτήν την επιλογή για να αποκρύψετε το λογότυπο της κύριας εταιρείας στις σελίδες της δημόσιας διασύνδεσης
+TicketsEmailAlsoSendToMainAddress=Also send a notification to the main email address
+TicketsEmailAlsoSendToMainAddressHelp=Enable this option to also send an email to the address defined into setup "%s" (see tab "%s")
+TicketsLimitViewAssignedOnly=Περιορίστε την εμφάνιση σε tickets που έχουν εκχωρηθεί στον τρέχοντα χρήστη (δεν έχει εφαρμογή για εξωτερικούς χρήστες, πάντα περιορίζονται στο τρίτο μέρος από το οποίο εξαρτώνται)
+TicketsLimitViewAssignedOnlyHelp=Μόνο tickets που έχουν εκχωρηθεί στον τρέχοντα χρήστη θα είναι ορατά. Δεν ισχύει για χρήστη με δικαιώματα διαχείρισης tickets.
+TicketsActivatePublicInterface=Ενεργοποιήστε τη δημόσια διεπαφή
+TicketsActivatePublicInterfaceHelp=Η δημόσια διεπαφή επιτρέπει στους επισκέπτες να δημιουργούν tickets.
+TicketsAutoAssignTicket=Ορίστε αυτόματα τον χρήστη που δημιούργησε το ticket
+TicketsAutoAssignTicketHelp=Κατά τη δημιουργία ενός ticket, ο χρήστης μπορεί να αντιστοιχιστεί αυτόματα στο ticket.
+TicketNumberingModules=Μονάδα αρίθμησης tickets
+TicketsModelModule=Πρότυπο έγγραφο για tickets
+TicketNotifyTiersAtCreation=Ειδοποιήστε τρίτο μέρος στη δημιουργία
+TicketsDisableCustomerEmail=Πάντα να απενεργοποιείτε τα μηνύματα ηλεκτρονικού ταχυδρομείου όταν δημιουργείται ένα ticket από τη δημόσια διασύνδεση
+TicketsPublicNotificationNewMessage=Send email(s) when a new message/comment is added to a ticket
+TicketsPublicNotificationNewMessageHelp=Send email(s) when a new message is added from public interface (to assigned user or the notifications email to (update) and/or the notifications email to)
+TicketPublicNotificationNewMessageDefaultEmail=Notifications email to (update)
+TicketPublicNotificationNewMessageDefaultEmailHelp=Send an email to this address for each new message notifications if the ticket doesn't have a user assigned to it or if the user doesn't have any known email.
+#
+# Index & list page
+#
+TicketsIndex=Περιοχή tickets
+TicketList=Λίστα tickets
+TicketAssignedToMeInfos=Αυτή η σελίδα εμφανίζει τη λίστα tickets που έχει δημιουργηθεί ή έχει εκχωρηθεί στον τρέχοντα χρήστη
+NoTicketsFound=Δεν βρέθηκε ticket
+NoUnreadTicketsFound=Δεν βρέθηκαν αδιάβατα ticket
+TicketViewAllTickets=Δείτε όλα τα tickets
+TicketViewNonClosedOnly=Δείτε μόνο ανοιχτά ticket
+TicketStatByStatus=Tickets ανά κατάσταση
+OrderByDateAsc=Ταξινόμηση κατά αύξουσα ημερομηνία
+OrderByDateDesc=Ταξινόμηση κατά φθίνουσα ημερομηνία
+ShowAsConversation=Εμφάνιση ως λίστα συνομιλιών
+MessageListViewType=Εμφάνιση ως λίστα πίνακα
+
+#
+# Ticket card
+#
+Ticket=Ticket
+TicketCard=Κάρτα ticket
+CreateTicket=Δημιουργήστε ticket
+EditTicket=Επεξεργασία ticket
+TicketsManagement=Διαχείριση tickets
+CreatedBy=Δημιουργήθηκε από
+NewTicket=Νέο ticket
+SubjectAnswerToTicket=Το ticket απαντήθηκε
+TicketTypeRequest=Τύπος αιτήματος
+TicketCategory=Κατηγοριοποίηση ticket
+SeeTicket=Δείτε το ticket
+TicketMarkedAsRead=Το ticket έχει επισημανθεί ως αναγνωσμένο
+TicketReadOn=Συνέχισε να διαβάζεις
+TicketCloseOn=Ημερομηνία Κλεισίματος
+MarkAsRead=Μαρκάρετε το ticket ως αναγνωσμένο
+TicketHistory=Ιστορικό ticket
+AssignUser=Αναθέστε στον χρήστη
+TicketAssigned=Το ticket έχει πλέον εκχωρηθεί
+TicketChangeType=Αλλάξτε τον τύπο
+TicketChangeCategory=Αλλάξτε τον αναλυτικό κώδικα
+TicketChangeSeverity=Αλλάξτε τη σοβαρότητα
+TicketAddMessage=Προσθήκη μηνύματος
+AddMessage=Προσθήκη μηνύματος
+MessageSuccessfullyAdded=Το ticket προστέθηκε
+TicketMessageSuccessfullyAdded=Το μήνυμα προστέθηκε με επιτυχία
+TicketMessagesList=Λίστα μηνυμάτων
+NoMsgForThisTicket=Δεν υπάρχει μήνυμα για αυτό το ticket
+TicketProperties=Classification
+LatestNewTickets=Τελευταία %s πιο πρόσφατα tickets (δεν έχουν διαβαστεί)
+TicketSeverity=Κρισιμότητα 
+ShowTicket=Δείτε το ticket
+RelatedTickets=Σχετικό ticket
+TicketAddIntervention=Δημιουργία παρέμβασης
+CloseTicket=Κλείστε|Επιλύστε το ticket
+AbandonTicket=Εγκαταλείψτε το ticket
+CloseATicket=Κλείστε|Επιλύστε ένα ticket
+ConfirmCloseAticket=Επιβεβαιώστε το κλείσιμο του ticket
+ConfirmAbandonTicket=Επιβεβαιώνετε το κλείσιμο του ticket με κατάσταση 'Εγκαταλελειμμένο'
+ConfirmDeleteTicket=Επιβεβαιώστε τη διαγραφή του ticket
+TicketDeletedSuccess=Το ticket διαγράφηκε με επιτυχία
+TicketMarkedAsClosed=Το ticket επισημαίνεται ως κλειστό
+TicketDurationAuto=Υπολογισμένη διάρκεια
+TicketDurationAutoInfos=Διάρκεια υπολογίζεται αυτόματα από την παρέμβαση
+TicketUpdated=Το ticket ενημερώθηκε
+SendMessageByEmail=Αποστολή μηνύματος μέσω ηλεκτρονικού ταχυδρομείου
+TicketNewMessage=Νέο μήνυμα
+ErrorMailRecipientIsEmptyForSendTicketMessage=Ο παραλήπτης είναι κενός. Δεν στέλνεται μήνυμα ηλεκτρονικού ταχυδρομείου
+TicketGoIntoContactTab=Μεταβείτε στην καρτέλα &quot;Επαφές&quot; για να τις επιλέξετε
+TicketMessageMailIntro=Εισαγωγή
+TicketMessageMailIntroHelp=Αυτό το κείμενο προστίθεται μόνο στην αρχή του μηνύματος ηλεκτρονικού ταχυδρομείου και δεν θα αποθηκευτεί.
+TicketMessageMailIntroLabelAdmin=Εισαγωγή στο μήνυμα κατά την αποστολή μηνυμάτων ηλεκτρονικού ταχυδρομείου
+TicketMessageMailIntroText=Γεια σας, <br> Μια νέα απάντηση στάλθηκε σε ένα ticket που είστε επαφή. Εδώ είναι το μήνυμα: <br>
+TicketMessageMailIntroHelpAdmin=Αυτό το κείμενο θα εισαχθεί πριν από το κείμενο της απάντησης σε ένα ticket.
+TicketMessageMailSignature=Υπογραφή
+TicketMessageMailSignatureHelp=Αυτό το κείμενο προστίθεται μόνο στο τέλος του μηνύματος ηλεκτρονικού ταχυδρομείου και δεν θα αποθηκευτεί.
+TicketMessageMailSignatureText=<p> Με εκτιμιση, </p><p> - </p>
+TicketMessageMailSignatureLabelAdmin=Υπογραφή ηλεκτρονικού ταχυδρομείου απάντησης
+TicketMessageMailSignatureHelpAdmin=Αυτό το κείμενο θα εισαχθεί μετά το μήνυμα απάντησης.
+TicketMessageHelp=Μόνο αυτό το κείμενο θα αποθηκευτεί στη λίστα μηνυμάτων της κάρτας tickets.
+TicketMessageSubstitutionReplacedByGenericValues=Οι μεταβλητές αντικατάστασης αντικαθίστανται από γενικές τιμές.
+TimeElapsedSince=Χρόνος που πέρασε από τότε
+TicketTimeToRead=Ο χρόνος που παρέμενε πριν διαβάσετε
+TicketTimeElapsedBeforeSince=Time elapsed before / since
+TicketContacts=Επαφές ticket
+TicketDocumentsLinked=Έγγραφα που συνδέονται με το ticket
+ConfirmReOpenTicket=Επιβεβαιώστε ανοίγματος ξανά σε αυτό το ticket;
+TicketMessageMailIntroAutoNewPublicMessage=Ένα νέο μήνυμα αναρτήθηκε στο ticket με το θέμα %s:
+TicketAssignedToYou=Το ticket έχει ανατεθεί
+TicketAssignedEmailBody=Σας έχει ανατεθεί το ticket # %s από %s
+MarkMessageAsPrivate=Σημειώστε το μήνυμα ως ιδιωτικό
+TicketMessagePrivateHelp=Αυτό το μήνυμα δεν θα εμφανίζεται σε εξωτερικούς χρήστες
+TicketEmailOriginIssuer=Δημιουργός στην αρχή των tickets
+InitialMessage=Αρχικό μήνυμα
+LinkToAContract=Σύνδεση με σύμβαση
+TicketPleaseSelectAContract=Επιλέξτε μια σύμβαση
+UnableToCreateInterIfNoSocid=Δεν είναι δυνατή η δημιουργία παρέμβασης όταν δεν ορίζεται κάποιο τρίτο μέρος
+TicketMailExchanges=Ανταλλαγές αλληλογραφίας
+TicketInitialMessageModified=Αρχικό μήνυμα τροποποιήθηκε
+TicketMessageSuccesfullyUpdated=Το μήνυμα ενημερώθηκε με επιτυχία
+TicketChangeStatus=Αλλαγή κατάστασης
+TicketConfirmChangeStatus=Επιβεβαιώστε την αλλαγή κατάστασης: %s?
+TicketLogStatusChanged=Η κατάσταση άλλαξε: %s to %s
+TicketNotNotifyTiersAtCreate=Μην ειδοποιείτε την εταιρεία στη δημιουργία
+Unread=Αδιάβαστος
+TicketNotCreatedFromPublicInterface=Μη διαθέσιμος. Το εισιτήριο δεν δημιουργήθηκε από το δημόσιο περιβάλλον.
+ErrorTicketRefRequired=Το όνομα αναφοράς Eισιτηρίου είναι υποχρεωτικό
+
+#
+# Logs
+#
+TicketLogMesgReadBy=Το ticket %s διαβάστηκε από %s
+NoLogForThisTicket=Δεν υπάρχει καταγραφή για αυτό το ticket ακόμα
+TicketLogAssignedTo=Το ticket %s ανατέθηκε στο %s
+TicketLogPropertyChanged=Το ticket %s τροποποιήθηκε: ταξινόμηση από %s σε %s
+TicketLogClosedBy=Το ticket %s έκλεισε με %s
+TicketLogReopen=Εκ νέου άνοιγμα του ticket %s 
+
+#
+# Public pages
+#
+TicketSystem=Σύστημα ticket
+ShowListTicketWithTrackId=Εμφάνιση λίστας ticket με βάση το αναγνωριστικό ID
+ShowTicketWithTrackId=Εμφάνιση ticket από το αναγνωριστικό ID
+TicketPublicDesc=Μπορείτε να δημιουργήσετε ένα ticket υποστήριξης ή να επιλέξετε από ένα αναγνωριστικό ID.
+YourTicketSuccessfullySaved=Το ticket αποθηκεύτηκε με επιτυχία!
+MesgInfosPublicTicketCreatedWithTrackId=Ένα νέο ticket δημιουργήθηκε με ID %sκαι αναφ. %s
+PleaseRememberThisId=Παρακαλούμε να διατηρήσετε τον αριθμό παρακολούθησης που σας ζητάμε αργότερα.
+TicketNewEmailSubject=Δημιουργία ticket- Ref %s (δημόσιο ID %s)
+TicketNewEmailSubjectCustomer=Νέο ticket υποστήριξης
+TicketNewEmailBody=Αυτό είναι ένα αυτόματο μήνυμα ηλεκτρονικού ταχυδρομείου που επιβεβαιώνει ότι έχετε καταχωρήσει ένα νέο ticket.
+TicketNewEmailBodyCustomer=Αυτό είναι ένα αυτόματο μήνυμα ηλεκτρονικού ταχυδρομείου που επιβεβαιώνει ότι μόλις δημιουργήθηκε νέο ticket στο λογαριασμό σας.
+TicketNewEmailBodyInfosTicket=Πληροφορίες για την παρακολούθηση του ticket
+TicketNewEmailBodyInfosTrackId=Αριθμός παρακολούθησης ticket: %s
+TicketNewEmailBodyInfosTrackUrl=Μπορείτε να δείτε την πρόοδο του ticket κάνοντας κλικ στον παραπάνω σύνδεσμο.
+TicketNewEmailBodyInfosTrackUrlCustomer=Μπορείτε να δείτε την πρόοδο του ticket στη συγκεκριμένη διεπαφή κάνοντας κλικ στον ακόλουθο σύνδεσμο
+TicketEmailPleaseDoNotReplyToThisEmail=Παρακαλώ μην απαντήσετε απευθείας σε αυτό το μήνυμα ηλεκτρονικού ταχυδρομείου! Χρησιμοποιήστε το σύνδεσμο για να απαντήσετε μέσω της διεπαφής.
+TicketPublicInfoCreateTicket=Αυτή η φόρμα σάς επιτρέπει να καταγράψετε ένα ticket υποστήριξης στο σύστημα διαχείρισης.
+TicketPublicPleaseBeAccuratelyDescribe=Παρακαλούμε περιγράψτε με ακρίβεια το πρόβλημα. Παρέχετε τις περισσότερες πληροφορίες που είναι δυνατόν να μας επιτρέψουν να προσδιορίσουμε σωστά το αίτημά σας.
+TicketPublicMsgViewLogIn=Εισαγάγετε το αναγνωριστικό παρακολούθησης ticket
+TicketTrackId=Δημόσιο αναγνωριστικό παρακολούθησης
+OneOfTicketTrackId=Ένα από τα αναγνωριστικά παρακολούθησης
+ErrorTicketNotFound=Δεν βρέθηκε ticket με αναγνωριστικό παρακολούθησης %s!
+Subject=Αντικείμενο
+ViewTicket=Προβολή ticket
+ViewMyTicketList=Δείτε τη λίστα των tickets μου
+ErrorEmailMustExistToCreateTicket=Σφάλμα: η διεύθυνση ηλεκτρονικού ταχυδρομείου δεν βρέθηκε στη βάση δεδομένων μας
+TicketNewEmailSubjectAdmin=Δημιουργήθηκε νέο ticket - Ref %s (δημόσιο ticket ID %s)
+TicketNewEmailBodyAdmin=<p> Το ticket μόλις δημιουργήθηκε με την ID # %s, δείτε τις πληροφορίες: </p>
+SeeThisTicketIntomanagementInterface=Δείτε το εισιτήριο στη διεπαφή διαχείρισης
+TicketPublicInterfaceForbidden=Η δημόσια διεπαφή για τα tickets δεν ήταν ενεργοποιημένη
+ErrorEmailOrTrackingInvalid=Λάθος τιμή ID παρακολούθηση ή ηλεκτρονικού ταχυδρομείου
+OldUser=Παλιός χρήστης
+NewUser=Νέος χρήστης
+NumberOfTicketsByMonth=Αριθμός tickets ανά μήνα
+NbOfTickets=Αριθμός tickets
+# notifications
+TicketNotificationEmailSubject=Το ticket %s ενημερώθηκε
+TicketNotificationEmailBody=Αυτό είναι ένα αυτόματο μήνυμα που σας ειδοποιεί ότι το ticket %s μόλις ενημερώθηκε
+TicketNotificationRecipient=Αποδέκτης ειδοποίησης
+TicketNotificationLogMessage=Μηνύματα καταγραφής
+TicketNotificationEmailBodyInfosTrackUrlinternal=Προβολή ticket σε διεπαφή
+TicketNotificationNumberEmailSent=Ειδοποίηση ηλεκτρονικού ταχυδρομείου αποστολή: %s
+
+ActionsOnTicket=Συμβάντα του ticket
+
+#
+# Boxes
+#
+BoxLastTicket=Πρόσφατα δημιουργημένα tickets
+BoxLastTicketDescription=Τα τελευταία %s δημιουργημένα tickets
+BoxLastTicketContent=
+BoxLastTicketNoRecordedTickets=Δεν υπάρχουν πρόσφατα αδιάβαστα tickets
+BoxLastModifiedTicket=Τελευταία τροποποιημένα tickets
+BoxLastModifiedTicketDescription=Τα τελευταία %s τροποποιημένα tickets
+BoxLastModifiedTicketContent=
+BoxLastModifiedTicketNoRecordedTickets=Δεν υπάρχουν πρόσφατα τροποποιημένα tickets
+BoxTicketType=Distribution of open tickets by type
+BoxTicketSeverity=Number of open tickets by severity
+BoxNoTicketSeverity=No tickets opened
+BoxTicketLastXDays=Number of new tickets by days the last %s days
+BoxTicketLastXDayswidget = Number of new tickets by days the last X days
+BoxNoTicketLastXDays=No new tickets the last %s days
+BoxNumberOfTicketByDay=Number of new tickets by day
+BoxNewTicketVSClose=Number of tickets versus closed tickets (today)
+TicketCreatedToday=Ticket created today
+TicketClosedToday=Ticket closed today
+KMFoundForTicketGroup=We found topics and FAQs that may answers your question, thanks to check them before submitting the ticket

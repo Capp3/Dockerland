@@ -1,0 +1,32 @@
+# Dolibarr language file - Source file is en_US - oauth
+ConfigOAuth=OAuth konfiguration
+OAuthServices=OAuth Services
+ManualTokenGeneration=Manuel token generation
+TokenManager=Token Manager
+IsTokenGenerated=Er token genereret?
+NoAccessToken=Ingen adgangstoken gemt i den lokale database
+HasAccessToken=Et token blev genereret og gemt i lokal database
+NewTokenStored=Token modtaget og gemt
+ToCheckDeleteTokenOnProvider=Klik her for at kontrollere / slette autorisation gemt af %s OAuth udbyder
+TokenDeleted=Token slettet
+RequestAccess=Klik her for at anmode om / forny adgang og modtage et nyt token for at gemme
+DeleteAccess=Klik her for at slette token
+UseTheFollowingUrlAsRedirectURI=Brug følgende URL som omdirigerings-URI, når du opretter dine legitimationsoplysninger hos din OAuth-udbyder:
+ListOfSupportedOauthProviders=Indtast legitimationsoplysninger leveret af din OAuth2-udbyder. Kun understøttede OAuth2-udbydere er listet her. Disse tjenester kan bruges af andre moduler, der har brug for OAuth2-godkendelse.
+OAuthSetupForLogin=Side for at generere et OAuth-token
+SeePreviousTab=Se tidligere faneblad
+OAuthIDSecret=OAuth ID og Secret
+TOKEN_REFRESH=Token Refresh Present
+TOKEN_EXPIRED=Token udløbet
+TOKEN_EXPIRE_AT=Token udløber kl
+TOKEN_DELETE=Slet gemt token
+OAUTH_GOOGLE_NAME=OAuth Google service
+OAUTH_GOOGLE_ID=OAuth Google Id
+OAUTH_GOOGLE_SECRET=OAuth Google Secret
+OAUTH_GOOGLE_DESC=Gå til <a class="notasortlink" href="https://console.developers.google.com/" target="_blank">denne side</a> og derefter "Credentials" for at oprette OAuth-legitimationsoplysninger
+OAUTH_GITHUB_NAME=OAuth GitHub service
+OAUTH_GITHUB_ID=OAuth GitHub Id
+OAUTH_GITHUB_SECRET=OAuth GitHub Secret
+OAUTH_GITHUB_DESC=Gå til <a class="notasortlink" href="https://github.com/settings/developers" target="_blank">denne side</a> og derefter "Registrer en ny applikation" for at oprette OAuth-legitimationsoplysninger
+OAUTH_STRIPE_TEST_NAME=OAuth Stripe Test
+OAUTH_STRIPE_LIVE_NAME=OAuth Stripe Live

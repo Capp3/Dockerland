@@ -1,0 +1,34 @@
+# Dolibarr language file - Source file is en_US - loan
+Loan=Lån
+Loans=Lån
+NewLoan=Nytt lån
+ShowLoan=Visa lån
+PaymentLoan=lånebetalning
+LoanPayment=lånebetalning
+ShowLoanPayment=visa lånebetalning
+LoanCapital=Kapital
+Insurance=Försäkring
+Interest=Ränta
+Nbterms=Antal termer
+Term=Termin
+LoanAccountancyCapitalCode=Redovisningskontokapital
+LoanAccountancyInsuranceCode=Redovisningskontoförsäkring
+LoanAccountancyInterestCode=Räkningskonto ränta
+ConfirmDeleteLoan=Bekräfta borttagning av lån
+LoanDeleted=Lånet borttaget
+ConfirmPayLoan=Bekräfta uppmärkningen av detta lån 
+LoanPaid=Lånet betalt
+ListLoanAssociatedProject=Förteckning över lån i samband med projektet
+AddLoan=Skapa lån
+FinancialCommitment=Finansiellt engagemang
+InterestAmount=Ränta
+CapitalRemain=Kapital kvarstår
+TermPaidAllreadyPaid = Denna period är redan betald
+CantUseScheduleWithLoanStartedToPaid = Kan inte använda schemaläggaren för ett lån när betalningen har startat
+CantModifyInterestIfScheduleIsUsed = Du kan inte ändra intresse om du använder schema
+# Admin
+ConfigLoan=Modullånets konfiguration
+LOAN_ACCOUNTING_ACCOUNT_CAPITAL=Redovisningskontokapital som standard
+LOAN_ACCOUNTING_ACCOUNT_INTEREST=Räkenskapsredovisning är som standard
+LOAN_ACCOUNTING_ACCOUNT_INSURANCE=Redovisningsbokföringsförsäkring som standard
+CreateCalcSchedule=Redigera ekonomiskt engagemang
