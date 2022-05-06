@@ -17,7 +17,7 @@ services:
       marketplace:     
     container_name: leantime_db
     volumes:
-      - db_data:/var/lib/mysql
+      - leantime_db_data:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 'B^fd43H63FXvs'
