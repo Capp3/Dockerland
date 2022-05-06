@@ -1,0 +1,8 @@
+use utf8;
+
+Set($WebPort, 443);
+Set($MailCommand, "testfile");
+
+Set($WebDomain, "tickets.capparelli.ie");
+
+1;
