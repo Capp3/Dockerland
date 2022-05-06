@@ -1,18 +1,40 @@
 version: "3.7"
 ########################### Networks
-# networks:
+networks:
+  marketplace:
+    external: true
 
 ########################### VOLUMES
-# volumes:
+volumes:
+    leantime_db_data: {}
 
 ########################### SERVICES
 services: 
 
-  request-tracker:
-    container_name: request_tracker
-    restart: unless-stopped
-    ports:
-      - '8080:8080'
+  leantime_db:
+    image: mysql:5.7
+    networks:
+      marketplace:     
+    container_name: leantime_db
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
     environment:
-      - RT_WEB_PORT=8080
-    image: 'netsandbox/request-tracker:5.0'
+      MYSQL_ROOT_PASSWORD: 'B^fd43H63FXvs'
+      MYSQL_DATABASE: 'leantime'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'BK4%6dsh6SFfgg'
+    command: --character-set-server=utf8 --collation-server=utf8_unicode_ci
+
+  leantime_web:
+    image: leantime/leantime:latest
+    container_name: leantime
+    environment:
+      LEAN_DB_HOST: 'leantime_db'
+      LEAN_DB_USER: 'admin'
+      LEAN_DB_PASSWORD: 'BK4%6dsh6SFfgg'
+      LEAN_DB_DATABASE: 'leantime'
+    ports:
+      - "8080:80"
+    depends_on:
+      - leantime_db
