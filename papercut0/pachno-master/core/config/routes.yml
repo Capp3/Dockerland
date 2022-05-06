@@ -1,6 +1,0 @@
-project_dashboard:
-    route: /:project_key
-    module: project
-    action: dashboard
-    parameters: [ ]
-    csrf_enabled: false
