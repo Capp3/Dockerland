@@ -11,30 +11,26 @@ volumes:
 ########################### SERVICES
 services: 
 
-  leantime_db:
-    image: mysql:5.7
+  mariadb:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dolibarr
     networks:
-      marketplace:     
-    container_name: leantime_db
-    volumes:
-      - leantime_db_data:/var/lib/mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: 'B^fd43H63FXvs'
-      MYSQL_DATABASE: 'leantime'
-      MYSQL_USER: 'admin'
-      MYSQL_PASSWORD: 'BK4%6dsh6SFfgg'
-    command: --character-set-server=utf8 --collation-server=utf8_unicode_ci
+      marketplace:
 
-  leantime_web:
-    image: leantime/leantime:latest
-    container_name: leantime
+  web:
+    image: tuxgasy/dolibarr
     environment:
-      LEAN_DB_HOST: 'leantime_db'
-      LEAN_DB_USER: 'admin'
-      LEAN_DB_PASSWORD: 'BK4%6dsh6SFfgg'
-      LEAN_DB_DATABASE: 'leantime'
+      DOLI_DB_HOST: mariadb
+      DOLI_DB_USER: root
+      DOLI_DB_PASSWORD: root
+      DOLI_DB_NAME: dolibarr
+      DOLI_URL_ROOT: 'http://tickets.capparelli.ie'
+      PHP_INI_DATE_TIMEZONE: 'Europe/Dublin'
     ports:
       - "8080:80"
-    depends_on:
-      - leantime_db
+    networks:
+      marketplace:
+    links:
+      - mariadb

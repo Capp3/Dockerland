@@ -1,9 +1,0 @@
-# Dolibarr language file - Source file is en_US - propal
-Proposals=Propuesta comercial
-ProposalShort=Propuesta
-ProposalsDraft=Presupuestos en borrador
-Prospect=Cliente Potencia
-PropalsDraft=Borradores
-PropalsOpened=Abierto
-PropalStatusDraft=Borrador (necesita ser validado)
-DefaultModelPropalCreate=Creación de modelo por defecto
