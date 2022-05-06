@@ -2,7 +2,10 @@ version: "3.7"
 ########################### Networks
 networks:
   marketplace:
-    driver: bridge
+    ipam:
+      driver: bridge
+      config:
+        - subnet: "192.168.10.0/24"
 
   dockervlan:
     name: dockervlan
@@ -24,6 +27,8 @@ services:
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      marketplace:
 
   portainer-ce:
     ports:
@@ -35,6 +40,8 @@ services:
         - '/var/run/docker.sock:/var/run/docker.sock'
         - 'portainer_data:/data'
     image: portainer/portainer-ce
+    networks:
+      marketplace:
 
   agent:
     ports:
@@ -45,6 +52,8 @@ services:
         - '/var/run/docker.sock:/var/run/docker.sock'
         - '/var/lib/docker/volumes:/var/lib/docker/volumes'
     image: portainer/agent
+    networks:
+      marketplace:
 
   duplicati:
     image: lscr.io/linuxserver/duplicati
@@ -62,33 +71,8 @@ services:
     ports:
       - 8200:8200
     restart: unless-stopped
-
-  # wireguard:
-  #   container_name: pcd0_wireguard
-  #   cap_add:
-  #     - NET_ADMIN 
-  #     - SYS_MODULE
-  #   sysctls:
-  #     - net.ipv4.conf.all.src_valid_mark=1
-  #     - net.ipv4.ip_forward=1
-  #     - net.ipv6.conf.all.forwarding=1
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=${TZ}
-  #     - SERVERURL=${WCDOMAIN}
-  #     - SERVERPORT=${WCSERVERPORT}
-  #     - PEERS=${PEERS}
-  #     - PEERDNS=8.8.8.8
-  #     # - INTERNAL_SUBNET=${WCINTERNALIP}
-  #     - ALLOWEDIPS=${VCALLOWEDIPS}
-  #   ports:
-  #     - ${WCSERVERPORT}:51820/udp
-  #   volumes:
-  #     - ${DATADIR}/wireguard/config:/config
-  #     - /lib/modules:/lib/modules
-  #   restart: unless-stopped
-  #   image: linuxserver/wireguard
+    networks:
+      marketplace:
 
   pihole:
     container_name: pcd0_pihole
@@ -96,6 +80,7 @@ services:
     networks:
       dockervlan:
         ipv4_address: 192.168.1.254
+      marketplace:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -117,6 +102,8 @@ services:
     container_name: pcd0_proxymanager
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
+    networks:
+      marketplace:
     ports:
       - '80:80' # Public HTTP Port
       - '443:443' # Public HTTPS Port
@@ -125,15 +112,6 @@ services:
       - nginxpm_data:/data
       - /local/data/nginxpm/letsencrypt:/etc/letsencrypt
       
-  antennas:
-    container_name: pcd0_antennas
-    environment:
-        - 'ANTENNAS_URL=http://192.168.1.11:5004'
-        - 'TVHEADEND_URL=http://pi:homeland@192.168.1.13:9981'
-        - TUNER_COUNT=1
-    ports:
-        - '5004:5004'
-    image: thejf/antennas
 
 
 ########################### volumes
