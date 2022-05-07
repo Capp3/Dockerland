@@ -56,25 +56,25 @@ services:
     networks:
       marketplace:
 
-  # duplicati:
-  #   image: lscr.io/linuxserver/duplicati
-  #   container_name: pcd0_duplicati
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=Europe/Dublin
-  #     # - CLI_ARGS= #optional
-  #   volumes:
-  #     - ${DATADIR}/duplicati/config:/config
-  #     - ${DATADIR}/duplicati/backups:/backups
-  #     - ${DATADIR}/duplicati/source:/source
-  #     - /local:/localdata
-  #     - /var/lib/docker/volumes:/dockerdata
-  #   ports:
-  #     - 8200:8200
-  #   restart: unless-stopped
-  #   networks:
-  #     marketplace:
+  duplicati:
+    image: lscr.io/linuxserver/duplicati
+    container_name: pcd0_duplicati
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Dublin
+      # - CLI_ARGS= #optional
+    volumes:
+      - ${DATADIR}/duplicati/config:/config
+      - ${DATADIR}/duplicati/backups:/backups
+      - ${DATADIR}/duplicati/source:/source
+      - /local:/localdata
+      - /var/lib/docker/volumes:/dockerdata
+    ports:
+      - 8200:8200
+    restart: unless-stopped
+    networks:
+      marketplace:
 
   pihole:
     container_name: pcd0_pihole
