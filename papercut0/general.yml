@@ -69,6 +69,7 @@ services:
       - ${DATADIR}/duplicati/backups:/backups
       - ${DATADIR}/duplicati/source:/source
       - /local:/localdata
+      - /var/lib/docker/volumes:/dockerdata
     ports:
       - 8200:8200
     restart: unless-stopped
