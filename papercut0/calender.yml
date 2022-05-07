@@ -1,0 +1,45 @@
+version: "3.7"
+########################### Networks
+networks:
+  marketplace:
+    external: true
+
+########################### VOLUMES
+volumes:
+  databaseBlobenData:
+    name: databaseBlobenData
+  redisBlobenData:
+    name: redisBlobenData
+    
+########################### SERVICES
+services:
+  Bloben:
+    image: 'bloben/app:latest'
+    container_name: Bloben
+    volumes:
+      - ./logs:/logs
+    env_file:
+      - .env
+    ports:
+      - '127.0.0.1:8081:80'
+    restart: always
+
+  databaseBloben:
+    image: 'postgres:13.6-bullseye'
+    container_name: databaseBloben
+    env_file:
+      - .env
+    volumes:
+      - databaseBlobenData:/var/lib/postgresql/data
+    ports:
+      - '5432'
+    restart: always
+
+  redisBloben:
+    image: redis:6.2.6-bullseye
+    container_name: redisBloben
+    volumes:
+      - redisBlobenData:/data
+    ports:
+      - '6379'
+    restart: always
