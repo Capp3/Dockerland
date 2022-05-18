@@ -1,0 +1,69 @@
+version: "3.7"
+########################### Networks
+networks:
+  marketplace:
+    name: marketplace
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.10.0/24"
+
+########################### SERVICES
+services:
+
+  watchtower:
+    container_name: pcd0_watchtower
+    image: containrrr/watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      marketplace:
+
+
+  portainer-ce:
+    ports:
+      - '8000:8000'
+      - '9000:9000'
+    container_name: pcd0_portainer
+    restart: always
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - 'portainer_data:/data'
+    image: portainer/portainer-ce
+    networks:
+      marketplace:
+
+
+  agent:
+    ports:
+      - '9001:9001'
+    container_name: pcd0_portainer_agent
+    restart: always
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '/var/lib/docker/volumes:/var/lib/docker/volumes'
+    image: portainer/agent
+    networks:
+      marketplace:
+
+
+  duplicati:
+    image: lscr.io/linuxserver/duplicati
+    container_name: pcd0_duplicati
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Dublin
+      # - CLI_ARGS= #optional
+    volumes:
+      - ${DATADIR}/duplicati/config:/config
+      - ${DATADIR}/duplicati/backups:/backups
+      - ${DATADIR}/duplicati/source:/source
+      - /local:/localdata
+      - /var/lib/docker/volumes:/dockerdata
+    ports:
+      - 8200:8200
+    restart: unless-stopped
+    networks:
+      marketplace:
