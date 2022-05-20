@@ -1,0 +1,33 @@
+version: "3.7"
+########################### Networks
+networks:
+  marketplace:
+    external: true
+########################### SERVICES
+services:
+  guacd:
+    image: guacamole/guacd
+    container_name: guacd
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - marketplace
+
+  guacamole:
+    image: guacamole/guacamole:latest
+    container_name: guacamole
+    restart: unless-stopped
+    networks:
+      - marketplace
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "$GUACAMOLE_PORT:8080"
+    environment:
+      GUACD_HOSTNAME: guacd
+      MYSQL_HOSTNAME: 192.168.1.11
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: guacamole
+      MYSQL_USER: server
+      MYSQL_PASSWORD: homeland
