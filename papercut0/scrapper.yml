@@ -1,0 +1,117 @@
+version: "2.1"
+########################### Networks
+networks:
+  local1:
+    external: true
+  default:
+
+########################### SERVICES
+services: 
+  vpn:
+    image: dperson/openvpn-client
+    cap_add:
+      - net_admin
+    environment:
+      TZ: ${TZ}
+    networks:
+      - default
+    read_only: true
+    tmpfs:
+      - /run
+      - /tmp
+    restart: unless-stopped
+    ports:
+      - 8112:8112
+      - 9696:9696
+      - 7878:7878
+      - 8989:8989
+    dns: 
+      - 8.8.4.4
+    security_opt:
+      - label:disable
+    stdin_open: true
+    tty: true
+    volumes:
+      - /dev/net:/dev/net:z
+      - ./vpn:/vpn
+
+  deluge:
+    image: lscr.io/linuxserver/deluge
+    container_name: deluge
+    network_mode: "service:vpn"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - DELUGE_LOGLEVEL=error #optional
+    volumes:
+      - ~/data/deluge/config:/config
+      - /transfer/downloads:/downloads
+      - /transfer/blackhole:/blackhole
+      - /transfer/completed:/completed
+    # ports:
+    #   - 8112:8112
+    #   - 6881:6881
+    #   - 6881:6881/udp
+    depends_on:
+      - vpn
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:develop
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - ~/data/prowlarr/config:/config
+      - /transfer/blackhole:/blackhole
+    restart: unless-stopped
+    network_mode: "service:vpn"
+    depends_on:
+      - vpn
+    stdin_open: true
+    tty: true
+
+  radarr:
+    image: lscr.io/linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - ~/data/radarr/config:/config
+      - /homemedia/movies:/movies
+      - /transfer/downloads:/downloads
+      - /transfer/completed:/completed
+    restart: unless-stopped
+    network_mode: "service:vpn"
+    depends_on:
+      - vpn
+    stdin_open: true
+    tty: true
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - ~/data/sonarr/data:/config
+      - /homemedia/tvshows:/tv
+      - /transfer/downloads:/downloads
+      - /transfer/completed:/completed
+    # ports:
+    #   - 8989:8989
+    restart: unless-stopped
+    network_mode: "service:vpn"
+    depends_on:
+      - vpn
+    stdin_open: true
+    tty: true
