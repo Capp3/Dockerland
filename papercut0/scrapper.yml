@@ -43,7 +43,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - DELUGE_LOGLEVEL=error #optional
+      - DELUGE_LOGLEVEL=warn #optional
     volumes:
       - ~/data/deluge/config:/config
       - /transfer/downloads:/downloads
