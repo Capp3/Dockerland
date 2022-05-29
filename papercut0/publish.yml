@@ -7,7 +7,7 @@ networks:
 ########################### SERVICES
 services:
   sharelatex:
-    image: sharelatex/sharelatex
+    image: sharelatex/sharelatex:with-texlive-full
     container_name: latex_sharelatex
     depends_on:
       mongo:
