@@ -71,3 +71,7 @@ services:
       marketplace:
         ipv4_address: 192.168.10.13
     tty: true
+
+########################### volumes
+volumes:
+  portainer_data:
