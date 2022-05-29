@@ -12,21 +12,24 @@ services:
     security_opt:
       - no-new-privileges:true
     networks:
-      - marketplace
+      marketplace:
+        ipv4_address: 192.168.10.40
+
 
   guacamole:
     image: guacamole/guacamole:latest
     container_name: guacamole
     restart: unless-stopped
     networks:
-      - marketplace
+      marketplace:
+        ipv4_address: 192.168.10.41
     security_opt:
       - no-new-privileges:true
     ports:
       - "8080:8080"
     environment:
-      GUACD_HOSTNAME: guacd
-      MYSQL_HOSTNAME: 192.168.1.11
+      GUACD_HOSTNAME: 192.168.10.40
+      MYSQL_HOSTNAME: 192.168.10.100
       MYSQL_PORT: 3306
       MYSQL_DATABASE: guacamole
       MYSQL_USER: server

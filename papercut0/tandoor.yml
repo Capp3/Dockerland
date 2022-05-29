@@ -6,7 +6,6 @@ networks:
 
 ########################### SERVICES
 services:
-
   db_recipes:
     container_name: tandoor_db
     restart: always
@@ -15,6 +14,9 @@ services:
       - /local/data/eat/postgresql:/var/lib/postgresql/data
     env_file:
       - ./.eatenv
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.50
 
   web_recipes:
     container_name: tandoor_thingy
@@ -27,6 +29,9 @@ services:
       - /local/data/eat/mediafiles:/opt/recipes/mediafiles
     depends_on:
       - db_recipes
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.51
 
   nginx_recipes:
     container_name: tandoor_nginx
@@ -42,3 +47,6 @@ services:
       - /local/data/eat/nginx_config:/etc/nginx/conf.d:ro
       - /local/data/eat/staticfiles:/static
       - /local/data/eat/mediafiles:/media
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.52

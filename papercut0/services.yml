@@ -19,17 +19,8 @@ networks:
 services:
 
   pihole:
-    container_name: pcd0_pihole
+    container_name: service_pihole
     image: pihole/pihole:latest
-    networks:
-      dockervlan:
-        ipv4_address: 192.168.1.254
-      marketplace:
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
-      - "80:80/tcp"
     environment:
       TZ: ${TZ}
       WEBPASSWORD: ${PIHOLEGUIPASSWORD}
@@ -38,27 +29,40 @@ services:
     volumes:
       - 'pihole_etc-pihole:/etc/pihole'
       - 'pihole_etc-dnsmasq.d:/etc/dnsmasq.d'
+    networks:
+      dockervlan:
+        ipv4_address: 192.168.1.254
+      marketplace:
+        ipv4_address: 192.168.10.20
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
+      - "80:80/tcp"
     cap_add:
       - NET_ADMIN
+    tty: true
     restart: unless-stopped
 
   nginxpm:
-    container_name: pcd0_proxymanager
+    container_name: service_proxymanager
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
+    volumes:
+      - nginxpm_data:/data
+      - /local/data/nginxpm/letsencrypt:/etc/letsencrypt
     networks:
       marketplace:
+        ipv4_address: 192.168.10.21
     ports:
       - '80:80' # Public HTTP Port
       - '443:443' # Public HTTPS Port
       - '81:81'
-    volumes:
-      - nginxpm_data:/data
-      - /local/data/nginxpm/letsencrypt:/etc/letsencrypt
+
 
   mariadb:
     image: lscr.io/linuxserver/mariadb:latest
-    container_name: mariadb
+    container_name: service_mariadb
     environment:
       - PUID=1000
       - PGID=1000
@@ -68,24 +72,11 @@ services:
       - MYSQL_USER=server
     volumes:
       - /local/data/mariadb/config:/config
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.100
     ports:
-      - 3306:3306
-    restart: unless-stopped
-
-  mysql-workbench:
-    image: lscr.io/linuxserver/mysql-workbench:latest
-    container_name: mysql-workbench
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - UMASK=022
-    volumes:
-      - /local/data/workbench/config:/config
-    ports:
-      - 3000:3000
-    cap_add:
-      - IPC_LOCK
+      - 3306:3306        
     restart: unless-stopped
 
 ########################### volumes

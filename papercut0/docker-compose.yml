@@ -10,7 +10,6 @@ networks:
 
 ########################### SERVICES
 services:
-
   watchtower:
     container_name: pcd0_watchtower
     image: containrrr/watchtower
@@ -19,7 +18,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       marketplace:
-
+        ipv4_address: 192.168.10.10
+    tty: true
 
   portainer-ce:
     ports:
@@ -33,7 +33,8 @@ services:
     image: portainer/portainer-ce
     networks:
       marketplace:
-
+        ipv4_address: 192.168.10.11
+    tty: true
 
   agent:
     ports:
@@ -46,7 +47,8 @@ services:
     image: portainer/agent
     networks:
       marketplace:
-
+        ipv4_address: 192.168.10.12
+    tty: true
 
   duplicati:
     image: lscr.io/linuxserver/duplicati
@@ -67,3 +69,5 @@ services:
     restart: unless-stopped
     networks:
       marketplace:
+        ipv4_address: 192.168.10.13
+    tty: true

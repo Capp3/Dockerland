@@ -13,27 +13,27 @@ volumes:
 ########################### SERVICES
 services:
 
-  dolibarr:
-    container_name: dolibarr
-    image: tuxgasy/dolibarr
-    environment:
-      DOLI_ADMIN_LOGIN: admin
-      DOLI_DB_HOST: mariadb
-      DOLI_DB_USER: root
-      DOLI_DB_PASSWORD: ${DOLI_DB_PASS}
-      DOLI_DB_NAME: dolibarr
-      DOLI_ADMIN_PASSWORD: ${DOLI_ADMIN_PASS}
-      DOLI_URL_ROOT: ${DOLI_URL_ROOT}
-      PHP_INI_DATE_TIMEZONE: ${TZ}
-    ports:
-      - "8880:80"
-    links:
-      - mariadb
-    volumes:
-      - /local/data/dolibarr/dolibarr:/local
-      - /local/data/dolibarr-docs:/var/www/documents
-      - /local/data/dolibarr/www:/var/www/html/custom
-      - /local/data/dolibarr/backup:/backup
+  # dolibarr:
+  #   container_name: dolibarr
+  #   image: tuxgasy/dolibarr
+  #   environment:
+  #     DOLI_ADMIN_LOGIN: admin
+  #     DOLI_DB_HOST: mariadb
+  #     DOLI_DB_USER: root
+  #     DOLI_DB_PASSWORD: ${DOLI_DB_PASS}
+  #     DOLI_DB_NAME: dolibarr
+  #     DOLI_ADMIN_PASSWORD: ${DOLI_ADMIN_PASS}
+  #     DOLI_URL_ROOT: ${DOLI_URL_ROOT}
+  #     PHP_INI_DATE_TIMEZONE: ${TZ}
+  #   ports:
+  #     - "8880:80"
+  #   links:
+  #     - mariadb
+  #   volumes:
+  #     - /local/data/dolibarr/dolibarr:/local
+  #     - /local/data/dolibarr-docs:/var/www/documents
+  #     - /local/data/dolibarr/www:/var/www/html/custom
+  #     - /local/data/dolibarr/backup:/backup
 
   mariadb:
     container_name: dolibarr_mariadb
