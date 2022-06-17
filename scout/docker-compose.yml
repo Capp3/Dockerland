@@ -2,7 +2,11 @@ version: "3.7"
 ########################### Networks
 networks:
   local1:
-    driver: bridge
+    name: local1
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.10.0/24"
   # marketplace:
   #   external: true
   # warehouse:
