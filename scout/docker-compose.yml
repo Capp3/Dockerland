@@ -81,7 +81,7 @@ services:
     restart: always
     networks:
       local1:
-        ipv4_address: 192.168.10.21
+        ipv4_address: 192.168.10.25
     environment:
       - API_KEY=${CFDDNS1}
       - ZONE=papercut.design
@@ -140,7 +140,7 @@ services:
     depends_on:
       - readsb
     environment:
-      - BEASTHOST=192.168.10.24
+      - BEASTHOST=192.168.10.23
       - TZ=${TZ}
       - LAT=54.57303
       - LONG=-5.92260
