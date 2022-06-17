@@ -105,7 +105,7 @@ services:
     devices:
       - /dev/bus/usb:/dev/bus/usb
     ports:
-      - 8080:8088
+      - 8090:8080
       - 30005:30005
     networks:
       local1:
