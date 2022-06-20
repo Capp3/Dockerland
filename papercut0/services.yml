@@ -85,7 +85,7 @@ services:
     image: tiangolo/nginx-rtmp
     networks:
       marketplace:
-        ipv4_address: 192.168.1.10.25
+        ipv4_address: 192.168.10.25
 
 ########################### volumes
 volumes:
