@@ -57,7 +57,7 @@ services:
     container_name: portainer_agent
     networks:
       local1:
-        ipv4_address: 192.168.10.20
+        ipv4_address: 192.168.10.50
     restart: always
     volumes:
         - '/var/run/docker.sock:/var/run/docker.sock'
@@ -70,7 +70,7 @@ services:
     restart: always
     networks:
       local1:
-        ipv4_address: 192.168.10.21
+        ipv4_address: 192.168.10.51
     environment:
       - API_KEY=${CFDDNS0}
       - ZONE=capparelli.ie
@@ -81,7 +81,7 @@ services:
     restart: always
     networks:
       local1:
-        ipv4_address: 192.168.10.25
+        ipv4_address: 192.168.10.55
     environment:
       - API_KEY=${CFDDNS1}
       - ZONE=papercut.design
@@ -90,7 +90,7 @@ services:
     container_name: watchtower
     networks:
       local1:
-        ipv4_address: 192.168.10.22
+        ipv4_address: 192.168.10.52
     image: containrrr/watchtower 
     restart: unless-stopped
     volumes:
@@ -109,7 +109,7 @@ services:
       - 30005:30005
     networks:
       local1:
-        ipv4_address: 192.168.10.23
+        ipv4_address: 192.168.10.53
     environment:
       - TZ=${TZ}
       - READSB_DCFILTER=true
@@ -135,7 +135,7 @@ services:
     container_name: adsbx
     networks:
       local1:
-        ipv4_address: 192.168.10.24
+        ipv4_address: 192.168.10.54
     restart: always
     depends_on:
       - readsb
