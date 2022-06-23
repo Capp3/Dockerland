@@ -142,10 +142,29 @@ services:
     environment:
       - BEASTHOST=192.168.10.23
       - TZ=${TZ}
-      - LAT=54.57303
-      - LONG=-5.92260
-      - ALT=24m
-      - SITENAME=fit_ingenuity
-      - UUID=9c2fe397-2e44-461a-aa64-efb3b8c2164a
+      - LAT=${LAT}
+      - LONG=${LONG}
+      - ALT=${ALT}
+      - SITENAME=${ADSBSITENAME}
+      - UUID=${ADSBUUID}
     tmpfs:
       - /run:rw,nosuid,nodev,exec,relatime,size=64M,uid=1000,gid=1000
+
+  piaware:
+    image: ghcr.io/sdr-enthusiasts/docker-piaware:latest
+    tty: true
+    container_name: piaware
+    restart: always
+    depends_on:
+      - readsb
+    environment:
+      - TZ=${TZ}
+      - LAT=${LAT}
+      - LONG=${LONG}
+      - RECEIVER_TYPE=relay
+      - BEASTHOST=192.168.10.23
+      - BEASTPORT=30005
+      # - FEEDER_ID=${PIAWAREKEY}
+    tmpfs:
+      - /run:exec,size=64M
+      - /var/log
