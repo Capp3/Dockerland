@@ -167,7 +167,7 @@ services:
       - RECEIVER_TYPE=relay
       - BEASTHOST=192.168.10.23
       - BEASTPORT=30005
-      # - FEEDER_ID=${PIAWAREKEY}
+      - FEEDER_ID=${PIAWAREKEY}
     tmpfs:
       - /run:exec,size=64M
       - /var/log
