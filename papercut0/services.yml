@@ -18,31 +18,31 @@ networks:
 ########################### SERVICES
 services:
 
-  pihole:
-    container_name: service_pihole
-    image: pihole/pihole:latest
-    environment:
-      TZ: ${TZ}
-      WEBPASSWORD: ${PIHOLEGUIPASSWORD}
-      PIHOLE_DNS_: 1.1.1.1;8.8.8.8
-      WEBTHEME: "default-auto"
-    volumes:
-      - 'pihole_etc-pihole:/etc/pihole'
-      - 'pihole_etc-dnsmasq.d:/etc/dnsmasq.d'
-    networks:
-      dockervlan:
-        ipv4_address: 192.168.1.254
-      marketplace:
-        ipv4_address: 192.168.10.20
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
-      - "80:80/tcp"
-    cap_add:
-      - NET_ADMIN
-    tty: true
-    restart: unless-stopped
+  # pihole:
+  #   container_name: service_pihole
+  #   image: pihole/pihole:latest
+  #   environment:
+  #     TZ: ${TZ}
+  #     WEBPASSWORD: ${PIHOLEGUIPASSWORD}
+  #     PIHOLE_DNS_: 1.1.1.1;8.8.8.8
+  #     WEBTHEME: "default-auto"
+  #   volumes:
+  #     - 'pihole_etc-pihole:/etc/pihole'
+  #     - 'pihole_etc-dnsmasq.d:/etc/dnsmasq.d'
+  #   networks:
+  #     dockervlan:
+  #       ipv4_address: 192.168.1.254
+  #     marketplace:
+  #       ipv4_address: 192.168.10.20
+  #   ports:
+  #     - "53:53/tcp"
+  #     - "53:53/udp"
+  #     - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
+  #     - "80:80/tcp"
+  #   cap_add:
+  #     - NET_ADMIN
+  #   tty: true
+  #   restart: unless-stopped
 
   nginxpm:
     container_name: service_proxymanager
