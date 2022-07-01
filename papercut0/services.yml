@@ -4,16 +4,14 @@ networks:
   marketplace:
     external: true
 
-  dockervlan:
-    name: dockervlan
-    driver: macvlan
-    driver_opts:
-      parent: enp1s0
-    ipam:
-      config:
-        - subnet: "192.168.1.0/24"
-          # ip_range: "192.168.1.252/31"
-          # gateway: "192.168.1.1"
+  # dockervlan:
+  #   name: dockervlan
+  #   driver: macvlan
+  #   driver_opts:
+  #     parent: enp1s0
+  #   ipam:
+  #     config:
+  #       - subnet: "192.168.1.0/24"
 
 ########################### SERVICES
 services:
@@ -78,14 +76,14 @@ services:
       - 3306:3306        
     restart: unless-stopped
 
-  nginx-rtmp:
-    ports:
-        - '1935:1935'
-    container_name: nginx-rtmp
-    image: tiangolo/nginx-rtmp
-    networks:
-      marketplace:
-        ipv4_address: 192.168.10.29
+  # nginx-rtmp:
+  #   ports:
+  #       - '1935:1935'
+  #   container_name: nginx-rtmp
+  #   image: tiangolo/nginx-rtmp
+  #   networks:
+  #     marketplace:
+  #       ipv4_address: 192.168.10.29
 
 ########################### volumes
 volumes:
