@@ -1,0 +1,56 @@
+version: "3.7"
+########################### Networks
+networks:
+  marketplace:
+    external: true
+
+  dockervlan:
+    name: dockervlan
+    driver: macvlan
+    driver_opts:
+      parent: enp1s0
+    ipam:
+      config:
+        - subnet: "192.168.1.0/24"
+
+########################### SERVICES
+services:
+
+  wordpress:
+    image: wordpress:5.1.1-fpm-alpine
+    container_name: wordpress
+    restart: unless-stopped
+    env_file: .env
+    tty: true
+    environment:
+      - WORDPRESS_DB_HOST=192.168.10.100:3306
+      - WORDPRESS_DB_USER=$DATABASE_USER
+      - WORDPRESS_DB_PASSWORD=$DATABASE_PASSWORD
+      - WORDPRESS_DB_NAME=portfolio_site
+    volumes:
+      - /netdata/wordpress/portfolio_site:/var/www/html
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.70
+      dockervlan:
+        ipv4_address: 192.168.1.254
+
+  # webserver:
+  #   depends_on:
+  #     - wordpress
+  #   image: nginx:1.15.12-alpine
+  #   container_name: webserver
+  #   restart: unless-stopped
+  #   tty: true
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - /netdata/wordpress/portfolio_site:/var/www/html
+  #     - /netdata/nginx/portfolio_site/nginx-conf:/etc/nginx/conf.d
+  #     - /netdata/nginx/portfolio_site/certbot-etc:/etc/letsencrypt
+  #   networks:
+  #     marketplace:
+  #       ipv4_address: 192.168.10.71
+  #     dockervlan:
+  #       ipv4_address: 192.168.1.254
