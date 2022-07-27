@@ -21,3 +21,4 @@ logs/nginx/*
 !logs/nginx/.keep
 _trash
 *.Rproj
+./farmland0/data
