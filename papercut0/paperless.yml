@@ -1,0 +1,61 @@
+version: "3.4"
+networks:
+  marketplace:
+    external: true
+
+services:
+  broker:
+    container_name: broker
+    image: redis:6.0
+    restart: unless-stopped
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.31
+
+  webserver:
+    container_name: webserver
+    image: jonaswinkler/paperless-ng:latest
+    restart: unless-stopped
+    depends_on:
+      - broker
+      - gotenberg
+      - tika
+    ports:
+      - 8801:8000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - /local/data/paperless:/usr/src/paperless/data
+      - /netdata/paperless/media:/usr/src/paperless/media
+      - /netdata/paperless/export:/usr/src/paperless/export
+      - /netdata/paperless/consume:/usr/src/paperless/consume
+    env_file: paperless.env
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.32
+    environment:
+      PAPERLESS_REDIS: redis://192.168.10.31:6379
+      PAPERLESS_TIKA_ENABLED: 1
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://192.168.10.33:3000
+      PAPERLESS_TIKA_ENDPOINT: http://192.168.10.34:9998
+
+  gotenberg:
+    container_name: gotenberg
+    image: thecodingmachine/gotenberg
+    restart: unless-stopped
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.33
+    environment:
+      DISABLE_GOOGLE_CHROME: 1
+
+  tika:
+    container_name: tika
+    image: apache/tika
+    restart: unless-stopped
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.34
