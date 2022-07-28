@@ -5,7 +5,7 @@ networks:
 
 services:
   broker:
-    container_name: broker
+    container_name: paperless_broker
     image: redis:6.0
     restart: unless-stopped
     networks:
@@ -13,7 +13,7 @@ services:
         ipv4_address: 192.168.10.31
 
   webserver:
-    container_name: webserver
+    container_name: paperless_webserver
     image: jonaswinkler/paperless-ng:latest
     restart: unless-stopped
     depends_on:
@@ -46,7 +46,7 @@ services:
       PAPERLESS_CONSUMER_RECURSIVE: 1
 
   gotenberg:
-    container_name: gotenberg
+    container_name: paperless_gotenberg
     image: thecodingmachine/gotenberg
     restart: unless-stopped
     networks:
@@ -56,7 +56,7 @@ services:
       DISABLE_GOOGLE_CHROME: 1
 
   tika:
-    container_name: tika
+    container_name: paperless_tika
     image: apache/tika
     restart: unless-stopped
     networks:
