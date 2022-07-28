@@ -5,13 +5,7 @@ networks:
     external: true
 
   dockervlan:
-    name: dockervlan
-    driver: macvlan
-    driver_opts:
-      parent: enp1s0
-    ipam:
-      config:
-        - subnet: "192.168.1.0/24"
+    external: true
 
 ########################### SERVICES
 services:
@@ -33,7 +27,7 @@ services:
       marketplace:
         ipv4_address: 192.168.10.70
       dockervlan:
-        ipv4_address: 192.168.1.254
+        ipv4_address: 192.168.1.253
 
   # webserver:
   #   depends_on:
