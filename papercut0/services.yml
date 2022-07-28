@@ -50,25 +50,6 @@ services:
       - '443:443' # Public HTTPS Port
       - '81:81'
 
-  mariadb:
-    image: lscr.io/linuxserver/mariadb:latest
-    container_name: service_mariadb
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - UMASK=022
-      - MYSQL_ROOT_PASSWORD=${mariadbpassword}
-      - TZ=${TZ}
-      - MYSQL_USER=server
-    volumes:
-      - /local/data/mariadb/config:/config
-    networks:
-      marketplace:
-        ipv4_address: 192.168.10.100
-    ports:
-      - 3306:3306        
-    restart: unless-stopped
-
   # nginx-rtmp:
   #   ports:
   #       - '1935:1935'
