@@ -35,6 +35,8 @@ services:
       marketplace:
         ipv4_address: 192.168.10.11
     tty: true
+    depends_on:
+      - agent
 
   agent:
     ports:
