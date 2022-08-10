@@ -165,7 +165,7 @@ services:
       - LAT=${LAT}
       - LONG=${LONG}
       - RECEIVER_TYPE=relay
-      - BEASTHOST=192.168.10.23
+      - BEASTHOST=192.168.10.53
       - BEASTPORT=30005
       - FEEDER_ID=${PIAWAREKEY}
     tmpfs:

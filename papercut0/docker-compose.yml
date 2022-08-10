@@ -6,7 +6,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: "192.168.10.0/24"
+        - subnet: "192.168.10.0/16"
 
 ########################### SERVICES
 services:
@@ -65,7 +65,7 @@ services:
       - /local:/localdata
       - /var/lib/docker/volumes:/dockerdata
     ports:
-      - 8200:8200
+      - ${DUPLCATI_PORT}:8200
     restart: unless-stopped
     networks:
       marketplace:

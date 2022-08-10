@@ -21,7 +21,7 @@ services:
     container_name: adguardhome
     networks:
       dockervlan:
-        ipv4_address: 192.168.1.254
+        ipv4_address: ${ADAWARE_IP}
     ports:
       - 53:53/tcp
       - 53:53/udp
@@ -31,8 +31,8 @@ services:
       - 80:80/tcp
       - 443:443/tcp
     volumes:
-      - /local/data/adguard/workdir:/opt/adguardhome/work
-      - /local/data/adguard/confdir:/opt/adguardhome/conf
+      - ${LOCALDATADIR}/adguard/workdir:/opt/adguardhome/work
+      - ${LOCALDATADIR}/adguard/confdir:/opt/adguardhome/conf
     restart: unless-stopped
 
   nginxpm:
@@ -41,13 +41,13 @@ services:
     restart: unless-stopped
     volumes:
       - nginxpm_data:/data
-      - /local/data/nginxpm/letsencrypt:/etc/letsencrypt
+      - ${LOCALDATADIR}/nginxpm/letsencrypt:/etc/letsencrypt
     networks:
       marketplace:
         ipv4_address: 192.168.10.21
     ports:
-      - '80:80' # Public HTTP Port
-      - '443:443' # Public HTTPS Port
+      - '80:80'
+      - '443:443'
       - '81:81'
 
   # nginx-rtmp:

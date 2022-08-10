@@ -21,17 +21,17 @@ services:
       - gotenberg
       - tika
     ports:
-      - 8801:8000
+      - ${PAPERLESS_PORT}:8000
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000"]
       interval: 30s
       timeout: 10s
       retries: 5
     volumes:
-      - /local/data/paperless:/usr/src/paperless/data
-      - /netdata/paperless/media:/usr/src/paperless/media
-      - /netdata/paperless/export:/usr/src/paperless/export
-      - /netdata/paperless/consume:/usr/src/paperless/consume
+      - ${LOCALDATADIR}/paperless:/usr/src/paperless/data
+      - ${NASDATADIR}/paperless/media:/usr/src/paperless/media
+      - ${NASDATADIR}/paperless/export:/usr/src/paperless/export
+      - ${NASDATADIR}/paperless/consume:/usr/src/paperless/consume
     env_file: paperless.env
     networks:
       marketplace:

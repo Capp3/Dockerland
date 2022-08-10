@@ -1,0 +1,58 @@
+version: '3'
+
+networks:
+  marketplace:
+    external: true
+
+services:
+  photonix-postgres:
+    container_name: photonix-postgres
+    image: postgres:11.1-alpine
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.61
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: photonix
+      POSTGRES_PASSWORD: ${PHOTONIX_POSTGRES_PWD}
+    volumes:
+      - ${DATADIR}/photonix/db:/var/lib/postgresql/data
+
+  redis:
+    container_name: photonix-redis
+    image: redis:6.2.2
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.62
+    ports:
+      - '6379:6379'
+
+  photonix:
+    container_name: photonix
+    # image: photonixapp/photonix:latest
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.63
+    image: photonix
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.prd
+    ports:
+      - ${PHOTONIX_PORT}:80
+    environment:
+      ENV: prd
+      POSTGRES_HOST: 192.168.10.61
+      POSTGRES_DB: photonix
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${PHOTONIX_POSTGRES_PWD}
+      REDIS_HOST: 192.168.10.62
+      ALLOWED_HOSTS: '*'
+    volumes:
+      - ${DATADIR}/photonix/photos:/data/photos
+      - ${PHOTODIR}/photonix/raw-photos-processed:/data/raw-photos-processed
+      - ${DATADIR}/photonix/cache:/data/cache
+      - ${DATADIR}/photonix/models:/data/models
+    links:
+      - postgres
+      - redis

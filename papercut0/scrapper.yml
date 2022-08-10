@@ -11,6 +11,7 @@ services:
     container_name: scrape_vpn
     environment:
       TZ: ${TZ}
+      VPN_AUTH: ${VPN_UN};${VPN_PASS}
     volumes:
       - /dev/net:/dev/net:z
       - ./vpn:/vpn
@@ -19,10 +20,10 @@ services:
       marketplace:
         ipv4_address: 192.168.10.25
     ports:
-      - 8112:8112
-      - 9696:9696
-      - 7878:7878
-      - 8989:8989
+      - ${DELUGE_PORT}:8112
+      - ${PROWLERR_PORT}:9696
+      - ${RADARR_PORT}:7878
+      - ${SONARR_PORT}:8989
     dns: 
       - 8.8.4.4              
     cap_add:
@@ -49,10 +50,10 @@ services:
       - TZ=${TZ}
       - DELUGE_LOGLEVEL=warn #optional
     volumes:
-      - ~/data/deluge/config:/config
-      - /transfer/downloads:/downloads
-      - /transfer/blackhole:/blackhole
-      - /transfer/completed:/completed
+      - ${DATADIR}/deluge/config:/config
+      - ${TRANSFER_DIR}/downloads:/downloads
+      - ${TRANSFER_DIR}/blackhole:/blackhole
+      - ${TRANSFER_DIR}/completed:/completed
     # ports:
     #   - 8112:8112
     #   - 6881:6881
@@ -71,8 +72,8 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - ~/data/prowlarr/config:/config
-      - /transfer/blackhole:/blackhole
+      - ${DATADIR}/prowlarr/config:/config
+      - ${TRANSFER_DIR}/blackhole:/blackhole
     network_mode: "service:vpn"
     depends_on:
       - vpn
@@ -88,10 +89,10 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - ~/data/radarr/config:/config
-      - /homemedia/movies:/movies
-      - /transfer/downloads:/downloads
-      - /transfer/completed:/completed
+      - ${DATADIR}/radarr/config:/config
+      - ${MEDIA_DIR}/movies:/movies
+      - ${TRANSFER_DIR}/downloads:/downloads
+      - ${TRANSFER_DIR}/completed:/completed
     network_mode: "service:vpn"
     depends_on:
       - vpn
@@ -107,10 +108,10 @@ services:
       - PGID=1000
       - TZ=${TZ}
     volumes:
-      - ~/data/sonarr/data:/config
-      - /homemedia/tvshows:/tv
-      - /transfer/downloads:/downloads
-      - /transfer/completed:/completed
+      - ${DATADIR}/sonarr/data:/config
+      - ${MEDIA_DIR}/tvshows:/tv
+      - ${TRANSFER_DIR}/downloads:/downloads
+      - ${TRANSFER_DIR}/completed:/completed
     # ports:
     #   - 8989:8989
     restart: unless-stopped
