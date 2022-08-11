@@ -17,25 +17,6 @@ networks:
 ########################### SERVICES
 services:
 
-  adguardhome:
-    image: adguard/adguardhome
-    container_name: adguardhome
-    networks:
-      dockervlan:
-        ipv4_address: ${ADAWARE_IP}
-    ports:
-      - 53:53/tcp
-      - 53:53/udp
-      - 784:784/udp
-      - 853:853/tcp
-      - 3000:3000/tcp
-      - 80:80/tcp
-      - 443:443/tcp
-    volumes:
-      - ${LOCALDATADIR}/adguard/workdir:/opt/adguardhome/work
-      - ${LOCALDATADIR}/adguard/confdir:/opt/adguardhome/conf
-    restart: unless-stopped
-
   nginxpm:
     container_name: service_proxymanager
     image: 'jc21/nginx-proxy-manager:latest'
