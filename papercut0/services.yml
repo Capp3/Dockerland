@@ -4,8 +4,8 @@ networks:
   marketplace:
     external: true
 
-  dockervlan:
-    external: true
+  # dockervlan:
+  #   external: true
     # name: dockervlan
     # driver: macvlan
     # driver_opts:
