@@ -5,13 +5,14 @@ networks:
     external: true
 
   dockervlan:
-    name: dockervlan
-    driver: macvlan
-    driver_opts:
-      parent: enp1s0
-    ipam:
-      config:
-        - subnet: "192.168.1.0/24"
+    external: true
+    # name: dockervlan
+    # driver: macvlan
+    # driver_opts:
+    #   parent: enp1s0
+    # ipam:
+    #   config:
+    #     - subnet: "192.168.1.0/24"
 
 ########################### SERVICES
 services:
