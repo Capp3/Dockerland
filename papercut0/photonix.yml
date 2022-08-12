@@ -19,7 +19,7 @@ services:
     volumes:
       - ${DATADIR}/photonix/db:/var/lib/postgresql/data
 
-  redis:
+  photonix-redis:
     container_name: photonix-redis
     image: redis:6.2.2
     networks:
@@ -54,5 +54,5 @@ services:
       - ${DATADIR}/photonix/cache:/data/cache
       - ${DATADIR}/photonix/models:/data/models
     links:
-      - postgres
-      - redis
+      - photonix-postgres
+      - photonix-redis
