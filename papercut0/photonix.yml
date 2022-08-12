@@ -36,7 +36,7 @@ services:
         ipv4_address: 192.168.10.63
     image: photonix
     build:
-      context: ..
+      context: .
       dockerfile: photonix.prod
     ports:
       - ${PHOTONIX_PORT}:80
