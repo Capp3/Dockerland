@@ -1,0 +1,9 @@
+.Spinner {
+  padding: 40px;
+  display: block;
+  text-align: center;
+}
+.Spinner img {
+  width: 38px;
+  height: 38px;
+}

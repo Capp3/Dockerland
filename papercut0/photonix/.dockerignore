@@ -1,0 +1,10 @@
+.git
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+openface
+data
+training_data
+ui/node_modules
+backend/classifiers/style/images
