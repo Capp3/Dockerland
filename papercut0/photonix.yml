@@ -37,7 +37,7 @@ services:
     image: photonix
     build:
       context: ..
-      dockerfile: docker/Dockerfile.prd
+      dockerfile: docker/photonix.prod
     ports:
       - ${PHOTONIX_PORT}:80
     environment:
