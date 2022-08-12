@@ -11,7 +11,7 @@ services:
     container_name: scrape_vpn
     environment:
       TZ: ${TZ}
-      VPN_AUTH: ${VPN_UN};${VPN_PASS}
+      # VPN_AUTH: ${VPN_UN};${VPN_PASS}
     volumes:
       - /dev/net:/dev/net:z
       - ./vpn:/vpn
