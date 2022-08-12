@@ -17,7 +17,7 @@ services:
       POSTGRES_DB: photonix
       POSTGRES_PASSWORD: ${PHOTONIX_POSTGRES_PWD}
     volumes:
-      - ${DATADIR}/photonix/db:/var/lib/postgresql/data
+      - ~/data/photonix/db:/var/lib/postgresql/data
 
   photonix-redis:
     container_name: photonix-redis
@@ -39,7 +39,7 @@ services:
       context: .
       dockerfile: photonix.prod
     ports:
-      - ${PHOTONIX_PORT}:80
+      - 8888:80
     environment:
       ENV: prd
       POSTGRES_HOST: 192.168.10.61
@@ -49,10 +49,10 @@ services:
       REDIS_HOST: 192.168.10.62
       ALLOWED_HOSTS: '*'
     volumes:
-      - ${DATADIR}/photonix/photos:/data/photos
-      - ${PHOTODIR}/photonix/raw-photos-processed:/data/raw-photos-processed
-      - ${DATADIR}/photonix/cache:/data/cache
-      - ${DATADIR}/photonix/models:/data/models
+      - ~/data/photonix/photos:/data/photos
+      - /netphotos/photonix/raw-photos-processed:/data/raw-photos-processed
+      - ~/data/photonix/cache:/data/cache
+      - ~/data/photonix/models:/data/models
     links:
       - photonix-postgres
       - photonix-redis
