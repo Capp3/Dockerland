@@ -22,3 +22,4 @@ logs/nginx/*
 _trash
 *.Rproj
 ./farmland0/data
+vpn.auth
