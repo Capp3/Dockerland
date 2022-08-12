@@ -14,7 +14,7 @@ services:
       # VPN_AUTH: ${VPN_UN};${VPN_PASS}
     volumes:
       - /dev/net:/dev/net:z
-      - ./vpn:/vpn
+      - ./openvpn:/vpn
     read_only: true
     networks:
       marketplace:
