@@ -32,6 +32,22 @@ services:
       - '443:443'
       - '81:81'
 
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    container_name: heimdall
+    networks:
+      marketplace:
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - ${LOCALDATADIR}/heimdall/config:/config
+    ports:
+      - 8080:80
+      - 8443:443
+    restart: unless-stopped
+
   # nginx-rtmp:
   #   ports:
   #       - '1935:1935'
