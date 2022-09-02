@@ -154,7 +154,7 @@ services:
       - 8080:80
       - 8443:443
     healthcheck:
-      test: curl --fail http://localhost:8080 || exit 1
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
       interval: 1m30s
       timeout: 10s
       retries: 3
@@ -170,14 +170,14 @@ services:
     environment:
       - MAX_UPLOAD_SIZE=50
       - TITLE="Doms Paste Place"
-      - URL=https://paste.capparelli.ie
+      - URL=https://paste.capparelli.ie/
       - SHOW_ERRORS=true
-    healthcheck:
-      test: curl --fail http://localhost:8082 || exit 1
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+    # healthcheck:
+    #   test: curl --fail http://localhost:8082 || exit 1
+    #   interval: 1m30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s
     ports:
       - '8082:80'
     restart: unless-stopped
