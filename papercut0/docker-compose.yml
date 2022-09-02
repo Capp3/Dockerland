@@ -37,7 +37,7 @@ services:
     container_name: pcd0_portainer
     restart: always
     healthcheck:
-      test: curl --fail http://localhost:8000 || exit 1
+      test: ["CMD", "curl", "-f", "http://localhost"]
       interval: 60s
       retries: 5
       start_period: 20s
