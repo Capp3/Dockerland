@@ -89,6 +89,11 @@ services:
     networks:
       dockervlan:
         ipv4_address: ${ADAWARE_IP}
+    healthcheck:
+      test: "/bin/netstat -pant | /bin/grep 53"
+      interval: 45s
+      timeout: 30s
+      retries: 3
     ports:
       - 53:53/tcp
       - 53:53/udp
