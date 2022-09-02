@@ -1,0 +1,62 @@
+version: "3.7"
+########################### Networks
+networks:
+  marketplace:
+    external: true
+
+  # dockervlan:
+  #   external: true
+    # name: dockervlan
+    # driver: macvlan
+    # driver_opts:
+    #   parent: enp1s0
+    # ipam:
+    #   config:
+    #     - subnet: "192.168.1.0/24"
+
+########################### SERVICES
+services:
+
+  nginxpm:
+    container_name: service_proxymanager
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    volumes:
+      - nginxpm_data:/data
+      - ${LOCALDATADIR}/nginxpm/letsencrypt:/etc/letsencrypt
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.21
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    container_name: heimdall
+    networks:
+      marketplace:
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - ${LOCALDATADIR}/heimdall/config:/config
+    ports:
+      - 8080:80
+      - 8443:443
+    restart: unless-stopped
+
+  # nginx-rtmp:
+  #   ports:
+  #       - '1935:1935'
+  #   container_name: nginx-rtmp
+  #   image: tiangolo/nginx-rtmp
+  #   networks:
+  #     marketplace:
+  #       ipv4_address: 192.168.10.29
+
+########################### volumes
+volumes:
+  nginxpm_data:
