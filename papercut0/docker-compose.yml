@@ -144,6 +144,29 @@ services:
       - 8080:80
       - 8443:443
     restart: unless-stopped
+  
+  pictshare:
+    image: hascheksolutions/pictshare  
+    container_name: pcd0_pictshare
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.23
+    environment:
+      - MAX_UPLOAD_SIZE=50
+      - TITLE='Doms Paste Place'
+      - URL=https://paste.capparelli.ie
+      - SHOW_ERRORS=true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    ports:
+      - '8082:80'
+    restart: unless-stopped
+
+
 
 ########################### volumes
 volumes:
