@@ -148,3 +148,4 @@ services:
 ########################### volumes
 volumes:
   portainer_data:
+  nginxpm_data:
