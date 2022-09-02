@@ -83,6 +83,12 @@ services:
       - /var/lib/docker/volumes:/dockerdata
     ports:
       - ${DUPLCATI_PORT}:8200
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8200"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     restart: unless-stopped
     networks:
       marketplace:
@@ -127,6 +133,10 @@ services:
       - '80:80'
       - '443:443'
       - '81:81'
+    healthcheck:
+      test: ["CMD", "/bin/check-health"]
+      interval: 10s
+      timeout: 3s
 
   heimdall:
     image: lscr.io/linuxserver/heimdall:latest
@@ -143,6 +153,12 @@ services:
     ports:
       - 8080:80
       - 8443:443
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     restart: unless-stopped
   
   pictshare:
