@@ -36,6 +36,12 @@ services:
       - '9000:9000'
     container_name: pcd0_portainer
     restart: always
+    healthcheck:
+      test: curl --fail http://localhost:8000 || exit 1
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - 'portainer_data:/data'
@@ -85,7 +91,7 @@ services:
 
   adguardhome:
     image: adguard/adguardhome
-    container_name: adguardhome
+    container_name: pcd0_adguardhome
     networks:
       dockervlan:
         ipv4_address: ${ADAWARE_IP}
@@ -105,6 +111,38 @@ services:
     volumes:
       - ${LOCALDATADIR}/adguard/workdir:/opt/adguardhome/work
       - ${LOCALDATADIR}/adguard/confdir:/opt/adguardhome/conf
+    restart: unless-stopped
+
+  nginxpm:
+    container_name: pcd0_proxymanager
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    volumes:
+      - nginxpm_data:/data
+      - ${LOCALDATADIR}/nginxpm/letsencrypt:/etc/letsencrypt
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.21
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    container_name: pcd0_heimdall
+    networks:
+      marketplace:
+        ipv4_address: 192.168.10.22
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - ${LOCALDATADIR}/heimdall/config:/config
+    ports:
+      - 8080:80
+      - 8443:443
     restart: unless-stopped
 
 ########################### volumes
