@@ -153,12 +153,12 @@ services:
     ports:
       - 8080:80
       - 8443:443
-    healthcheck:
-      test: wget --no-verbose --tries=1 --spider http://localhost:8080 || exit 1
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+    # healthcheck:
+    #   test: wget --no-verbose --tries=1 --spider http://localhost:8080 || exit 1
+    #   interval: 10s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s
     restart: unless-stopped
   
   pictshare:
@@ -182,7 +182,17 @@ services:
       - '8082:80'
     restart: unless-stopped
 
-
+  deunhealth:
+    image: qmcgaw/deunhealth
+    container_name: pcd0_deunhealth
+    network_mode: "none"
+    environment:
+      - LOG_LEVEL=info
+      - HEALTH_SERVER_ADDRESS=127.0.0.1:9999
+      - TZ=${TZ}
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
 ########################### volumes
 volumes:
