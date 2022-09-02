@@ -36,12 +36,12 @@ services:
       - '9000:9000'
     container_name: pcd0_portainer
     restart: always
-    healthcheck:
-      test: curl -sS http://localhost:9000 || exit 1
-      interval: 60s
-      retries: 5
-      start_period: 20s
-      timeout: 10s
+    # healthcheck:
+    #   test: curl -sS http://localhost:9000 || exit 1
+    #   interval: 60s
+    #   retries: 5
+    #   start_period: 20s
+    #   timeout: 10s
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - 'portainer_data:/data'
@@ -154,7 +154,7 @@ services:
       - 8080:80
       - 8443:443
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      test: curl --fail http://localhost:8080 || exit 1
       interval: 1m30s
       timeout: 10s
       retries: 3
@@ -173,7 +173,7 @@ services:
       - URL=https://paste.capparelli.ie
       - SHOW_ERRORS=true
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8082"]
+      test: curl --fail http://localhost:8082 || exit 1
       interval: 1m30s
       timeout: 10s
       retries: 3
