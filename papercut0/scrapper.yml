@@ -39,7 +39,6 @@ services:
     labels:
       - com.centurylinklabs.watchtower.enable="false"
 
-
   deluge:
     image: lscr.io/linuxserver/deluge
     container_name: scrape_deluge
