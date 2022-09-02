@@ -94,6 +94,8 @@ services:
       marketplace:
         ipv4_address: 192.168.10.13
     tty: true
+    labels:
+      - deunhealth.restart.on.unhealthy=true
 
   adguardhome:
     image: adguard/adguardhome
@@ -118,6 +120,8 @@ services:
       - ${LOCALDATADIR}/adguard/workdir:/opt/adguardhome/work
       - ${LOCALDATADIR}/adguard/confdir:/opt/adguardhome/conf
     restart: unless-stopped
+    labels:
+      - deunhealth.restart.on.unhealthy=true
 
   nginxpm:
     container_name: pcd0_proxymanager
@@ -137,6 +141,8 @@ services:
       test: ["CMD", "/bin/check-health"]
       interval: 10s
       timeout: 3s
+    labels:
+      - deunhealth.restart.on.unhealthy=true
 
   heimdall:
     image: lscr.io/linuxserver/heimdall:latest
@@ -153,12 +159,12 @@ services:
     ports:
       - 8080:80
       - 8443:443
-    # healthcheck:
-    #   test: wget --no-verbose --tries=1 --spider http://localhost:8080 || exit 1
-    #   interval: 10s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 40s
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://api.ipify.org"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     restart: unless-stopped
   
   pictshare:
