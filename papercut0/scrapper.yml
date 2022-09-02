@@ -36,6 +36,8 @@ services:
       - label:disable
     stdin_open: true
     tty: true
+    labels:
+      - deunhealth.restart.on.unhealthy=true
 
   deluge:
     image: lscr.io/linuxserver/deluge
