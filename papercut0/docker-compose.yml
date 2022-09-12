@@ -8,14 +8,14 @@ networks:
       config:
         - subnet: "192.168.10.0/24"
 
-  dockervlan:
-    name: dockervlan
-    driver: macvlan
-    driver_opts:
-      parent: enp1s0
-    ipam:
-      config:
-        - subnet: "192.168.1.0/24"
+  # dockervlan:
+  #   name: dockervlan
+  #   driver: macvlan
+  #   driver_opts:
+  #     parent: enp1s0
+  #   ipam:
+  #     config:
+  #       - subnet: "192.168.1.0/24"
 
 ########################### SERVICES
 services:
@@ -67,82 +67,82 @@ services:
         ipv4_address: 192.168.10.12
     tty: true
 
-  duplicati:
-    image: lscr.io/linuxserver/duplicati
-    container_name: pcd0_duplicati
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Dublin
-      # - CLI_ARGS= #optional
-    volumes:
-      - ${DATADIR}/duplicati/config:/config
-      - ${DATADIR}/duplicati/backups:/backups
-      - ${DATADIR}/duplicati/source:/source
-      - /local:/localdata
-      - /var/lib/docker/volumes:/dockerdata
-    ports:
-      - ${DUPLCATI_PORT}:8200
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8200"]
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    restart: unless-stopped
-    networks:
-      marketplace:
-        ipv4_address: 192.168.10.13
-    tty: true
-    labels:
-      - deunhealth.restart.on.unhealthy=true
+  # duplicati:
+  #   image: lscr.io/linuxserver/duplicati
+  #   container_name: pcd0_duplicati
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=Europe/Dublin
+  #     # - CLI_ARGS= #optional
+  #   volumes:
+  #     - ${DATADIR}/duplicati/config:/config
+  #     - ${DATADIR}/duplicati/backups:/backups
+  #     - ${DATADIR}/duplicati/source:/source
+  #     - /local:/localdata
+  #     - /var/lib/docker/volumes:/dockerdata
+  #   ports:
+  #     - ${DUPLCATI_PORT}:8200
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:8200"]
+  #     interval: 1m30s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 40s
+  #   restart: unless-stopped
+  #   networks:
+  #     marketplace:
+  #       ipv4_address: 192.168.10.13
+  #   tty: true
+  #   labels:
+  #     - deunhealth.restart.on.unhealthy=true
 
-  adguardhome:
-    image: adguard/adguardhome
-    container_name: pcd0_adguardhome
-    networks:
-      dockervlan:
-        ipv4_address: ${ADAWARE_IP}
-    healthcheck:
-      test: "/bin/netstat -pant | /bin/grep 53"
-      interval: 45s
-      timeout: 30s
-      retries: 3
-    ports:
-      - 53:53/tcp
-      - 53:53/udp
-      - 784:784/udp
-      - 853:853/tcp
-      - 3000:3000/tcp
-      - 80:80/tcp
-      - 443:443/tcp
-    volumes:
-      - ${LOCALDATADIR}/adguard/workdir:/opt/adguardhome/work
-      - ${LOCALDATADIR}/adguard/confdir:/opt/adguardhome/conf
-    restart: unless-stopped
-    labels:
-      - deunhealth.restart.on.unhealthy=true
+  # adguardhome:
+  #   image: adguard/adguardhome
+  #   container_name: pcd0_adguardhome
+  #   networks:
+  #     dockervlan:
+  #       ipv4_address: ${ADAWARE_IP}
+  #   healthcheck:
+  #     test: "/bin/netstat -pant | /bin/grep 53"
+  #     interval: 45s
+  #     timeout: 30s
+  #     retries: 3
+  #   ports:
+  #     - 53:53/tcp
+  #     - 53:53/udp
+  #     - 784:784/udp
+  #     - 853:853/tcp
+  #     - 3000:3000/tcp
+  #     - 80:80/tcp
+  #     - 443:443/tcp
+  #   volumes:
+  #     - ${LOCALDATADIR}/adguard/workdir:/opt/adguardhome/work
+  #     - ${LOCALDATADIR}/adguard/confdir:/opt/adguardhome/conf
+  #   restart: unless-stopped
+  #   labels:
+  #     - deunhealth.restart.on.unhealthy=true
 
-  nginxpm:
-    container_name: pcd0_proxymanager
-    image: 'jc21/nginx-proxy-manager:latest'
-    restart: unless-stopped
-    volumes:
-      - nginxpm_data:/data
-      - ${LOCALDATADIR}/nginxpm/letsencrypt:/etc/letsencrypt
-    networks:
-      marketplace:
-        ipv4_address: 192.168.10.21
-    ports:
-      - '80:80'
-      - '443:443'
-      - '81:81'
-    healthcheck:
-      test: ["CMD", "/bin/check-health"]
-      interval: 10s
-      timeout: 3s
-    labels:
-      - deunhealth.restart.on.unhealthy=true
+  # nginxpm:
+  #   container_name: pcd0_proxymanager
+  #   image: 'jc21/nginx-proxy-manager:latest'
+  #   restart: unless-stopped
+  #   volumes:
+  #     - nginxpm_data:/data
+  #     - ${LOCALDATADIR}/nginxpm/letsencrypt:/etc/letsencrypt
+  #   networks:
+  #     marketplace:
+  #       ipv4_address: 192.168.10.21
+  #   ports:
+  #     - '80:80'
+  #     - '443:443'
+  #     - '81:81'
+  #   healthcheck:
+  #     test: ["CMD", "/bin/check-health"]
+  #     interval: 10s
+  #     timeout: 3s
+  #   labels:
+  #     - deunhealth.restart.on.unhealthy=true
 
   heimdall:
     image: lscr.io/linuxserver/heimdall:latest
@@ -167,27 +167,6 @@ services:
       start_period: 40s
     restart: unless-stopped
   
-  pictshare:
-    image: hascheksolutions/pictshare  
-    container_name: pcd0_pictshare
-    networks:
-      marketplace:
-        ipv4_address: 192.168.10.23
-    environment:
-      - MAX_UPLOAD_SIZE=50
-      - TITLE="Doms Paste Place"
-      - URL=https://paste.capparelli.ie/
-      - SHOW_ERRORS=true
-    # healthcheck:
-    #   test: curl --fail http://localhost:8082 || exit 1
-    #   interval: 1m30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 40s
-    ports:
-      - '8082:80'
-    restart: unless-stopped
-
   deunhealth:
     image: qmcgaw/deunhealth
     container_name: pcd0_deunhealth
@@ -203,4 +182,4 @@ services:
 ########################### volumes
 volumes:
   portainer_data:
-  nginxpm_data:
+  # nginxpm_data:
