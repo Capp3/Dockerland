@@ -150,24 +150,45 @@ services:
     tmpfs:
       - /run:rw,nosuid,nodev,exec,relatime,size=64M,uid=1000,gid=1000
 
-  piaware:
-    image: ghcr.io/sdr-enthusiasts/docker-piaware:latest
-    tty: true
-    container_name: piaware
-    restart: always
+  # piaware:
+    # image: ghcr.io/sdr-enthusiasts/docker-piaware:latest
+    # tty: true
+    # container_name: piaware
+    # restart: always
+    # networks:
+    #   local1:
+    #     ipv4_address: 192.168.10.56
+    # depends_on:
+    #   - readsb
+    # environment:
+    #   - TZ=${TZ}
+    #   - LAT=${LAT}
+    #   - LONG=${LONG}
+    #   - RECEIVER_TYPE=relay
+    #   - BEASTHOST=192.168.10.53
+    #   - BEASTPORT=30005
+    #   - FEEDER_ID=${PIAWAREKEY}
+    # tmpfs:
+    #   - /run:exec,size=64M
+    #   - /var/log
+
+  tdarr-node:
+    container_name: tdarr-node
+    image: ghcr.io/haveagitgat/tdarr_node:latest
+    restart: unless-stopped
     networks:
       local1:
-        ipv4_address: 192.168.10.56
-    depends_on:
-      - readsb
+        ipv4_address: 192.168.10.57
     environment:
-      - TZ=${TZ}
-      - LAT=${LAT}
-      - LONG=${LONG}
-      - RECEIVER_TYPE=relay
-      - BEASTHOST=192.168.10.53
-      - BEASTPORT=30005
-      - FEEDER_ID=${PIAWAREKEY}
-    tmpfs:
-      - /run:exec,size=64M
-      - /var/log
+      - TZ=Europe/Dublin
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK_SET=002
+      - nodeID=scoutnode
+      - serverIP=192.168.1.11
+      - serverPort=8266
+    volumes:
+      - /docker/tdarr/configs:/app/configs
+      - /docker/tdarr/logs:/app/logs
+      - /media:/media
+      - /transcode_cache:/temp
