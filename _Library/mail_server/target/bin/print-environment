@@ -1,7 +1,0 @@
-#! /bin/bash
-
-# shellcheck source=../scripts/helper-functions.sh
-. /usr/local/bin/helper-functions.sh
-
-_notify 'inf' 'Printing environment variables. Make sure no sensitive data is copied.'
-cat /etc/dms-settings
