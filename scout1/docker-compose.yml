@@ -57,7 +57,7 @@ services:
     container_name: portainer_agent
     networks:
       local1:
-        ipv4_address: 192.168.10.50
+        ipv4_address: 192.168.10.60
     restart: always
     volumes:
         - '/var/run/docker.sock:/var/run/docker.sock'
@@ -70,7 +70,7 @@ services:
     restart: always
     networks:
       local1:
-        ipv4_address: 192.168.10.51
+        ipv4_address: 192.168.10.61
     environment:
       - API_KEY=${CFDDNS0}
       - ZONE=capparelli.ie
@@ -81,7 +81,7 @@ services:
     restart: always
     networks:
       local1:
-        ipv4_address: 192.168.10.55
+        ipv4_address: 192.168.10.65
     environment:
       - API_KEY=${CFDDNS1}
       - ZONE=papercut.design
@@ -90,65 +90,65 @@ services:
     container_name: watchtower
     networks:
       local1:
-        ipv4_address: 192.168.10.52
+        ipv4_address: 192.168.10.62
     image: containrrr/watchtower 
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   
-  readsb:
-    image: ghcr.io/sdr-enthusiasts/docker-readsb-protobuf:latest
-    tty: true
-    container_name: readsb
-    hostname: readsb
-    restart: always
-    devices:
-      - /dev/bus/usb:/dev/bus/usb
-    ports:
-      - 8090:8080
-      - 30005:30005
-    networks:
-      local1:
-        ipv4_address: 192.168.10.53
-    environment:
-      - TZ=${TZ}
-      - READSB_DCFILTER=true
-      - READSB_DEVICE_TYPE=rtlsdr
-      - READSB_FIX=true
-      - READSB_GAIN=autogain
-      - READSB_LAT=54.57303
-      - READSB_LON=-5.92260
-      - READSB_MODEAC=true
-      - READSB_RX_LOCATION_ACCURACY=2
-      - READSB_STATS_RANGE=true
-      - READSB_NET_ENABLE=true
-    volumes:
-      - readsbpb_rrd:/run/collectd
-      - readsbpb_autogain:/run/autogain
-    tmpfs:
-      - /run/readsb:size=64M
-      - /var/log:size=32M
+  # readsb:
+  #   image: ghcr.io/sdr-enthusiasts/docker-readsb-protobuf:latest
+  #   tty: true
+  #   container_name: readsb
+  #   hostname: readsb
+  #   restart: always
+  #   devices:
+  #     - /dev/bus/usb:/dev/bus/usb
+  #   ports:
+  #     - 8090:8080
+  #     - 30005:30005
+  #   networks:
+  #     local1:
+  #       ipv4_address: 192.168.10.63
+  #   environment:
+  #     - TZ=${TZ}
+  #     - READSB_DCFILTER=true
+  #     - READSB_DEVICE_TYPE=rtlsdr
+  #     - READSB_FIX=true
+  #     - READSB_GAIN=autogain
+  #     - READSB_LAT=54.57303
+  #     - READSB_LON=-5.92260
+  #     - READSB_MODEAC=true
+  #     - READSB_RX_LOCATION_ACCURACY=2
+  #     - READSB_STATS_RANGE=true
+  #     - READSB_NET_ENABLE=true
+  #   volumes:
+  #     - readsbpb_rrd:/run/collectd
+  #     - readsbpb_autogain:/run/autogain
+  #   tmpfs:
+  #     - /run/readsb:size=64M
+  #     - /var/log:size=32M
 
-  adsbexchange:
-    image: ghcr.io/sdr-enthusiasts/docker-adsbexchange:latest
-    tty: true
-    container_name: adsbx
-    networks:
-      local1:
-        ipv4_address: 192.168.10.54
-    restart: always
-    depends_on:
-      - readsb
-    environment:
-      - BEASTHOST=192.168.10.23
-      - TZ=${TZ}
-      - LAT=${LAT}
-      - LONG=${LONG}
-      - ALT=${ALT}
-      - SITENAME=${ADSBSITENAME}
-      - UUID=${ADSBUUID}
-    tmpfs:
-      - /run:rw,nosuid,nodev,exec,relatime,size=64M,uid=1000,gid=1000
+  # adsbexchange:
+  #   image: ghcr.io/sdr-enthusiasts/docker-adsbexchange:latest
+  #   tty: true
+  #   container_name: adsbx
+  #   networks:
+  #     local1:
+  #       ipv4_address: 192.168.10.64
+  #   restart: always
+  #   depends_on:
+  #     - readsb
+  #   environment:
+  #     - BEASTHOST=192.168.10.23
+  #     - TZ=${TZ}
+  #     - LAT=${LAT}
+  #     - LONG=${LONG}
+  #     - ALT=${ALT}
+  #     - SITENAME=${ADSBSITENAME}
+  #     - UUID=${ADSBUUID}
+  #   tmpfs:
+  #     - /run:rw,nosuid,nodev,exec,relatime,size=64M,uid=1000,gid=1000
 
   # piaware:
     # image: ghcr.io/sdr-enthusiasts/docker-piaware:latest
@@ -172,23 +172,23 @@ services:
     #   - /run:exec,size=64M
     #   - /var/log
 
-  tdarr-node:
-    container_name: tdarr-node
-    image: ghcr.io/haveagitgat/tdarr_node:latest
-    restart: unless-stopped
-    networks:
-      local1:
-        ipv4_address: 192.168.10.57
-    environment:
-      - TZ=Europe/Dublin
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - UMASK_SET=002
-      - nodeID=scoutnode
-      - serverIP=192.168.1.11
-      - serverPort=8266
-    volumes:
-      - /docker/tdarr/configs:/app/configs
-      - /docker/tdarr/logs:/app/logs
-      - /media:/media
-      - /transcode_cache:/temp
+  # tdarr-node:
+  #   container_name: tdarr-node
+  #   image: ghcr.io/haveagitgat/tdarr_node:latest
+  #   restart: unless-stopped
+  #   networks:
+  #     local1:
+  #       ipv4_address: 192.168.10.67
+  #   environment:
+  #     - TZ=Europe/Dublin
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - UMASK_SET=002
+  #     - nodeID=scoutnode
+  #     - serverIP=192.168.1.11
+  #     - serverPort=8266
+  #   volumes:
+  #     - /docker/tdarr/configs:/app/configs
+  #     - /docker/tdarr/logs:/app/logs
+  #     - /media:/media
+  #     - /transcode_cache:/temp
