@@ -1,0 +1,30 @@
+version: "3.7"
+########################### Networks
+networks:
+  local1:
+    name: local1
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.11.0/24"
+  # marketplace:
+  #   external: true
+  # warehouse:
+  #   external: true
+  # local0:
+  #   driver: bridge    
+  #   ipam:
+  #     config:
+  #       - subnet: 192.168.0.0/24
+  # rollcall:
+  #   driver: macvlan
+  #   driver_opts: 
+  #     parent: wlan0
+  #   ipam:
+  #     config: 
+  #       - subnet: 192.168.1.0/24
+
+########################### Volumes
+# volumes:
+
+
