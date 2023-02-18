@@ -1,0 +1,58 @@
+---
+
+volumes:
+  # nextcloud:
+  db:
+
+services:
+  db:
+    # Creates a service container based on the MariaDB Docker image
+    image: mariadb
+    # Restart the container until its removal
+    restart: always
+    # Starts the container
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+    # Mounts the docker volume db to the data directory /var/lib/mysql
+    volumes:
+      - db:/var/lib/mysql
+    # Defines the environment variable for MariaDB database details.
+    environment:
+      - MYSQL_ROOT_PASSWORD=h245j908f345f43gs
+      - MYSQL_PASSWORD=SQLmint1206
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=ncuser
+
+  redis:
+    # Defines the Redis service based on the Redis Docker image.
+    image: redis
+    # Restart the container until its removal
+    restart: always
+    # Define the random secret/password for accessing the Redis server
+    command: redis-server --requirepass dfh2349jfj045tf34r34
+
+  app:
+    # Defines the nextcloud service based on the nextcloud Docker image.
+    image: nextcloud
+    # Restart the container until its removal.
+    restart: always
+    # Exposes port 8080 on the Docker host.
+    ports:
+      - 9258:80
+    # Connects the Nextcloud container service to the db and redis services.
+    links:
+      - db
+      - redis
+    # Mounts the volume (nextcloud) to the container directory /var/www/html.
+    volumes:
+      - /mnt/user/appdata/nextcloud2:/var/www/html
+    # Defines the same environment variable as the MariaDB database configuration
+    environment:
+      - MYSQL_PASSWORD=SQLmint1206
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=ncuser
+      - MYSQL_HOST=db
+      - REDIS_HOST_PASSWORD=dfh2349jfj045tf34r34
+    # The Nextcloud container service always runs after the db and redis services.
+    depends_on:
+      - db
+      - redis
