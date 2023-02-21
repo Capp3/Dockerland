@@ -18,7 +18,7 @@ services:
     # Defines the environment variable for MariaDB database details.
     environment:
       - MYSQL_ROOT_PASSWORD=h245j908f345f43gs
-      - MYSQL_PASSWORD=SQLmint1206
+      - MYSQL_PASSWORD=SQLmint3465
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=ncuser
 
@@ -45,9 +45,10 @@ services:
     # Mounts the volume (nextcloud) to the container directory /var/www/html.
     volumes:
       - /mnt/user/appdata/nextcloud2:/var/www/html
+      - /mnt/user/nextcloud:/datadrive
     # Defines the same environment variable as the MariaDB database configuration
     environment:
-      - MYSQL_PASSWORD=SQLmint1206
+      - MYSQL_PASSWORD=SQLmint3465
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=ncuser
       - MYSQL_HOST=db
