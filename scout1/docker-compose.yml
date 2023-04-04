@@ -105,7 +105,19 @@ services:
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-  
+        
+  homepage:
+    image: ghcr.io/benphelps/homepage:latest
+    container_name: homepage
+    networks:
+      local1:
+        ipv4_address: 192.168.10.52
+    ports:
+      - 3000:3000
+    volumes:
+      - ~/homepage:/app/config # Make sure your local config directory exists
+      - /var/run/docker.sock:/var/run/docker.sock
+
   # readsb:
   #   image: ghcr.io/sdr-enthusiasts/docker-readsb-protobuf:latest
   #   tty: true
