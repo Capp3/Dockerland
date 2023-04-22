@@ -111,7 +111,7 @@ services:
     container_name: homepage
     networks:
       local1:
-        ipv4_address: 192.168.10.52
+        ipv4_address: 192.168.10.67
     ports:
       - 3000:3000
     volumes:
@@ -179,7 +179,7 @@ services:
     # restart: always
     # networks:
     #   local1:
-    #     ipv4_address: 192.168.10.56
+    #     ipv4_address: 192.168.10.66
     # depends_on:
     #   - readsb
     # environment:
@@ -187,7 +187,7 @@ services:
     #   - LAT=${LAT}
     #   - LONG=${LONG}
     #   - RECEIVER_TYPE=relay
-    #   - BEASTHOST=192.168.10.53
+    #   - BEASTHOST=192.168.10.63
     #   - BEASTPORT=30005
     #   - FEEDER_ID=${PIAWAREKEY}
     # tmpfs:
