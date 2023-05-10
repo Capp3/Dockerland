@@ -50,3 +50,32 @@ services:
       - '2376:2375'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  snipe-mysql:
+    container_name: snipe-mysql
+    image: mysql:5.6
+    networks:
+      local1:
+        ipv4_address: 192.168.10.71
+    env_file:
+      - ./snipe.env
+    volumes:
+      - snipesql-vol:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    expose:
+      - "3306"
+
+  snipe-it:
+    image: snipe/snipe-it
+    networks:
+      local1:
+        ipv4_address: 192.168.10.72
+    env_file:
+      - ./snipe.env
+    ports:
+      - "3051:80"
+    depends_on:
+      - snipe-mysql
+
+volumes:
+  snipesql-vol:
