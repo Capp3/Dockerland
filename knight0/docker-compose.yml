@@ -1,0 +1,81 @@
+version: "3.7"
+########################### Networks
+networks:
+  local1:
+    name: local1
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.10.0/24"
+  # marketplace:
+  #   external: true
+  # warehouse:
+  #   external: true
+  # local0:
+  #   driver: bridge    
+  #   ipam:
+  #     config:
+  #       - subnet: 192.168.0.0/24
+  # rollcall:
+  #   driver: macvlan
+  #   driver_opts: 
+  #     parent: wlan0
+  #   ipam:
+  #     config: 
+  #       - subnet: 192.168.1.0/24
+
+########################### Volumes
+# volumes:
+
+services:
+  agent:
+    ports:
+        - '9001:9001'
+    container_name: portainer_agent
+    networks:
+      local1:
+        ipv4_address: 192.168.10.80
+    restart: always
+    volumes:
+        - '/var/run/docker.sock:/var/run/docker.sock'
+        - '/var/lib/docker/volumes:/var/lib/docker/volumes'
+    image: portainer/agent
+
+  socketproxy:
+    container_name: socketproxy
+    image: tecnativa/docker-socket-proxy
+    restart: always
+    privileged: true
+    ports:
+      - '2376:2375'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  # snipe-mysql:
+  #   container_name: snipe-mysql
+  #   image: mysql:5.6
+  #   networks:
+  #     local1:
+  #       ipv4_address: 192.168.10.81
+  #   env_file:
+  #     - ./snipe.env
+  #   volumes:
+  #     - /mnt/user/appdata/snipesql:/var/lib/mysql
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   expose:
+  #     - "3308"
+
+  # snipe-it:
+  #   image: snipe/snipe-it
+  #   container_name: snipe-it
+  #   networks:
+  #     local1:
+  #       ipv4_address: 192.168.10.82
+  #   env_file:
+  #     - ./snipe.env
+  #   ports:
+  #     - "8855:80"
+  #   depends_on:
+  #     - snipe-mysql
+  #   volumes:
+  #     - /mnt/user/appdata/snipeit1
