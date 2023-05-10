@@ -60,13 +60,14 @@ services:
     env_file:
       - ./snipe.env
     volumes:
-      - snipesql-vol:/var/lib/mysql
+      - /mnt/user/appdata/snipesql:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
     expose:
       - "3308"
 
   snipe-it:
     image: snipe/snipe-it
+    container_name: snipe-it
     networks:
       local1:
         ipv4_address: 192.168.10.72
@@ -76,6 +77,5 @@ services:
       - "8855:80"
     depends_on:
       - snipe-mysql
-
-volumes:
-  snipesql-vol:
+    volumes:
+      - /mnt/user/appdata/snipeit1
