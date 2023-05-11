@@ -81,20 +81,20 @@ services:
     volumes: 
       - cache:/data
 
-  snipe-it:
-    image: snipe/snipe-it
-    container_name: snipe-it
-    networks:
-      local1:
-        ipv4_address: 192.168.10.83
-    env_file:
-      - ./snipe.env
-    ports:
-      - "8855:80"
-    depends_on:
-      - snipe-mysql
-      - snipe-redis
-    volumes:
-      - snipeit:/var/lib/snipeit
+  # snipe-it:
+  #   image: snipe/snipe-it
+  #   container_name: snipe-it
+  #   networks:
+  #     local1:
+  #       ipv4_address: 192.168.10.83
+  #   env_file:
+  #     - ./snipe.env
+  #   ports:
+  #     - "8855:80"
+  #   depends_on:
+  #     - snipe-mysql
+  #     - snipe-redis
+  #   volumes:
+  #     - snipeit:/var/lib/snipeit
 
   # docker run -d -p 8855:80 --name="snipeit" --link snipe-mysql:mysql --env-file=my_env_file --mount source=snipe-vol,dst=/var/lib/snipeit snipe/snipe-it
