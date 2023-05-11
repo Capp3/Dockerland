@@ -71,6 +71,9 @@ services:
   snipe-redis:
     image: redis:6.2-alpine
     container_name: snipe-redis
+    networks:
+      local1:
+        ipv4_address: 192.168.10.82
     restart: always
     ports:
       - '6379:6379'
@@ -83,7 +86,7 @@ services:
     container_name: snipe-it
     networks:
       local1:
-        ipv4_address: 192.168.10.82
+        ipv4_address: 192.168.10.83
     env_file:
       - ./snipe.env
     ports:
