@@ -70,6 +70,7 @@ services:
 
   snipe-redis:
     image: redis:6.2-alpine
+    container_name: snipe-redis
     restart: always
     ports:
       - '6379:6379'
