@@ -89,6 +89,7 @@ services:
       - "8855:80"
     depends_on:
       - snipe-mysql
+      - snipe-redis
     volumes:
       - snipeit:/var/lib/snipeit
 
