@@ -54,20 +54,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  snipe-mysql:
-    container_name: snipe-mysql
-    image: mysql:5.6
-    networks:
-      local1:
-        ipv4_address: 192.168.10.81
-    env_file:
-      - ./snipe.env
-    volumes:
-      - snipedb:/var/lib/mysql
-    # command: --default-authentication-plugin=mysql_native_password
-    expose:
-      - "3306"
-
   snipe-redis:
     image: redis:6.2-alpine
     container_name: snipe-redis
@@ -81,20 +67,24 @@ services:
     volumes: 
       - cache:/data
 
-  # snipe-it:
-  #   image: snipe/snipe-it
-  #   container_name: snipe-it
-  #   networks:
-  #     local1:
-  #       ipv4_address: 192.168.10.83
-  #   env_file:
-  #     - ./snipe.env
-  #   ports:
-  #     - "8855:80"
-  #   depends_on:
-  #     - snipe-mysql
-  #     - snipe-redis
-  #   volumes:
-  #     - snipeit:/var/lib/snipeit
-
-  # docker run -d -p 8855:80 --name="snipeit" --link snipe-mysql:mysql --env-file=my_env_file --mount source=snipe-vol,dst=/var/lib/snipeit snipe/snipe-it
+  snipe-it:
+    image: lscr.io/linuxserver/snipe-it:latest
+    container_name: snipe-it
+    networks:
+      local1:
+        ipv4_address: 192.168.10.83
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Dublin
+      - APP_URL=http://192.168.1.17:8081
+      - MYSQL_PORT_3306_TCP_ADDR=192.168.1.11
+      - MYSQL_PORT_3306_TCP_PORT=3309
+      - MYSQL_DATABASE=snipeit
+      - MYSQL_USER=snipeit
+      - MYSQL_PASSWORD=4p4PikzLsCSTbpoU2pU7
+    volumes:
+      - snipeit:/config
+    ports:
+      - 8081:80
+    restart: unless-stopped
