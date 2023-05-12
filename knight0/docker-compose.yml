@@ -112,28 +112,28 @@ services:
       - 3000:3000
     restart: unless-stopped
 
-  swag:
-    image: ghcr.io/linuxserver/swag
-    container_name: swag
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - TZ=$TZ #change to your timezone
-      - URL=${DOMAINNAME} #change to the domain you want to protect with a certificate
-      - SUBDOMAINS=wildcard
-      - VALIDATION=dns
-      - DNSPLUGIN=cloudflare
-      - EMAIL=${DNSEMAIL} #change, can be any email address
-      - ONLY_SUBDOMAINS=false
-      # - MAXMINDDB_LICENSE_KEY=$MAXMINDDB #remove if not necessary
-      - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:universal-docker|linuxserver/mods:swag-auto-proxy
-    volumes:
-      - ${DATADIR}/swag:/config
-      - /var/run/docker.sock:/var/run/docker.sock:ro 
-    ports:
-      - 18443:443
-      - 1880:80
-    restart: unless-stopped
-    networks:
-      local1:
-        ipv4_address: 192.168.10.85
+  # swag:
+  #   image: ghcr.io/linuxserver/swag
+  #   container_name: swag
+  #   cap_add:
+  #     - NET_ADMIN
+  #   environment:
+  #     - TZ=$TZ #change to your timezone
+  #     - URL=${DOMAINNAME} #change to the domain you want to protect with a certificate
+  #     - SUBDOMAINS=wildcard
+  #     - VALIDATION=dns
+  #     - DNSPLUGIN=cloudflare
+  #     - EMAIL=${DNSEMAIL} #change, can be any email address
+  #     - ONLY_SUBDOMAINS=false
+  #     # - MAXMINDDB_LICENSE_KEY=$MAXMINDDB #remove if not necessary
+  #     - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:universal-docker|linuxserver/mods:swag-auto-proxy
+  #   volumes:
+  #     - ${DATADIR}/swag:/config
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro 
+  #   ports:
+  #     - 18443:443
+  #     - 1880:80
+  #   restart: unless-stopped
+  #   networks:
+  #     local1:
+  #       ipv4_address: 192.168.10.85
