@@ -68,28 +68,13 @@ services:
       - snipecache:/data
 
   snipe-it:
-    image: lscr.io/linuxserver/snipe-it:latest
-    container_name: snipe-it
-    networks:
-      local1:
-        ipv4_address: 192.168.10.83
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - APP_URL=https://assets.${DOMAINNAME}
-      - MYSQL_PORT_3306_TCP_ADDR=192.168.1.11
-      - MYSQL_PORT_3306_TCP_PORT=3309
-      - MYSQL_DATABASE=snipeit
-      - MYSQL_USER=snipeit
-      - MYSQL_PASSWORD=4p4PikzLsCSTbpoU2pU7
-    volumes:
-      - ${DATADIR}/snipeit:/config
+    image: snipe/snipe-it
+    env_file:
+      - ./snipe.env
     ports:
-      - 8081:80
+      - "8081:80"
     depends_on:
       - snipe-redis
-    restart: unless-stopped
 
   openvscode-server:
     image: lscr.io/linuxserver/openvscode-server:latest
@@ -111,29 +96,3 @@ services:
     ports:
       - 3000:3000
     restart: unless-stopped
-
-  # swag:
-  #   image: ghcr.io/linuxserver/swag
-  #   container_name: swag
-  #   cap_add:
-  #     - NET_ADMIN
-  #   environment:
-  #     - TZ=$TZ #change to your timezone
-  #     - URL=${DOMAINNAME} #change to the domain you want to protect with a certificate
-  #     - SUBDOMAINS=wildcard
-  #     - VALIDATION=dns
-  #     - DNSPLUGIN=cloudflare
-  #     - EMAIL=${DNSEMAIL} #change, can be any email address
-  #     - ONLY_SUBDOMAINS=false
-  #     # - MAXMINDDB_LICENSE_KEY=$MAXMINDDB #remove if not necessary
-  #     - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:universal-docker|linuxserver/mods:swag-auto-proxy
-  #   volumes:
-  #     - ${DATADIR}/swag:/config
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro 
-  #   ports:
-  #     - 18443:443
-  #     - 1880:80
-  #   restart: unless-stopped
-  #   networks:
-  #     local1:
-  #       ipv4_address: 192.168.10.85
