@@ -26,7 +26,7 @@ networks:
 
 ########################### Volumes
 volumes:
-  cache:
+  snipecache:
   snipedb:
   snipeit:
 
@@ -65,7 +65,7 @@ services:
       - '6379:6379'
     command: redis-server --save 20 1 --loglevel warning
     volumes: 
-      - cache:/data
+      - snipecache:/data
 
   snipe-it:
     image: lscr.io/linuxserver/snipe-it:latest
@@ -76,15 +76,64 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/Dublin
-      - APP_URL=https://assets.capparelli.ie
+      - TZ=${TZ}
+      - APP_URL=https://assets.${DOMAINNAME}
       - MYSQL_PORT_3306_TCP_ADDR=192.168.1.11
       - MYSQL_PORT_3306_TCP_PORT=3309
       - MYSQL_DATABASE=snipeit
       - MYSQL_USER=snipeit
       - MYSQL_PASSWORD=4p4PikzLsCSTbpoU2pU7
     volumes:
-      - snipeit:/config
+      - ${DATADIR}/snipeit:/config
     ports:
       - 8081:80
+    depends_on:
+      - snipe-redis
     restart: unless-stopped
+
+  openvscode-server:
+    image: lscr.io/linuxserver/openvscode-server:latest
+    container_name: openvscode-server
+    networks:
+      local1:
+        ipv4_address: 192.168.10.84
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      # - CONNECTION_TOKEN= #optional
+      # - CONNECTION_SECRET= #optional
+      - SUDO_PASSWORD=${SUDOPASSWD} #optional
+      # - SUDO_PASSWORD_HASH= #optional
+    volumes:
+      - ${DATADIR}/openvscode/config:/config
+      - ${DATADIR}:/data
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+
+  swag:
+    image: ghcr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - TZ=$TZ #change to your timezone
+      - URL=${DOMAINNAME} #change to the domain you want to protect with a certificate
+      - SUBDOMAINS=wildcard
+      - VALIDATION=dns
+      - DNSPLUGIN=cloudflare
+      - EMAIL=${DNSEMAIL} #change, can be any email address
+      - ONLY_SUBDOMAINS=false
+      # - MAXMINDDB_LICENSE_KEY=$MAXMINDDB #remove if not necessary
+      - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:universal-docker|linuxserver/mods:swag-auto-proxy
+    volumes:
+      - ${DATADIR}/swag:/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro 
+    ports:
+      - 18443:443
+      - 1880:80
+    restart: unless-stopped
+    networks:
+      local1:
+        ipv4_address: 192.168.10.85
