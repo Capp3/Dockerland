@@ -59,7 +59,7 @@ services:
     container_name: openvscode-server
     networks:
       local1:
-        ipv4_address: 192.168.10.85
+        ipv4_address: 192.168.10.81
     environment:
       - PUID=1000
       - PGID=1000
@@ -74,3 +74,28 @@ services:
     ports:
       - 3000:3000
     restart: unless-stopped
+
+  swag:
+    image: ghcr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - TZ=${TZ}
+      - URL=${DOMAINNAME}
+      - SUBDOMAINS=wildcard
+      - VALIDATION=dns
+      - DNSPLUGIN=cloudflare
+      - EMAIL=${DNSEMAIL}
+      - ONLY_SUBDOMAINS=false
+      - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:universal-docker|linuxserver/mods:swag-auto-proxy #delete if not wanted or necessary
+    volumes:
+      - ${DATADIR}/swag:/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro 
+    ports:
+      - 18443:443
+      - 1880:80
+    restart: unless-stopped
+    networks:
+      local1:
+        ipv4_address: 192.168.10.82
