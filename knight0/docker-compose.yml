@@ -63,26 +63,3 @@ services:
     networks:
       local1:
         ipv4_address: 192.168.10.82
-
-  snipe-it:
-    image: lscr.io/linuxserver/snipe-it:latest
-    container_name: snipe-it
-    networks:
-      local1:
-        ipv4_address: 192.168.10.83
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - APP_URL=https://assets.capparelli.ie
-      - MYSQL_PORT_3306_TCP_ADDR=192.168.1.11
-      - MYSQL_PORT_3306_TCP_PORT=3309
-      - MYSQL_DATABASE=snipeit
-      - MYSQL_USER=snipeit
-      - MYSQL_PASSWORD=${SI_DB_PASSWORD}
-    volumes:
-      - ${DATADIR}/snipeit/config:/config
-      - /netdata/swag/etc:/certs
-    ports:
-      - 8081:80
-    restart: unless-stopped
