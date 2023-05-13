@@ -75,7 +75,7 @@ services:
       - ONLY_SUBDOMAINS=false
       - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:universal-docker|linuxserver/mods:swag-auto-proxy #delete if not wanted or necessary
     volumes:
-      - /netdata/swag:/config
+      - ${DATADIR}/swag:/config
       - /var/run/docker.sock:/var/run/docker.sock:ro 
     ports:
       - 18443:443
