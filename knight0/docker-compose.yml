@@ -75,7 +75,7 @@ services:
       - ONLY_SUBDOMAINS=false
       - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:universal-docker|linuxserver/mods:swag-auto-proxy #delete if not wanted or necessary
     volumes:
-      - ${DATADIR}/swag:/config
+      - /netdata/swag:/config
       - /var/run/docker.sock:/var/run/docker.sock:ro 
     ports:
       - 18443:443
@@ -103,6 +103,7 @@ services:
       - MYSQL_PASSWORD=${SI_DB_PASSWORD}
     volumes:
       - ${DATADIR}/snipeit/config:/config
+      - /netdata/swag/etc:/certs
     ports:
       - 8081:80
     restart: unless-stopped
