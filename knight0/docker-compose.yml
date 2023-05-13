@@ -86,6 +86,7 @@ services:
       - SUBDOMAINS=wildcard
       - VALIDATION=dns
       - DNSPLUGIN=cloudflare
+      - PROPAGATION=120
       - EMAIL=${DNSEMAIL}
       - ONLY_SUBDOMAINS=false
       - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:universal-docker|linuxserver/mods:swag-auto-proxy #delete if not wanted or necessary
