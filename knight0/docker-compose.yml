@@ -71,7 +71,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - APP_URL=http://localhost:8080
+      - APP_URL=https://assets.capparelli.ie
       - MYSQL_PORT_3306_TCP_ADDR=192.168.1.11
       - MYSQL_PORT_3306_TCP_PORT=3309
       - MYSQL_DATABASE=snipeit
