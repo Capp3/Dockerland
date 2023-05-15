@@ -78,7 +78,7 @@ services:
       - MYSQL_USER=snipeit
       - MYSQL_PASSWORD=4p4PikzLsCSTbpoU2pU7
     volumes:
-      - /path/to/data:/config
+      - ${DATADIR}:/config
     ports:
       - 8081:80
     restart: unless-stopped
