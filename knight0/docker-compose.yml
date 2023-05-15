@@ -76,7 +76,14 @@ services:
       - MYSQL_PORT_3306_TCP_PORT=3309
       - MYSQL_DATABASE=snipeit
       - MYSQL_USER=snipeit
-      - MYSQL_PASSWORD=4p4PikzLsCSTbpoU2pU7
+      - MYSQL_PASSWORD=${SI_DB_PASSWORD}
+      - MAIL_PORT_587_TCP_ADDR='smtp.gmail.com'
+      - MAIL_PORT_587_TCP_PORT=587
+      - MAIL_ENV_FROM_ADDR='dom@papercut.design'
+      - MAIL_ENV_FROM_NAME='Snipe-It'
+      - MAIL_ENV_ENCRYPTION=tls
+      - MAIL_ENV_USERNAME=${DNSEMAIL}
+      - MAIL_ENV_PASSWORD=${SIEMAILPASS}
     volumes:
       - ${DATADIR}:/config
     ports:
