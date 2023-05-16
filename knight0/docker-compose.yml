@@ -64,31 +64,31 @@ services:
       local1:
         ipv4_address: 192.168.10.82
 
-  snipe-it:
-    image: lscr.io/linuxserver/snipe-it:latest
-    container_name: snipe-it
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - APP_URL=https://assets.capparelli.ie
-      - MYSQL_PORT_3306_TCP_ADDR=192.168.1.11
-      - MYSQL_PORT_3306_TCP_PORT=3309
-      - MYSQL_DATABASE=snipeit
-      - MYSQL_USER=snipeit
-      - MYSQL_PASSWORD=${SI_DB_PASSWORD}
-      - MAIL_PORT_587_TCP_ADDR='smtp.gmail.com'
-      - MAIL_PORT_587_TCP_PORT=587
-      - MAIL_ENV_FROM_ADDR='dom@papercut.design'
-      - MAIL_ENV_FROM_NAME='Snipe-It'
-      - MAIL_ENV_ENCRYPTION=tls
-      - MAIL_ENV_USERNAME=${DNSEMAIL}
-      - MAIL_ENV_PASSWORD=${SIEMAILPASS}
-    volumes:
-      - ${DATADIR}:/config
-    ports:
-      - 8081:80
-    restart: unless-stopped
-    networks:
-      local1:
-        ipv4_address: 192.168.10.83
+  # snipe-it:
+  #   image: lscr.io/linuxserver/snipe-it:latest
+  #   container_name: snipe-it
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=${TZ}
+  #     - APP_URL=https://assets.capparelli.ie
+  #     - MYSQL_PORT_3306_TCP_ADDR=192.168.1.11
+  #     - MYSQL_PORT_3306_TCP_PORT=3309
+  #     - MYSQL_DATABASE=snipeit
+  #     - MYSQL_USER=snipeit
+  #     - MYSQL_PASSWORD=${SI_DB_PASSWORD}
+  #     - MAIL_PORT_587_TCP_ADDR='smtp.gmail.com'
+  #     - MAIL_PORT_587_TCP_PORT=587
+  #     - MAIL_ENV_FROM_ADDR='dom@papercut.design'
+  #     - MAIL_ENV_FROM_NAME='Snipe-It'
+  #     - MAIL_ENV_ENCRYPTION=tls
+  #     - MAIL_ENV_USERNAME=${DNSEMAIL}
+  #     - MAIL_ENV_PASSWORD=${SIEMAILPASS}
+  #   volumes:
+  #     - ${DATADIR}:/config
+  #   ports:
+  #     - 8081:80
+  #   restart: unless-stopped
+  #   networks:
+  #     local1:
+  #       ipv4_address: 192.168.10.83
