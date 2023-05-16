@@ -67,25 +67,25 @@ services:
       - internal-pod
       - external-pod
 
-  agent:
-    ports:
-        - '9001:9001'
-    container_name: portainer_agent
-    networks:
-      local1:
-        ipv4_address: 192.168.10.90
-    restart: always
-    volumes:
-        - '/var/run/docker.sock:/var/run/docker.sock'
-        - '/var/lib/docker/volumes:/var/lib/docker/volumes'
-    image: portainer/agent
+  # agent:
+  #   ports:
+  #       - '9001:9001'
+  #   container_name: portainer_agent
+  #   networks:
+  #     local1:
+  #       ipv4_address: 192.168.10.90
+  #   restart: always
+  #   volumes:
+  #       - '/var/run/docker.sock:/var/run/docker.sock'
+  #       - '/var/lib/docker/volumes:/var/lib/docker/volumes'
+  #   image: portainer/agent
 
-  socketproxy:
-    container_name: socketproxy
-    image: tecnativa/docker-socket-proxy
-    restart: always
-    privileged: true
-    ports:
-      - '2376:2375'
-    volumes:
-      - /var/run/dock
+  # socketproxy:
+  #   container_name: socketproxy
+  #   image: tecnativa/docker-socket-proxy
+  #   restart: always
+  #   privileged: true
+  #   ports:
+  #     - '2376:2375'
+  #   volumes:
+  #     - /var/run/dock
