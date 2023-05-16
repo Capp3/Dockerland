@@ -1,10 +1,6 @@
 version: '3'
 
 networks:
-  internal-pod:
-    internal: true
-  external-pod:
-    internal: false
   local1:
     name: local1
     ipam:
@@ -18,74 +14,40 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: dolibarr
-    ports:
-      - "3306:3306"
-    networks:
-      - internal-pod
-      - external-pod
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-      PMA_HOST: mariadb
-    depends_on:
-      - mariadb
-    ports:
-      - "8080:80"
-    networks:
-      - internal-pod
-      - external-pod
 
   web:
-    build: .
+    image: tuxgasy/dolibarr
     environment:
-      HOST_USER_ID: $HOST_USER_ID
-      PHP_INI_DATE_TIMEZONE: $PHP_INI_DATE_TIMEZONE
-      PHP_INI_MEMORY_LIMIT: $PHP_INI_MEMORY_LIMIT
-    volumes:
-      - ~/data/htdocs:/var/www/html/
-      - ~/data/documents:/var/documents
+      DOLI_DB_HOST: mariadb
+      DOLI_DB_USER: root
+      DOLI_DB_PASSWORD: root
+      DOLI_DB_NAME: dolibarr
+      DOLI_URL_ROOT: 'http://192.168.1.19'
+      PHP_INI_DATE_TIMEZONE: 'Europe/Dublin'
     ports:
       - "80:80"
-      - "9000:9000"
-    depends_on:
+    links:
       - mariadb
-      - mail
-    networks:
-      - internal-pod
-      - external-pod
-    extra_hosts:
-      - "localhost.localdomain:127.0.0.1"
-      - "host.docker.internal:host-gateway"
 
-  mail:
-    image: maildev/maildev
+  agent:
     ports:
-      - "8081:80"
-      - "25:25"
+        - '9001:9001'
+    container_name: portainer_agent
     networks:
-      - internal-pod
-      - external-pod
+      local1:
+        ipv4_address: 192.168.10.90
+    restart: always
+    volumes:
+        - '/var/run/docker.sock:/var/run/docker.sock'
+        - '/var/lib/docker/volumes:/var/lib/docker/volumes'
+    image: portainer/agent
 
-  # agent:
-  #   ports:
-  #       - '9001:9001'
-  #   container_name: portainer_agent
-  #   networks:
-  #     local1:
-  #       ipv4_address: 192.168.10.90
-  #   restart: always
-  #   volumes:
-  #       - '/var/run/docker.sock:/var/run/docker.sock'
-  #       - '/var/lib/docker/volumes:/var/lib/docker/volumes'
-  #   image: portainer/agent
-
-  # socketproxy:
-  #   container_name: socketproxy
-  #   image: tecnativa/docker-socket-proxy
-  #   restart: always
-  #   privileged: true
-  #   ports:
-  #     - '2376:2375'
-  #   volumes:
-  #     - /var/run/dock
+  socketproxy:
+    container_name: socketproxy
+    image: tecnativa/docker-socket-proxy
+    restart: always
+    privileged: true
+    ports:
+      - '2376:2375'
+    volumes:
+      - /var/run/dock
