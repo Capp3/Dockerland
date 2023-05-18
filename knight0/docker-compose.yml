@@ -63,28 +63,3 @@ services:
     networks:
       local1:
         ipv4_address: 192.168.10.82
-
-  mariadb:
-    image: docker.io/bitnami/mariadb:10.6
-    volumes:
-      - ${DATADIR}/bitnami/red_mariadb_data:/bitnami/mariadb
-    environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
-      - MARIADB_USER=bn_redmine
-      - MARIADB_DATABASE=bitnami_redmine
-  redmine:
-    image: docker.io/bitnami/redmine:5
-    ports:
-      - '3000:3000'
-    volumes:
-      - ${DATADIR}/bitnami/redmine_data:/bitnami/redmine
-    depends_on:
-      - mariadb
-    environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDMINE_DATABASE_HOST=mariadb
-      - REDMINE_DATABASE_PORT_NUMBER=3306
-      - REDMINE_DATABASE_USER=bn_redmine
-      - REDMINE_DATABASE_NAME=bitnami_redmine
