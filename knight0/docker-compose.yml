@@ -10,9 +10,6 @@ networks:
 
 ########################### Volumes
 volumes:
-  snipecache:
-  snipedb:
-  snipeit:
 
 services:
   agent:
@@ -63,3 +60,40 @@ services:
     networks:
       local1:
         ipv4_address: 192.168.10.82
+
+  leantime:
+    container_name: leantime
+    restart: unless-stopped
+    networks:
+      local1:
+        ipv4_address: 192.168.10.83
+    ports:
+      - '8088:80'
+    depends_on:
+      - leandb
+    environment:
+      - LEAN_DB_HOST=192.168.10.84
+      - LEAN_DB_USER=leadtime
+      - LEAN_DB_PASSWORD='vs9792gks899sf234g2'
+      - LEAN_DB_DATABASE=leantime
+      - LEAN_EMAIL_RETURN=dom@capparelli.ie
+    image: 'leantime/leantime:latest'
+
+  leandb:
+    image: mysql:5.7
+    restart: always
+    container_name: leandb
+    networks:
+      local1:
+        ipv4_address: 192.168.10.85
+    environment:
+      MYSQL_DATABASE: 'leantime'
+      MYSQL_USER: 'leantime'
+      MYSQL_PASSWORD: 'vs9792gks899sf234g2'
+      MYSQL_ROOT_PASSWORD: 'b89f274ohfh9245tg35g'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ${DATADIR}/my-db:/var/lib/mysql
