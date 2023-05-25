@@ -72,7 +72,7 @@ services:
     environment:
       - LEAN_DB_HOST=192.168.10.84
       - LEAN_DB_USER=leadtime
-      - LEAN_DB_PASSWORD='vs9792gks899sf234g2'
+      - LEAN_DB_PASSWORD=vs9792gks899sf234g2
       - LEAN_DB_DATABASE=leantime
       - LEAN_EMAIL_RETURN=dom@capparelli.ie
     image: 'leantime/leantime:latest'
