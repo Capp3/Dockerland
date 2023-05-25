@@ -67,8 +67,6 @@ services:
         ipv4_address: 192.168.10.83
     ports:
       - '8088:80'
-    depends_on:
-      - leandb
     environment:
       - LEAN_DB_HOST=192.168.1.17:3310
       - LEAN_DB_USER=leadtime
