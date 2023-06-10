@@ -30,6 +30,9 @@ services:
     privileged: true
     ports:
       - '2376:2375'
+    networks:
+      local1:
+        ipv4_address: 192.168.10.81
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -59,18 +62,24 @@ services:
       local1:
         ipv4_address: 192.168.10.82
 
-  leantime:
-    container_name: leantime
-    restart: unless-stopped
+  homepage:
+    image: ghcr.io/benphelps/homepage:latest
+    container_name: homepage
     networks:
       local1:
         ipv4_address: 192.168.10.83
     ports:
-      - '8088:80'
-    environment:
-      - LEAN_DB_HOST=192.168.1.17:3310
-      - LEAN_DB_USER=leadtime
-      - LEAN_DB_PASSWORD=vs9792gks899sf234g2
-      - LEAN_DB_DATABASE=leantime
-      - LEAN_EMAIL_RETURN=dom@capparelli.ie
-    image: 'leantime/leantime:latest'
+      - 3000:3000
+    volumes:
+      - ~/homepage:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - ${DATADIR}/hassio:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
