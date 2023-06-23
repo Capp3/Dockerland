@@ -83,3 +83,19 @@ services:
     restart: unless-stopped
     privileged: true
     network_mode: host
+
+  dst-server:
+    container_name: dst-server
+    networks:
+      local1:
+        ipv4_address: 192.168.10.85
+    image: jamesits/dst-server:latest
+    restart: "on-failure:5"
+    environment:
+      - DST_CLUSTER_TOKEN=${DST_TOKEN}
+    ports:
+      - "10999-11000:10999-11000/udp"
+      - "12346-12347:12346-12347/udp"
+    volumes:
+      - ~/.klei/DoNotStarveTogether:/data
+    stop_grace_period: 6m
