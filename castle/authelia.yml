@@ -1,0 +1,50 @@
+services:
+  auth:
+    container_name: auth    
+    image: authelia/authelia:latest
+    ports:
+      - 9091
+    volumes:
+      - ${APPDIR}/authelia:/config
+    networks:
+      bridge:
+    restart: unless-stopped
+    depends_on:
+      - auth-redis
+      - auth-mariadb
+
+  auth-redis:
+    container_name: auth-redis
+    image: bitnami/redis:latest
+    ports:
+      - 6379
+    volumes:
+      - ${APPDIR}/auth-redis:/bitnami/
+    environment:
+      REDIS_PASSWORD: ${AUTH_REDIS_PASSWORD}
+    networks:
+      bridge:
+    restart: unless-stopped
+
+  auth-mariadb:
+    container_name: auth-mariadb
+    image: linuxserver/mariadb:latest
+    ports:
+      - 3306
+    volumes:
+      - ${APPDIR}/auth-mariadb:/config
+    environment:
+      MYSQL_ROOT_PASSWORD: ${AUTH_MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_USER: root
+      MYSQL_DATABASE: authelia
+      MYSQL_USER: authelia
+      MYSQL_PASSWORD: ${AUTH_MYSQL_USER_PASSWORD}
+    networks:
+      bridge:
+    restart: unless-stopped
+
+networks:
+  bridge:
+    driver: bridge
+    external: true
+      

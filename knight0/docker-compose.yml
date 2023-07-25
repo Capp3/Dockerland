@@ -36,45 +36,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  swag:
-    image: ghcr.io/linuxserver/swag
-    container_name: swag
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - TZ=${TZ}
-      - URL=${DOMAINNAME}
-      - SUBDOMAINS=wildcard
-      - VALIDATION=dns
-      - DNSPLUGIN=cloudflare
-      - PROPAGATION=120
-      - EMAIL=${DNSEMAIL}
-      - ONLY_SUBDOMAINS=false
-      - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:universal-docker|linuxserver/mods:swag-auto-proxy #delete if not wanted or necessary
-    volumes:
-      - ${DATADIR}/swag:/config
-      - /netnas/swag:/data
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    ports:
-      - 18443:443
-      - 1880:80
-    restart: unless-stopped
-    networks:
-      local1:
-        ipv4_address: 192.168.10.82
-
-  homepage:
-    image: ghcr.io/benphelps/homepage:latest
-    container_name: homepage
-    networks:
-      local1:
-        ipv4_address: 192.168.10.83
-    ports:
-      - 3001:3000
-    volumes:
-      - ~/homepage:/app/config
-      - /var/run/docker.sock:/var/run/docker.sock
-
   homeassistant:
     container_name: homeassistant
     image: "ghcr.io/home-assistant/home-assistant:stable"
