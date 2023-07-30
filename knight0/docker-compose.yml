@@ -36,12 +36,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  homeassistant:
-    container_name: homeassistant
-    image: "ghcr.io/home-assistant/home-assistant:stable"
-    volumes:
-      - ${DATADIR}/hassio:/config
-      - /etc/localtime:/etc/localtime:ro
-    restart: unless-stopped
-    privileged: true
-    network_mode: host
+  # homeassistant:
+  #   container_name: homeassistant
+  #   image: "ghcr.io/home-assistant/home-assistant:stable"
+  #   volumes:
+  #     - ${DATADIR}/hassio:/config
+  #     - /etc/localtime:/etc/localtime:ro
+  #   restart: unless-stopped
+  #   privileged: true
+  #   network_mode: host
