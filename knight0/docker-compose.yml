@@ -36,12 +36,28 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  # homeassistant:
-  #   container_name: homeassistant
-  #   image: "ghcr.io/home-assistant/home-assistant:stable"
-  #   volumes:
-  #     - ${DATADIR}/hassio:/config
-  #     - /etc/localtime:/etc/localtime:ro
-  #   restart: unless-stopped
-  #   privileged: true
-  #   network_mode: host
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - URL=${DOMAIN_NAME}
+      - SUBDOMAINS=wildcard
+      - VALIDATION=dns
+      - DNSPLUGIN=cloudflare #optional
+      - EMAIL=${DNS_EMAIL}
+      - ONLY_SUBDOMAINS=false #optional
+      - STAGING=false #optional
+    volumes:
+      - ${DATA_DIR}/swag:/config
+    ports:
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
+    networks:
+      local1:
+        ipv4_address: 192.168.10.82

@@ -1,4 +1,0 @@
-# Don't auto-update Plex or Emby (or Jellyfin), I might be watching a movie! (Customize this for the containers you _don't_ want to auto-update)
-BLACKLIST_SERVICES="plex_plex emby_emby jellyfin_jellyfin"
-# Run every 24 hours. Note that SLEEP_TIME appears to be in seconds.
-SLEEP_TIME=86400

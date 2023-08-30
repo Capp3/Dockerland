@@ -1,2 +1,0 @@
-KEEP_IMAGES=traefik,keepalived0,keepalived1,docker-mailserver
-DEBUG=1
