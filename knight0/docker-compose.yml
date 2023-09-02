@@ -53,7 +53,8 @@ services:
       - EMAIL=${DNS_EMAIL}
       - ONLY_SUBDOMAINS=false #optional
       - STAGING=false #optional
-      - DOCKER_MODS=linuxserver/mods:universal-docker|linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:swag-dashboard|linuxserver/mods:swag-maxmind
+      - DOCKER_MODS=linuxserver/mods:universal-docker|linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:swag-dashboard|linuxserver/mods:swag-maxmind|linuxserver/mods:universal-internationalization
+      - LC_ALL=${LOCALE}
     volumes:
       - ${DATA_DIR}/swag:/config
     ports:
@@ -73,6 +74,8 @@ services:
       - TZ=${TZ}
       - PASSWORD=${CODE_PASSWORD} #optional
       - SUDO_PASSWORD=${SUDO_PASSWORD} #optional
+      - DOCKER_MODS=#linuxserver/mods:universal-internationalization
+      - LC_ALL=${LOCALE}
       # - PROXY_DOMAIN=code-server.my.domain #optional
     volumes:
       - ${DATA_DIR}/code-server:/config
