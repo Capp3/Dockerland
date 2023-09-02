@@ -42,22 +42,60 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TZ}
       - URL=${DOMAIN_NAME}
       - SUBDOMAINS=wildcard
+      - PROPAGATION=30
       - VALIDATION=dns
       - DNSPLUGIN=cloudflare #optional
       - EMAIL=${DNS_EMAIL}
       - ONLY_SUBDOMAINS=false #optional
       - STAGING=false #optional
+      - DOCKER_MODS=linuxserver/mods:universal-docker|linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:swag-dashboard|linuxserver/mods:swag-maxmind
     volumes:
       - ${DATA_DIR}/swag:/config
     ports:
-      - 443:443
-      - 80:80 #optional
+      - 4443:443
+      - 4480:80 #optional
     restart: unless-stopped
     networks:
       local1:
         ipv4_address: 192.168.10.82
+
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - PASSWORD=${CODE_PASSWORD} #optional
+      - SUDO_PASSWORD=${SUDO_PASSWORD} #optional
+      # - PROXY_DOMAIN=code-server.my.domain #optional
+    volumes:
+      - ${DATA_DIR}/code-server:/config
+      - /:/host
+    ports:
+      - 8443:8443
+    restart: unless-stopped
+    networks:
+      local1:
+        ipv4_address: 192.168.10.83
+
+  homepage:
+    image: ghcr.io/benphelps/homepage:latest
+    container_name: homepage
+    ports:
+      - 10004:3000
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+    volumes:
+      - ${DATA_DIR}/homepage:/app/config # Make sure your local config directory exists
+      - /var/run/docker.sock:/var/run/docker.sock:ro # (optional) For docker integrations
+    restart: unless-stopped
+    networks:
+      local1:
+        ipv4_address: 192.168.10.84
