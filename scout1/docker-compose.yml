@@ -83,7 +83,7 @@ services:
         ipv4_address: 192.168.10.61
     environment:
       - API_KEY=${CFDDNS0}
-      - ZONE=capparelli.ie
+      - ZONE=${CFDDN_ZONE_0}
 
   cloudflare-ddns-papercut:
     container_name: ddns_papercut
@@ -94,7 +94,7 @@ services:
         ipv4_address: 192.168.10.65
     environment:
       - API_KEY=${CFDDNS1}
-      - ZONE=papercut.design
+      - ZONE=${CFDDN_ZONE_1}
 
   readsb:
     image: ghcr.io/sdr-enthusiasts/docker-readsb-protobuf:latest
@@ -116,8 +116,8 @@ services:
       - READSB_DEVICE_TYPE=rtlsdr
       - READSB_FIX=true
       - READSB_GAIN=autogain
-      - READSB_LAT=54.57303
-      - READSB_LON=-5.92260
+      - READSB_LAT=${LAT}
+      - READSB_LON=${LONG}
       - READSB_MODEAC=true
       - READSB_RX_LOCATION_ACCURACY=2
       - READSB_STATS_RANGE=true
