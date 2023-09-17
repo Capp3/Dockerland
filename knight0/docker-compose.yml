@@ -65,28 +65,6 @@ services:
       local1:
         ipv4_address: 192.168.10.82
 
-  code-server:
-    image: lscr.io/linuxserver/code-server:latest
-    container_name: code-server
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - PASSWORD=${CODE_PASSWORD} #optional
-      - SUDO_PASSWORD=${SUDO_PASSWORD} #optional
-      - DOCKER_MODS=#linuxserver/mods:universal-internationalization
-      - LC_ALL=${LOCALE}
-      # - PROXY_DOMAIN=code-server.my.domain #optional
-    volumes:
-      - ${DATA_DIR}/code-server:/config
-      - /:/host
-    ports:
-      - 8443:8443
-    restart: unless-stopped
-    networks:
-      local1:
-        ipv4_address: 192.168.10.83
-
   homepage:
     image: ghcr.io/benphelps/homepage:latest
     container_name: homepage
