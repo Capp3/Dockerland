@@ -23,6 +23,21 @@ services:
         - '/var/lib/docker/volumes:/var/lib/docker/volumes'
     image: portainer/agent
 
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest
+    restart: unless-stopped
+    networks:
+      - default
+    command: -H unix:///var/run/docker.sock 
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro 
+      - ${DATA_DIR}/appdata/portainer/data:/data 
+    environment:
+      - TZ=$TZ
+
   socketproxy:
     container_name: socketproxy
     image: tecnativa/docker-socket-proxy
@@ -57,6 +72,7 @@ services:
       - LC_ALL=${LOCALE}
     volumes:
       - ${DATA_DIR}/swag:/config
+      - ${DATA_DIR}/html:/dump
     ports:
       - 4443:443
       - 4480:80 #optional
