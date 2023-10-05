@@ -23,4 +23,4 @@ _trash
 *.Rproj
 ./farmland0/data
 vpn.auth
-authelia.config
+authelia.conf
