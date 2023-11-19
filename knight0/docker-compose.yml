@@ -38,51 +38,8 @@ services:
     environment:
       - TZ=$TZ
 
-  socketproxy:
-    container_name: socketproxy
-    image: tecnativa/docker-socket-proxy
-    restart: always
-    privileged: true
-    ports:
-      - '2376:2375'
-    networks:
-      local1:
-        ipv4_address: 192.168.10.81
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
-  swag:
-    image: lscr.io/linuxserver/swag
-    container_name: swag
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - URL=${DOMAIN_NAME}
-      - SUBDOMAINS=wildcard
-      - PROPAGATION=30
-      - VALIDATION=dns
-      - DNSPLUGIN=cloudflare #optional
-      - EMAIL=${DNS_EMAIL}
-      - ONLY_SUBDOMAINS=false #optional
-      - STAGING=false #optional
-      - DOCKER_MODS=linuxserver/mods:universal-docker|linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:swag-dashboard|linuxserver/mods:swag-maxmind|linuxserver/mods:universal-internationalization
-      - LC_ALL=${LOCALE}
-    volumes:
-      - ${DATA_DIR}/swag:/config
-      - ${DATA_DIR}/html:/dump
-    ports:
-      - 4443:443
-      - 4480:80 #optional
-    restart: unless-stopped
-    networks:
-      local1:
-        ipv4_address: 192.168.10.82
-
   homepage:
-    image: ghcr.io/benphelps/homepage:latest
+    image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     ports:
       - 10004:3000
@@ -96,38 +53,3 @@ services:
     networks:
       local1:
         ipv4_address: 192.168.10.84
-
-  pastedb:
-    image: mariadb:10.11
-    container_name: pastedb
-    volumes:
-      - ${DATA_DIR}/pastedb:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: ${PASTE_ROOT_PW}
-      MYSQL_DATABASE: ${PASTE_DB}
-      MYSQL_USER: ${PASTE_USER}
-      MYSQL_PASSWORD: ${PASTE_DB_PW}
-    networks:
-      local1:
-        ipv4_address: 192.168.10.85
-  pastefy:
-    depends_on:
-      - pastedb
-    image: interaapps/pastefy:latest
-    ports:
-      - "8037:80"
-    environment:
-      HTTP_SERVER_PORT: 8037
-      HTTP_SERVER_CORS: "*"
-      DATABASE_DRIVER: mysql
-      DATABASE_NAME: ${PASTE_DB}
-      DATABASE_USER: ${PASTE_USER}
-      DATABASE_PASSWORD: ${PASTE_DB_PW}
-      DATABASE_HOST: 192.168.10.85
-      DATABASE_PORT: 3306
-      SERVER_NAME: "http://localhost:8037"
-    networks:
-      local1:
-        ipv4_address: 192.168.10.86
-
-
