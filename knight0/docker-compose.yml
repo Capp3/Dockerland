@@ -68,11 +68,12 @@ services:
       - EMAIL=${DNS_EMAIL}
       - ONLY_SUBDOMAINS=false #optional
       - STAGING=false #optional
-      - DOCKER_MODS=linuxserver/mods:universal-docker|linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:swag-dashboard|linuxserver/mods:swag-maxmind|linuxserver/mods:universal-internationalization
+      - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload
       - LC_ALL=${LOCALE}
     volumes:
       - ${DATA_DIR}/swag:/config
       - ${DATA_DIR}/html:/dump
+      - /home/server/posts:/posts
     ports:
       - 4443:443
       - 4480:80 #optional
