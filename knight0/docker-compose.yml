@@ -38,19 +38,6 @@ services:
     environment:
       - TZ=$TZ
 
-  socketproxy:
-    container_name: socketproxy
-    image: tecnativa/docker-socket-proxy
-    restart: always
-    privileged: true
-    ports:
-      - '2376:2375'
-    networks:
-      local1:
-        ipv4_address: 192.168.10.81
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
   swag:
     image: lscr.io/linuxserver/swag
     container_name: swag
@@ -83,7 +70,7 @@ services:
         ipv4_address: 192.168.10.82
 
   homepage:
-    image: ghcr.io/benphelps/homepage:latest
+    image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     ports:
       - 10004:3000
@@ -97,3 +84,12 @@ services:
     networks:
       local1:
         ipv4_address: 192.168.10.84
+
+  filegator:
+    container_name: filegator
+    image: filegator/filegator
+    restart: always
+    ports:
+      - "9980:8080"
+    volumes:
+      - /home/server/:/var/www/filegator/repository
