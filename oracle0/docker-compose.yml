@@ -67,7 +67,7 @@ services:
       # - REMOTE_AUTH_DEFAULT_GROUPS= #optional
       # - REMOTE_AUTH_DEFAULT_PERMISSIONS= #optional
     volumes:
-      - ~/data/netbox:/config
+      - /home/server/data/netbox:/config
     ports:
       - 8000:8000
     restart: unless-stopped
@@ -87,16 +87,16 @@ services:
       - MYSQL_USER=${NB_DB_USER}
       - MYSQL_PASSWORD=${NB_DB_PASSWD}
     volumes:
-      - ~/data/db/netbox:/config
+      - /home/server/data/db/netbox:/config
     ports:
-      - 3306:3306
+      - ${NB_DB_PORT}:3306
     restart: unless-stopped
 
   cache-netbox:
     image: redis:7-alpine
     restart: always
     ports:
-      - '6379:6379'
+      - ${NB_REDIS_PORT}:6379
     command: redis-server --save 20 1 --loglevel warning --requirepass hBHZZjmaH2ArPDwC
     volumes: 
       - cache:/data
