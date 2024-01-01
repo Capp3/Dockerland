@@ -72,25 +72,20 @@ services:
       - 8000:8000
     restart: unless-stopped
     depends_on:
-      - mariadb-netbox
+      - postgres-netbox
       - cache-netbox
 
-  mariadb-netbox:
-    image: lscr.io/linuxserver/mariadb:latest
-    container_name: mariadb-netbox
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD
-      - MYSQL_DATABASE=${NB_DB_NAME}
-      - MYSQL_USER=${NB_DB_USER}
-      - MYSQL_PASSWORD=${NB_DB_PASSWD}
-    volumes:
-      - /home/server/data/db/netbox:/config
+  postgres-netbox:
+    container_name: postgres-netbox
+    image: postgres:alpine
     ports:
-      - ${NB_DB_PORT}:3306
-    restart: unless-stopped
+      - ${NB_DB_PORT}:5432
+    volumes:
+      - /home/server/data/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=S3cret
+      - POSTGRES_USER=citizix_user
+      - POSTGRES_DB=citizix_db
 
   cache-netbox:
     image: redis:7-alpine
