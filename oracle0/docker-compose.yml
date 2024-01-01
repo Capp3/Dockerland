@@ -83,9 +83,9 @@ services:
     volumes:
       - /home/server/data/postgres:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=S3cret
-      - POSTGRES_USER=citizix_user
-      - POSTGRES_DB=citizix_db
+      - POSTGRES_PASSWORD=${NB_DB_PASSWD}
+      - POSTGRES_USER=${NB_DB_USER}
+      - POSTGRES_DB=${NB_DB_NAME}
 
   cache-netbox:
     image: redis:7-alpine
