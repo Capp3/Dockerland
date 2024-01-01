@@ -1,40 +1,25 @@
 version: "3.7"
 ########################### Networks
-networks:
-  local1:
-    name: local1
-    ipam:
-      driver: default
-      config:
-        - subnet: "192.168.10.0/24"
-  # marketplace:
-  #   external: true
-  # warehouse:
-  #   external: true
-  # local0:
-  #   driver: bridge    
-  #   ipam:
-  #     config:
-  #       - subnet: 192.168.0.0/24
-  # rollcall:
-  #   driver: macvlan
-  #   driver_opts: 
-  #     parent: wlan0
-  #   ipam:
-  #     config: 
-  #       - subnet: 192.168.1.0/24
+# networks:
+#   local1:
+#     name: local1
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: "192.168.10.0/24"
 
 ########################### Volumes
-# volumes:
+volumes:
+  cache:
 
 services:
   agent:
     ports:
         - '9001:9001'
     container_name: portainer_agent
-    networks:
-      local1:
-        ipv4_address: 192.168.10.70
+    # networks:
+    #   local1:
+    #     ipv4_address: 192.168.10.90
     restart: always
     volumes:
         - '/var/run/docker.sock:/var/run/docker.sock'
@@ -45,8 +30,70 @@ services:
     container_name: socketproxy
     image: tecnativa/docker-socket-proxy
     restart: always
+    # networks:
+    #   local1:
+    #     ipv4_address: 192.168.10.91
     privileged: true
     ports:
       - '2376:2375'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  netbox:
+    image: lscr.io/linuxserver/netbox:latest
+    container_name: netbox
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - SUPERUSER_EMAIL=${NB_SUSER_EMAIL}
+      - SUPERUSER_PASSWORD=${NB_SUSER_PASSWD}
+      - ALLOWED_HOST=${NB_ALLOWED_HOST}
+      - DB_NAME=${NB_DB_NAME}
+      - DB_USER=${NB_DB_USER}
+      - DB_PASSWORD=${NB_DB_PASSWD}
+      - DB_HOST=${NB_DB_HOST}
+      - DB_PORT=${NB_DB_PORT}
+      - REDIS_HOST=${NB_REDIS_HOST}
+      - REDIS_PORT=${NB_REDIS_PORT}
+      - REDIS_PASSWORD=${NB_REDIS_PASSWD}
+      - REDIS_DB_TASK=0
+      - REDIS_DB_CACHE=1
+      # - BASE_PATH= #optional
+      # - REMOTE_AUTH_ENABLED= #optional
+      # - REMOTE_AUTH_BACKEND= #optional
+      # - REMOTE_AUTH_HEADER= #optional
+      # - REMOTE_AUTH_AUTO_CREATE_USER= #optional
+      # - REMOTE_AUTH_DEFAULT_GROUPS= #optional
+      # - REMOTE_AUTH_DEFAULT_PERMISSIONS= #optional
+    volumes:
+      - ~/data/netbox:/config
+    ports:
+      - 8000:8000
+    restart: unless-stopped
+
+  mariadb-netbox:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: mariadb-netbox
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD
+      - MYSQL_DATABASE=${NB_DB_NAME}
+      - MYSQL_USER=${NB_DB_USER}
+      - MYSQL_PASSWORD=${NB_DB_PASSWD}
+    volumes:
+      - ~/data/db/netbox:/config
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+
+  cache-netbox:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass hBHZZjmaH2ArPDwC
+    volumes: 
+      - cache:/data

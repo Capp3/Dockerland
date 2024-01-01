@@ -84,12 +84,3 @@ services:
     networks:
       local1:
         ipv4_address: 192.168.10.84
-
-  filegator:
-    container_name: filegator
-    image: filegator/filegator
-    restart: always
-    ports:
-      - "9980:8080"
-    volumes:
-      - /home/server/:/var/www/filegator/repository
