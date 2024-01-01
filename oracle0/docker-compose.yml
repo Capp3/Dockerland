@@ -71,6 +71,9 @@ services:
     ports:
       - 8000:8000
     restart: unless-stopped
+    depends_on:
+      - mariadb-netbox
+      - cache-netbox
 
   mariadb-netbox:
     image: lscr.io/linuxserver/mariadb:latest
