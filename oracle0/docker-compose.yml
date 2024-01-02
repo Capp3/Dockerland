@@ -52,7 +52,7 @@ services:
       - DB_NAME=${NB_DB_NAME}
       - DB_USER=${NB_DB_USER}
       - DB_PASSWORD=${NB_DB_PASSWD}
-      - DB_HOST=mariadb-netbox
+      - DB_HOST=${NB_DB_HOST}
       - DB_PORT=${NB_DB_PORT}
       - REDIS_HOST=cache-netbox
       - REDIS_PORT=${NB_REDIS_PORT}
