@@ -78,7 +78,7 @@ services:
   postgres-netbox:
     container_name: postgres-netbox
     restart: unless-stopped
-    image: postgres:alpine
+    image: postgres:13
     ports:
       - ${NB_DB_PORT}:5432
     volumes:
