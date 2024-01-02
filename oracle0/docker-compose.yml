@@ -1,12 +1,12 @@
 version: "3.7"
 ########################### Networks
-# networks:
-#   local1:
-#     name: local1
-#     ipam:
-#       driver: default
-#       config:
-#         - subnet: "192.168.10.0/24"
+networks:
+  local1:
+    name: local1
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.10.0/24"
 
 ########################### Volumes
 volumes:
@@ -17,9 +17,9 @@ services:
     ports:
         - '9001:9001'
     container_name: portainer_agent
-    # networks:
-    #   local1:
-    #     ipv4_address: 192.168.10.90
+    networks:
+      local1:
+        ipv4_address: 192.168.10.90
     restart: always
     volumes:
         - '/var/run/docker.sock:/var/run/docker.sock'
@@ -30,9 +30,9 @@ services:
     container_name: socketproxy
     image: tecnativa/docker-socket-proxy
     restart: always
-    # networks:
-    #   local1:
-    #     ipv4_address: 192.168.10.91
+    networks:
+      local1:
+        ipv4_address: 192.168.10.91
     privileged: true
     ports:
       - '2376:2375'
@@ -52,9 +52,9 @@ services:
       - DB_NAME=${NB_DB_NAME}
       - DB_USER=${NB_DB_USER}
       - DB_PASSWORD=${NB_DB_PASSWD}
-      - DB_HOST=192.168.1.208
+      - DB_HOST=192.168.10.93
       - DB_PORT=5432
-      - REDIS_HOST=192.168.1.208
+      - REDIS_HOST=192.168.10.94
       - REDIS_PORT=6379
       # - REDIS_PASSWORD=${NB_REDIS_PASSWD}
       - REDIS_DB_TASK=0
@@ -64,6 +64,9 @@ services:
       - /home/server/data/netbox:/config
     ports:
       - 8000:8000
+    networks:
+      local1:
+        ipv4_address: 192.168.10.92
     restart: unless-stopped
     depends_on:
       - netbox-postgres
@@ -75,6 +78,9 @@ services:
     image: postgres:13
     ports:
       - 5432:5432
+    networks:
+      local1:
+        ipv4_address: 192.168.10.93
     volumes:
       - /home/server/data/postgres:/var/lib/postgresql/data
     environment:
@@ -88,6 +94,9 @@ services:
     restart: unless-stopped
     ports:
       - 6379:6379
+    networks:
+      local1:
+        ipv4_address: 192.168.10.94
     command: redis-server --save 20 1 --loglevel verbose
     volumes: 
       - cache:/data
