@@ -56,7 +56,7 @@ services:
       - DB_PORT=${NB_DB_PORT}
       - REDIS_HOST=cache-netbox
       - REDIS_PORT=${NB_REDIS_PORT}
-      - REDIS_PASSWORD=${NB_REDIS_PASSWD}
+      # - REDIS_PASSWORD=${NB_REDIS_PASSWD}
       - REDIS_DB_TASK=0
       - REDIS_DB_CACHE=1
       # - BASE_PATH= #optional
@@ -77,6 +77,7 @@ services:
 
   postgres-netbox:
     container_name: postgres-netbox
+    restart: unless-stopped
     image: postgres:alpine
     ports:
       - ${NB_DB_PORT}:5432
@@ -89,9 +90,9 @@ services:
 
   cache-netbox:
     image: redis:7-alpine
-    restart: always
+    restart: unless-stopped
     ports:
       - ${NB_REDIS_PORT}:6379
-    command: redis-server --save 20 1 --loglevel warning --requirepass hBHZZjmaH2ArPDwC
+    command: redis-server --save 20 1 --loglevel warning
     volumes: 
       - cache:/data
