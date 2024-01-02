@@ -52,10 +52,10 @@ services:
       - DB_NAME=${NB_DB_NAME}
       - DB_USER=${NB_DB_USER}
       - DB_PASSWORD=${NB_DB_PASSWD}
-      - DB_HOST=${NB_DB_HOST}
-      - DB_PORT=${NB_DB_PORT}
-      - REDIS_HOST=cache-netbox
-      - REDIS_PORT=${NB_REDIS_PORT}
+      - DB_HOST=192.168.1.208
+      - DB_PORT=5432
+      - REDIS_HOST=192.168.1.208
+      - REDIS_PORT=6379
       # - REDIS_PASSWORD=${NB_REDIS_PASSWD}
       - REDIS_DB_TASK=0
       - REDIS_DB_CACHE=1
@@ -72,15 +72,15 @@ services:
       - 8000:8000
     restart: unless-stopped
     depends_on:
-      - postgres-netbox
-      - cache-netbox
+      - netbox-postgres
+      - netbox-cache
 
-  postgres-netbox:
-    container_name: postgres-netbox
+  netbox-postgres:
+    container_name: netbox-postgres
     restart: unless-stopped
     image: postgres:13
     ports:
-      - ${NB_DB_PORT}:5432
+      - 5432:5432
     volumes:
       - /home/server/data/postgres:/var/lib/postgresql/data
     environment:
@@ -88,11 +88,12 @@ services:
       - POSTGRES_USER=${NB_DB_USER}
       - POSTGRES_DB=${NB_DB_NAME}
 
-  cache-netbox:
+  netbox-cache:
     image: redis:7-alpine
+    container_name: netbox-cache
     restart: unless-stopped
     ports:
-      - ${NB_REDIS_PORT}:6379
-    command: redis-server --save 20 1 --loglevel warning
+      - 6379:6379
+    command: redis-server --save 20 1 --loglevel info
     volumes: 
       - cache:/data
