@@ -34,7 +34,7 @@ services:
       - "9000:9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro 
-      - ${DATA_DIR}/appdata/portainer/data:/data 
+      - ${DATA_DIR}/portainer/data:/data 
     environment:
       - TZ=$TZ
 
