@@ -25,12 +25,48 @@ services:
         - '/var/lib/docker/volumes:/var/lib/docker/volumes'
     image: portainer/agent
 
-  socketproxy:
-    container_name: socketproxy
-    image: tecnativa/docker-socket-proxy
-    restart: always
-    privileged: true
+  server:
+    image: tryton/tryton:${VERSION:-latest}
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD}
+      - PASSWORD=${ADMIN_PASSWORD}
     ports:
-      - '2376:2375'
+      - "8000:8000"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - "tryton-data:/var/lib/trytond/db"
+    command:
+      - /bin/bash
+      - -c
+      - |
+        (until echo > /dev/tcp/$${DB_HOSTNAME:=$${POSTGRES_PORT_5432_TCP_ADDR:='postgres'}}/$${DB_PORT:=$${POSTGRES_PORT_5432_TCP_PORT:='5432'}}; do sleep 0.5; done) 2>/dev/null
+        echo "${PASSWORD:-admin}" > /tmp/.passwd
+        TRYTONPASSFILE=/tmp/.passwd /entrypoint.sh trytond-admin -d "${DB_NAME:-tryton}" --all --email "${EMAIL:-admin}" -vv
+        if command -v uwsgi &>/dev/null; then uwsgi --ini /etc/uwsgi.conf; else gunicorn --config=/etc/gunicorn.conf.py; fi
+    depends_on:
+      - postgres
+  cron:
+    image: tryton/tryton:${VERSION:-latest}
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - "tryton-data:/var/lib/trytond/db"
+    command:
+      - /bin/bash
+      - -c
+      - |
+        (until echo > /dev/tcp/tryton/8000; do sleep 0.5; done) 2>/dev/null
+        trytond-cron -d "${DB_NAME:-tryton}"
+    depends_on:
+      - postgres
+      - server
+  postgres:
+    image: postgres:${PG_VERSION:-latest}
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-password}
+      - POSTGRES_DB=${DB_NAME:-tryton}
+    volumes:
+      - "postgres-data:/var/lib/postgresql/data"
+
+volumes:
+  postgres-data:
+  tryton-data:
