@@ -1,4 +1,3 @@
-version: "3.7"
 ########################### Networks
 networks:
   local1:
@@ -85,17 +84,6 @@ services:
       - API_KEY=${CFDDNS0}
       - ZONE=${CFDDN_ZONE_0}
 
-  cloudflare-ddns-papercut:
-    container_name: ddns_papercut
-    image: oznu/cloudflare-ddns:latest
-    restart: always
-    networks:
-      local1:
-        ipv4_address: 192.168.10.65
-    environment:
-      - API_KEY=${CFDDNS1}
-      - ZONE=${CFDDN_ZONE_1}
-
   readsb:
     image: ghcr.io/sdr-enthusiasts/docker-readsb-protobuf:latest
     tty: true
@@ -171,6 +159,61 @@ services:
     # tmpfs:
     #   - /run:exec,size=64M
     #   - /var/log
+
+  vrs:
+    image: ghcr.io/sdr-enthusiasts/vrs:latest
+    tty: true
+    container_name: vrs
+    restart: unless-stopped
+    depends_on:
+      - readsb
+    ports:
+      - 8085:8080
+    environment:
+        - VRS_ADMIN_USERNAME=${VRS_USERNAME}
+        - VRS_ADMIN_PASSWORD=${VRS_PASSWORD}
+        - VRS_CULTURE=en-GB #see http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx for a list of supported culture names. Not all translations may be available
+        - VRS_DB_UPDATE_POLICY_FULLAUTO=yes #default unset / no
+        - VRS_DB_UPDATE_WITH_VACUUM=yes #default unset / no
+        - VRS_DB_UPDATE_BACKUP_UNCOMPRESSED=yes #default unset / compressed
+        - VRS_ENHANCED_MARKERS=normal #default unset
+        - VRS_ENHANCED_LAYERS_COUNTRY=UK #Currently available: UK,DE,USA1,USAAZ,SE,AU,IN,ID,NL,FR,ES
+        - 'VRS_ENHANCED_LAYERS_CONFIG={
+
+            /* Map Options */
+            "defaultMap" : 6,                      /* 1: OpenStreetMap, 2: OpenStreetMap Dark, 3: OpenTopoMap, 4: WaterColour, 5: CartoDark, 6: Terrain, 7: Satellite */
+            "layerMenuPosition" : "bottomleft",    /* Valid positions: topleft, topright, bottomleft or bottomright */
+
+            /* Enable Layers */
+            "airspace" : 0,
+            "navAids" : 0,
+            "tfrUSA" : 0,
+            "seaMarkers" : 0,
+            "trainMap" : 0,
+            "clouds" : 0,
+            "rain" : 0,
+            "temps" : 0,
+            "wind" : 0,
+            "pressure" : 0,
+            "dayNight" : 0,
+            "civilAirfields" : 0,
+            "militaryAirfields" : 0,
+            "heliports" : 0,
+            "glidingSpots" : 0
+          }'
+        - VRS_SBSHOST=192.168.1.210  #put IP or container name of data source here
+        - VRS_SBSPORT=30005
+        - VRS_ENHANCED_LAYERS_OPENWX_APIKEY=${OPENWX_API}
+        - VRS_ENHANCED_LAYERS_OPENAIP_APIKEY=${OPENAPI_API}
+        - VRS_ENHANCED_LAYERS_STADIA_APIKEY=${STADIA_API}
+        - VRS_ENHANCED_LAYERS_THUNDERFOREST_APIKEY=${THUNDER_API}
+        - VRS_SILHOUETTES_DUALVIEW=true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,noexec,relatime,size=128M
+    volumes:
+      - /opt/adsb/vrs:/root/.local/share/VirtualRadar
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
 
   # tdarr-node:
   #   container_name: tdarr-node
