@@ -171,7 +171,7 @@ services:
             "heliports" : 0,
             "glidingSpots" : 0
           }'
-        - VRS_SBSHOST=192.168.1.210  #put IP or container name of data source here
+        - VRS_SBSHOST=192.168.1.211  #put IP or container name of data source here
         - VRS_SBSPORT=30005
         - VRS_ENHANCED_LAYERS_OPENWX_APIKEY=${OPENWX_API}
         - VRS_ENHANCED_LAYERS_OPENAIP_APIKEY=${OPENAPI_API}

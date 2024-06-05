@@ -1,0 +1,15 @@
+name: chome_vpn
+services:
+  ipsec-vpn-server:
+    container_name: ipsec-vpn-server
+    restart: always
+    volumes:
+      - ikev2-vpn-data:/etc/ipsec.d
+      - /lib/modules:/lib/modules:ro
+    ports:
+      - 500:500/udp
+      - 4500:4500/udp
+    privileged: true
+    image: hwdsl2/ipsec-vpn-server
+volumes:
+    ikev2-vpn-data:

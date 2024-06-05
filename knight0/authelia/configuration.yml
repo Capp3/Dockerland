@@ -1,0 +1,210 @@
+---
+theme: auto
+jwt_secret: tmc37qERtRocweXc8WVJcgLK8
+default_redirection_url: https://home.capparelli.ie/
+
+server:
+  host: 0.0.0.0
+  port: 9091
+  path: "authelia"
+  enable_pprof: false
+  enable_expvars: false
+  disable_healthcheck: false
+
+log:
+  level: debug
+
+telemetry:
+  metrics:
+    enabled: false
+    address: "tcp://0.0.0.0:9959"
+    buffers:
+      read: 4096
+      write: 4096
+    timeouts:
+      read: 6s
+      write: 6s
+      idle: 30s
+
+totp:
+  disable: true
+  issuer: authelia.com
+  algorithm: sha1
+  digits: 6
+  period: 30
+  skew: 1
+  secret_size: 32
+
+webauthn:
+  disable: false
+  display_name: Authelia
+  attestation_conveyance_preference: indirect
+  user_verification: preferred
+  timeout: 60s
+
+ntp:
+  address: "time.cloudflare.com:123"
+  version: 4
+  max_desync: 3s
+  disable_startup_check: false
+  disable_failure: false
+
+authentication_backend:
+  password_reset:
+    disable: false
+  refresh_interval: 5m
+  file:
+    path: /config/users_database.yml
+    watch: false
+    search:
+      email: false
+      case_insensitive: false
+    password:
+      algorithm: argon2
+      argon2:
+        variant: argon2id
+        iterations: 3
+        memory: 65536
+        parallelism: 4
+        key_length: 32
+        salt_length: 16
+      scrypt:
+        iterations: 16
+        block_size: 8
+        parallelism: 1
+        key_length: 32
+        salt_length: 16
+      pbkdf2:
+        variant: sha512
+        iterations: 310000
+        salt_length: 16
+      sha2crypt:
+        variant: sha512
+        iterations: 50000
+        salt_length: 16
+      bcrypt:
+        variant: standard
+        cost: 12
+
+password_policy:
+  standard:
+    enabled: false
+    min_length: 8
+    max_length: 0
+    require_uppercase: true
+    require_lowercase: true
+    require_number: true
+    require_special: true
+  zxcvbn:
+    enabled: false
+    min_score: 3
+
+access_control:
+  networks:
+  - name: internal
+    networks:
+    - '10.0.0.0/8'
+    - '172.16.0.0/12'
+    - '192.168.1.0/24'
+    - '192.168.10.0/24'
+  default_policy: deny
+  rules:
+    - domain:
+      - "capparelli.ie"
+      - "*.capparelli.ie"
+      policy: one_factor
+      subject:
+      - ['user:cappy']
+      - ['user:gemma']
+    - domain: "*.capparelli.ie"
+      resources:
+        - "^/api([/?].*)?$"
+      policy: bypass
+
+session:
+  name: authelia_session
+  domain: capparelli.ie
+  same_site: lax
+  secret: stupidhuman
+  expiration: 12h
+  inactivity: 15m
+  remember_me_duration: 1M
+
+  redis:
+    host: 192.168.10.84
+    port: 6379
+    password: rsbsGvf63Ve2HJ
+    maximum_active_connections: 8
+    minimum_idle_connections: 0
+
+regulation:
+  max_retries: 3
+  find_time: 2m
+  ban_time: 5m
+
+##
+## Storage Provider Configuration
+##
+## The available providers are: `local`, `mysql`, `postgres`. You must use one and only one of these providers.
+storage:
+  encryption_key: gbvH9y5ZKLd8PUwDmsyE3Jndu
+  mysql:
+    host: 192.168.10.85
+    port: 3306
+    database: authelia
+    username: authelia
+    password: SCegDhdZznDwT9
+    timeout: 15s
+
+notifier:
+  disable_startup_check: false
+  filesystem:
+    filename: /config/notification.txt
+
+  ##
+  ## SMTP (Notification Provider)
+  ##
+  ## Use a SMTP server for sending notifications. Authelia uses the PLAIN or LOGIN methods to authenticate.
+  ## [Security] By default Authelia will:
+  ##   - force all SMTP connections over TLS including unauthenticated connections
+  ##      - use the disable_require_tls boolean value to disable this requirement
+  ##        (only works for unauthenticated connections)
+  ##   - validate the SMTP server x509 certificate during the TLS handshake against the hosts trusted certificates
+  ##     (configure in tls section)
+  # smtp:
+    ## The SMTP host to connect to.
+    # host: 127.0.0.1
+
+    ## The port to connect to the SMTP host on.
+    # port: 1025
+
+    ## The connection timeout.
+    # timeout: 5s
+
+    ## The username used for SMTP authentication.
+    # username: test
+
+    ## The password used for SMTP authentication.
+    ## Can also be set using a secret: https://www.authelia.com/c/secrets
+    # password: password
+
+    ## The sender is used to is used for the MAIL FROM command and the FROM header.
+    ## If this is not defined and the username is an email, we use the username as this value. This can either be just
+    ## an email address or the RFC5322 'Name <email address>' format.
+    # sender: "Authelia <admin@example.com>"
+
+    ## HELO/EHLO Identifier. Some SMTP Servers may reject the default of localhost.
+    # identifier: localhost
+
+    ## Subject configuration of the emails sent. {title} is replaced by the text from the notifier.
+    # subject: "[Authelia] {title}"
+
+    ## This address is used during the startup check to verify the email configuration is correct.
+    ## It's not important what it is except if your email server only allows local delivery.
+    # startup_check_address: test@authelia.com
+
+    ## By default we require some form of TLS. This disables this check though is not advised.
+    # disable_require_tls: false
+
+    ## Disables sending HTML formatted emails.
+    # disable_html_emails: false
