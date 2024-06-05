@@ -27,6 +27,7 @@ networks:
 volumes:
   readsbpb_rrd:
   readsbpb_autogain:
+  node-red-data:
 
 ########################### SERVICES
 services: 
@@ -205,3 +206,15 @@ services:
   #     - /docker/tdarr/logs:/app/logs
   #     - /media:/media
   #     - /transcode_cache:/temp
+
+  node-red:
+    image: nodered/node-red:latest
+    environment:
+      - TZ=${TZ}
+    ports:
+      - "1880:1880"
+    networks:
+      local1:
+        ipv4_address: 192.168.10.106
+    volumes:
+      - node-red-data:/data
