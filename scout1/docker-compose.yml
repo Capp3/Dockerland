@@ -49,6 +49,16 @@ services:
       - /dev/dvb:/dev/dvb #optional
     restart: unless-stopped
 
+  antennas:
+    container_name: antennas
+    environment:
+      - ANTENNAS_URL=http://192.168.1.221:5004
+      - TVHEADEND_URL=http://192.168.2.221:9981
+      - TUNER_COUNT=1
+    ports:
+      - 5004:5004
+    image: thejf/antennas
+
   agent:
     ports:
         - '9001:9001'
