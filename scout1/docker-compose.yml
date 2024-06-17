@@ -37,7 +37,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      # - RUN_OPTS= #optional
+      - RUN_OPTS= --http_root /tvheadend
     volumes:
       - /opt/docker/tvheadend/data:/config
       - /home/server/recordings:/recordings
