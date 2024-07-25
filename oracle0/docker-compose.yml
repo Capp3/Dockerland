@@ -27,7 +27,7 @@ services:
   portainer:
     container_name: portainer
     image: portainer/portainer-ce:latest
-    restart: unless-stopped
+    restart: unless-stopped 
     networks:
       - default
     command: -H unix:///var/run/docker.sock 
@@ -38,3 +38,10 @@ services:
       - ${DATA_DIR}/portainer/data:/data 
     environment:
       - TZ=$TZ
+  
+  rtmp_server:
+    container_name: rtmp_server
+    image: tiangolo/nginx-rtmp
+    restart: always
+    ports:
+      - "1935:1935"
