@@ -55,59 +55,59 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  readsb:
-    image: ghcr.io/sdr-enthusiasts/docker-readsb-protobuf:latest
-    tty: true
-    container_name: readsb
-    hostname: readsb
-    restart: always
-    devices:
-      - /dev/bus/usb:/dev/bus/usb
-    ports:
-      - 8090:8080
-      - 30005:30005
-    networks:
-      local1:
-        ipv4_address: 192.168.10.102
-    environment:
-      - TZ=${TZ}
-      - READSB_DCFILTER=true
-      - READSB_DEVICE_TYPE=rtlsdr
-      - READSB_FIX=true
-      - READSB_GAIN=autogain
-      - READSB_LAT=${LAT}
-      - READSB_LON=${LONG}
-      - READSB_MODEAC=true
-      - READSB_RX_LOCATION_ACCURACY=2
-      - READSB_STATS_RANGE=true
-      - READSB_NET_ENABLE=true
-    volumes:
-      - readsbpb_rrd:/run/collectd
-      - readsbpb_autogain:/run/autogain
-    tmpfs:
-      - /run/readsb:size=64M
-      - /var/log:size=32M
+  # readsb:
+  #   image: ghcr.io/sdr-enthusiasts/docker-readsb-protobuf:latest
+  #   tty: true
+  #   container_name: readsb
+  #   hostname: readsb
+  #   restart: always
+  #   devices:
+  #     - /dev/bus/usb:/dev/bus/usb
+  #   ports:
+  #     - 8090:8080
+  #     - 30005:30005
+  #   networks:
+  #     local1:
+  #       ipv4_address: 192.168.10.102
+  #   environment:
+  #     - TZ=${TZ}
+  #     - READSB_DCFILTER=true
+  #     - READSB_DEVICE_TYPE=rtlsdr
+  #     - READSB_FIX=true
+  #     - READSB_GAIN=autogain
+  #     - READSB_LAT=${LAT}
+  #     - READSB_LON=${LONG}
+  #     - READSB_MODEAC=true
+  #     - READSB_RX_LOCATION_ACCURACY=2
+  #     - READSB_STATS_RANGE=true
+  #     - READSB_NET_ENABLE=true
+  #   volumes:
+  #     - readsbpb_rrd:/run/collectd
+  #     - readsbpb_autogain:/run/autogain
+  #   tmpfs:
+  #     - /run/readsb:size=64M
+  #     - /var/log:size=32M
 
-  adsbexchange:
-    image: ghcr.io/sdr-enthusiasts/docker-adsbexchange:latest
-    tty: true
-    container_name: adsbx
-    networks:
-      local1:
-        ipv4_address: 192.168.10.103
-    restart: always
-    depends_on:
-      - readsb
-    environment:
-      - BEASTHOST=192.168.10.63
-      - TZ=${TZ}
-      - LAT=${LAT}
-      - LONG=${LONG}
-      - ALT=${ALT}
-      - SITENAME=${ADSBSITENAME}
-      - UUID=${ADSBUUID}
-    tmpfs:
-      - /run:rw,nosuid,nodev,exec,relatime,size=64M,uid=1000,gid=1000
+  # adsbexchange:
+  #   image: ghcr.io/sdr-enthusiasts/docker-adsbexchange:latest
+  #   tty: true
+  #   container_name: adsbx
+  #   networks:
+  #     local1:
+  #       ipv4_address: 192.168.10.103
+  #   restart: always
+  #   depends_on:
+  #     - readsb
+  #   environment:
+  #     - BEASTHOST=192.168.10.63
+  #     - TZ=${TZ}
+  #     - LAT=${LAT}
+  #     - LONG=${LONG}
+  #     - ALT=${ALT}
+  #     - SITENAME=${ADSBSITENAME}
+  #     - UUID=${ADSBUUID}
+  #   tmpfs:
+  #     - /run:rw,nosuid,nodev,exec,relatime,size=64M,uid=1000,gid=1000
 
   # piaware:
     # image: ghcr.io/sdr-enthusiasts/docker-piaware:latest
@@ -131,60 +131,60 @@ services:
     #   - /run:exec,size=64M
     #   - /var/log
 
-  vrs:
-    image: ghcr.io/sdr-enthusiasts/vrs:latest
-    tty: true
-    container_name: vrs
-    restart: unless-stopped
-    depends_on:
-      - readsb
-    ports:
-      - 8085:8080
-    environment:
-        - VRS_ADMIN_USERNAME=${VRS_USERNAME}
-        - VRS_ADMIN_PASSWORD=${VRS_PASSWORD}
-        - VRS_CULTURE=en-GB #see http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx for a list of supported culture names. Not all translations may be available
-        - VRS_DB_UPDATE_POLICY_FULLAUTO=yes #default unset / no
-        - VRS_DB_UPDATE_WITH_VACUUM=yes #default unset / no
-        - VRS_DB_UPDATE_BACKUP_UNCOMPRESSED=yes #default unset / compressed
-        - VRS_ENHANCED_MARKERS=normal #default unset
-        - VRS_ENHANCED_LAYERS_COUNTRY=UK #Currently available: UK,DE,USA1,USAAZ,SE,AU,IN,ID,NL,FR,ES
-        - 'VRS_ENHANCED_LAYERS_CONFIG={
+  # vrs:
+  #   image: ghcr.io/sdr-enthusiasts/vrs:latest
+  #   tty: true
+  #   container_name: vrs
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - readsb
+  #   ports:
+  #     - 8085:8080
+  #   environment:
+  #       - VRS_ADMIN_USERNAME=${VRS_USERNAME}
+  #       - VRS_ADMIN_PASSWORD=${VRS_PASSWORD}
+  #       - VRS_CULTURE=en-GB #see http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx for a list of supported culture names. Not all translations may be available
+  #       - VRS_DB_UPDATE_POLICY_FULLAUTO=yes #default unset / no
+  #       - VRS_DB_UPDATE_WITH_VACUUM=yes #default unset / no
+  #       - VRS_DB_UPDATE_BACKUP_UNCOMPRESSED=yes #default unset / compressed
+  #       - VRS_ENHANCED_MARKERS=normal #default unset
+  #       - VRS_ENHANCED_LAYERS_COUNTRY=UK #Currently available: UK,DE,USA1,USAAZ,SE,AU,IN,ID,NL,FR,ES
+  #       - 'VRS_ENHANCED_LAYERS_CONFIG={
 
-            /* Map Options */
-            "defaultMap" : 6,                      /* 1: OpenStreetMap, 2: OpenStreetMap Dark, 3: OpenTopoMap, 4: WaterColour, 5: CartoDark, 6: Terrain, 7: Satellite */
-            "layerMenuPosition" : "bottomleft",    /* Valid positions: topleft, topright, bottomleft or bottomright */
+  #           /* Map Options */
+  #           "defaultMap" : 6,                      /* 1: OpenStreetMap, 2: OpenStreetMap Dark, 3: OpenTopoMap, 4: WaterColour, 5: CartoDark, 6: Terrain, 7: Satellite */
+  #           "layerMenuPosition" : "bottomleft",    /* Valid positions: topleft, topright, bottomleft or bottomright */
 
-            /* Enable Layers */
-            "airspace" : 0,
-            "navAids" : 0,
-            "tfrUSA" : 0,
-            "seaMarkers" : 0,
-            "trainMap" : 0,
-            "clouds" : 0,
-            "rain" : 0,
-            "temps" : 0,
-            "wind" : 0,
-            "pressure" : 0,
-            "dayNight" : 0,
-            "civilAirfields" : 0,
-            "militaryAirfields" : 0,
-            "heliports" : 0,
-            "glidingSpots" : 0
-          }'
-        - VRS_SBSHOST=192.168.10.102  #put IP or container name of data source here
-        - VRS_SBSPORT=30005
-        - VRS_ENHANCED_LAYERS_OPENWX_APIKEY=${OPENWX_API}
-        - VRS_ENHANCED_LAYERS_OPENAIP_APIKEY=${OPENAPI_API}
-        - VRS_ENHANCED_LAYERS_STADIA_APIKEY=${STADIA_API}
-        - VRS_ENHANCED_LAYERS_THUNDERFOREST_APIKEY=${THUNDER_API}
-        - VRS_SILHOUETTES_DUALVIEW=true
-    tmpfs:
-      - /tmp:rw,nosuid,nodev,noexec,relatime,size=128M
-    volumes:
-      - /opt/adsb/vrs:/root/.local/share/VirtualRadar
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
+  #           /* Enable Layers */
+  #           "airspace" : 0,
+  #           "navAids" : 0,
+  #           "tfrUSA" : 0,
+  #           "seaMarkers" : 0,
+  #           "trainMap" : 0,
+  #           "clouds" : 0,
+  #           "rain" : 0,
+  #           "temps" : 0,
+  #           "wind" : 0,
+  #           "pressure" : 0,
+  #           "dayNight" : 0,
+  #           "civilAirfields" : 0,
+  #           "militaryAirfields" : 0,
+  #           "heliports" : 0,
+  #           "glidingSpots" : 0
+  #         }'
+  #       - VRS_SBSHOST=192.168.10.102  #put IP or container name of data source here
+  #       - VRS_SBSPORT=30005
+  #       - VRS_ENHANCED_LAYERS_OPENWX_APIKEY=${OPENWX_API}
+  #       - VRS_ENHANCED_LAYERS_OPENAIP_APIKEY=${OPENAPI_API}
+  #       - VRS_ENHANCED_LAYERS_STADIA_APIKEY=${STADIA_API}
+  #       - VRS_ENHANCED_LAYERS_THUNDERFOREST_APIKEY=${THUNDER_API}
+  #       - VRS_SILHOUETTES_DUALVIEW=true
+  #   tmpfs:
+  #     - /tmp:rw,nosuid,nodev,noexec,relatime,size=128M
+  #   volumes:
+  #     - /opt/adsb/vrs:/root/.local/share/VirtualRadar
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - /etc/timezone:/etc/timezone:ro
 
   # tdarr-node:
   #   container_name: tdarr-node
@@ -218,3 +218,23 @@ services:
         ipv4_address: 192.168.10.106
     volumes:
       - node-red-data:/data
+
+  spyserver:
+    container_name: spyserver
+    image: lloydpick/spyserver:latest
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - 5555:5555
+    devices:
+      - "/dev/bus/usb"
+    cap_add:
+      - SYS_NICE
+    environment:
+      - BIND_PORT=5555
+      - LIST_IN_DIRECTORY=1
+      - ANTENNA_TYPE=Mini-Whip
+      - ANTENNA_LOCATION=${LAT},${LONG}
+      - MAXIMUM_CLIENTS=2
+      - AlLOW_CONTROL=1
+      - DEVICE_TYPE=RTL-SDR
