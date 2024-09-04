@@ -225,7 +225,7 @@ services:
     restart: unless-stopped
     privileged: true
     ports:
-      - 5555:5555
+      - "5555:5555"
     devices:
       - "/dev/bus/usb"
     cap_add:
