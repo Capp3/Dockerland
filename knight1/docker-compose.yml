@@ -227,7 +227,7 @@ services:
     ports:
       - "5555:5555"
     devices:
-      - "/dev/bus/usb"
+      - /dev/bus/usb:/dev/bus/usb
     cap_add:
       - SYS_NICE
     environment:
