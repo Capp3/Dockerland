@@ -47,4 +47,4 @@ services:
     #   - 58846:58846 #optional
     restart: unless-stopped
     depends_on:
-      - gluetun
+      - glutun
