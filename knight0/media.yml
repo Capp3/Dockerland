@@ -1,0 +1,50 @@
+version: "3"
+
+networks:
+  local1:
+    external: true
+
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: glutun
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./data/gluetun:/gluetun
+    environment:
+      - VPN_SERVICE_PROVIDER=private internet access
+      - OPENVPN_USER=${PIA_USER}
+      - OPENVPN_PASSWORD=${PIA_PASS}
+      - SERVER_REGIONS=Netherlands
+    networks:
+      local1:
+        ipv4_address: 192.168.10.90
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - 8112:8112
+      - 6881:6881
+      - 6881:6881/udp
+      - 58846:58846
+
+  deluge:
+    image: lscr.io/linuxserver/deluge:latest
+    container_name: deluge
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - DELUGE_LOGLEVEL=error #optional
+    volumes:
+      - ./data/deluge:/config
+      - /downloads:/downloads
+    network_mode: "container:gluetun"
+    # ports:
+    #   - 8112:8112
+    #   - 6881:6881
+    #   - 6881:6881/udp
+    #   - 58846:58846 #optional
+    restart: unless-stopped
+    depends_on:
+      - gluetun
