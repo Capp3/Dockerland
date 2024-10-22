@@ -25,5 +25,5 @@ _trash
 vpn.auth
 authelia.conf
 */immichdata
-*/docker/knight0/data
-./docker/knight0/data
+*/data
+scratch.md

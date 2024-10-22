@@ -1,4 +1,4 @@
-version: "3"
+name: media_stack
 
 networks:
   local1:
@@ -7,7 +7,7 @@ networks:
 services:
   gluetun:
     image: qmcgaw/gluetun
-    container_name: glutun
+    container_name: gluetun
     cap_add:
       - NET_ADMIN
     volumes:
@@ -27,6 +27,11 @@ services:
       - 6881:6881
       - 6881:6881/udp
       - 58846:58846
+      - 8191:8191
+      - 9696:9696
+      - 7878:7878
+      - 8989:8989
+      - 8787:8787
 
   deluge:
     image: lscr.io/linuxserver/deluge:latest
@@ -38,7 +43,7 @@ services:
       - DELUGE_LOGLEVEL=error #optional
     volumes:
       - ./data/deluge:/config
-      - /downloads:/downloads
+      - ./data/downloads:/downloads
     network_mode: "container:gluetun"
     # ports:
     #   - 8112:8112
@@ -47,4 +52,90 @@ services:
     #   - 58846:58846 #optional
     restart: unless-stopped
     depends_on:
-      - glutun
+      - gluetun
+
+  flaresolverr:
+    # DockerHub mirror flaresolverr/flaresolverr:latest
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    network_mode: "container:gluetun"
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - TZ=${TZ}
+    # ports:
+    #   - "${PORT:-8191}:8191"
+    restart: unless-stopped
+    depends_on:
+      - gluetun
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./data/prowlarr:/config
+    # ports:
+    #   - 9696:9696
+    restart: unless-stopped
+    network_mode: "container:gluetun"
+    depends_on:
+      - gluetun
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./data/radarr:/config
+      - ${MEDIADIR}/movies:/movies #optional
+      - ./data/downloads:/downloads #optional
+    # ports:
+    #   - 7878:7878
+    restart: unless-stopped
+    network_mode: "container:gluetun"
+    depends_on:
+      - gluetun
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./data/sonarr/:/config
+      - ${MEDIADIR}/tv:/tv #optional
+      - ./data/downloads:/downloads #optional
+    # ports:
+    #   - 8989:8989
+    restart: unless-stopped
+    network_mode: "container:gluetun"
+    depends_on:
+      - gluetun
+
+  readarr:
+    image: lscr.io/linuxserver/readarr:develop
+    container_name: readarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./data/readarr:/config
+      - ${MEDIADIR}/library:/books #optional
+      - ./data/downloads:/downloads #optional
+    # ports:
+    #   - 8787:8787
+    restart: unless-stopped
+    network_mode: "container:gluetun"
+    depends_on:
+      - gluetun
