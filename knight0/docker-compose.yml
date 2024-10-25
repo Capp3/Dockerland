@@ -73,53 +73,6 @@ services:
       local1:
         ipv4_address: 192.168.10.82
 
-  auth:
-    container_name: auth    
-    image: authelia/authelia:latest
-    ports:
-      - 9091:9091
-    volumes:
-      - ./authelia:/config
-    restart: unless-stopped
-    networks:
-      local1:
-        ipv4_address: 192.168.10.83
-    depends_on:
-      - auth-redis
-      - auth-mariadb
-
-  auth-redis:
-    container_name: auth-redis
-    image: bitnami/redis:latest
-    ports:
-      - 6379:6379
-    volumes:
-      - authredis:/bitnami/
-    environment:
-      REDIS_PASSWORD: ${AUTH_REDIS_PASS}
-    restart: unless-stopped
-    networks:
-      local1:
-        ipv4_address: 192.168.10.84
-
-  auth-mariadb:
-    container_name: auth-mariadb
-    image: linuxserver/mariadb:latest
-    ports:
-      - 3306:3306
-    volumes:
-      - authdb:/config
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MSQL_ROOT_PW}
-      MYSQL_ROOT_USER: root
-      MYSQL_DATABASE: authelia
-      MYSQL_USER: authelia
-      MYSQL_PASSWORD: ${MSQL_PW}  
-    restart: unless-stopped
-    networks:
-      local1:
-        ipv4_address: 192.168.10.85
-
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
