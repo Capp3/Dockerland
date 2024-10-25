@@ -61,7 +61,7 @@ services:
       - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:swag-dashboard
       - LC_ALL=${LOCALE}
     volumes:
-      - ${DATA_DIR}/swag:/config
+      - ./data/swag:/config
       - ${DATA_DIR}/html:/dump
       - /home/server/posts:/posts
     ports:
