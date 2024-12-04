@@ -12,14 +12,15 @@ volumes:
   authdb:
   authredis:
 
+name: services
+
 services:
   agent:
     ports:
-        - '9001:9001'
+        - ${PORTAINER_AGENT_PORT}:9001
     container_name: portainer_agent
     networks:
       local1:
-        ipv4_address: 192.168.10.80
     restart: always
     volumes:
         - '/var/run/docker.sock:/var/run/docker.sock'
@@ -34,7 +35,7 @@ services:
       - default
     command: -H unix:///var/run/docker.sock 
     ports:
-      - "9000:9000"
+      - ${PORTAINER_PORT}:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro 
       - ${DATA_DIR}/portainer/data:/data 
@@ -51,33 +52,32 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
       - URL=${DOMAIN_NAME}
-      - SUBDOMAINS=wildcard
+      - SUBDOMAINS=${SWAG_SUBDOMAINS}
       - PROPAGATION=30
-      - VALIDATION=dns
-      - DNSPLUGIN=cloudflare #optional
+      - VALIDATION=${SWAG_VALIDATION}
+      - DNSPLUGIN=${SWAG_DNSPLUGIN}
       - EMAIL=${DNS_EMAIL}
-      - ONLY_SUBDOMAINS=false #optional
-      - STAGING=false #optional
+      - ONLY_SUBDOMAINS=false
+      - STAGING=false
       - DOCKER_MODS=linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:swag-auto-reload|linuxserver/mods:swag-dashboard
       - LC_ALL=${LOCALE}
     volumes:
-      - ./data/swag:/config
+      - ${DATA_DIR}/swag:/config
       - ${DATA_DIR}/html:/dump
-      - /home/server/posts:/posts
+      - ${DATA_DIR}/posts:/posts
     ports:
-      - 4443:443
-      - 4480:80 #optional
-      - 4481:81
+      - ${SWAG_SSL_PORT}:443
+      - ${SWAG_PORT}:80 #optional
+      - ${SWAG_GUI}:81
     restart: unless-stopped
     networks:
       local1:
-        ipv4_address: 192.168.10.82
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     ports:
-      - 10004:3000
+      - ${HOMEPAGE_PORT}:3000
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -87,4 +87,28 @@ services:
     restart: unless-stopped
     networks:
       local1:
-        ipv4_address: 192.168.10.86
+
+  adguardhome:
+    container_name: adguardhome
+    restart: unless-stopped
+    volumes:
+      - ${DATA_DIR}/adguardhome/workdir:/opt/adguardhome/work
+      - ${DATA_DIR}/adguardhome/confdir:/opt/adguardhome/conf
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+      - 68:68/udp
+      - 80:80/tcp
+      - 443:443/tcp
+      - 443:443/udp
+      - 3000:3000/tcp
+      - 853:853/tcp
+      - 784:784/udp
+      - 853:853/udp
+      - 8853:8853/udp
+      - 5443:5443/tcp
+      - 5443:5443/udp
+    image: adguard/adguardhome
+    networks:
+      local1:

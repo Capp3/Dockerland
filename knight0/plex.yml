@@ -1,0 +1,36 @@
+name: media_server
+
+networks:
+  local1:
+    external: true
+
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - VERSION=docker
+    volumes:
+      - ${DATA_DIR}/plex/library:/config
+      - ${MEDIADIR}/tv:/tv
+      - ${MEDIADIR}/movies:/movies
+    restart: unless-stopped
+
+  tautulli:
+    image: lscr.io/linuxserver/tautulli:latest
+    container_name: tautulli
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${DATA_DIR}/tautulli/config:/config
+    ports:
+      - ${TAUTULLI_PORT}:8181
+    restart: unless-stopped
+    networks:
+      local1:

@@ -19,19 +19,18 @@ services:
       - SERVER_REGIONS=Netherlands
     networks:
       local1:
-        ipv4_address: 192.168.10.90
     devices:
       - /dev/net/tun:/dev/net/tun
     ports:
-      - 8112:8112
+      - ${DELUGE_GUI_PORT}:8112
       - 6881:6881
       - 6881:6881/udp
       - 58846:58846
-      - 8191:8191
-      - 9696:9696
-      - 7878:7878
-      - 8989:8989
-      - 8787:8787
+      - ${FLARESOLVERR_PORT}:8191
+      - ${PROWLARR_PORT}:9696
+      - ${RADARR_PORT}:7878
+      - ${SONARR_PORT}:8989
+      - ${READARR_PORT}:8787
 
   deluge:
     image: lscr.io/linuxserver/deluge:latest
@@ -42,8 +41,8 @@ services:
       - TZ=${TZ}
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - ./data/deluge:/config
-      - ./data/downloads:/downloads
+      - ${DATA_DIR}/deluge:/config
+      - ${DATA_DIR}/downloads:/downloads
     network_mode: "container:gluetun"
     # ports:
     #   - 8112:8112
@@ -78,7 +77,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ./data/prowlarr:/config
+      - ${DATA_DIR}/prowlarr:/config
     # ports:
     #   - 9696:9696
     restart: unless-stopped
@@ -94,9 +93,9 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ./data/radarr:/config
+      - ${DATA_DIR}/radarr:/config
       - ${MEDIADIR}/movies:/movies #optional
-      - ./data/downloads:/downloads #optional
+      - ${DATA_DIR}/downloads:/downloads #optional
     # ports:
     #   - 7878:7878
     restart: unless-stopped
@@ -112,9 +111,9 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ./data/sonarr/:/config
+      - ${DATA_DIR}/sonarr/:/config
       - ${MEDIADIR}/tv:/tv #optional
-      - ./data/downloads:/downloads #optional
+      - ${DATA_DIR}/downloads:/downloads #optional
     # ports:
     #   - 8989:8989
     restart: unless-stopped
@@ -130,9 +129,9 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ./data/readarr:/config
+      - ${DATA_DIR}/readarr:/config
       - ${MEDIADIR}/library:/books #optional
-      - ./data/downloads:/downloads #optional
+      - ${DATA_DIR}/downloads:/downloads #optional
     # ports:
     #   - 8787:8787
     restart: unless-stopped
