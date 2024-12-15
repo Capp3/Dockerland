@@ -35,4 +35,4 @@ include:
   - dns.yml
   - plex.yml
   - webservices.yml
-  # - proxy.yml
+  - media.yml

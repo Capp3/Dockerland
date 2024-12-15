@@ -18,16 +18,6 @@ services:
       - ${DATA_DIR}/portainer/data:/data # Change to local directory if you want to save/transfer config locally
     environment:
       - TZ=$TZ
-    labels:
-      - "traefik.enable=true"
-      # HTTP Routers
-      - "traefik.http.routers.portainer-rtr.entrypoints=websecure"
-      - "traefik.http.routers.portainer-rtr.rule=Host(`docker.${DOMAIN_NAME}`)"
-      # Middlewares
-      - "traefik.http.routers.portainer-rtr.middlewares=chain-oauth@file"
-      # HTTP Services
-      - "traefik.http.routers.portainer-rtr.service=portainer-svc"
-      - "traefik.http.services.portainer-svc.loadbalancer.server.port=9000"
 
   agent:
     ports:
@@ -62,16 +52,6 @@ services:
       DOCKER_HOST: tcp://socket-proxy:2375
     # volumes:
     #  - /var/run/docker.sock:/var/run/docker.sock # Use Docker Socket Proxy instead for improved security
-    labels:
-      - "traefik.enable=true"
-      # HTTP Routers
-      - "traefik.http.routers.dozzle-rtr.entrypoints=websecure"
-      - "traefik.http.routers.dozzle-rtr.rule=Host(`dozzle.${DOMAIN_NAME}`)"
-      # Middlewares
-      - "traefik.http.routers.dozzle-rtr.middlewares=chain-oauth@file"
-      # HTTP Services
-      - "traefik.http.routers.dozzle-rtr.service=dozzle-svc"
-      - "traefik.http.services.dozzle-svc.loadbalancer.server.port=8080"
 
   socket-proxy:
     container_name: socket-proxy

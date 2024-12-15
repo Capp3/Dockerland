@@ -1,150 +1,27 @@
 services:
-  # Traefik 3 - Reverse Proxy
-  traefik:
-    container_name: traefik
-    image: traefik:3.0
-    security_opt:
-      - no-new-privileges:true
+  app:
+    image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
-    # profiles: ["core", "all"]
+    ports:
+      - '4480:80' # Public HTTP Port
+      - '4443:443' # Public HTTPS Port
+      - '4481:81' # Admin Web Port
+    volumes:
+      - ${DATA_DIR}/nginxpm:/data
+      - ${DATA_DIR}/letsencrypt:/etc/letsencrypt
     networks:
       k0_proxy:
-        ipv4_address: 192.168.90.254 # You can specify a static IP
-      socket_proxy:
-    command: # CLI arguments
-      - --global.checkNewVersion=true
-      - --global.sendAnonymousUsage=true
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
-      - --entrypoints.traefik.address=:8080
-      - --entrypoints.websecure.http.tls=true
-      - --entrypoints.web.http.redirections.entrypoint.to=websecure
-      - --entrypoints.web.http.redirections.entrypoint.scheme=https
-      - --entrypoints.web.http.redirections.entrypoint.permanent=true
-      - --api=true
-      - --api.dashboard=true
-      # - --api.insecure=true
-      #- --serversTransport.insecureSkipVerify=true
-      # Allow these IPs to set the X-Forwarded-* headers - Cloudflare IPs: https://www.cloudflare.com/ips/
-      - --entrypoints.websecure.forwardedHeaders.trustedIPs=${CLOUDFLARE_IPS},${LOCAL_IPS}
-      - --log=true
-      - --log.filePath=/logs/traefik.log
-      - --log.level=DEBUG # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
-      - --accessLog=true
-      - --accessLog.filePath=/logs/access.log
-      - --accessLog.bufferingSize=100 # Configuring a buffer of 100 lines
-      - --accessLog.filters.statusCodes=204-299,400-499,500-599
-      - --providers.docker=true
-      # - --providers.docker.endpoint=unix:///var/run/docker.sock # Disable for Socket Proxy. Enable otherwise.
-      - --providers.docker.endpoint=tcp://socket-proxy:2375 # Enable for Socket Proxy. Disable otherwise.
-      - --providers.docker.exposedByDefault=false
-      - --providers.docker.network=k0_proxy 
-      # - --providers.docker.swarmMode=false # Traefik v2 Swarm
-      # - --providers.swarm.endpoint=tcp://127.0.0.1:2377 # Traefik v3 Swarm
-      - --entrypoints.websecure.http.tls.options=tls-opts@file
-      # Add dns-cloudflare as default certresolver for all services. Also enables TLS and no need to specify on individual services
-      - --entrypoints.websecure.http.tls.certresolver=dns-cloudflare
-      - --entrypoints.websecure.http.tls.domains[0].main=${CFDDN_ZONE_0}
-      - --entrypoints.websecure.http.tls.domains[0].sans=*.${CFDDN_ZONE_0}
-      # - --entrypoints.websecure.http.tls.domains[1].main=$DOMAINNAME_2 # Pulls main cert for second domain
-      # - --entrypoints.websecure.http.tls.domains[1].sans=*.$DOMAINNAME_2 # Pulls wildcard cert for second domain
-      - --providers.file.directory=/rules # Load dynamic configuration from one or more .toml or .yml files in a directory
-      - --providers.file.watch=true # Only works on top level files in the rules folder
-      - --certificatesResolvers.dns-cloudflare.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory # LetsEncrypt Staging Server - uncomment when testing
-      - --certificatesResolvers.dns-cloudflare.acme.storage=/acme.json
-      - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.provider=cloudflare
-      - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
-      - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.delayBeforeCheck=90 # To delay DNS check and reduce LE hitrate
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
     ports:
-      - target: 80
-        published: 4480
-        protocol: tcp
-        mode: host
-      - target: 443
-        published: 4443
-        protocol: tcp
-        mode: host
-      # - target: 8080 # need to enable --api.insecure=true
-      #  published: 8085
-      #  protocol: tcp
-      #  mode: host
+      - 3000:3000
     volumes:
-      - /home/server/docker/knight0/config/traefik/rules/:/rules # Dynamic File Provider directory
-      # - /var/run/docker.sock:/var/run/docker.sock:ro # Enable if not using Socket Proxy
-      - ${DATA_DIR}/traefik3/acme/acme.json:/acme.json # Certs File 
-      - ${DATA_DIR}/traefik3/logs/$HOSTNAME/traefik:/logs # Traefik logs
+      - ${DATA_DIR}/homepage:/app/config # Make sure your local config directory exists
+      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations, see alternative methods
     environment:
-      - TZ=${TZ}
-      - CF_DNS_API_TOKEN_FILE=${CFDDNS0} 
-      # - HTPASSWD_FILE=/run/secrets/basic_auth_credentials # HTTP Basic Auth Credentials
-      - DOMAINNAME_1=${CFDDN_ZONE_0} # Passing the domain name to traefik container to be able to use the variable in rules. 
-    labels:
-      - "traefik.enable=true"
-      # HTTP Routers
-      - "traefik.http.routers.traefik-rtr.entrypoints=websecure"
-      - "traefik.http.routers.traefik-rtr.rule=Host(`traefik.${CFDDN_ZONE_0}`)"
-      # Services - API
-      - "traefik.http.routers.traefik-rtr.service=api@internal"
-      # Middlewares
-      # - "traefik.http.routers.traefik-rtr.middlewares=middlewares-basic-auth@file" # For Basic HTTP Authentication
-
-  # Authelia (Lite) - Self-Hosted Single Sign-On and Two-Factor Authentication
-  authelia:
-    container_name: authelia
-    image: authelia/authelia:4.38.8
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
-    # profiles: ["core", "all"]
+      PUID: $PUID
+      PGID: $PGID
     networks:
-      - k0_proxy
-      - local1
-    ports:
-      - "9091:9091"
-    volumes:
-      - ${DATA_DIR}/authelia:/config
-    environment:
-      - TZ=$TZ
-      - PUID=$PUID
-      - PGID=$PGID
-
-    labels:
-      - "traefik.enable=true"
-      ## HTTP Routers
-      - "traefik.http.routers.authelia-rtr.entrypoints=websecure"
-      - "traefik.http.routers.authelia-rtr.rule=Host(`authelia.${CFDDN_ZONE_0}`)"
-      ## Middlewares
-      - "traefik.http.routers.authelia-rtr.middlewares=chain-no-auth@file" # Should be chain-no-auth and not chain-authelia
-      ## HTTP Services
-      - "traefik.http.routers.authelia-rtr.service=authelia-svc"
-      - "traefik.http.services.authelia-svc.loadbalancer.server.port=9091"
-
-  secure:
-    image: 'traefik/whoami'
-    container_name: 'secure'
-    networks:
-      - k0_proxy
-      - local1
-    labels:
-      traefik.enable: 'true'
-      traefik.http.routers.secure.rule: 'Host(`secure.${CFDDN_ZONE_0}`)'
-      traefik.http.routers.secure.entrypoints: 'https'
-      traefik.http.routers.secure.tls: 'true'
-      traefik.http.routers.secure.tls.options: 'default'
-      traefik.http.routers.secure.middlewares: 'authelia@docker'
-    restart: 'unless-stopped'
-
-  public:
-    image: 'traefik/whoami'
-    container_name: 'public'
-    networks:
-      - k0_proxy
-      - local1
-    labels:
-      traefik.enable: 'true'
-      traefik.http.routers.public.rule: 'Host(`public.${CFDDN_ZONE_0}`)'
-      traefik.http.routers.public.entrypoints: 'https'
-      traefik.http.routers.public.tls: 'true'
-      traefik.http.routers.public.tls.options: 'default'
-      traefik.http.routers.public.middlewares: 'authelia@docker'
-    restart: 'unless-stopped'
+      k0_proxy:

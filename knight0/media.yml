@@ -5,14 +5,14 @@ services:
     cap_add:
       - NET_ADMIN
     volumes:
-      - ./data/gluetun:/gluetun
+      - ${DATA_DIR}/gluetun:/gluetun
     environment:
       - VPN_SERVICE_PROVIDER=private internet access
       - OPENVPN_USER=${PIA_USER}
       - OPENVPN_PASSWORD=${PIA_PASS}
       - SERVER_REGIONS=Netherlands
     networks:
-      local1:
+      k0_proxy:
     devices:
       - /dev/net/tun:/dev/net/tun
     ports:
@@ -25,6 +25,7 @@ services:
       - ${RADARR_PORT}:7878
       - ${SONARR_PORT}:8989
       - ${READARR_PORT}:8787
+      - ${OVERSEERR_PORT}:5055
     restart: unless-stopped
 
   deluge:
@@ -124,3 +125,17 @@ services:
       gluetun:
         condition: service_healthy
 
+  overseerr:
+    image: lscr.io/linuxserver/overseerr:latest
+    container_name: overseerr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${DATA_DIR}/overseerr/config:/config
+    restart: unless-stopped
+    network_mode: "container:gluetun"
+    depends_on:
+      gluetun:
+        condition: service_healthy
