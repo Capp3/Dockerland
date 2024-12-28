@@ -32,29 +32,6 @@ volumes:
 ########################### SERVICES
 services: 
 
-  agent:
-    ports:
-        - '9001:9001'
-    container_name: portainer_agent
-    networks:
-      local1:
-        ipv4_address: 192.168.10.100
-    restart: always
-    volumes:
-        - '/var/run/docker.sock:/var/run/docker.sock'
-        - '/var/lib/docker/volumes:/var/lib/docker/volumes'
-    image: portainer/agent
-
-  socketproxy:
-    container_name: socketproxy
-    image: tecnativa/docker-socket-proxy
-    restart: always
-    privileged: true
-    ports:
-      - '2376:2375'
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
   readsb:
     image: ghcr.io/sdr-enthusiasts/docker-readsb-protobuf:latest
     tty: true
@@ -109,112 +86,74 @@ services:
     tmpfs:
       - /run:rw,nosuid,nodev,exec,relatime,size=64M,uid=1000,gid=1000
 
-  # piaware:
-    # image: ghcr.io/sdr-enthusiasts/docker-piaware:latest
-    # tty: true
-    # container_name: piaware
-    # restart: always
-    # networks:
-    #   local1:
-    #     ipv4_address: 192.168.10.66
-    # depends_on:
-    #   - readsb
-    # environment:
-    #   - TZ=${TZ}
-    #   - LAT=${LAT}
-    #   - LONG=${LONG}
-    #   - RECEIVER_TYPE=relay
-    #   - BEASTHOST=192.168.10.63
-    #   - BEASTPORT=30005
-    #   - FEEDER_ID=${PIAWAREKEY}
-    # tmpfs:
-    #   - /run:exec,size=64M
-    #   - /var/log
-
-  # vrs:
-  #   image: ghcr.io/sdr-enthusiasts/vrs:latest
-  #   tty: true
-  #   container_name: vrs
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - readsb
-  #   ports:
-  #     - 8085:8080
-  #   environment:
-  #       - VRS_ADMIN_USERNAME=${VRS_USERNAME}
-  #       - VRS_ADMIN_PASSWORD=${VRS_PASSWORD}
-  #       - VRS_CULTURE=en-GB #see http://msdn.microsoft.com/en-us/goglobal/bb896001.aspx for a list of supported culture names. Not all translations may be available
-  #       - VRS_DB_UPDATE_POLICY_FULLAUTO=yes #default unset / no
-  #       - VRS_DB_UPDATE_WITH_VACUUM=yes #default unset / no
-  #       - VRS_DB_UPDATE_BACKUP_UNCOMPRESSED=yes #default unset / compressed
-  #       - VRS_ENHANCED_MARKERS=normal #default unset
-  #       - VRS_ENHANCED_LAYERS_COUNTRY=UK #Currently available: UK,DE,USA1,USAAZ,SE,AU,IN,ID,NL,FR,ES
-  #       - 'VRS_ENHANCED_LAYERS_CONFIG={
-
-  #           /* Map Options */
-  #           "defaultMap" : 6,                      /* 1: OpenStreetMap, 2: OpenStreetMap Dark, 3: OpenTopoMap, 4: WaterColour, 5: CartoDark, 6: Terrain, 7: Satellite */
-  #           "layerMenuPosition" : "bottomleft",    /* Valid positions: topleft, topright, bottomleft or bottomright */
-
-  #           /* Enable Layers */
-  #           "airspace" : 0,
-  #           "navAids" : 0,
-  #           "tfrUSA" : 0,
-  #           "seaMarkers" : 0,
-  #           "trainMap" : 0,
-  #           "clouds" : 0,
-  #           "rain" : 0,
-  #           "temps" : 0,
-  #           "wind" : 0,
-  #           "pressure" : 0,
-  #           "dayNight" : 0,
-  #           "civilAirfields" : 0,
-  #           "militaryAirfields" : 0,
-  #           "heliports" : 0,
-  #           "glidingSpots" : 0
-  #         }'
-  #       - VRS_SBSHOST=192.168.10.102  #put IP or container name of data source here
-  #       - VRS_SBSPORT=30005
-  #       - VRS_ENHANCED_LAYERS_OPENWX_APIKEY=${OPENWX_API}
-  #       - VRS_ENHANCED_LAYERS_OPENAIP_APIKEY=${OPENAPI_API}
-  #       - VRS_ENHANCED_LAYERS_STADIA_APIKEY=${STADIA_API}
-  #       - VRS_ENHANCED_LAYERS_THUNDERFOREST_APIKEY=${THUNDER_API}
-  #       - VRS_SILHOUETTES_DUALVIEW=true
-  #   tmpfs:
-  #     - /tmp:rw,nosuid,nodev,noexec,relatime,size=128M
-  #   volumes:
-  #     - /opt/adsb/vrs:/root/.local/share/VirtualRadar
-  #     - /etc/localtime:/etc/localtime:ro
-  #     - /etc/timezone:/etc/timezone:ro
-
-  # tdarr-node:
-  #   container_name: tdarr-node
-  #   image: ghcr.io/haveagitgat/tdarr_node:latest
-  #   restart: unless-stopped
-  #   networks:
-  #     local1:
-  #       ipv4_address: 192.168.10.67
-  #   environment:
-  #     - TZ=Europe/Dublin
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - UMASK_SET=002
-  #     - nodeID=scoutnode
-  #     - serverIP=192.168.1.11
-  #     - serverPort=8266
-  #   volumes:
-  #     - /docker/tdarr/configs:/app/configs
-  #     - /docker/tdarr/logs:/app/logs
-  #     - /media:/media
-  #     - /transcode_cache:/temp
-
-  node-red:
-    image: nodered/node-red:latest
-    environment:
-      - TZ=${TZ}
-    ports:
-      - "1880:1880"
+  socket-proxy:
+    container_name: socket-proxy
+    image: tecnativa/docker-socket-proxy
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    # profiles: ["core", "all"] 
     networks:
-      local1:
-        ipv4_address: 192.168.10.106
+      socket_proxy:
+        ipv4_address: 192.168.91.254 # You can specify a static IP
+    privileged: true # true for VM. false for unprivileged LXC container on Proxmox.
+    ports:
+      - 2375:2375 # Do not expose this to the internet with port forwarding
     volumes:
-      - node-red-data:/data
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      - LOG_LEVEL=info # debug,info,notice,warning,err,crit,alert,emerg
+      ## Variables match the URL prefix (i.e. AUTH blocks access to /auth/* parts of the API, etc.).
+      # 0 to revoke access.
+      # 1 to grant access.
+      ## Granted by Default
+      - EVENTS=1
+      - PING=1
+      - VERSION=1
+      ## Revoked by Default
+      # Security critical
+      - AUTH=0
+      - SECRETS=0
+      - POST=1 # Watchtower
+      # Not always needed
+      - BUILD=0
+      - COMMIT=0
+      - CONFIGS=0
+      - CONTAINERS=1 # Traefik, Portainer, etc.
+      - DISTRIBUTION=0
+      - EXEC=0
+      - IMAGES=1 # Portainer
+      - INFO=1 # Portainer
+      - NETWORKS=1 # Portainer
+      - NODES=0
+      - PLUGINS=0
+      - SERVICES=1 # Portainer
+      - SESSION=0
+      - SWARM=0
+      - SYSTEM=0
+      - TASKS=1 # Portainer
+      - VOLUMES=1 # Portainer
+
+  # Docker-GC - Automatic Docker Garbage Collection
+  # Create docker-gc-exclude file
+  docker-gc:
+    image: clockworksoul/docker-gc-cron:latest
+    container_name: docker-gc
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    profiles: ["apps", "all"]
+    networks:
+      - socket_proxy
+    volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock # Use Docker Socket Proxy instead for improved security
+      - ${DATA_DIR}/docker-gc/docker-gc-exclude:/etc/docker-gc-exclude
+    environment:
+      CRON: 12 0 0 * * ? # Everyday at midnight.
+      FORCE_IMAGE_REMOVAL: 1
+      FORCE_CONTAINER_REMOVAL: 0
+      GRACE_PERIOD_SECONDS: 604800
+      DRY_RUN: 0
+      CLEAN_UP_VOLUMES: 1
+      TZ: $TZ
+      DOCKER_HOST: tcp://socket-proxy:2375
