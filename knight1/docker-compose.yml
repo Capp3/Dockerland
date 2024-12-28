@@ -76,7 +76,7 @@ services:
     depends_on:
       - readsb
     environment:
-      - BEASTHOST=192.168.10.63
+      - BEASTHOST=192.168.10.102
       - TZ=${TZ}
       - LAT=${LAT}
       - LONG=${LONG}
