@@ -94,8 +94,7 @@ services:
     restart: unless-stopped
     # profiles: ["core", "all"] 
     networks:
-      socket_proxy:
-        ipv4_address: 192.168.91.254 # You can specify a static IP
+      local1:
     privileged: true # true for VM. false for unprivileged LXC container on Proxmox.
     ports:
       - 2375:2375 # Do not expose this to the internet with port forwarding
@@ -144,7 +143,7 @@ services:
     restart: unless-stopped
     profiles: ["apps", "all"]
     networks:
-      - socket_proxy
+      local1:
     volumes:
       # - /var/run/docker.sock:/var/run/docker.sock # Use Docker Socket Proxy instead for improved security
       - ${DATA_DIR}/docker-gc/docker-gc-exclude:/etc/docker-gc-exclude
