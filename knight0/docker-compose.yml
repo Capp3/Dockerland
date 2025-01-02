@@ -3,6 +3,10 @@ networks:
   local1:
     name: local1
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.10.0/24"
 
   socket_proxy:
     name: socket_proxy

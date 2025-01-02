@@ -1,5 +1,5 @@
 services:
-  app:
+  nginxpm:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     ports:

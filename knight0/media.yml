@@ -26,6 +26,7 @@ services:
       - ${SONARR_PORT}:8989
       - ${READARR_PORT}:8787
       - ${OVERSEERR_PORT}:5055
+      - ${BAZARR_PORT}:6767
     restart: unless-stopped
 
   deluge:
@@ -134,6 +135,23 @@ services:
       - TZ=${TZ}
     volumes:
       - ${DATA_DIR}/overseerr/config:/config
+    restart: unless-stopped
+    network_mode: "container:gluetun"
+    depends_on:
+      gluetun:
+        condition: service_healthy
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${DATA_DIR}/bazarr/config:/config
+      - ${MEDIADIR}/movies:/movies #optional
+      - ${MEDIADIR}/tv:/tv #optional
     restart: unless-stopped
     network_mode: "container:gluetun"
     depends_on:
