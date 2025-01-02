@@ -25,3 +25,18 @@ services:
       PGID: $PGID
     networks:
       k0_proxy:
+
+  qdirstat:
+    image: lscr.io/linuxserver/qdirstat:latest
+    container_name: qdirstat
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    volumes:
+      - ${DATA_DIR}/qdirstat/config:/config
+      - /:/data
+    ports:
+      - 9999:3000
+      - 9998:3001
+    restart: unless-stopped
