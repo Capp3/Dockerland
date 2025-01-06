@@ -21,8 +21,8 @@ services:
       - ${DATA_DIR}/homepage:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations, see alternative methods
     environment:
-      PUID: $PUID
-      PGID: $PGID
+      PUID: ${PUID}
+      PGID: ${PGID}
     networks:
       k0_proxy:
 
@@ -30,13 +30,31 @@ services:
     image: lscr.io/linuxserver/qdirstat:latest
     container_name: qdirstat
     environment:
-      - PUID=$PUID
-      - PGID=$PGID
-      - TZ=$TZ
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
       - ${DATA_DIR}/qdirstat/config:/config
       - /:/data
     ports:
       - 9999:3000
       - 9998:3001
+    restart: unless-stopped
+
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:latest
+    container_name: syncthing
+    hostname: syncthing #optional
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${DATA_DIR}/syncthing/config:/config
+      - ${SYNC_DATA_DIR}:/data1
+    ports:
+      - ${SYNC_PORT_GUI:-8384}:8384
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
     restart: unless-stopped
