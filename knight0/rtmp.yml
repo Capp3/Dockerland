@@ -4,5 +4,4 @@ services:
             - 1935:1935
         container_name: nginx-rtmp
         image: tiangolo/nginx-rtmp
-        container_name: rtmp-proxy
         restart: unless-stopped
