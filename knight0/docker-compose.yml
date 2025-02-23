@@ -40,3 +40,4 @@ include:
   - plex.yml
   - webservices.yml
   - media.yml
+  - rtmp.yml
