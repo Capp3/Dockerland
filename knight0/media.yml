@@ -109,23 +109,6 @@ services:
       gluetun:
         condition: service_healthy
 
-  readarr:
-    image: lscr.io/linuxserver/readarr:develop
-    container_name: readarr
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ${DATA_DIR}/readarr:/config
-      - ${MEDIADIR}/library:/books #optional
-      - ${DATA_DIR}/downloads:/downloads #optional
-    restart: unless-stopped
-    network_mode: "container:gluetun"
-    depends_on:
-      gluetun:
-        condition: service_healthy
-
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
     container_name: overseerr
