@@ -140,3 +140,32 @@ services:
     depends_on:
       gluetun:
         condition: service_healthy
+
+  tdarr:
+    tty: true
+    stdin_open: true
+    volumes:
+      - /usb_media_storage/library/movies:/home/Tdarr/Media/movies
+      - /usb_media_storage/library/tv:/home/Tdarr/Media/tv
+      - ./data/downloads/cache/:/temp
+      - ./data/tdarr/data/:/app/server
+      - ./data/tdarr/data/:/app/configs
+      - ./data/tdarr/data/:/app/logs
+    environment:
+      - serverIP=0.0.0.0
+      - webUIPort=8265
+      - serverPort=8266
+      - TZ=Europe/Dublin
+      - PUID=1000
+      - PGID=1000
+    network_mode: bridge
+    ports:
+      - 8265:8265
+      - 8266:8266
+    logging:
+      options:
+        max-size: 10m
+        max-file: 5
+    devices:
+      - /dev/dri:/dev/dri
+    image: haveagitgat/tdarr
