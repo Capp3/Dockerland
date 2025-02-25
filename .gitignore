@@ -30,3 +30,10 @@ scratch.md
 */authelia
 knight0/config/homepage/logs/
 
+package.json
+package-lock.json
+.prettierrc
+.prettierignore
+.eslintrc.js
+.eslintignore
+node_modules/

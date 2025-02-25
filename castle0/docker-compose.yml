@@ -1,0 +1,108 @@
+---
+networks:
+  c0_proxy:
+    name: c0_proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.92.0/24
+services:
+  # Portainer - WebUI for Containers
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest # Use portainer-ee if you have a Business Edition license key
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    # profiles: ["core", "all"]
+    networks:
+      - c0_proxy
+    # command: -H unix:///var/run/docker.sock # # Use Docker Socket Proxy instead for improved security
+    command: -H tcp://socket-proxy:2375
+    ports:
+      - "9000:9000"
+    volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock:ro # # Use Docker Socket Proxy instead for improved security
+      - ${DATA_DIR}/portainer/data:/data # Change to local directory if you want to save/transfer config locally
+    environment:
+      - TZ=$TZ
+
+  socket-proxy:
+    container_name: socket-proxy
+    image: tecnativa/docker-socket-proxy
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    # profiles: ["core", "all"] 
+    networks:
+      - c0_proxy
+    privileged: true # true for VM. false for unprivileged LXC container on Proxmox.
+    ports:
+      - 2375:2375 # Do not expose this to the internet with port forwarding
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      - LOG_LEVEL=info # debug,info,notice,warning,err,crit,alert,emerg
+      ## Variables match the URL prefix (i.e. AUTH blocks access to /auth/* parts of the API, etc.).
+      # 0 to revoke access.
+      # 1 to grant access.
+      ## Granted by Default
+      - EVENTS=1
+      - PING=1
+      - VERSION=1
+      ## Revoked by Default
+      # Security critical
+      - AUTH=0
+      - SECRETS=0
+      - POST=1 # Watchtower
+      # Not always needed
+      - BUILD=0
+      - COMMIT=0
+      - CONFIGS=0
+      - CONTAINERS=1 # Traefik, Portainer, etc.
+      - DISTRIBUTION=0
+      - EXEC=0
+      - IMAGES=1 # Portainer
+      - INFO=1 # Portainer
+      - NETWORKS=1 # Portainer
+      - NODES=0
+      - PLUGINS=0
+      - SERVICES=1 # Portainer
+      - SESSION=0
+      - SWARM=0
+      - SYSTEM=0
+      - TASKS=1 # Portainer
+      - VOLUMES=1 # Portainer
+
+  tdarr:
+    container_name: tdarr_node
+    image: haveagitgat/tdarr_node
+    network_mode: bridge
+    tty: true
+    stdin_open: true
+    environment:
+      - serverIP=192.168.1.210
+      - webUIPort=8265
+      - serverPort=8266
+      - TZ=Europe/Dublin
+      - inContainer=true
+      - PUID=1000
+      - PGID=1000
+      - nodeName=castle0
+    volumes:
+      - /netmedia/library/movies:/home/Tdarr/Media/movies
+      - /netmedia/library/tv:/home/Tdarr/Media/tv
+      - ./data/downloads/cache/:/temp
+      - ./data/tdarr/data/:/app/server
+      - ./data/tdarr/data/:/app/configs
+      - ./data/tdarr/data/:/app/logs
+    ports:
+      - 8265:8265
+      - 8266:8266
+    devices:
+      - /dev/dri:/dev/dri
+    logging:
+      options:
+        max-size: 10m
+        max-file: 5
+    restart: unless-stopped
