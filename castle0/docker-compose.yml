@@ -107,8 +107,15 @@ services:
   #       max-file: 5
   #   restart: unless-stopped
   open-webui:
+    build:
+      context: .
+      args:
+        OLLAMA_BASE_URL: "/ollama"
+      dockerfile: Dockerfile.webui
     ports:
       - 3000:8080
+    depends_on:
+      - ollama
     deploy:
       resources:
         reservations:
@@ -119,9 +126,32 @@ services:
                 - gpu
     volumes:
       - open-webui:/app/backend/data
+    environment:
+      - "OLLAMA_BASE_URL=http://ollama:11434"
     container_name: open-webui
     image: ghcr.io/open-webui/open-webui:cuda
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  ollama:
+    # GPU support
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: ${OLLAMA_GPU_DRIVER-nvidia}
+              count: ${OLLAMA_GPU_COUNT-1}
+              capabilities:
+                - gpu
+    volumes:
+      - ollama:/root/.ollama
+    container_name: ollama
+    pull_policy: always
+    tty: true
+    restart: unless-stopped
+    image: ollama/ollama:${OLLAMA_DOCKER_TAG-latest}
 
 volumes:
   open-webui:
+  ollama:
   portainerdata:
