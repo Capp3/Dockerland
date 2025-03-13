@@ -9,14 +9,13 @@ services:
       macvlan_network:
         ipv4_address: 192.168.1.254
     image: adguard/adguardhome
-    
+
   cloudflare-ddns-capparelli:
     container_name: ddns_capparelli
     image: oznu/cloudflare-ddns:latest
     restart: always
     networks:
-      local1:
-        ipv4_address: 192.168.10.61
+      k0_proxy:
     environment:
       - API_KEY=${CFDDNS0}
       - ZONE=${CFDDN_ZONE_0}

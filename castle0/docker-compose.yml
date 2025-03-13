@@ -33,7 +33,7 @@ services:
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
-    # profiles: ["core", "all"] 
+    # profiles: ["core", "all"]
     networks:
       - c0_proxy
     privileged: true # true for VM. false for unprivileged LXC container on Proxmox.
@@ -106,3 +106,21 @@ services:
         max-size: 10m
         max-file: 5
     restart: unless-stopped
+  open-webui:
+    ports:
+      - 3000:8080
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities:
+                - gpu
+    volumes:
+      - open-webui:/app/backend/data
+    container_name: open-webui
+    image: ghcr.io/open-webui/open-webui:cuda
+
+volumes:
+  open-webui:

@@ -1,0 +1,36 @@
+{
+  "files.associations": {
+    "*.yaml": "dockercompose",
+    "*.yml": "dockercompose"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+
+  // Set tab size to 2 spaces globally
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+
+  // Set tab size for YAML files explicitly
+  "[yaml]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "[yml]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": [
+      "**/docker-compose.yml",
+      "**/docker-compose.yaml",
+      "**/*.docker-compose.yml",
+      "**/*.docker-compose.yaml",
+      "**/*.yml",
+      "**/*.yaml"
+    ]
+  },
+  "yaml.validate": true,
+  "docker.languageServer.enable": false,
+  "docker.docker-compose.executablePath": "docker-compose"
+}

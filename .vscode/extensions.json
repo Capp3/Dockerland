@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "redhat.vscode-yaml",
+    "esbenp.prettier-vscode",
+    "eamodio.gitlens",
+    "mutantdino.resourcemonitor",
+    "timonwong.shellcheck",
+    "ms-azuretools.vscode-docker",
+    "hbenl.vscode-test-explorer",
+    "mhutchie.git-graph",
+    "humao.rest-client",
+    "gruntfuggly.todo-tree",
+    "ms-vscode.makefile-tools"
+  ]
+}
