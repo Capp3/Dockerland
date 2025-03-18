@@ -1,11 +1,11 @@
 services:
   nginxpm:
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: "jc21/nginx-proxy-manager:latest"
     restart: unless-stopped
     ports:
-      - '4480:80' # Public HTTP Port
-      - '4443:443' # Public HTTPS Port
-      - '4481:81' # Admin Web Port
+      - "4480:80" # Public HTTP Port
+      - "4443:443" # Public HTTPS Port
+      - "4481:81" # Admin Web Port
     volumes:
       - ${DATA_DIR}/nginxpm:/data
       - ${DATA_DIR}/letsencrypt:/etc/letsencrypt
@@ -15,6 +15,7 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
+    restart: unless-stopped
     ports:
       - 3000:3000
     volumes:
