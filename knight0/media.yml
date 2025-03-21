@@ -6,6 +6,7 @@ services:
       - NET_ADMIN
     networks:
       k0_proxy:
+        ipv4_address: 192.168.90.102
     environment:
       - VPN_SERVICE_PROVIDER=private internet access
       - OPENVPN_USER=${PIA_USER}

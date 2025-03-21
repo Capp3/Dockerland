@@ -16,37 +16,6 @@ services:
     environment:
       - TZ=$TZ
 
-  agent:
-    ports:
-      - ${PORTAINER_AGENT_PORT}:9001
-    container_name: portainer_agent
-    networks:
-      - socket_proxy
-    restart: always
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "/var/lib/docker/volumes:/var/lib/docker/volumes"
-    image: portainer/agent
-
-  dozzle:
-    image: amir20/dozzle:latest
-    container_name: dozzle
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
-    profiles: ["apps", "all"]
-    networks:
-      - k0_proxy
-      - socket_proxy
-    ports:
-      - ${DOZZLE_PORT}:8080
-    environment:
-      DOZZLE_LEVEL: info
-      DOZZLE_TAILSIZE: 300
-      DOZZLE_FILTER: "status=running"
-      # DOZZLE_FILTER: "label=log_me" # limits logs displayed to containers with this label
-      DOCKER_HOST: tcp://socket-proxy:2375
-
   socket-proxy:
     container_name: socket-proxy
     image: tecnativa/docker-socket-proxy

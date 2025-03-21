@@ -1,16 +1,16 @@
 services:
-  nginxpm:
-    image: "jc21/nginx-proxy-manager:latest"
-    restart: unless-stopped
-    ports:
-      - "4480:80" # Public HTTP Port
-      - "4443:443" # Public HTTPS Port
-      - "4481:81" # Admin Web Port
-    volumes:
-      - ${DATA_DIR}/nginxpm:/data
-      - ${DATA_DIR}/letsencrypt:/etc/letsencrypt
-    networks:
-      k0_proxy:
+  # nginxpm:
+  #   image: "jc21/nginx-proxy-manager:latest"
+  #   restart: unless-stopped
+  #   ports:
+  #     - "4480:80" # Public HTTP Port
+  #     - "4443:443" # Public HTTPS Port
+  #     - "4481:81" # Admin Web Port
+  #   volumes:
+  #     - ${DATA_DIR}/nginxpm:/data
+  #     - ${DATA_DIR}/letsencrypt:/etc/letsencrypt
+  #   networks:
+  #     k0_proxy:
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
@@ -24,23 +24,10 @@ services:
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
+      HOMEPAGE_ALLOWED_HOSTS: home.capparelli.ie
     networks:
       k0_proxy:
-
-  qdirstat:
-    image: lscr.io/linuxserver/qdirstat:latest
-    container_name: qdirstat
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ${DATA_DIR}/qdirstat/config:/config
-      - /:/data
-    ports:
-      - 9999:3000
-      - 9998:3001
-    restart: unless-stopped
+        ipv4_address: 192.168.90.111
 
   syncthing:
     image: lscr.io/linuxserver/syncthing:latest
@@ -59,3 +46,66 @@ services:
       - 22000:22000/udp
       - 21027:21027/udp
     restart: unless-stopped
+
+  swag:
+    image: lscr.io/linuxserver/swag:latest
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - URL=${DOMAIN_NAME}
+      - VALIDATION=dns
+      - SUBDOMAINS=wildcard
+      # - CERTPROVIDER=
+      - DNSPLUGIN=cloudflare #optional
+      - PROPAGATION=30
+      - EMAIL=${DNS_EMAIL}
+      # - DISABLE_F2B=
+      - SWAG_AUTORELOAD=true
+      # - SWAG_AUTORELOAD_WATCHLIST=
+    volumes:
+      - ${DATA_DIR}/swag/config:/config
+    ports:
+      - 4443:443
+      - 4480:80 #optional
+    restart: unless-stopped
+    networks:
+      k0_proxy:
+        ipv4_address: 192.168.90.112
+
+  # Authelia (Lite) - Self-Hosted Single Sign-On and Two-Factor Authentication
+  authelia:
+    container_name: authelia
+    image: authelia/authelia
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    # profiles: ["core", "all"]
+    networks:
+      k0_proxy:
+        ipv4_address: 192.168.90.113
+    ports:
+      - "9091:9091"
+    volumes:
+      - ${DATA_DIR}/authelia/config:/config
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+
+  redis:
+    image: redis:alpine
+    container_name: auth_redis
+    volumes:
+      - ${DATA_DIR}/authelia/redis:/data
+    networks:
+      k0_proxy:
+        ipv4_address: 192.168.90.114
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}

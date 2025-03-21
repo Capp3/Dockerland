@@ -16,6 +16,7 @@ services:
     restart: always
     networks:
       k0_proxy:
+        ipv4_address: 192.168.90.101
     environment:
       - API_KEY=${CFDDNS0}
       - ZONE=${CFDDN_ZONE_0}

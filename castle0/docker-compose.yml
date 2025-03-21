@@ -6,27 +6,10 @@ networks:
     ipam:
       config:
         - subnet: 192.168.92.0/24
-services:
-  # Portainer - WebUI for Containers
-  portainer:
-    container_name: portainer
-    image: portainer/portainer-ce:latest # Use portainer-ee if you have a Business Edition license key
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
-    # profiles: ["core", "all"]
-    networks:
-      - c0_proxy
-    # command: -H unix:///var/run/docker.sock # # Use Docker Socket Proxy instead for improved security
-    command: -H tcp://socket-proxy:2375
-    ports:
-      - "9000:9000"
-    volumes:
-      # - /var/run/docker.sock:/var/run/docker.sock:ro # # Use Docker Socket Proxy instead for improved security
-      - portainerdata:/data # Change to local directory if you want to save/transfer config locally
-    environment:
-      - TZ=Europe/Dublin
+volumes:
+  open-webui:
 
+services:
   socket-proxy:
     container_name: socket-proxy
     image: tecnativa/docker-socket-proxy
@@ -124,33 +107,26 @@ services:
     volumes:
       - open-webui:/app/backend/data
     environment:
-      - "OLLAMA_BASE_URL=http://ollama:11434"
+      - "OLLAMA_BASE_URL=http://192.168.1.17:11434"
     container_name: open-webui
     image: ghcr.io/open-webui/open-webui:cuda
     extra_hosts:
       - host.docker.internal:host-gateway
 
-  ollama:
-    # GPU support
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: ${OLLAMA_GPU_DRIVER-nvidia}
-              count: ${OLLAMA_GPU_COUNT-1}
-              capabilities:
-                - gpu
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:latest
+    container_name: syncthing
+    hostname: syncthing #optional
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
-      - ollama:/root/.ollama
-    networks:
-      c0_proxy:
-    container_name: ollama
-    pull_policy: always
-    tty: true
+      - ${DATA_DIR}/syncthing/config:/config
+      - ${SYNC_DATA_DIR}:/data1
+    ports:
+      - ${SYNC_PORT_GUI:-8384}:8384
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
     restart: unless-stopped
-    image: ollama/ollama:${OLLAMA_DOCKER_TAG-latest}
-
-volumes:
-  open-webui:
-  ollama:
-  portainerdata:
