@@ -32,5 +32,8 @@
   },
   "yaml.validate": true,
   "docker.languageServer.enable": false,
-  "docker.docker-compose.executablePath": "docker-compose"
+  "docker.docker-compose.executablePath": "docker-compose",
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  }
 }

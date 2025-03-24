@@ -26,6 +26,7 @@ services:
       - ${DATA_DIR}/jellyfin/library:/config
       - ${MEDIADIR}/tv:/data/tvshows
       - ${MEDIADIR}/movies:/data/movies
+      - ${DATA_DIR}/swag/config:/swag
     ports:
       - 8096:8096
       - 8920:8920
