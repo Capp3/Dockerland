@@ -3,9 +3,9 @@ services:
   #   image: "jc21/nginx-proxy-manager:latest"
   #   restart: unless-stopped
   #   ports:
-  #     - "4480:80" # Public HTTP Port
-  #     - "4443:443" # Public HTTPS Port
-  #     - "4481:81" # Admin Web Port
+  #     - "4480:80"  # Public HTTP Port
+  #     - "4443:443"  # Public HTTPS Port
+  #     - "4481:81"  # Admin Web Port
   #   volumes:
   #     - ${DATA_DIR}/nginxpm:/data
   #     - ${DATA_DIR}/letsencrypt:/etc/letsencrypt
@@ -20,11 +20,11 @@ services:
       - 3000:3000
     volumes:
       - ${DATA_DIR}/homepage:/app/config # Make sure your local config directory exists
-      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations, see alternative methods
+      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
     environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
-      HOMEPAGE_ALLOWED_HOSTS: home.capparelli.ie
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - HOMEPAGE_ALLOWED_HOSTS=home.capparelli.ie
     networks:
       k0_proxy:
         ipv4_address: 192.168.90.111
@@ -32,7 +32,7 @@ services:
   syncthing:
     image: lscr.io/linuxserver/syncthing:latest
     container_name: syncthing
-    hostname: syncthing #optional
+    hostname: syncthing # optional
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -60,7 +60,7 @@ services:
       - VALIDATION=dns
       - SUBDOMAINS=wildcard
       # - CERTPROVIDER=
-      - DNSPLUGIN=cloudflare #optional
+      - DNSPLUGIN=cloudflare # optional
       - PROPAGATION=30
       - EMAIL=${DNS_EMAIL}
       # - DISABLE_F2B=
@@ -70,7 +70,7 @@ services:
       - ${DATA_DIR}/swag/config:/config
     ports:
       - 4443:443
-      - 4480:80 #optional
+      - 4480:80 # optional
     restart: unless-stopped
     networks:
       k0_proxy:

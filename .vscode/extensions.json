@@ -5,6 +5,7 @@
     "mutantdino.resourcemonitor",
     "ms-azuretools.vscode-docker",
     "humao.rest-client",
-    "gruntfuggly.todo-tree"
+    "gruntfuggly.todo-tree",
+    "william-voyek.vscode-nginx"
   ]
 }

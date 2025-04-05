@@ -1,7 +1,7 @@
 services:
-    nginx-rtmp:
-        ports:
-            - 1935:1935
-        container_name: nginx-rtmp
-        image: tiangolo/nginx-rtmp
-        restart: unless-stopped
+  nginx-rtmp:
+    container_name: nginx-rtmp
+    image: tiangolo/nginx-rtmp
+    ports:
+      - 1935:1935
+    restart: unless-stopped

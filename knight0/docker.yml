@@ -69,11 +69,11 @@ services:
     volumes:
       - ${DATA_DIR}/docker-gc/docker-gc-exclude:/etc/docker-gc-exclude
     environment:
-      CRON: 12 0 0 * * ?
-      FORCE_IMAGE_REMOVAL: 1
-      FORCE_CONTAINER_REMOVAL: 0
-      GRACE_PERIOD_SECONDS: 604800
-      DRY_RUN: 0
-      CLEAN_UP_VOLUMES: 1
-      TZ: $TZ
-      DOCKER_HOST: tcp://socket-proxy:2375
+      - CRON=12 0 0 * * ?
+      - FORCE_IMAGE_REMOVAL=1
+      - FORCE_CONTAINER_REMOVAL=0
+      - GRACE_PERIOD_SECONDS=604800
+      - DRY_RUN=0
+      - CLEAN_UP_VOLUMES=1
+      - TZ=$TZ
+      - DOCKER_HOST=tcp://socket-proxy:2375

@@ -110,20 +110,20 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
-  overseerr:
-    container_name: overseerr
-    image: lscr.io/linuxserver/overseerr:latest
-    network_mode: "container:gluetun"
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ${DATA_DIR}/overseerr/config:/config
-    depends_on:
-      gluetun:
-        condition: service_healthy
-    restart: unless-stopped
+  # overseerr:
+  #   container_name: overseerr
+  #   image: lscr.io/linuxserver/overseerr:latest
+  #   network_mode: "container:gluetun"
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${DATA_DIR}/overseerr/config:/config
+  #   depends_on:
+  #     gluetun:
+  #       condition: service_healthy
+  #   restart: unless-stopped
 
   bazarr:
     container_name: bazarr
@@ -175,3 +175,18 @@ services:
         max-size: 10m
         max-file: 5
     restart: unless-stopped
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=${TZ}
+      - PORT=5055 # optional
+    volumes:
+      - ${DATA_DIR}/jellyseerr:/app/config
+    restart: unless-stopped
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    network_mode: "container:gluetun"

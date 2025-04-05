@@ -1,6 +1,7 @@
 services:
   adguardhome:
     container_name: adguardhome
+    image: adguard/adguardhome
     restart: unless-stopped
     volumes:
       - ${DATA_DIR}/adguardhome/workdir:/opt/adguardhome/work
@@ -8,7 +9,6 @@ services:
     networks:
       macvlan_network:
         ipv4_address: 192.168.1.254
-    image: adguard/adguardhome
 
   cloudflare-ddns-capparelli:
     container_name: ddns_capparelli

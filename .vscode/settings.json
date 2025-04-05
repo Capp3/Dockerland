@@ -13,11 +13,13 @@
   // Set tab size for YAML files explicitly
   "[yaml]": {
     "editor.tabSize": 2,
-    "editor.insertSpaces": true
+    "editor.insertSpaces": true,
+    "editor.defaultFormatter": "redhat.vscode-yaml"
   },
   "[yml]": {
     "editor.tabSize": 2,
-    "editor.insertSpaces": true
+    "editor.insertSpaces": true,
+    "editor.defaultFormatter": "redhat.vscode-yaml"
   },
 
   "yaml.schemas": {
@@ -31,8 +33,28 @@
     ]
   },
   "yaml.validate": true,
-  "docker.languageServer.enable": false,
-  "docker.docker-compose.executablePath": "docker-compose",
+  "yaml.format.enable": true,
+  "yaml.format.singleQuote": true,
+  "yaml.format.bracketSpacing": true,
+
+  // Docker settings
+  "docker.languageServer.enable": true,
+  "docker.dockerCompose.executablePath": "docker",
+  "docker.dockerCompose.command": "compose",
+  "docker.dockerCompose.detached": true,
+  "docker.dockerCompose.verbose": true,
+
+  // File settings
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.hg/store/**": true,
+    "**/dist/**": true
+  },
+
   "[dotenv]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   }
