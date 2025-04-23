@@ -6,112 +6,100 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Get all host directories
-mapfile -t HOSTS < <(find . -maxdepth 1 -type d -name "*[0-9]" | sed 's|^\./||' | sort)
-
-# Function to print usage
-usage() {
-    echo "Usage: $0 [command] [host]"
-    echo "Commands:"
-    echo "  up        - Start containers"
-    echo "  down      - Stop containers"
-    echo "  pull      - Pull latest images"
-    echo "  status    - Show container status"
-    echo "  logs      - Show container logs"
-    echo "  prune     - Remove unused containers, networks, images"
-    echo "  volumes   - List volumes"
-    echo "  system    - Show system-wide information"
-    echo "  restart   - Restart containers"
-    echo "  build     - Build or rebuild services"
-    echo "Hosts:"
-    echo "  all       - Apply to all hosts"
-    echo "  [host]    - Apply to specific host (e.g., castle0, knight0)"
-    echo ""
-    echo "Examples:"
-    echo "  $0 up all"
-    echo "  $0 status castle0"
-    echo "  $0 pull knight0"
-    echo "  $0 prune all"
-}
+# Check if HOST environment variable is set
+if [ -z "$HOST" ]; then
+    echo -e "${RED}Error: HOST environment variable is not set${NC}"
+    echo "Please set the HOST environment variable before running this script"
+    echo "Example: export HOST=castle0"
+    exit 1
+fi
 
 # Function to execute docker-compose command
 execute_command() {
-    local host=$1
-    local cmd=$2
-    local compose_file="$host/docker-compose.yml"
+    local cmd=$1
+    local compose_file="./$HOST/docker-compose.yml"
     
     if [ ! -f "$compose_file" ]; then
-        echo -e "${RED}Error: docker-compose.yml not found in $host${NC}"
+        echo -e "${RED}Error: docker-compose.yml not found in ./$HOST/${NC}"
         return 1
     fi
 
-    echo -e "${YELLOW}Executing '$cmd' for $host...${NC}"
-    cd "$host" || return 1
+    echo -e "${YELLOW}Executing '$cmd' for $HOST...${NC}"
+    cd "./$HOST" || return 1
     
     case $cmd in
-        "up")
-            docker compose up -d
-            ;;
-        "down")
-            docker compose down
-            ;;
-        "pull")
-            docker compose pull
-            ;;
-        "status")
-            docker compose ps
+        "stats")
+            docker compose stats
             ;;
         "logs")
             docker compose logs -f
             ;;
-        "prune")
-            docker compose down
-            docker system prune -af --volumes
-            ;;
-        "volumes")
-            docker volume ls
-            ;;
-        "system")
-            docker system df
-            echo -e "\n${YELLOW}Container Status:${NC}"
-            docker compose ps
-            echo -e "\n${YELLOW}Volume Usage:${NC}"
-            docker system df -v
-            ;;
         "restart")
             docker compose restart
             ;;
-        "build")
-            docker compose build --no-cache
+        "down")
+            docker compose down
+            ;;
+        "up")
+            docker compose up -d
+            ;;
+        "pull")
+            docker compose pull
             ;;
     esac
     
     cd - > /dev/null || return 1
 }
 
+# Function to display menu
+show_menu() {
+    clear
+    echo -e "${YELLOW}Docker Stack Management Menu for $HOST${NC}"
+    echo "--------------------------------"
+    echo "1. Docker Stack Stats"
+    echo "2. Docker Stack Logs"
+    echo "3. Docker Stack Restart"
+    echo "4. Docker Stack Down"
+    echo "5. Docker Stack Up"
+    echo "6. Docker Stack Pull"
+    echo "7. Exit"
+    echo "--------------------------------"
+    echo -n "Enter your choice [1-7]: "
+}
+
 # Main script
-if [ $# -lt 2 ]; then
-    usage
-    exit 1
-fi
-
-COMMAND=$1
-TARGET=$2
-
-case $TARGET in
-    "all")
-        for host in "${HOSTS[@]}"; do
-            execute_command "$host" "$COMMAND"
-        done
-        ;;
-    *)
-        # Check if the specified host exists
-        if [[ " ${HOSTS[*]} " =~ ${TARGET} ]]; then
-            execute_command "$TARGET" "$COMMAND"
-        else
-            echo -e "${RED}Error: Host '$TARGET' not found${NC}"
-            echo "Available hosts: ${HOSTS[*]}"
-            exit 1
-        fi
-        ;;
-esac 
+while true; do
+    show_menu
+    read -r choice
+    
+    case $choice in
+        1)
+            execute_command "stats"
+            ;;
+        2)
+            execute_command "logs"
+            ;;
+        3)
+            execute_command "restart"
+            ;;
+        4)
+            execute_command "down"
+            ;;
+        5)
+            execute_command "up"
+            ;;
+        6)
+            execute_command "pull"
+            ;;
+        7)
+            echo "Exiting..."
+            exit 0
+            ;;
+        *)
+            echo -e "${RED}Invalid option. Please try again.${NC}"
+            ;;
+    esac
+    
+    echo -e "\nPress Enter to continue..."
+    read -r
+done 
