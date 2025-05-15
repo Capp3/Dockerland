@@ -1,8 +1,8 @@
 _archive*
 # */config*
 *notes*
-*.env*
-*/.env*
+*.env
+*/.env
 *passwd*
 #acme.json
 /vscode
