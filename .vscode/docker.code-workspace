@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.env": "dotenv",
+			".env*": "dotenv",
+			"*.sh": "shellscript",
+			"*.bash": "shellscript"
+		},
+		"yaml.schemas": {
+			"https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": [
+				"**/docker-compose.yml",
+				"**/docker-compose.yaml",
+				"**/*.docker-compose.yml",
+				"**/*.docker-compose.yaml"
+			]
+		},
+		"yaml.validate": true,
+		"yaml.format.enable": true,
+		"yaml.format.singleQuote": true,
+		"yaml.format.bracketSpacing": true
+	}
+}

@@ -1,0 +1,44 @@
+############################ Networks
+networks:
+  local1:
+    name: local1
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.10.0/24"
+
+  socket_proxy:
+    name: socket_proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.91.0/24
+
+  k0_proxy:
+    name: k0_proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.90.0/24
+
+  macvlan_network:
+    driver: macvlan
+    driver_opts:
+      parent: enp0s31f6
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+          gateway: 192.168.1.1
+
+########################### Volumes
+name: services
+
+include:
+  - docker.yml
+  - dns.yml
+  - plex.yml
+  - webservices.yml
+  - media.yml
+  - rtmp.yml
+  - home.yml

@@ -1,0 +1,160 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Python/Django/Qt Development Rules
+
+## Core Philosophy
+
+1. **Simplicity:** Prioritize clear, maintainable solutions. Avoid unnecessary complexity.
+2. **Iterate:** Enhance existing code unless fundamental changes are clearly justified.
+3. **Focus:** Stick strictly to defined tasks; avoid scope creep.
+4. **Quality:** Deliver clean, well-tested, documented, and secure code.
+5. **Collaboration:** Foster effective teamwork between developers and AI.
+
+## Project Structure & Documentation
+
+1. **Documentation First:**
+   - Review `README.md`, `docs/architecture.md`, and `docs/technical.md` before starting
+   - Check for Django project structure and Qt widget organization
+   - Request clarification if documentation is unclear
+
+2. **File Organization Rules:**
+   - **Logs Directory:**
+     - All application logs must be stored in the root `logs/` directory
+     - This ensures consistent log location for Docker and other deployment environments
+     - Log files should be named descriptively (e.g., `django.log`, `automation.log`)
+   - **Configuration Directory:**
+     - All configuration files (.env, .env.sample, etc.) must be stored in the root `config/` directory
+     - This centralizes configuration management and makes it easier to handle in Docker
+     - Environment variables should be documented in `config/.env.sample`
+   - **Any time a new environment variable is created in code it should be added to .env AND to .env.sample**
+
+3. **Documentation Maintenance:**
+   - **Technical Documentation (`docs/technical.md`):**
+     - Document all technical decisions and their rationale
+     - Keep track of dependencies and their versions
+     - Document complex algorithms or business logic
+     - Update when introducing new patterns or technologies
+   - **Tasks Documentation (`docs/tasks.md`):**
+     - List all current and planned tasks
+     - Include acceptance criteria and dependencies
+     - Mark tasks as completed when done
+     - Add new tasks as they are identified
+   - **Status Documentation (`docs/status.md`):**
+     - Track progress of ongoing tasks
+     - Document blockers and issues
+     - Note completed milestones
+     - Update daily or when significant changes occur
+
+4. **Python/Django Standards:**
+   - Follow PEP 8 and Django coding style
+   - Use type hints for better code clarity
+   - Keep Django apps focused and single-purpose
+   - Use Django's built-in features before custom solutions
+
+5. **Qt Guidelines:**
+   - Follow Qt's naming conventions and design patterns
+   - Keep UI logic separate from business logic
+   - Use Qt Designer for complex UIs
+   - Implement proper signal/slot connections
+
+## Code Quality
+
+1. **File Organization:**
+   - Keep Python files under 300 lines
+   - Break large Qt widgets into smaller components
+   - Use clear, descriptive names (avoid "temp", "new", etc.)
+   - Follow Django's app structure conventions
+
+2. **Code Style:**
+   - Use black for Python formatting
+   - Follow Django's template organization
+   - Document complex logic with docstrings
+   - Keep functions focused and small
+
+3. **Testing:**
+   - Write tests before implementing features
+   - Use Django's test framework
+   - Test Qt widgets in isolation
+   - Cover critical paths and edge cases
+
+## Development Workflow
+
+1. **Task Execution:**
+   - Understand requirements before coding
+   - Plan changes systematically
+   - Test changes thoroughly
+   - Document significant decisions in `docs/technical.md`
+
+2. **Version Control:**
+   - Commit frequently with clear messages
+   - Keep commits focused and atomic
+   - Use feature branches for significant changes
+   - Never commit sensitive data
+
+3. **Security:**
+   - Use Django's security features
+   - Validate all user input
+   - Keep secrets in environment variables
+   - Follow Qt's security best practices
+
+## AI Collaboration
+
+1. **Clear Communication:**
+   - Provide specific, focused tasks
+   - Reference relevant code and context
+   - Specify whether suggestions or direct changes are needed
+   - Review AI suggestions critically
+
+2. **Code Changes:**
+   - Prefer small, incremental changes
+   - Maintain existing patterns
+   - Document significant refactoring in `docs/technical.md`
+   - Test all changes thoroughly
+
+3. **Documentation Updates:**
+   - When making changes, update relevant documentation:
+     - Add new tasks to `docs/tasks.md`
+     - Update `docs/status.md` with progress
+     - Document technical decisions in `docs/technical.md`
+   - Ensure documentation stays in sync with code changes
+
+## Environment & Tools
+
+1. **Development Setup:**
+   - Use virtual environments
+   - Keep requirements.txt updated
+   - Use appropriate Qt versions
+   - Document setup procedures in `docs/technical.md`
+
+2. **Debugging:**
+   - Use Python's logging
+   - Leverage Django's debug tools
+   - Use Qt's debugging features
+   - Document complex fixes in `docs/technical.md`
+
+## Documentation Maintenance Protocol
+
+1. **When to Update Documentation:**
+   - After completing a task
+   - When making significant technical decisions
+   - When encountering blockers
+   - When introducing new patterns or technologies
+   - When dependencies change
+
+2. **Documentation Standards:**
+   - Keep documentation concise and clear
+   - Use consistent formatting
+   - Include relevant code examples
+   - Link to related documentation
+   - Date all significant updates
+
+3. **AI Documentation Responsibilities:**
+   - Propose documentation updates when making changes
+   - Ensure technical decisions are documented
+   - Keep task status current
+   - Maintain consistency across documentation files
+
+Remember: These rules should be reviewed and updated periodically to reflect project evolution and lessons learned.

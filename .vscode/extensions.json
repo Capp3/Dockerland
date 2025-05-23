@@ -8,6 +8,7 @@
     "gruntfuggly.todo-tree",
     "william-voyek.vscode-nginx",
     "foxundermoon.shell-format",
-    "editorconfig.editorconfig"
+    "editorconfig.editorconfig",
+    "bierner.markdown-mermaid"
   ]
 }

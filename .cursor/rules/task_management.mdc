@@ -1,0 +1,72 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Task Management Rules
+
+## Task List Review Protocol
+
+1. **After Each Interaction:**
+   - Review the current task list in `docs/tasks.md`
+   - Check for any completed tasks based on the current interaction
+   - Identify any new tasks that emerged from the interaction
+   - Update task statuses accordingly
+
+2. **Task Status Updates:**
+   - Mark tasks as completed [x] when they are fully implemented and tested
+   - Add new tasks with clear descriptions and checkboxes [ ]
+   - Move completed tasks to the "Completed Tasks" section if appropriate
+   - Update blocked tasks status if any blockers are resolved
+
+3. **Task Documentation:**
+   - New tasks should include:
+     - Clear, specific description
+     - Relevant subtasks if applicable
+     - Priority level (High/Medium/Low)
+     - Any dependencies on other tasks
+   - Completed tasks should include:
+     - Date of completion
+     - Brief description of implementation
+     - Any follow-up tasks created
+
+4. **Task Organization:**
+   - Keep tasks organized by module/feature
+   - Maintain clear priority levels
+   - Group related tasks together
+   - Keep the task list focused and manageable
+
+5. **Review Process:**
+   - Verify task completion criteria are met
+   - Ensure new tasks are properly scoped
+   - Check for task dependencies
+   - Validate task priorities
+   - Update documentation as needed
+
+## Implementation Guidelines
+
+1. **Task Updates:**
+   - Make updates directly in `docs/tasks.md`
+   - Use consistent formatting
+   - Include clear commit messages for task updates
+   - Document any significant changes in task status
+
+2. **Task Creation:**
+   - Create tasks for all identified work
+   - Break down large tasks into manageable subtasks
+   - Assign appropriate priority levels
+   - Consider dependencies and prerequisites
+
+3. **Task Completion:**
+   - Verify all acceptance criteria are met
+   - Ensure proper testing is completed
+   - Document any follow-up work needed
+   - Update related documentation
+
+4. **Task Review:**
+   - Review task list at the start of each interaction
+   - Check for blocked tasks
+   - Verify task priorities are still accurate
+   - Ensure task descriptions are clear and up-to-date
+
+Remember: Regular task list maintenance is crucial for project tracking and success. Keep the task list current and accurate. 
