@@ -1,0 +1,1014 @@
+[2025-05-23T23:05:35.211] [INFO] Tdarr_Server - Logger started
+[2025-05-23T23:05:35.254] [INFO] Tdarr_Server - Config path: "/app/configs/Tdarr_Server_Config.json"
+[2025-05-23T23:05:35.260] [INFO] Tdarr_Server - {
+  "serverPort": "8266",
+  "webUIPort": "8265",
+  "serverIP": "0.0.0.0",
+  "serverBindIP": false,
+  "handbrakePath": "",
+  "ffmpegPath": "",
+  "logLevel": "INFO",
+  "mkvpropeditPath": "",
+  "ccextractorPath": "",
+  "openBrowser": true,
+  "cronPluginUpdate": "",
+  "platform_arch_isdocker": "linux_x64_docker_true",
+  "auth": false,
+  "authSecretKey": "*****",
+  "maxLogSizeMB": 10
+}
+[2025-05-23T23:05:35.310] [INFO] Tdarr_Server - Initializing DB
+[2025-05-23T23:05:36.127] [INFO] Tdarr_Server - serverBindIP env/config variable is set to false, this means the server will use 0.0.0.0 and be accessible from localhost/127.0.0.1 and your default network IP. If you want to bind to a specific IP, set serverBindIP env/config variable to true
+[2025-05-23T23:05:36.171] [INFO] Tdarr_Server - version: 2.40.01
+[2025-05-23T23:05:36.171] [INFO] Tdarr_Server - platform_arch_isdocker: linux_x64_docker_true
+[2025-05-23T23:05:36.172] [INFO] Tdarr_Server - Preparing environment
+[2025-05-23T23:05:36.172] [INFO] Tdarr_Server - Tdarr documents folder:"/app/server"
+[2025-05-23T23:05:36.172] [INFO] Tdarr_Server - Checking directories
+[2025-05-23T23:05:37.232] [INFO] Tdarr_Server - Checking binary paths
+[2025-05-23T23:05:37.305] [INFO] Tdarr_Server - Auto update not supported in Docker
+[2025-05-23T23:05:37.305] [INFO] Tdarr_Server - Auto update not supported in Docker
+[2025-05-23T23:05:37.668] [INFO] Tdarr_Server - Tdarr_Server listening at http://0.0.0.0:8266
+[2025-05-23T23:05:37.797] [TRACE] Tdarr_Server - 
+    --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    
+    Tdarr_WebUI running at http://localhost:8265/#/
+    
+    --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    
+[2025-05-23T23:05:38.289] [INFO] Tdarr_Server - Updating plugins
+[2025-05-23T23:05:38.290] [INFO] Tdarr_Server - Running binary tests
+[2025-05-23T23:05:38.454] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-23T23:05:38.457] [INFO] Tdarr_Server - ---------------Binary tests start----------------
+[2025-05-23T23:05:38.457] [INFO] Tdarr_Server - handbrakePath:"HandBrakeCLI"
+[2025-05-23T23:05:38.457] [INFO] Tdarr_Server - ffmpegPath:"tdarr-ffmpeg"
+[2025-05-23T23:05:38.457] [INFO] Tdarr_Server - mkvpropedit:"mkvpropedit"
+[2025-05-23T23:05:38.457] [INFO] Tdarr_Server - Binary test 1: handbrakePath working
+[2025-05-23T23:05:38.457] [INFO] Tdarr_Server - Binary test 2: ffmpegPath working
+[2025-05-23T23:05:38.457] [INFO] Tdarr_Server - Binary test 3: mkvpropeditPath working
+[2025-05-23T23:05:38.457] [INFO] Tdarr_Server - ---------------Binary tests end-------------------
+[2025-05-23T23:05:38.457] [INFO] Tdarr_Server - Running scanner tests
+[2025-05-23T23:05:38.458] [INFO] Tdarr_Server - ---------------Scanner tests start----------------
+[2025-05-23T23:05:38.458] [INFO] Tdarr_Server - ffprobePath:"/app/Tdarr_Server/assets/app/ffmpeg/linux_x64/ffprobe"
+[2025-05-23T23:05:38.458] [INFO] Tdarr_Server - ccextractorPath:"ccextractor"
+[2025-05-23T23:05:38.458] [INFO] Tdarr_Server - Scanner test: Scanning file start
+[2025-05-23T23:05:38.844] [INFO] Tdarr_Server - [Plugin Update] No /app/server/Tdarr/Plugins/gotCommit.txt found, cloning
+[2025-05-23T23:05:39.153] [INFO] Tdarr_Server - Node knight0 [ID=t4BE7Z1yP] [Address=127.0.0.1] [PID=254] registered
+[2025-05-23T23:05:39.153] [INFO] Tdarr_Server - Node registration handler: 7ms
+[2025-05-23T23:05:39.453] [INFO] Tdarr_Server - [Plugin Update] Finished downloading!
+[2025-05-23T23:05:39.454] [INFO] Tdarr_Server - [Plugin Update] Unzipping
+[2025-05-23T23:05:39.475] [INFO] Tdarr_Server - Scanner test: Scanning file end
+[2025-05-23T23:05:39.475] [INFO] Tdarr_Server - Scanner test 1: FFprobe working
+[2025-05-23T23:05:39.476] [INFO] Tdarr_Server - Scanner test 2: Exiftool working
+[2025-05-23T23:05:39.476] [INFO] Tdarr_Server - Scanner test 3: Mediainfo working
+[2025-05-23T23:05:39.476] [INFO] Tdarr_Server - Scanner test 4: CCExtractor working
+[2025-05-23T23:05:39.476] [INFO] Tdarr_Server - ---------------Scanner tests end----------------
+[2025-05-23T23:05:41.620] [INFO] Tdarr_Server - [Plugin Update] Copying plugins
+[2025-05-23T23:05:42.693] [INFO] Tdarr_Server - [Plugin Update] [4239ms] Finished
+[2025-05-23T23:05:42.693] [INFO] Tdarr_Server - [Plugin Update] Failures during update: 0
+[2025-05-23T23:05:42.693] [INFO] Tdarr_Server - [Plugin Update] 0 failures during update, writing new commit SHA
+[2025-05-23T23:05:42.478] [INFO] Tdarr_Server - Running encoder tests
+[2025-05-23T23:05:42.508] [INFO] Tdarr_Server - FFmpeg version:  7.0.2-jellyfin 
+[2025-05-23T23:05:43.006] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-23T23:05:43.137] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-23T23:05:43.249] [INFO] Tdarr_Server - zipPluginsFolder took 243ms
+[2025-05-23T23:05:45.372] [INFO] Tdarr_Server - encoder-enabled-working,libx264-true-true,libx265-true-true,h264_nvenc-true-false,hevc_nvenc-true-false,av1_nvenc-true-false,h264_qsv-true-true,hevc_qsv-true-true,av1_qsv-true-false,h264_vaapi-true-false,hevc_vaapi-true-true,av1_vaapi-true-false,h264_amf-true-false,hevc_amf-true-false,av1_amf-true-false,h264_rkmpp-false-false,hevc_rkmpp-false-false,av1_rkmpp-false-false,h264_videotoolbox-false-false,hevc_videotoolbox-false-false,av1_videotoolbox-false-false,libaom-av1-false-false,libsvtav1-true-true
+[2025-05-23T23:07:14.509] [INFO] Tdarr_Server - Logger started
+[2025-05-23T23:07:14.551] [INFO] Tdarr_Server - Config path: "/app/configs/Tdarr_Server_Config.json"
+[2025-05-23T23:07:14.558] [INFO] Tdarr_Server - {
+  "serverPort": "8266",
+  "webUIPort": "8265",
+  "serverIP": "0.0.0.0",
+  "serverBindIP": false,
+  "handbrakePath": "",
+  "ffmpegPath": "",
+  "logLevel": "INFO",
+  "mkvpropeditPath": "",
+  "ccextractorPath": "",
+  "openBrowser": true,
+  "cronPluginUpdate": "",
+  "platform_arch_isdocker": "linux_x64_docker_true",
+  "auth": false,
+  "authSecretKey": "*****",
+  "maxLogSizeMB": 10
+}
+[2025-05-23T23:07:14.579] [INFO] Tdarr_Server - Initializing DB
+[2025-05-23T23:07:15.168] [INFO] Tdarr_Server - serverBindIP env/config variable is set to false, this means the server will use 0.0.0.0 and be accessible from localhost/127.0.0.1 and your default network IP. If you want to bind to a specific IP, set serverBindIP env/config variable to true
+[2025-05-23T23:07:15.229] [INFO] Tdarr_Server - version: 2.40.01
+[2025-05-23T23:07:15.229] [INFO] Tdarr_Server - platform_arch_isdocker: linux_x64_docker_true
+[2025-05-23T23:07:15.229] [INFO] Tdarr_Server - Preparing environment
+[2025-05-23T23:07:15.230] [INFO] Tdarr_Server - Tdarr documents folder:"/app/server"
+[2025-05-23T23:07:15.230] [INFO] Tdarr_Server - Checking directories
+[2025-05-23T23:07:16.290] [INFO] Tdarr_Server - Checking binary paths
+[2025-05-23T23:07:16.364] [INFO] Tdarr_Server - Auto update not supported in Docker
+[2025-05-23T23:07:16.365] [INFO] Tdarr_Server - Auto update not supported in Docker
+[2025-05-23T23:07:16.699] [INFO] Tdarr_Server - Tdarr_Server listening at http://0.0.0.0:8266
+[2025-05-23T23:07:16.849] [TRACE] Tdarr_Server - 
+    --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    
+    Tdarr_WebUI running at http://localhost:8265/#/
+    
+    --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    
+[2025-05-23T23:07:16.873] [INFO] Tdarr_Server - Node knight0 [ID=UjPVq_59h] [Address=127.0.0.1] [PID=251] registered
+[2025-05-23T23:07:16.873] [INFO] Tdarr_Server - Node registration handler: 7ms
+[2025-05-23T23:07:17.342] [INFO] Tdarr_Server - Updating plugins
+[2025-05-23T23:07:17.342] [INFO] Tdarr_Server - Running binary tests
+[2025-05-23T23:07:17.522] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-23T23:07:17.548] [INFO] Tdarr_Server - ---------------Binary tests start----------------
+[2025-05-23T23:07:17.549] [INFO] Tdarr_Server - handbrakePath:"HandBrakeCLI"
+[2025-05-23T23:07:17.549] [INFO] Tdarr_Server - ffmpegPath:"tdarr-ffmpeg"
+[2025-05-23T23:07:17.549] [INFO] Tdarr_Server - mkvpropedit:"mkvpropedit"
+[2025-05-23T23:07:17.549] [INFO] Tdarr_Server - Binary test 1: handbrakePath working
+[2025-05-23T23:07:17.549] [INFO] Tdarr_Server - Binary test 2: ffmpegPath working
+[2025-05-23T23:07:17.549] [INFO] Tdarr_Server - Binary test 3: mkvpropeditPath working
+[2025-05-23T23:07:17.549] [INFO] Tdarr_Server - ---------------Binary tests end-------------------
+[2025-05-23T23:07:17.549] [INFO] Tdarr_Server - Running scanner tests
+[2025-05-23T23:07:17.550] [INFO] Tdarr_Server - ---------------Scanner tests start----------------
+[2025-05-23T23:07:17.550] [INFO] Tdarr_Server - ffprobePath:"/app/Tdarr_Server/assets/app/ffmpeg/linux_x64/ffprobe"
+[2025-05-23T23:07:17.550] [INFO] Tdarr_Server - ccextractorPath:"ccextractor"
+[2025-05-23T23:07:17.550] [INFO] Tdarr_Server - Scanner test: Scanning file start
+[2025-05-23T23:07:17.887] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-23T23:07:17.891] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-23T23:07:18.068] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-23T23:07:18.255] [INFO] Tdarr_Server - zipPluginsFolder took 364ms
+[2025-05-23T23:07:18.681] [INFO] Tdarr_Server - Scanner test: Scanning file end
+[2025-05-23T23:07:18.681] [INFO] Tdarr_Server - Scanner test 1: FFprobe working
+[2025-05-23T23:07:18.681] [INFO] Tdarr_Server - Scanner test 2: Exiftool working
+[2025-05-23T23:07:18.681] [INFO] Tdarr_Server - Scanner test 3: Mediainfo working
+[2025-05-23T23:07:18.681] [INFO] Tdarr_Server - Scanner test 4: CCExtractor working
+[2025-05-23T23:07:18.681] [INFO] Tdarr_Server - ---------------Scanner tests end----------------
+[2025-05-23T23:07:18.682] [INFO] Tdarr_Server - Running encoder tests
+[2025-05-23T23:07:18.705] [INFO] Tdarr_Server - FFmpeg version:  7.0.2-jellyfin 
+[2025-05-23T23:07:21.637] [INFO] Tdarr_Server - encoder-enabled-working,libx264-true-true,libx265-true-true,h264_nvenc-true-false,hevc_nvenc-true-false,av1_nvenc-true-false,h264_qsv-true-true,hevc_qsv-true-true,av1_qsv-true-false,h264_vaapi-true-false,hevc_vaapi-true-true,av1_vaapi-true-false,h264_amf-true-false,hevc_amf-true-false,av1_amf-true-false,h264_rkmpp-false-false,hevc_rkmpp-false-false,av1_rkmpp-false-false,h264_videotoolbox-false-false,hevc_videotoolbox-false-false,av1_videotoolbox-false-false,libaom-av1-false-false,libsvtav1-true-true
+[2025-05-23T23:08:51.640] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-23T23:08:51.641] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-23T23:08:51.641] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T00:00:00.265] [INFO] Tdarr_Server - Creating backup
+[2025-05-24T00:00:00.283] [INFO] Tdarr_Server - Backup zipping, this may take a while...
+[2025-05-24T00:00:00.572] [INFO] Tdarr_Server - Backup: 506448 total bytes
+[2025-05-24T00:00:00.572] [INFO] Tdarr_Server - Backup: archiver has been finalized and the output file descriptor has closed.
+[2025-05-24T00:00:00.573] [INFO] Tdarr_Server - Backup created:"/app/server/Tdarr/Backups/Backup-version-2.40.01-date-24-May-2025-00-00-00-ts-1748041200267.zip"
+[2025-05-24T00:00:01.286] [INFO] Tdarr_Server - Zipping: (Entries found: 454, processed: 454)
+[2025-05-24T00:00:01.581] [INFO] Tdarr_Server - Trimming backups
+[2025-05-24T00:00:01.582] [INFO] Tdarr_Server - Num backups:1, Backup limit:30
+[2025-05-24T00:07:16.350] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T00:07:16.350] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T00:07:17.343] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T00:07:17.473] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T00:07:17.861] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T00:07:17.867] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T00:07:17.986] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T00:07:18.065] [INFO] Tdarr_Server - zipPluginsFolder took 197ms
+[2025-05-24T00:08:51.660] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T00:08:51.660] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T00:08:51.661] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T01:07:16.350] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T01:07:16.350] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T01:07:17.343] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T01:07:17.469] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T01:07:17.865] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T01:07:17.871] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T01:07:17.991] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T01:07:18.071] [INFO] Tdarr_Server - zipPluginsFolder took 200ms
+[2025-05-24T01:08:51.661] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T01:08:51.661] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T01:08:51.661] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T02:07:16.351] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T02:07:16.352] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T02:07:17.345] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T02:07:17.478] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T02:07:17.862] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T02:07:17.869] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T02:07:17.995] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T02:07:18.077] [INFO] Tdarr_Server - zipPluginsFolder took 208ms
+[2025-05-24T02:08:51.662] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T02:08:51.662] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T02:08:51.662] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T03:07:16.351] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T03:07:16.352] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T03:07:17.345] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T03:07:17.471] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T03:07:17.903] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T03:07:17.909] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T03:07:18.028] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T03:07:18.106] [INFO] Tdarr_Server - zipPluginsFolder took 197ms
+[2025-05-24T03:08:51.664] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T03:08:51.664] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T03:08:51.665] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T04:07:16.352] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T04:07:16.352] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T04:07:17.347] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T04:07:17.470] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T04:07:17.858] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T04:07:17.864] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T04:07:17.983] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T04:07:18.065] [INFO] Tdarr_Server - zipPluginsFolder took 201ms
+[2025-05-24T04:08:51.667] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T04:08:51.667] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T04:08:51.668] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T05:07:16.352] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T05:07:16.353] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T05:07:17.348] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T05:07:17.480] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T05:07:17.860] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T05:07:17.864] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T05:07:17.981] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T05:07:18.079] [INFO] Tdarr_Server - zipPluginsFolder took 215ms
+[2025-05-24T05:08:51.670] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T05:08:51.670] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T05:08:51.670] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T06:07:16.353] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T06:07:16.353] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T06:07:17.350] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T06:07:17.476] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T06:07:17.896] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T06:07:17.902] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T06:07:18.025] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T06:07:18.108] [INFO] Tdarr_Server - zipPluginsFolder took 206ms
+[2025-05-24T06:08:51.672] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T06:08:51.672] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T06:08:51.673] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T07:07:16.353] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T07:07:16.354] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T07:07:17.350] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T07:07:17.475] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T07:07:17.841] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T07:07:17.847] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T07:07:17.967] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T07:07:18.048] [INFO] Tdarr_Server - zipPluginsFolder took 201ms
+[2025-05-24T07:08:51.675] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T07:08:51.675] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T07:08:51.676] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T08:07:16.354] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T08:07:16.354] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T08:07:17.353] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T08:07:17.479] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T08:07:17.897] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T08:07:17.903] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T08:07:18.024] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T08:07:18.104] [INFO] Tdarr_Server - zipPluginsFolder took 201ms
+[2025-05-24T08:08:51.679] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T08:08:51.679] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T08:08:51.680] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T09:07:16.354] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T09:07:16.355] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T09:07:17.355] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T09:07:17.490] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T09:07:17.852] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T09:07:17.859] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T09:07:18.008] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T09:07:18.087] [INFO] Tdarr_Server - zipPluginsFolder took 228ms
+[2025-05-24T09:08:51.681] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T09:08:51.682] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T09:08:51.682] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T10:07:16.354] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T10:07:16.354] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T10:07:17.356] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T10:07:17.503] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T10:07:17.910] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T10:07:17.916] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T10:07:18.037] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T10:07:18.116] [INFO] Tdarr_Server - zipPluginsFolder took 200ms
+[2025-05-24T10:08:51.684] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T10:08:51.684] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T10:08:51.685] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T10:53:14.298] [INFO] Tdarr_Server - Logger started
+[2025-05-24T10:53:14.337] [INFO] Tdarr_Server - Config path: "/app/configs/Tdarr_Server_Config.json"
+[2025-05-24T10:53:14.343] [INFO] Tdarr_Server - {
+  "serverPort": "8266",
+  "webUIPort": "8265",
+  "serverIP": "0.0.0.0",
+  "serverBindIP": false,
+  "handbrakePath": "",
+  "ffmpegPath": "",
+  "logLevel": "INFO",
+  "mkvpropeditPath": "",
+  "ccextractorPath": "",
+  "openBrowser": true,
+  "cronPluginUpdate": "",
+  "platform_arch_isdocker": "linux_x64_docker_true",
+  "auth": false,
+  "authSecretKey": "*****",
+  "maxLogSizeMB": 10
+}
+[2025-05-24T10:53:14.376] [INFO] Tdarr_Server - Initializing DB
+[2025-05-24T10:53:15.169] [INFO] Tdarr_Server - serverBindIP env/config variable is set to false, this means the server will use 0.0.0.0 and be accessible from localhost/127.0.0.1 and your default network IP. If you want to bind to a specific IP, set serverBindIP env/config variable to true
+[2025-05-24T10:53:15.240] [INFO] Tdarr_Server - version: 2.40.01
+[2025-05-24T10:53:15.240] [INFO] Tdarr_Server - platform_arch_isdocker: linux_x64_docker_true
+[2025-05-24T10:53:15.241] [INFO] Tdarr_Server - Preparing environment
+[2025-05-24T10:53:15.241] [INFO] Tdarr_Server - Tdarr documents folder:"/app/server"
+[2025-05-24T10:53:15.241] [INFO] Tdarr_Server - Checking directories
+[2025-05-24T10:53:16.342] [INFO] Tdarr_Server - Checking binary paths
+[2025-05-24T10:53:16.469] [INFO] Tdarr_Server - Auto update not supported in Docker
+[2025-05-24T10:53:16.469] [INFO] Tdarr_Server - Auto update not supported in Docker
+[2025-05-24T10:53:17.033] [INFO] Tdarr_Server - Tdarr_Server listening at http://0.0.0.0:8266
+[2025-05-24T10:53:17.211] [TRACE] Tdarr_Server - 
+    --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    
+    Tdarr_WebUI running at http://localhost:8265/#/
+    
+    --------------------------------------------------------------------------
+    --------------------------------------------------------------------------
+    
+[2025-05-24T10:53:17.443] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T10:53:17.444] [INFO] Tdarr_Server - Running binary tests
+[2025-05-24T10:53:17.626] [INFO] Tdarr_Server - Node knight0 [ID=M7X1YA2jQ] [Address=127.0.0.1] [PID=252] registered
+[2025-05-24T10:53:17.624] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T10:53:17.626] [INFO] Tdarr_Server - Node registration handler: 14ms
+[2025-05-24T10:53:17.629] [INFO] Tdarr_Server - ---------------Binary tests start----------------
+[2025-05-24T10:53:17.629] [INFO] Tdarr_Server - handbrakePath:"HandBrakeCLI"
+[2025-05-24T10:53:17.629] [INFO] Tdarr_Server - ffmpegPath:"tdarr-ffmpeg"
+[2025-05-24T10:53:17.629] [INFO] Tdarr_Server - mkvpropedit:"mkvpropedit"
+[2025-05-24T10:53:17.629] [INFO] Tdarr_Server - Binary test 1: handbrakePath working
+[2025-05-24T10:53:17.629] [INFO] Tdarr_Server - Binary test 2: ffmpegPath working
+[2025-05-24T10:53:17.629] [INFO] Tdarr_Server - Binary test 3: mkvpropeditPath working
+[2025-05-24T10:53:17.629] [INFO] Tdarr_Server - ---------------Binary tests end-------------------
+[2025-05-24T10:53:17.629] [INFO] Tdarr_Server - Running scanner tests
+[2025-05-24T10:53:17.629] [INFO] Tdarr_Server - ---------------Scanner tests start----------------
+[2025-05-24T10:53:17.630] [INFO] Tdarr_Server - ffprobePath:"/app/Tdarr_Server/assets/app/ffmpeg/linux_x64/ffprobe"
+[2025-05-24T10:53:17.630] [INFO] Tdarr_Server - ccextractorPath:"ccextractor"
+[2025-05-24T10:53:17.630] [INFO] Tdarr_Server - Scanner test: Scanning file start
+[2025-05-24T10:53:17.978] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T10:53:17.982] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T10:53:18.121] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T10:53:18.290] [INFO] Tdarr_Server - zipPluginsFolder took 308ms
+[2025-05-24T10:53:18.654] [INFO] Tdarr_Server - Scanner test: Scanning file end
+[2025-05-24T10:53:18.655] [INFO] Tdarr_Server - Scanner test 1: FFprobe working
+[2025-05-24T10:53:18.655] [INFO] Tdarr_Server - Scanner test 2: Exiftool working
+[2025-05-24T10:53:18.655] [INFO] Tdarr_Server - Scanner test 3: Mediainfo working
+[2025-05-24T10:53:18.655] [INFO] Tdarr_Server - Scanner test 4: CCExtractor working
+[2025-05-24T10:53:18.655] [INFO] Tdarr_Server - ---------------Scanner tests end----------------
+[2025-05-24T10:53:18.656] [INFO] Tdarr_Server - Running encoder tests
+[2025-05-24T10:53:18.682] [INFO] Tdarr_Server - FFmpeg version:  7.0.2-jellyfin 
+[2025-05-24T10:53:21.779] [INFO] Tdarr_Server - encoder-enabled-working,libx264-true-true,libx265-true-true,h264_nvenc-true-false,hevc_nvenc-true-false,av1_nvenc-true-false,h264_qsv-true-true,hevc_qsv-true-true,av1_qsv-true-false,h264_vaapi-true-false,hevc_vaapi-true-true,av1_vaapi-true-false,h264_amf-true-false,hevc_amf-true-false,av1_amf-true-false,h264_rkmpp-false-false,hevc_rkmpp-false-false,av1_rkmpp-false-false,h264_videotoolbox-false-false,hevc_videotoolbox-false-false,av1_videotoolbox-false-false,libaom-av1-false-false,libsvtav1-true-true
+[2025-05-24T10:54:51.784] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T10:54:51.785] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T10:54:51.786] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T11:53:16.467] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T11:53:16.468] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T11:53:17.444] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T11:53:17.578] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T11:53:17.956] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T11:53:17.962] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T11:53:18.086] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T11:53:18.177] [INFO] Tdarr_Server - zipPluginsFolder took 215ms
+[2025-05-24T11:54:51.788] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T11:54:51.789] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T11:54:51.790] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T12:53:16.468] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T12:53:16.469] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T12:53:17.444] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T12:53:17.569] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T12:53:17.980] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T12:53:17.986] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T12:53:18.107] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T12:53:18.185] [INFO] Tdarr_Server - zipPluginsFolder took 199ms
+[2025-05-24T12:54:51.792] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T12:54:51.793] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T12:54:51.793] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T13:53:16.469] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T13:53:16.470] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T13:53:17.445] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T13:53:17.570] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T13:53:18.031] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T13:53:18.036] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T13:53:18.158] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T13:53:18.237] [INFO] Tdarr_Server - zipPluginsFolder took 201ms
+[2025-05-24T13:54:51.795] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T13:54:51.796] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T13:54:51.796] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T14:53:16.471] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T14:53:16.472] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T14:53:17.446] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T14:53:17.570] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T14:53:17.958] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T14:53:17.964] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T14:53:18.082] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T14:53:18.160] [INFO] Tdarr_Server - zipPluginsFolder took 196ms
+[2025-05-24T14:54:51.796] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T14:54:51.797] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T14:54:51.797] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T15:53:16.472] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T15:53:16.472] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T15:53:17.447] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T15:53:17.564] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T15:53:17.932] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T15:53:17.935] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T15:53:18.049] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T15:53:18.131] [INFO] Tdarr_Server - zipPluginsFolder took 196ms
+[2025-05-24T15:54:51.799] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T15:54:51.799] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T15:54:51.800] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T16:53:16.473] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T16:53:16.474] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T16:53:17.448] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T16:53:17.595] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T16:53:17.981] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T16:53:17.987] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T16:53:18.109] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T16:53:18.188] [INFO] Tdarr_Server - zipPluginsFolder took 201ms
+[2025-05-24T16:54:51.802] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T16:54:51.802] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T16:54:51.803] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T17:53:16.474] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T17:53:16.475] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T17:53:17.450] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T17:53:17.607] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T17:53:18.010] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T17:53:18.016] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T17:53:18.137] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T17:53:18.216] [INFO] Tdarr_Server - zipPluginsFolder took 200ms
+[2025-05-24T17:54:51.805] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T17:54:51.806] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T17:54:51.806] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T18:53:16.487] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T18:53:16.500] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T18:53:17.454] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T18:53:17.729] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T18:53:18.123] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T18:53:18.126] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T18:53:18.249] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T18:53:18.390] [INFO] Tdarr_Server - zipPluginsFolder took 264ms
+[2025-05-24T18:54:51.829] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T18:54:51.830] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T18:54:51.831] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T19:53:16.478] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T19:53:16.478] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T19:53:17.461] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T19:53:17.617] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T19:53:18.062] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T19:53:18.068] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T19:53:18.195] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T19:53:18.312] [INFO] Tdarr_Server - zipPluginsFolder took 244ms
+[2025-05-24T19:54:51.833] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T19:54:51.833] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T19:54:51.834] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T20:53:16.478] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T20:53:16.479] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T20:53:17.462] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T20:53:17.583] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T20:53:17.998] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T20:53:18.004] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T20:53:18.151] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T20:53:18.230] [INFO] Tdarr_Server - zipPluginsFolder took 225ms
+[2025-05-24T20:54:51.836] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T20:54:51.837] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T20:54:51.837] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T21:53:16.479] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T21:53:16.480] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T21:53:17.464] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T21:53:17.642] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T21:53:18.059] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T21:53:18.065] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T21:53:18.194] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T21:53:18.313] [INFO] Tdarr_Server - zipPluginsFolder took 248ms
+[2025-05-24T21:54:51.857] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T21:54:51.858] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T21:54:51.858] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T22:53:16.480] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T22:53:16.481] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T22:53:17.466] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T22:53:17.616] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T22:53:18.084] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T22:53:18.090] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T22:53:18.205] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T22:53:18.285] [INFO] Tdarr_Server - zipPluginsFolder took 195ms
+[2025-05-24T22:54:51.861] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T22:54:51.861] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T22:54:51.862] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-24T23:53:16.481] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-24T23:53:16.481] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-24T23:53:17.466] [INFO] Tdarr_Server - Updating plugins
+[2025-05-24T23:53:17.612] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-24T23:53:19.169] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-24T23:53:19.174] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-24T23:53:19.289] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-24T23:53:19.367] [INFO] Tdarr_Server - zipPluginsFolder took 193ms
+[2025-05-24T23:54:51.865] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-24T23:54:51.865] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-24T23:54:51.866] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T00:00:00.243] [INFO] Tdarr_Server - Creating backup
+[2025-05-25T00:00:00.272] [INFO] Tdarr_Server - Backup zipping, this may take a while...
+[2025-05-25T00:00:00.565] [INFO] Tdarr_Server - Backup: 581062 total bytes
+[2025-05-25T00:00:00.565] [INFO] Tdarr_Server - Backup: archiver has been finalized and the output file descriptor has closed.
+[2025-05-25T00:00:00.566] [INFO] Tdarr_Server - Backup created:"/app/server/Tdarr/Backups/Backup-version-2.40.01-date-25-May-2025-00-00-00-ts-1748127600246.zip"
+[2025-05-25T00:00:01.285] [INFO] Tdarr_Server - Zipping: (Entries found: 454, processed: 454)
+[2025-05-25T00:00:01.575] [INFO] Tdarr_Server - Trimming backups
+[2025-05-25T00:00:01.576] [INFO] Tdarr_Server - Num backups:2, Backup limit:30
+[2025-05-25T00:53:16.482] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T00:53:16.483] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T00:53:17.468] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T00:53:17.598] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T00:53:18.013] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T00:53:18.019] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T00:53:18.138] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T00:53:18.217] [INFO] Tdarr_Server - zipPluginsFolder took 198ms
+[2025-05-25T00:54:51.868] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T00:54:51.869] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T00:54:51.869] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T01:53:16.483] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T01:53:16.484] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T01:53:17.469] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T01:53:17.598] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T01:53:17.984] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T01:53:17.990] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T01:53:18.110] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T01:53:18.188] [INFO] Tdarr_Server - zipPluginsFolder took 198ms
+[2025-05-25T01:54:51.873] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T01:54:51.873] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T01:54:51.875] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T02:53:16.484] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T02:53:16.485] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T02:53:17.470] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T02:53:17.596] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T02:53:17.983] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T02:53:17.988] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T02:53:18.107] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T02:53:18.185] [INFO] Tdarr_Server - zipPluginsFolder took 197ms
+[2025-05-25T02:54:51.877] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T02:54:51.878] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T02:54:51.878] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T03:53:16.485] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T03:53:16.485] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T03:53:17.472] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T03:53:17.598] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T03:53:17.949] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T03:53:17.951] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T03:53:18.076] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T03:53:18.167] [INFO] Tdarr_Server - zipPluginsFolder took 216ms
+[2025-05-25T03:54:51.880] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T03:54:51.880] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T03:54:51.880] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T04:53:16.496] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T04:53:16.513] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T04:53:17.475] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T04:53:17.746] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T04:53:18.143] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T04:53:18.152] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T04:53:18.286] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T04:53:18.421] [INFO] Tdarr_Server - zipPluginsFolder took 269ms
+[2025-05-25T04:54:51.887] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T04:54:51.888] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T04:54:51.888] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T05:53:16.489] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T05:53:16.489] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T05:53:17.480] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T05:53:17.609] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T05:53:17.966] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T05:53:17.972] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T05:53:18.088] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T05:53:18.170] [INFO] Tdarr_Server - zipPluginsFolder took 198ms
+[2025-05-25T05:54:51.890] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T05:54:51.890] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T05:54:51.893] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T06:53:16.490] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T06:53:16.490] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T06:53:17.483] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T06:53:17.608] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T06:53:18.026] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T06:53:18.032] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T06:53:18.153] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T06:53:18.233] [INFO] Tdarr_Server - zipPluginsFolder took 201ms
+[2025-05-25T06:54:51.895] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T06:54:51.895] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T06:54:51.896] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T07:53:16.490] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T07:53:16.491] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T07:53:17.484] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T07:53:17.611] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T07:53:18.017] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T07:53:18.023] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T07:53:18.149] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T07:53:18.231] [INFO] Tdarr_Server - zipPluginsFolder took 208ms
+[2025-05-25T07:54:51.898] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T07:54:51.898] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T07:54:51.899] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T08:53:16.491] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T08:53:16.491] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T08:53:17.485] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T08:53:17.609] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T08:53:18.078] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T08:53:18.080] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T08:53:18.203] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T08:53:18.285] [INFO] Tdarr_Server - zipPluginsFolder took 205ms
+[2025-05-25T08:54:51.900] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T08:54:51.901] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T08:54:51.901] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T09:53:16.491] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T09:53:16.492] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T09:53:17.486] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T09:53:17.613] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T09:53:18.009] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T09:53:18.015] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T09:53:18.133] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T09:53:18.212] [INFO] Tdarr_Server - zipPluginsFolder took 197ms
+[2025-05-25T09:54:51.903] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T09:54:51.903] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T09:54:51.904] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T10:53:16.473] [INFO] Tdarr_Server - Auto update not supported in Docker
+[2025-05-25T10:53:16.473] [INFO] Tdarr_Server - Auto update not supported in Docker
+[2025-05-25T10:53:16.492] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T10:53:16.492] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T10:53:17.488] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T10:53:17.613] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T10:53:18.008] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T10:53:18.014] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T10:53:18.133] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T10:53:18.217] [INFO] Tdarr_Server - zipPluginsFolder took 203ms
+[2025-05-25T10:54:51.906] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T10:54:51.906] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T10:54:51.907] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T11:53:16.493] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T11:53:16.494] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T11:53:17.490] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T11:53:17.608] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T11:53:17.984] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T11:53:17.991] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T11:53:18.112] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T11:53:18.197] [INFO] Tdarr_Server - zipPluginsFolder took 205ms
+[2025-05-25T11:54:51.909] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T11:54:51.910] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T11:54:51.910] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T12:53:16.494] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T12:53:16.495] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T12:53:17.490] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T12:53:17.670] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T12:53:18.054] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T12:53:18.057] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T12:53:18.178] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T12:53:18.295] [INFO] Tdarr_Server - zipPluginsFolder took 238ms
+[2025-05-25T12:54:51.913] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T12:54:51.914] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T12:54:51.914] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T13:53:16.512] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T13:53:16.513] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T13:53:17.491] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T13:53:17.649] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T13:53:18.049] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T13:53:18.051] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T13:53:18.172] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T13:53:18.287] [INFO] Tdarr_Server - zipPluginsFolder took 236ms
+[2025-05-25T13:54:51.917] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T13:54:51.917] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T13:54:51.918] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T14:53:16.495] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T14:53:16.495] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T14:53:17.491] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T14:53:17.645] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T14:53:18.047] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T14:53:18.054] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T14:53:18.179] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T14:53:18.303] [INFO] Tdarr_Server - zipPluginsFolder took 249ms
+[2025-05-25T14:54:51.919] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T14:54:51.919] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T14:54:51.920] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T15:53:16.496] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T15:53:16.496] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T15:53:17.492] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T15:53:17.617] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T15:53:18.004] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T15:53:18.010] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T15:53:18.142] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T15:53:18.221] [INFO] Tdarr_Server - zipPluginsFolder took 211ms
+[2025-05-25T15:54:51.922] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T15:54:51.923] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T15:54:51.923] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T16:53:16.496] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T16:53:16.496] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T16:53:17.493] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T16:53:17.618] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T16:53:18.031] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T16:53:18.036] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T16:53:18.158] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T16:53:18.263] [INFO] Tdarr_Server - zipPluginsFolder took 227ms
+[2025-05-25T16:54:51.924] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T16:54:51.924] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T16:54:51.924] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T17:53:16.496] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T17:53:16.497] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T17:53:17.494] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T17:53:17.622] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T17:53:18.188] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T17:53:18.195] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T17:53:18.314] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T17:53:18.393] [INFO] Tdarr_Server - zipPluginsFolder took 198ms
+[2025-05-25T17:54:51.926] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T17:54:51.926] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T17:54:51.927] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T18:53:16.497] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T18:53:16.497] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T18:53:17.495] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T18:53:17.657] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T18:53:18.055] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T18:53:18.061] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T18:53:18.207] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T18:53:18.324] [INFO] Tdarr_Server - zipPluginsFolder took 263ms
+[2025-05-25T18:54:51.947] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T18:54:51.947] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T18:54:51.948] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T19:53:16.498] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T19:53:16.499] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T19:53:17.497] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T19:53:17.622] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T19:53:17.995] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T19:53:18.001] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T19:53:18.118] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T19:53:18.200] [INFO] Tdarr_Server - zipPluginsFolder took 199ms
+[2025-05-25T19:54:51.949] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T19:54:51.950] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T19:54:51.950] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T20:53:16.499] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T20:53:16.500] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T20:53:17.498] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T20:53:17.635] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T20:53:18.006] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T20:53:18.011] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T20:53:18.132] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T20:53:18.237] [INFO] Tdarr_Server - zipPluginsFolder took 226ms
+[2025-05-25T20:54:51.953] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T20:54:51.953] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T20:54:51.954] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T21:53:16.501] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T21:53:16.501] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T21:53:17.500] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T21:53:17.666] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T21:53:18.056] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T21:53:18.061] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T21:53:18.182] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T21:53:18.298] [INFO] Tdarr_Server - zipPluginsFolder took 237ms
+[2025-05-25T21:54:51.957] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T21:54:51.958] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T21:54:51.958] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T22:53:16.502] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T22:53:16.503] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T22:53:17.501] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T22:53:17.630] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T22:53:18.013] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T22:53:18.016] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T22:53:18.134] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T22:53:18.214] [INFO] Tdarr_Server - zipPluginsFolder took 198ms
+[2025-05-25T22:54:51.961] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T22:54:51.961] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T22:54:51.962] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-25T23:53:16.503] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-25T23:53:16.503] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-25T23:53:17.502] [INFO] Tdarr_Server - Updating plugins
+[2025-05-25T23:53:17.627] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-25T23:53:18.013] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-25T23:53:18.019] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-25T23:53:18.143] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-25T23:53:18.226] [INFO] Tdarr_Server - zipPluginsFolder took 207ms
+[2025-05-25T23:54:51.964] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-25T23:54:51.964] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-25T23:54:51.965] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T00:00:00.208] [INFO] Tdarr_Server - Creating backup
+[2025-05-26T00:00:00.226] [INFO] Tdarr_Server - Backup zipping, this may take a while...
+[2025-05-26T00:00:00.532] [INFO] Tdarr_Server - Backup: 585462 total bytes
+[2025-05-26T00:00:00.533] [INFO] Tdarr_Server - Backup: archiver has been finalized and the output file descriptor has closed.
+[2025-05-26T00:00:00.533] [INFO] Tdarr_Server - Backup created:"/app/server/Tdarr/Backups/Backup-version-2.40.01-date-26-May-2025-00-00-00-ts-1748214000210.zip"
+[2025-05-26T00:00:01.251] [INFO] Tdarr_Server - Zipping: (Entries found: 454, processed: 454)
+[2025-05-26T00:00:01.543] [INFO] Tdarr_Server - Trimming backups
+[2025-05-26T00:00:01.546] [INFO] Tdarr_Server - Num backups:3, Backup limit:30
+[2025-05-26T00:53:16.503] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T00:53:16.503] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T00:53:17.503] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T00:53:17.626] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T00:53:17.995] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T00:53:18.001] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T00:53:18.123] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T00:53:18.202] [INFO] Tdarr_Server - zipPluginsFolder took 201ms
+[2025-05-26T00:54:51.966] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T00:54:51.967] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T00:54:51.967] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T01:53:16.503] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T01:53:16.503] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T01:53:17.504] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T01:53:17.616] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T01:53:17.984] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T01:53:17.986] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T01:53:18.099] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T01:53:18.182] [INFO] Tdarr_Server - zipPluginsFolder took 196ms
+[2025-05-26T01:54:51.969] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T01:54:51.969] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T01:54:51.970] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T02:53:16.504] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T02:53:16.504] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T02:53:17.506] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T02:53:17.618] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T02:53:17.989] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T02:53:17.991] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T02:53:18.103] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T02:53:18.183] [INFO] Tdarr_Server - zipPluginsFolder took 192ms
+[2025-05-26T02:54:51.990] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T02:54:51.990] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T02:54:51.991] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T03:53:16.505] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T03:53:16.506] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T03:53:17.506] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T03:53:17.626] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T03:53:18.007] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T03:53:18.013] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T03:53:18.132] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T03:53:18.211] [INFO] Tdarr_Server - zipPluginsFolder took 198ms
+[2025-05-26T03:54:51.994] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T03:54:51.994] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T03:54:51.995] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T04:53:16.506] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T04:53:16.507] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T04:53:17.507] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T04:53:17.633] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T04:53:18.055] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T04:53:18.057] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T04:53:18.170] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T04:53:18.248] [INFO] Tdarr_Server - zipPluginsFolder took 191ms
+[2025-05-26T04:54:51.997] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T04:54:51.997] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T04:54:51.998] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T05:53:16.506] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T05:53:16.507] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T05:53:17.508] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T05:53:17.695] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T05:53:18.057] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T05:53:18.059] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T05:53:18.177] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T05:53:18.293] [INFO] Tdarr_Server - zipPluginsFolder took 234ms
+[2025-05-26T05:54:52.001] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T05:54:52.001] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T05:54:52.002] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T06:53:16.507] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T06:53:16.508] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T06:53:17.509] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T06:53:17.639] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T06:53:18.063] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T06:53:18.070] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T06:53:18.196] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T06:53:18.283] [INFO] Tdarr_Server - zipPluginsFolder took 213ms
+[2025-05-26T06:54:52.003] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T06:54:52.004] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T06:54:52.005] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T07:53:16.516] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T07:53:16.531] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T07:53:17.510] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T07:53:17.739] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T07:53:18.185] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T07:53:18.189] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T07:53:18.308] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T07:53:18.449] [INFO] Tdarr_Server - zipPluginsFolder took 260ms
+[2025-05-26T07:54:52.028] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T07:54:52.029] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T07:54:52.029] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T08:53:16.510] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T08:53:16.511] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T08:53:17.513] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T08:53:17.639] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T08:53:18.071] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T08:53:18.077] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T08:53:18.204] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T08:53:18.293] [INFO] Tdarr_Server - zipPluginsFolder took 216ms
+[2025-05-26T08:54:52.030] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T08:54:52.031] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T08:54:52.031] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T09:53:16.511] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T09:53:16.511] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T09:53:17.515] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T09:53:17.640] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T09:53:20.180] [ERROR] Tdarr_Server - [Plugin Update] Error getting latest commit Error: Request failed with status code 503
+[2025-05-26T09:53:20.186] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has changed, cloning
+[2025-05-26T09:53:21.301] [INFO] Tdarr_Server - [Plugin Update] Finished downloading!
+[2025-05-26T09:53:21.302] [INFO] Tdarr_Server - [Plugin Update] Unzipping
+[2025-05-26T09:53:23.468] [INFO] Tdarr_Server - [Plugin Update] Copying plugins
+[2025-05-26T09:53:24.550] [INFO] Tdarr_Server - [Plugin Update] [6910ms] Finished
+[2025-05-26T09:53:24.554] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T09:53:24.670] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T09:53:24.766] [INFO] Tdarr_Server - zipPluginsFolder took 212ms
+[2025-05-26T09:54:52.032] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T09:54:52.032] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T09:54:52.033] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T10:53:16.476] [INFO] Tdarr_Server - Auto update not supported in Docker
+[2025-05-26T10:53:16.476] [INFO] Tdarr_Server - Auto update not supported in Docker
+[2025-05-26T10:53:16.511] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T10:53:16.511] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T10:53:17.515] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T10:53:17.628] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T10:53:18.010] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T10:53:18.012] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T10:53:18.149] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T10:53:18.249] [INFO] Tdarr_Server - zipPluginsFolder took 237ms
+[2025-05-26T10:54:52.035] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T10:54:52.035] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T10:54:52.036] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T11:53:16.510] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T11:53:16.510] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T11:53:17.516] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T11:53:17.771] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T11:53:18.193] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T11:53:18.195] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T11:53:18.324] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T11:53:18.457] [INFO] Tdarr_Server - zipPluginsFolder took 262ms
+[2025-05-26T11:54:52.039] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T11:54:52.039] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T11:54:52.040] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T12:53:16.510] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T12:53:16.510] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T12:53:17.517] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T12:53:17.681] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T12:53:18.080] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T12:53:18.086] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T12:53:18.331] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T12:53:18.462] [INFO] Tdarr_Server - zipPluginsFolder took 376ms
+[2025-05-26T12:54:52.045] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T12:54:52.046] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T12:54:52.046] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T13:53:16.511] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T13:53:16.511] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T13:53:17.518] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T13:53:17.670] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T13:53:18.079] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T13:53:18.082] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T13:53:18.253] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T13:53:18.377] [INFO] Tdarr_Server - zipPluginsFolder took 295ms
+[2025-05-26T13:54:52.049] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T13:54:52.049] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T13:54:52.050] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T14:53:16.513] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T14:53:16.513] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T14:53:17.519] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T14:53:17.643] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T14:53:18.016] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T14:53:18.022] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T14:53:18.142] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T14:53:18.248] [INFO] Tdarr_Server - zipPluginsFolder took 225ms
+[2025-05-26T14:54:52.051] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T14:54:52.051] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T14:54:52.052] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T15:53:16.513] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T15:53:16.514] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T15:53:17.522] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T15:53:17.647] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T15:53:18.074] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T15:53:18.080] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T15:53:18.202] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T15:53:18.279] [INFO] Tdarr_Server - zipPluginsFolder took 199ms
+[2025-05-26T15:54:52.054] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T15:54:52.055] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T15:54:52.055] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T16:53:16.515] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T16:53:16.516] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T16:53:17.523] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T16:53:17.650] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T16:53:18.064] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T16:53:18.070] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T16:53:18.190] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T16:53:18.269] [INFO] Tdarr_Server - zipPluginsFolder took 199ms
+[2025-05-26T16:54:52.058] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T16:54:52.058] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T16:54:52.059] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T17:53:16.515] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T17:53:16.516] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T17:53:17.524] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T17:53:17.645] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T17:53:18.038] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T17:53:18.044] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T17:53:18.164] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T17:53:18.245] [INFO] Tdarr_Server - zipPluginsFolder took 201ms
+[2025-05-26T17:54:52.061] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T17:54:52.062] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T17:54:52.062] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T18:53:16.515] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T18:53:16.516] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T18:53:17.525] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T18:53:17.656] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T18:53:18.075] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T18:53:18.081] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T18:53:18.199] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T18:53:18.278] [INFO] Tdarr_Server - zipPluginsFolder took 197ms
+[2025-05-26T18:54:52.064] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T18:54:52.064] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T18:54:52.065] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T19:53:16.540] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T19:53:16.551] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T19:53:17.529] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T19:53:17.745] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T19:53:18.120] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T19:53:18.124] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T19:53:18.248] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T19:53:18.390] [INFO] Tdarr_Server - zipPluginsFolder took 266ms
+[2025-05-26T19:54:52.071] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T19:54:52.071] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T19:54:52.072] [INFO] Tdarr_Server - Finished cleaning empty job report folders
+[2025-05-26T20:53:16.535] [INFO] Tdarr_Server - Socket.io clientsCount:total:1, nodes 1, nodesCount: 1, nodeSockets: 1
+[2025-05-26T20:53:16.535] [INFO] Tdarr_Server - Node knight0 connected:true
+[2025-05-26T20:53:17.535] [INFO] Tdarr_Server - Updating plugins
+[2025-05-26T20:53:17.650] [INFO] Tdarr_Server - [Plugin Update] Starting
+[2025-05-26T20:53:17.997] [INFO] Tdarr_Server - [Plugin Update] Plugin repo has not changed, skipping update
+[2025-05-26T20:53:18.000] [INFO] Tdarr_Server - Zipping plugins folder
+[2025-05-26T20:53:18.134] [INFO] Tdarr_Server - [Plugin Update] Found ignore file at "/app/server/Tdarr/Plugins/tdarrIgnore.txt"
+[2025-05-26T20:53:18.226] [INFO] Tdarr_Server - zipPluginsFolder took 226ms
+[2025-05-26T20:54:52.074] [INFO] Tdarr_Server - Job report history size is within limit. Limit:10240 MiB, Size:0 MiB
+[2025-05-26T20:54:52.074] [INFO] Tdarr_Server - Cleaning empty job report folders
+[2025-05-26T20:54:52.075] [INFO] Tdarr_Server - Finished cleaning empty job report folders

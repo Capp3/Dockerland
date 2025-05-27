@@ -5,3 +5,17 @@ services:
     ports:
       - 1935:1935
     restart: unless-stopped
+
+  node-red:
+    image: nodered/node-red:latest
+    environment:
+      - TZ=${TZ}
+    ports:
+      - '1880:1880'
+    networks:
+      - k0_proxy
+    volumes:
+      - node-red-data:/data
+
+volumes:
+  node-red-data:

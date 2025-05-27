@@ -113,19 +113,19 @@ services:
       c0_proxy:
     ports:
       - 3000:8080
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities:
-                - gpu
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities:
+    #             - gpu
     volumes:
       - open-webui:/app/backend/data
     environment:
       - "OLLAMA_BASE_URL=http://192.168.1.17:11434"
     container_name: open-webui
-    image: ghcr.io/open-webui/open-webui:cuda
+    image: ghcr.io/open-webui/open-webui
     extra_hosts:
       - host.docker.internal:host-gateway

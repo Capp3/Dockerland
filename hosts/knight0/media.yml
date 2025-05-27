@@ -158,12 +158,12 @@ services:
       - PGID=1000
       - nodeName=knight0
     volumes:
-      - /usb_media_storage/library/movies:/home/Tdarr/Media/movies
-      - /usb_media_storage/library/tv:/home/Tdarr/Media/tv
-      - ./data/downloads/cache/:/temp
-      - ./data/tdarr/data/:/app/server
-      - ./data/tdarr/data/:/app/configs
-      - ./data/tdarr/data/:/app/logs
+      - ${MEDIADIR}/movies:/home/Tdarr/Media/movies
+      - ${MEDIADIR}/tv:/home/Tdarr/Media/tv
+      - ${DATA_DIR}/downloads/cache/:/temp
+      - ${DATA_DIR}/tdarr/data/:/app/server
+      - ${DATA_DIR}/tdarr/data/:/app/configs
+      - ${DATA_DIR}/tdarr/data/:/app/logs
     ports:
       - 8265:8265
       - 8266:8266
