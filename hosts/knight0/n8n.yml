@@ -1,0 +1,22 @@
+volumes:
+  n8n_storage:
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    restart: always
+    container_name: n8n
+    networks:
+      - n8n_network
+    environment:
+      - N8N_HOST=n8n.${DOMAIN_NAME}
+      - N8N_PORT=${N8N_PORT:-5678}
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://n8n.${DOMAIN_NAME}/
+      - GENERIC_TIMEZONE=${TZ}
+      - N8N_RUNNERS_ENABLED=true
+    ports:
+      - ${N8N_PORT:-5678}:5678
+    volumes:
+      - n8n_storage:/home/node/.n8n

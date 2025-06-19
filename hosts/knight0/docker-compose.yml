@@ -31,6 +31,13 @@ networks:
         - subnet: 192.168.1.0/24
           gateway: 192.168.1.1
 
+  n8n_network:
+    name: n8n_network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.92.0/24
+
 ########################### Volumes
 name: services
 
@@ -42,3 +49,4 @@ include:
   - media.yml
   - rtmp.yml
   - home.yml
+  - n8n.yml
