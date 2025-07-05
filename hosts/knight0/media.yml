@@ -1,6 +1,6 @@
 services:
   gluetun:
-    container_name: gluetun
+    container_name: media_gluetun
     image: qmcgaw/gluetun
     cap_add:
       - NET_ADMIN
@@ -30,9 +30,9 @@ services:
     restart: unless-stopped
 
   deluge:
-    container_name: deluge
+    container_name: media_deluge
     image: lscr.io/linuxserver/deluge:latest
-    network_mode: 'container:gluetun'
+    network_mode: 'container:media_gluetun'
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -47,9 +47,9 @@ services:
     restart: unless-stopped
 
   flaresolverr:
-    container_name: flaresolverr
+    container_name: media_flaresolverr
     image: ghcr.io/flaresolverr/flaresolverr:latest
-    network_mode: 'container:gluetun'
+    network_mode: 'container:media_gluetun'
     environment:
       - LOG_LEVEL=${LOG_LEVEL:-info}
       - LOG_HTML=${LOG_HTML:-false}
@@ -61,9 +61,9 @@ services:
     restart: unless-stopped
 
   prowlarr:
-    container_name: prowlarr
+    container_name: media_prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
-    network_mode: 'container:gluetun'
+    network_mode: 'container:media_gluetun'
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -76,9 +76,9 @@ services:
     restart: unless-stopped
 
   radarr:
-    container_name: radarr
+    container_name: media_radarr
     image: lscr.io/linuxserver/radarr:latest
-    network_mode: 'container:gluetun'
+    network_mode: 'container:media_gluetun'
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -93,9 +93,9 @@ services:
     restart: unless-stopped
 
   sonarr:
-    container_name: sonarr
+    container_name: media_sonarr
     image: lscr.io/linuxserver/sonarr:latest
-    network_mode: 'container:gluetun'
+    network_mode: 'container:media_gluetun'
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -109,25 +109,10 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
-  # overseerr:
-  #   container_name: overseerr
-  #   image: lscr.io/linuxserver/overseerr:latest
-  #   network_mode: "container:gluetun"
-  #   environment:
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - TZ=${TZ}
-  #   volumes:
-  #     - ${DATA_DIR}/overseerr/config:/config
-  #   depends_on:
-  #     gluetun:
-  #       condition: service_healthy
-  #   restart: unless-stopped
-
   bazarr:
-    container_name: bazarr
+    container_name: media_bazarr
     image: lscr.io/linuxserver/bazarr:latest
-    network_mode: 'container:gluetun'
+    network_mode: 'container:media_gluetun'
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -142,7 +127,7 @@ services:
     restart: unless-stopped
 
   tdarr:
-    container_name: tdarr
+    container_name: media_tdarr
     image: haveagitgat/tdarr
     network_mode: bridge
     tty: true
@@ -177,7 +162,7 @@ services:
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
-    container_name: jellyseerr
+    container_name: media_jellyseerr
     environment:
       - LOG_LEVEL=debug
       - TZ=${TZ}
@@ -188,4 +173,4 @@ services:
     depends_on:
       gluetun:
         condition: service_healthy
-    network_mode: 'container:gluetun'
+    network_mode: 'container:media_gluetun'

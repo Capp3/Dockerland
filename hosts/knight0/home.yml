@@ -11,3 +11,17 @@ services:
     network_mode: host
     # devices:
     # - /dev/ttyUSB0:/dev/ttyUSB0
+
+  node-red:
+    image: nodered/node-red:latest
+    environment:
+      - TZ=${TZ}
+    ports:
+      - '1880:1880'
+    networks:
+      - k0_proxy
+    volumes:
+      - node-red-data:/data
+
+volumes:
+  node-red-data:

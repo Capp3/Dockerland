@@ -20,3 +20,4 @@ services:
       - ${N8N_PORT:-5678}:5678
     volumes:
       - n8n_storage:/home/node/.n8n
+      - /home/server/code:/code
