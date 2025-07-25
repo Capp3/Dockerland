@@ -14,7 +14,7 @@ services:
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
-    container_name: homepage
+    container_name: web_homepage
     restart: unless-stopped
     ports:
       - 3000:3000
@@ -29,27 +29,9 @@ services:
       k0_proxy:
         ipv4_address: 192.168.90.111
 
-  syncthing:
-    image: lscr.io/linuxserver/syncthing:latest
-    container_name: syncthing
-    hostname: syncthing # optional
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    volumes:
-      - ${DATA_DIR}/syncthing/config:/config
-      - ${SYNC_DATA_DIR}:/data1
-    ports:
-      - ${SYNC_PORT_GUI:-8384}:8384
-      - 22000:22000/tcp
-      - 22000:22000/udp
-      - 21027:21027/udp
-    restart: unless-stopped
-
   swag:
     image: lscr.io/linuxserver/swag:latest
-    container_name: swag
+    container_name: web_swag
     cap_add:
       - NET_ADMIN
     environment:
@@ -78,7 +60,7 @@ services:
 
   # Authelia (Lite) - Self-Hosted Single Sign-On and Two-Factor Authentication
   authelia:
-    container_name: authelia
+    container_name: web_authelia
     image: authelia/authelia
     security_opt:
       - no-new-privileges:true
@@ -88,7 +70,7 @@ services:
       k0_proxy:
         ipv4_address: 192.168.90.113
     ports:
-      - "9091:9091"
+      - '9091:9091'
     volumes:
       - ${DATA_DIR}/authelia/config:/config
     environment:
@@ -98,7 +80,7 @@ services:
 
   redis:
     image: redis:alpine
-    container_name: auth_redis
+    container_name: web_auth_redis
     volumes:
       - ${DATA_DIR}/authelia/redis:/data
     networks:

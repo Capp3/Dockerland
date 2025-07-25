@@ -21,7 +21,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - JELLYFIN_PublishedServerUrl=http://jellyfin.capparelli.ie
+      - JELLYFIN_PublishedServerUrl=https://jellyfin.capparelli.ie
     volumes:
       - ${DATA_DIR}/jellyfin/library:/config
       - ${MEDIADIR}/tv:/data/tvshows
