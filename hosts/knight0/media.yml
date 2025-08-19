@@ -10,7 +10,7 @@ services:
       - VPN_SERVICE_PROVIDER=private internet access
       - OPENVPN_USER=${PIA_USER}
       - OPENVPN_PASSWORD=${PIA_PASS}
-      - SERVER_REGIONS=Netherlands
+      - SERVER_REGIONS=${PIA_SERVER_REGION:-Netherlands}
     volumes:
       - ${DATA_DIR}/gluetun:/gluetun
     ports:
