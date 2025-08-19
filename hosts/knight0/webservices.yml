@@ -29,65 +29,65 @@ services:
       k0_proxy:
         ipv4_address: 192.168.90.111
 
-  swag:
-    image: lscr.io/linuxserver/swag:latest
-    container_name: web_swag
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - URL=${DOMAIN_NAME}
-      - VALIDATION=dns
-      - SUBDOMAINS=wildcard
-      # - CERTPROVIDER=
-      - DNSPLUGIN=cloudflare # optional
-      - PROPAGATION=30
-      - EMAIL=${DNS_EMAIL}
-      # - DISABLE_F2B=
-      - SWAG_AUTORELOAD=true
-      # - SWAG_AUTORELOAD_WATCHLIST=
-    volumes:
-      - ${DATA_DIR}/swag/config:/config
-    ports:
-      - 4443:443
-      - 4480:80 # optional
-    restart: unless-stopped
-    networks:
-      k0_proxy:
-        ipv4_address: 192.168.90.112
+  # swag:
+  #   image: lscr.io/linuxserver/swag:latest
+  #   container_name: web_swag
+  #   cap_add:
+  #     - NET_ADMIN
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - TZ=${TZ}
+  #     - URL=${DOMAIN_NAME}
+  #     - VALIDATION=dns
+  #     - SUBDOMAINS=wildcard
+  #     # - CERTPROVIDER=
+  #     - DNSPLUGIN=cloudflare # optional
+  #     - PROPAGATION=30
+  #     - EMAIL=${DNS_EMAIL}
+  #     # - DISABLE_F2B=
+  #     - SWAG_AUTORELOAD=true
+  #     # - SWAG_AUTORELOAD_WATCHLIST=
+  #   volumes:
+  #     - ${DATA_DIR}/swag/config:/config
+  #   ports:
+  #     - 4443:443
+  #     - 4480:80 # optional
+  #   restart: unless-stopped
+  #   networks:
+  #     k0_proxy:
+  #       ipv4_address: 192.168.90.112
 
-  # Authelia (Lite) - Self-Hosted Single Sign-On and Two-Factor Authentication
-  authelia:
-    container_name: web_authelia
-    image: authelia/authelia
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
-    # profiles: ["core", "all"]
-    networks:
-      k0_proxy:
-        ipv4_address: 192.168.90.113
-    ports:
-      - '9091:9091'
-    volumes:
-      - ${DATA_DIR}/authelia/config:/config
-    environment:
-      - TZ=${TZ}
-      - PUID=${PUID}
-      - PGID=${PGID}
+  # # Authelia (Lite) - Self-Hosted Single Sign-On and Two-Factor Authentication
+  # authelia:
+  #   container_name: web_authelia
+  #   image: authelia/authelia
+  #   security_opt:
+  #     - no-new-privileges:true
+  #   restart: unless-stopped
+  #   # profiles: ["core", "all"]
+  #   networks:
+  #     k0_proxy:
+  #       ipv4_address: 192.168.90.113
+  #   ports:
+  #     - '9091:9091'
+  #   volumes:
+  #     - ${DATA_DIR}/authelia/config:/config
+  #   environment:
+  #     - TZ=${TZ}
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
 
-  redis:
-    image: redis:alpine
-    container_name: web_auth_redis
-    volumes:
-      - ${DATA_DIR}/authelia/redis:/data
-    networks:
-      k0_proxy:
-        ipv4_address: 192.168.90.114
-    restart: unless-stopped
-    environment:
-      - TZ=${TZ}
-      - PUID=${PUID}
-      - PGID=${PGID}
+  # redis:
+  #   image: redis:alpine
+  #   container_name: web_auth_redis
+  #   volumes:
+  #     - ${DATA_DIR}/authelia/redis:/data
+  #   networks:
+  #     k0_proxy:
+  #       ipv4_address: 192.168.90.114
+  #   restart: unless-stopped
+  #   environment:
+  #     - TZ=${TZ}
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}

@@ -10,7 +10,7 @@ services:
       - n8n_network
     environment:
       - N8N_HOST=n8n.${DOMAIN_NAME}
-      - N8N_PORT=${N8N_PORT:-5678}
+      - N8N_PORT=${N8N_PORT:-11126}
       - N8N_PROTOCOL=http
       - NODE_ENV=production
       - WEBHOOK_URL=https://n8n.${DOMAIN_NAME}/
