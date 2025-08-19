@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  pandoc-api:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./shared:/tmp # optional: for access to uploads/outputs outside the container
