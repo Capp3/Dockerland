@@ -1,4 +1,3 @@
-# Docker Management TUI Helper (DMTH) Makefile
 
 # Automatic hostname detection
 DETECTED_HOST := $(shell hostname)
