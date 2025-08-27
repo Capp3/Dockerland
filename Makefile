@@ -8,27 +8,37 @@ HOST ?= $(DETECTED_HOST)
 DATA_DIR ?= $(HOME)/.local/docker
 
 # Targets
-.PHONY: all install uninstall clean check-host create-data-dir pull push up down status logs restart help
+.PHONY: all install uninstall clean check-host create-data-dir pull push up down status host-logs logs restart list help
 
 # Show help information
 help:
 	@echo "Docker Management TUI Helper (DMTH) - Available Commands:"
 	@echo ""
-	@echo "  make help          - Show this help message"
+	@echo "Container Management:"
+	@echo "  make list          - List all containers (name and ID only)"
 	@echo "  make status        - Show running containers for this host"
+	@echo "  make logs <ID>     - Show logs for specific container (Ctrl+C to exit)"
+	@echo ""
+	@echo "Service Management:"
 	@echo "  make up            - Start services in background"
 	@echo "  make down          - Stop services"
 	@echo "  make restart       - Restart services"
+	@echo "  make host-logs     - Show logs for host services (Ctrl+C to exit)"
+	@echo ""
+	@echo "Image Management:"
 	@echo "  make pull          - Pull latest images"
 	@echo "  make push          - Push images"
-	@echo "  make logs          - Show container logs"
+	@echo ""
+	@echo "System Management:"
 	@echo "  make create-data-dir - Create/verify data directory"
 	@echo "  make clean         - Clean temporary files and Docker resources"
+	@echo "  make help          - Show this help message"
 	@echo ""
 	@echo "  Current host: $(HOST)"
 	@echo "  Data directory: $(DATA_DIR)"
 	@echo ""
 	@echo "  Override host: make <command> HOST=<hostname>"
+	@echo "  Example: make up HOST=production"
 
 # Check if host configuration exists
 check-host:
@@ -85,7 +95,7 @@ restart: check-host
 	@docker compose -f hosts/$(HOST)/docker-compose.yml restart
 	@echo "Services restarted successfully."
 
-logs: check-host
+host-logs: check-host
 	@echo "Showing logs for host: $(HOST) (Ctrl+C to exit)..."
 	@docker compose -f hosts/$(HOST)/docker-compose.yml logs -f
 
@@ -98,3 +108,20 @@ clean:
 	@docker volume prune -f
 	@docker image prune -f
 	@echo "Cleaning complete."
+
+# List all containers showing only name and ID
+list:
+	@echo "Listing all containers (name and ID only):"
+	@docker container ls --format "table {{.Names}}\t{{.ID}}"
+
+# Show logs for a specific container
+logs:
+	@if [ -z "$(filter-out $@,$(MAKECMDGOALS))" ]; then \
+		echo "Error: Please specify a container ID"; \
+		echo "Usage: make logs <container_id>"; \
+		echo "Use 'make list' to see available containers"; \
+		exit 1; \
+	fi
+	@echo "Showing logs for container: $(filter-out $@,$(MAKECMDGOALS)) (Ctrl+C to exit)..."
+	@docker logs -f $(filter-out $@,$(MAKECMDGOALS))
+

@@ -1,93 +1,24 @@
 services:
-  # nginxpm:
-  #   image: "jc21/nginx-proxy-manager:latest"
-  #   restart: unless-stopped
-  #   ports:
-  #     - "4480:80"  # Public HTTP Port
-  #     - "4443:443"  # Public HTTPS Port
-  #     - "4481:81"  # Admin Web Port
-  #   volumes:
-  #     - ${DATA_DIR}/nginxpm:/data
-  #     - ${DATA_DIR}/letsencrypt:/etc/letsencrypt
-  #   networks:
-  #     k0_proxy:
-
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: web_homepage
     restart: unless-stopped
     ports:
-      - 3000:3000
+      - ${HOMEPAGE_PORT:-3000}:3000
     volumes:
       - ${DATA_DIR}/homepage:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
-      - HOMEPAGE_ALLOWED_HOSTS=home.capparelli.ie
+      - HOMEPAGE_ALLOWED_HOSTS=home.${DOMAIN_NAME}
+
+  cloudflare-ddns-capparelli:
+    container_name: ddns_capparelli
+    image: oznu/cloudflare-ddns:latest
+    restart: always
     networks:
       k0_proxy:
-        ipv4_address: 192.168.90.111
-
-  # swag:
-  #   image: lscr.io/linuxserver/swag:latest
-  #   container_name: web_swag
-  #   cap_add:
-  #     - NET_ADMIN
-  #   environment:
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - TZ=${TZ}
-  #     - URL=${DOMAIN_NAME}
-  #     - VALIDATION=dns
-  #     - SUBDOMAINS=wildcard
-  #     # - CERTPROVIDER=
-  #     - DNSPLUGIN=cloudflare # optional
-  #     - PROPAGATION=30
-  #     - EMAIL=${DNS_EMAIL}
-  #     # - DISABLE_F2B=
-  #     - SWAG_AUTORELOAD=true
-  #     # - SWAG_AUTORELOAD_WATCHLIST=
-  #   volumes:
-  #     - ${DATA_DIR}/swag/config:/config
-  #   ports:
-  #     - 4443:443
-  #     - 4480:80 # optional
-  #   restart: unless-stopped
-  #   networks:
-  #     k0_proxy:
-  #       ipv4_address: 192.168.90.112
-
-  # # Authelia (Lite) - Self-Hosted Single Sign-On and Two-Factor Authentication
-  # authelia:
-  #   container_name: web_authelia
-  #   image: authelia/authelia
-  #   security_opt:
-  #     - no-new-privileges:true
-  #   restart: unless-stopped
-  #   # profiles: ["core", "all"]
-  #   networks:
-  #     k0_proxy:
-  #       ipv4_address: 192.168.90.113
-  #   ports:
-  #     - '9091:9091'
-  #   volumes:
-  #     - ${DATA_DIR}/authelia/config:/config
-  #   environment:
-  #     - TZ=${TZ}
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-
-  # redis:
-  #   image: redis:alpine
-  #   container_name: web_auth_redis
-  #   volumes:
-  #     - ${DATA_DIR}/authelia/redis:/data
-  #   networks:
-  #     k0_proxy:
-  #       ipv4_address: 192.168.90.114
-  #   restart: unless-stopped
-  #   environment:
-  #     - TZ=${TZ}
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
+    environment:
+      - API_KEY=${CFDDNS0}
+      - ZONE=${CFDDN_ZONE_0}
