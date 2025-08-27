@@ -8,7 +8,7 @@ HOST ?= $(DETECTED_HOST)
 DATA_DIR ?= $(HOME)/.local/docker
 
 # Targets
-.PHONY: all install uninstall clean check-host create-data-dir pull push up down status host-logs logs restart list help
+.PHONY: all install uninstall clean check-host create-data-dir pull push up down status host-logs logs exec restart list help
 
 # Show help information
 help:
@@ -18,6 +18,7 @@ help:
 	@echo "  make list          - List all containers (name and ID only)"
 	@echo "  make status        - Show running containers for this host"
 	@echo "  make logs <ID>     - Show logs for specific container (Ctrl+C to exit)"
+	@echo "  make exec <ID>     - Execute shell inside specific container"
 	@echo ""
 	@echo "Service Management:"
 	@echo "  make up            - Start services in background"
@@ -124,4 +125,16 @@ logs:
 	fi
 	@echo "Showing logs for container: $(filter-out $@,$(MAKECMDGOALS)) (Ctrl+C to exit)..."
 	@docker logs -f $(filter-out $@,$(MAKECMDGOALS))
+
+# Execute shell inside a specific container
+exec:
+	@if [ -z "$(filter-out $@,$(MAKECMDGOALS))" ]; then \
+		echo "Error: Please specify a container ID"; \
+		echo "Usage: make exec <container_id>"; \
+		echo "Use 'make list' to see available containers"; \
+		exit 1; \
+	fi
+	@echo "Executing shell inside container: $(filter-out $@,$(MAKECMDGOALS))"
+	@echo "Type 'exit' to return to host shell"
+	@docker exec -it $(filter-out $@,$(MAKECMDGOALS)) sh
 

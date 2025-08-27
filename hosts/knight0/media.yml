@@ -126,39 +126,39 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
-  tdarr:
-    container_name: media_tdarr
-    image: haveagitgat/tdarr
-    network_mode: bridge
-    tty: true
-    stdin_open: true
-    environment:
-      - serverIP=0.0.0.0
-      - webUIPort=8265
-      - serverPort=8266
-      - TZ=Europe/Dublin
-      - internalNode=true
-      - inContainer=true
-      - PUID=1000
-      - PGID=1000
-      - nodeName=knight0
-    volumes:
-      - ${MEDIADIR}/movies:/home/Tdarr/Media/movies
-      - ${MEDIADIR}/tv:/home/Tdarr/Media/tv
-      - ${DATA_DIR}/downloads/cache/:/temp
-      - ${DATA_DIR}/tdarr/data/:/app/server
-      - ${DATA_DIR}/tdarr/data/:/app/configs
-      - ${DATA_DIR}/tdarr/data/:/app/logs
-    ports:
-      - 8265:8265
-      - 8266:8266
-    devices:
-      - /dev/dri:/dev/dri
-    logging:
-      options:
-        max-size: 10m
-        max-file: 5
-    restart: unless-stopped
+  # tdarr:
+  #   container_name: media_tdarr
+  #   image: haveagitgat/tdarr
+  #   network_mode: bridge
+  #   tty: true
+  #   stdin_open: true
+  #   environment:
+  #     - serverIP=0.0.0.0
+  #     - webUIPort=8265
+  #     - serverPort=8266
+  #     - TZ=Europe/Dublin
+  #     - internalNode=true
+  #     - inContainer=true
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - nodeName=knight0
+  #   volumes:
+  #     - ${MEDIADIR}/movies:/home/Tdarr/Media/movies
+  #     - ${MEDIADIR}/tv:/home/Tdarr/Media/tv
+  #     - ${DATA_DIR}/downloads/cache/:/temp
+  #     - ${DATA_DIR}/tdarr/data/:/app/server
+  #     - ${DATA_DIR}/tdarr/data/:/app/configs
+  #     - ${DATA_DIR}/tdarr/data/:/app/logs
+  #   ports:
+  #     - 8265:8265
+  #     - 8266:8266
+  #   devices:
+  #     - /dev/dri:/dev/dri
+  #   logging:
+  #     options:
+  #       max-size: 10m
+  #       max-file: 5
+  #   restart: unless-stopped
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest

@@ -22,3 +22,29 @@ services:
     environment:
       - API_KEY=${CFDDNS0}
       - ZONE=${CFDDN_ZONE_0}
+
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - '53:53/tcp'
+      - '53:53/udp'
+      - '80:80/tcp'
+      - '443:443/tcp'
+      # Uncomment the below if using Pi-hole as your DHCP Server
+      #- "67:67/udp"
+      # Uncomment the line below if you are using Pi-hole as your NTP server
+      #- "123:123/udp"
+    environment:
+      TZ: ${TZ}
+      FTLCONF_webserver_api_password: 'gYLR!e*1^9Lz*O'
+      FTLCONF_dns_listeningMode: 'all'
+    volumes:
+      - ${DATA_DIR}/etc-pihole:/etc/pihole
+    cap_add:
+      - NET_ADMIN
+      - SYS_TIME
+      - SYS_NICE
+    networks:
+      macvlan_network:
+        ipv4_address: 192.168.1.254
