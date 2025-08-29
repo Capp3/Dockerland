@@ -1,40 +1,21 @@
 {
   "files.associations": {
     "*.yaml": "dockercompose",
-    "*.yml": "dockercompose"
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-
-  // Set tab size to 2 spaces globally
-  "editor.tabSize": 2,
-  "editor.insertSpaces": true,
-
-  // Set tab size for YAML files explicitly
-  "[yaml]": {
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.defaultFormatter": "redhat.vscode-yaml"
-  },
-  "[yml]": {
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.defaultFormatter": "redhat.vscode-yaml"
-  },
-
-  "yaml.schemas": {
-    "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": [
-      "**/docker-compose.yml",
-      "**/docker-compose.yaml",
-      "**/*.docker-compose.yml",
-      "**/*.docker-compose.yaml"
-    ]
-  },
-  "files.associations": {
+    "*.yml": "dockercompose",
     "*.env": "dotenv",
     ".env*": "dotenv",
     "*.sh": "shellscript",
     "*.bash": "shellscript"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+
+  // YAML and Docker Compose settings
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": [
+      "*.yml",
+      "*.yaml"
+    ]
   },
   "yaml.validate": true,
   "yaml.format.enable": true,

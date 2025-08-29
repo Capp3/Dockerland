@@ -2,6 +2,8 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: web_homepage
+    tags:
+      - maint
     restart: unless-stopped
     ports:
       - ${HOMEPAGE_PORT:-3000}:3000
@@ -26,6 +28,8 @@ services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
+    tags:
+      - maint
     ports:
       - '53:53/tcp'
       - '53:53/udp'

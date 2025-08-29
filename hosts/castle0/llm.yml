@@ -1,0 +1,221 @@
+services:
+  nginx:
+    image: nginx:latest
+    environment:
+      - NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/templates
+      - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.template
+      - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx/conf.d
+      - NGINX_HOST=llm.${DOMAIN}
+    ports:
+      - "4000:80"
+    volumes:
+      - ./conf/nginx/templates:/etc/nginx/templates
+    networks:
+      - c0_proxy
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_period: 5s
+      test: curl -fsSL http://127.0.0.1/health | grep -q '"status":\s*true' || exit 1
+      timeout: 5s
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+              count: all
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - CUDA_VISIBLE_DEVICES=1
+      - LOG_LEVEL=debug
+      - OLLAMA_FLASH_ATTENTION=true
+      - OLLAMA_HOST="0.0.0.0:11434"
+      - OLLAMA_MLOCK=true
+      - OLLAMA_MMAP=true
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+      - ${DATA_DIR}/ollama/models:/models
+    networks:
+      - c0_proxy
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_period: 10s
+      test: ps aux | grep  -v grep | grep '/bin/ollama serve' || exit 1
+      timeout: 5s
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"
+
+  docling:
+    image: quay.io/docling-project/docling-serve:latest
+    environment:
+      - DOCLING_SERVE_ENABLE_UI=true
+    networks:
+      - c0_proxy
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_period: 10s
+      test: wget -qO- http://127.0.0.1:5001/health > /dev/null || exit 1
+      timeout: 5s
+    restart: unless-stopped
+
+  edgetts:
+    image: travisvn/openai-edge-tts:latest
+    environment:
+      - DEFAULT_RESPONSE_FORMAT="mp3"
+      - DEFAULT_SPEED="1.0"
+      - DEFAULT_VOICE="en-IE-EmilyNeural"
+    networks:
+      - c0_proxy
+    restart: unless-stopped
+
+  mcp:
+    image: ghcr.io/open-webui/mcpo:latest
+    command: --config /app/conf/config.json
+    environment:
+      - DATABASE_URL="postgresql://owui-user:918c26a27d70706a@postgres/owui"
+      - TIMEZONE=${TZ}
+    volumes:
+      - ./config/mcp:/app/conf:ro
+    networks:
+      - c0_proxy
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_period: 5s
+      test: 'curl -fsSL http://127.0.0.1:8000/time/get_current_time -H ''Content-Type: application/json'' -d ''{"timezone": "America/Chicago"}'' | grep -v grep | grep ''timezone'' || exit 1'
+      timeout: 5s
+    restart: unless-stopped
+
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:cuda
+    env_file: config/openwebui.env
+    environment:
+      - PGVECTOR_DB_URL=${LLM_POSTGRES_COMMAND}
+      - DATABASE_URL=${LLM_POSTGRES_COMMAND}
+      - WEBUI_URL="http://llm.${DOMAIN}"
+      - WEBUI_SECRET_KEY=${LLM_WEBUI_SECRET_KEY}
+    depends_on:
+      - auth
+      - docling
+      - postgres
+      - edgetts
+      - mcp
+      - ollama
+      - searxng
+      - tika
+    volumes:
+      - openwebui:/app/backend/data
+      - ollama:/models
+    networks:
+      - c0_proxy
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_period: 10s
+      test: curl --fail http://localhost:8080/health || exit 1
+      timeout: 5s
+    restart: unless-stopped
+
+  postgres:
+    image: pgvector/pgvector:pg15
+    environment:
+      - POSTGRES_DB="owui"
+      - POSTGRES_PASSWORD=${LLM_POSTGRES_PASSWORD}
+      - POSTGRES_USER="owui-user"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - c0_proxy
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_period: 20s
+      test: ["CMD-SHELL", "pg_isready -d $ -U $"]
+      timeout: 5s
+    restart: unless-stopped
+
+  redis:
+    image: redis/redis-stack:latest
+    environment:
+      - RI_PROXY_PATH="redis"
+    networks:
+      - c0_proxy
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_period: 20s
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      timeout: 3s
+    restart: unless-stopped
+
+  searxng:
+    image: searxng/searxng:2025.5.18-5dff826
+    environment:
+      - SEARXNG_BASE_URL="http://capparelli.ie:4000/searxng"
+      - SEARXNG_REDIS_URL="redis://redis:6379/1"
+      - SEARXNG_SECRET=${LLM_SEARXNG_SECRET}
+    depends_on:
+      - redis
+    volumes:
+      - searxng:/etc/searxng
+    networks:
+      - c0_proxy
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+    cap_drop:
+      - ALL
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_period: 10s
+      test: wget -qO- http://127.0.0.1:8080/ > /dev/null || exit 1
+      timeout: 5s
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
+  tika:
+    image: apache/tika:latest-full
+    environment:
+      - TIKA_SERVER_HOST=0.0.0.0
+      - TIKA_SERVER_PORT=9998
+      - TIKA_SERVER_LOG_LEVEL=info
+      - TIKA_SERVER_LOG_FORMAT=json
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_period: 5s
+      test: wget -qO- http://127.0.0.1:9998/tika > /dev/null || exit 1
+      timeout: 5s
+    restart: unless-stopped
+
+volumes:
+  ollama:
+    external: false
+  openwebui:
+    external: false
+  postgres:
+    external: false
+  searxng:
+    external: false

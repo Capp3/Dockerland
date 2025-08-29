@@ -2,6 +2,8 @@ services:
   homeassistant:
     container_name: homeassistant
     image: 'ghcr.io/home-assistant/home-assistant:stable'
+    tags:
+      - maint
     volumes:
       - ${DATA_DIR}/hassio:/config
       - /etc/localtime:/etc/localtime:ro
@@ -14,6 +16,8 @@ services:
 
   node-red:
     image: nodered/node-red:latest
+    tags:
+      - maint
     environment:
       - TZ=${TZ}
     ports:

@@ -1,0 +1,33 @@
+services:
+  tdarr:
+    container_name: tdarr_node
+    image: haveagitgat/tdarr_node
+    network_mode: bridge
+    tty: true
+    stdin_open: true
+    environment:
+      - serverIP=192.168.1.210
+      - webUIPort=8265
+      - serverPort=8266
+      - TZ=Europe/Dublin
+      - inContainer=true
+      - PUID=1000
+      - PGID=1000
+      - nodeName=castle0
+    volumes:
+      - /netmedia/library/movies:/home/Tdarr/Media/movies
+      - /netmedia/library/tv:/home/Tdarr/Media/tv
+      - ./data/downloads/cache/:/temp
+      - ./data/tdarr/data/:/app/server
+      - ./data/tdarr/data/:/app/configs
+      - ./data/tdarr/data/:/app/logs
+    ports:
+      - 8265:8265
+      - 8266:8266
+    devices:
+      - /dev/dri:/dev/dri
+    logging:
+      options:
+        max-size: 10m
+        max-file: 5
+    restart: unless-stopped

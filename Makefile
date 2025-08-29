@@ -20,14 +20,14 @@ help:
 	@echo "  make exec <ID>     - Execute shell inside specific container"
 	@echo ""
 	@echo "Service Management:"
-	@echo "  make up            - Start services in background"
-	@echo "  make down          - Stop services"
-	@echo "  make restart       - Restart services"
-	@echo "  make host-logs     - Show logs for host services (Ctrl+C to exit)"
+	@echo "  make up [--tag=<tag>]     - Start services in background (optionally for specific tag)"
+	@echo "  make down [--tag=<tag>]   - Stop services (optionally for specific tag)"
+	@echo "  make restart [--tag=<tag>] - Restart services (optionally for specific tag)"
+	@echo "  make host-logs [--tag=<tag>] - Show logs for host services (optionally for specific tag)"
 	@echo ""
 	@echo "Image Management:"
-	@echo "  make pull          - Pull latest images"
-	@echo "  make push          - Push images"
+	@echo "  make pull [--tag=<tag>]   - Pull latest images (optionally for specific tag)"
+	@echo "  make push [--tag=<tag>]   - Push images (optionally for specific tag)"
 	@echo ""
 	@echo "System Management:"
 	@echo "  make create-data-dir - Create/verify data directory"
@@ -39,6 +39,10 @@ help:
 	@echo ""
 	@echo "  Override host: make <command> HOST=<hostname>"
 	@echo "  Example: make up HOST=production"
+	@echo ""
+	@echo "  Tag usage: make <command> --tag=<tag>"
+	@echo "  Example: make pull --tag=media"
+	@echo "  Note: If no tag is specified, all containers are affected"
 
 # Check if host configuration exists
 check-host:
@@ -72,32 +76,68 @@ status: check-host
 
 pull: check-host
 	@echo "Pulling latest images for host: $(HOST)..."
-	@docker compose -f hosts/$(HOST)/docker-compose.yml pull
+	@if [ -n "$(TAG)" ]; then \
+		echo "Pulling images with tag: $(TAG)"; \
+		docker compose -f hosts/$(HOST)/docker-compose.yml pull $(TAG); \
+	else \
+		echo "Pulling all images"; \
+		docker compose -f hosts/$(HOST)/docker-compose.yml pull; \
+	fi
 	@echo "Pull complete."
 
 push: check-host
 	@echo "Pushing images for host: $(HOST)..."
-	@docker compose -f hosts/$(HOST)/docker-compose.yml push
+	@if [ -n "$(TAG)" ]; then \
+		echo "Pushing images with tag: $(TAG)"; \
+		docker compose -f hosts/$(HOST)/docker-compose.yml push $(TAG); \
+	else \
+		echo "Pushing all images"; \
+		docker compose -f hosts/$(HOST)/docker-compose.yml push; \
+	fi
 	@echo "Push complete."
 
 up: check-host
 	@echo "Starting services for host: $(HOST)..."
-	@docker compose -f hosts/$(HOST)/docker-compose.yml up -d
+	@if [ -n "$(TAG)" ]; then \
+		echo "Starting services with tag: $(TAG)"; \
+		docker compose -f hosts/$(HOST)/docker-compose.yml up -d $(TAG); \
+	else \
+		echo "Starting all services"; \
+		docker compose -f hosts/$(HOST)/docker-compose.yml up -d; \
+	fi
 	@echo "Services started successfully."
 
 down: check-host
 	@echo "Stopping services for host: $(HOST)..."
-	@docker compose -f hosts/$(HOST)/docker-compose.yml down
+	@if [ -n "$(TAG)" ]; then \
+		echo "Stopping services with tag: $(TAG)"; \
+		docker compose -f hosts/$(HOST)/docker-compose.yml stop $(TAG); \
+	else \
+		echo "Stopping all services"; \
+		docker compose -f hosts/$(HOST)/docker-compose.yml down; \
+	fi
 	@echo "Services stopped successfully."
 
 restart: check-host
 	@echo "Restarting services for host: $(HOST)..."
-	@docker compose -f hosts/$(HOST)/docker-compose.yml restart
+	@if [ -n "$(TAG)" ]; then \
+		echo "Restarting services with tag: $(TAG)"; \
+		docker compose -f hosts/$(HOST)/docker-compose.yml restart $(TAG); \
+	else \
+		echo "Restarting all services"; \
+		docker compose -f hosts/$(HOST)/docker-compose.yml restart; \
+	fi
 	@echo "Services restarted successfully."
 
 host-logs: check-host
 	@echo "Showing logs for host: $(HOST) (Ctrl+C to exit)..."
-	@docker compose -f hosts/$(HOST)/docker-compose.yml logs -f
+	@if [ -n "$(TAG)" ]; then \
+		echo "Showing logs for tag: $(TAG)"; \
+		docker compose -f hosts/$(HOST)/docker-compose.yml logs -f $(TAG); \
+	else \
+		echo "Showing logs for all services"; \
+		docker compose -f hosts/$(HOST)/docker-compose.yml logs -f; \
+	fi
 
 clean:
 	@echo "Cleaning temporary files..."

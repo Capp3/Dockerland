@@ -2,6 +2,9 @@ services:
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
+    tags:
+      - maint
+      - media
     network_mode: host
     environment:
       - PUID=${PUID}
@@ -17,6 +20,9 @@ services:
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
+    tags:
+      - maint
+      - media
     environment:
       - PUID=${PUID}
       - PGID=${PGID}

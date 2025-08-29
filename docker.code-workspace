@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "files.associations": {
+      "*.yaml": "dockercompose",
+      "*.yml": "dockercompose",
+      "*.env": "dotenv",
+      ".env*": "dotenv",
+      "*.sh": "shellscript",
+      "*.bash": "shellscript",
+    },
+  },
+}

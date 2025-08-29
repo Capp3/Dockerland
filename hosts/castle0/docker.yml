@@ -1,64 +1,50 @@
 services:
-  portainer:
-    container_name: portainer
-    image: portainer/portainer-ce:latest
-    tags:
-      - maint
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
-    # profiles: ["core", "all"]
-    networks:
-      - socket_proxy
-    command: -H tcp://socket-proxy:2375
-    ports:
-      - '9000:9000'
-    volumes:
-      - ${DATA_DIR}/portainer/data:/data
-    environment:
-      - TZ=$TZ
-
   socket-proxy:
     container_name: socket-proxy
     image: tecnativa/docker-socket-proxy
-    tags:
-      - maint
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
     # profiles: ["core", "all"]
     networks:
-      socket_proxy:
-    privileged: true
+      - c0_proxy
+    privileged: true # true for VM. false for unprivileged LXC container on Proxmox.
     ports:
-      - 2375:2375
+      - 2375:2375 # Do not expose this to the internet with port forwarding
     volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock'
+      - "/var/run/docker.sock:/var/run/docker.sock"
     environment:
-      - LOG_LEVEL=info
+      - LOG_LEVEL=info # debug,info,notice,warning,err,crit,alert,emerg
+      ## Variables match the URL prefix (i.e. AUTH blocks access to /auth/* parts of the API, etc.).
+      # 0 to revoke access.
+      # 1 to grant access.
+      ## Granted by Default
       - EVENTS=1
       - PING=1
       - VERSION=1
+      ## Revoked by Default
+      # Security critical
       - AUTH=0
       - SECRETS=0
-      - POST=1
+      - POST=1 # Watchtower
+      # Not always needed
       - BUILD=0
       - COMMIT=0
       - CONFIGS=0
-      - CONTAINERS=1
+      - CONTAINERS=1 # Traefik, Portainer, etc.
       - DISTRIBUTION=0
       - EXEC=0
-      - IMAGES=1
-      - INFO=1
-      - NETWORKS=1
+      - IMAGES=1 # Portainer
+      - INFO=1 # Portainer
+      - NETWORKS=1 # Portainer
       - NODES=0
       - PLUGINS=0
-      - SERVICES=1
+      - SERVICES=1 # Portainer
       - SESSION=0
       - SWARM=0
       - SYSTEM=0
-      - TASKS=1
-      - VOLUMES=1
+      - TASKS=1 # Portainer
+      - VOLUMES=1 # Portainer
 
   docker-gc:
     image: clockworksoul/docker-gc-cron:latest
@@ -68,7 +54,7 @@ services:
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
-    profiles: ['apps', 'all']
+    profiles: ["apps", "all"]
     networks:
       - socket_proxy
     volumes:

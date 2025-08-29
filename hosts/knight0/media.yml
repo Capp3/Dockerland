@@ -2,6 +2,9 @@ services:
   gluetun:
     container_name: media_gluetun
     image: qmcgaw/gluetun
+    tags:
+      - maint
+      - media
     cap_add:
       - NET_ADMIN
     networks:
@@ -32,6 +35,9 @@ services:
   deluge:
     container_name: media_deluge
     image: lscr.io/linuxserver/deluge:latest
+    tags:
+      - maint
+      - media
     network_mode: 'container:media_gluetun'
     environment:
       - PUID=${PUID}
@@ -49,6 +55,9 @@ services:
   flaresolverr:
     container_name: media_flaresolverr
     image: ghcr.io/flaresolverr/flaresolverr:latest
+    tags:
+      - maint
+      - media
     network_mode: 'container:media_gluetun'
     environment:
       - LOG_LEVEL=${LOG_LEVEL:-info}
@@ -63,6 +72,9 @@ services:
   prowlarr:
     container_name: media_prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
+    tags:
+      - maint
+      - media
     network_mode: 'container:media_gluetun'
     environment:
       - PUID=${PUID}
@@ -78,6 +90,9 @@ services:
   radarr:
     container_name: media_radarr
     image: lscr.io/linuxserver/radarr:latest
+    tags:
+      - maint
+      - media
     network_mode: 'container:media_gluetun'
     environment:
       - PUID=${PUID}
@@ -95,6 +110,9 @@ services:
   sonarr:
     container_name: media_sonarr
     image: lscr.io/linuxserver/sonarr:latest
+    tags:
+      - maint
+      - media
     network_mode: 'container:media_gluetun'
     environment:
       - PUID=${PUID}
@@ -112,6 +130,9 @@ services:
   bazarr:
     container_name: media_bazarr
     image: lscr.io/linuxserver/bazarr:latest
+    tags:
+      - maint
+      - media
     network_mode: 'container:media_gluetun'
     environment:
       - PUID=${PUID}
@@ -163,6 +184,9 @@ services:
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
     container_name: media_jellyseerr
+    tags:
+      - maint
+      - media
     environment:
       - LOG_LEVEL=debug
       - TZ=${TZ}
