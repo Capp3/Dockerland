@@ -37,3 +37,4 @@ package-lock.json
 .eslintrc.js
 .eslintignore
 node_modules/
+hosts/castle0/config/mcp/config.json

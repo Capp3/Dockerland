@@ -11,6 +11,28 @@
         "@modelcontextprotocol/server-postgres",
         "postgresql://owui-user:918c26a27d70706a@postgres/owui"
       ]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "context7": {
+      "serverUrl": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "ctx7sk-d040dfc3-b0ee-4742-a956-142886afc213"
+      }
+    },
+    "n8n-remote": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/mcp-remote@latest",
+        "connect",
+        "http://192.168.1.200:3000/mcp"
+      ],
+      "env": {
+        "MCP_AUTH_TOKEN": "05b76405df62ef4d"
+      }
     }
   }
 }

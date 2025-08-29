@@ -1,3 +1,15 @@
+volumes:
+  ollama:
+    external: false
+  openwebui:
+    external: false
+  postgres:
+    external: false
+  searxng:
+    external: false
+  n8n-mcp-data:
+    driver: local
+
 services:
   nginx:
     image: nginx:latest
@@ -5,7 +17,7 @@ services:
       - NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/templates
       - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.template
       - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx/conf.d
-      - NGINX_HOST=llm.${DOMAIN}
+      - NGINX_HOST=llm.${DOMAIN_NAME}
     ports:
       - "4000:80"
     volumes:
@@ -107,7 +119,7 @@ services:
     environment:
       - PGVECTOR_DB_URL=${LLM_POSTGRES_COMMAND}
       - DATABASE_URL=${LLM_POSTGRES_COMMAND}
-      - WEBUI_URL="http://llm.${DOMAIN}"
+      - WEBUI_URL="http://llm.${DOMAIN_NAME}"
       - WEBUI_SECRET_KEY=${LLM_WEBUI_SECRET_KEY}
     depends_on:
       - auth
@@ -120,7 +132,6 @@ services:
       - tika
     volumes:
       - openwebui:/app/backend/data
-      - ollama:/models
     networks:
       - c0_proxy
     healthcheck:
@@ -210,12 +221,40 @@ services:
       timeout: 5s
     restart: unless-stopped
 
-volumes:
-  ollama:
-    external: false
-  openwebui:
-    external: false
-  postgres:
-    external: false
-  searxng:
-    external: false
+  n8n-mcp:
+    image: ghcr.io/czlonkowski/n8n-mcp:latest
+    container_name: n8n-mcp
+    restart: unless-stopped
+    environment:
+      MCP_MODE: http
+      USE_FIXED_HTTP: true
+      AUTH_TOKEN: ${LLM_AUTH_TOKEN:?LLM_AUTH_TOKEN is required for HTTP mode}
+      NODE_ENV: ${NODE_ENV:-production}
+      LOG_LEVEL: info
+      PORT: 3000
+      NODE_DB_PATH: ${NODE_DB_PATH:-/app/data/nodes.db}
+      REBUILD_ON_START: ${REBUILD_ON_START:-false}
+      N8N_API_URL: ${N8N_API_URL}
+      N8N_API_KEY: ${N8N_API_KEY}
+      N8N_API_TIMEOUT: ${N8N_API_TIMEOUT:-30000}
+      N8N_API_MAX_RETRIES: ${N8N_API_MAX_RETRIES:-3}
+    volumes:
+      - n8n-mcp-data:/app/data
+    ports:
+      - "3000:3000"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - c0_proxy

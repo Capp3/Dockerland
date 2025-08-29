@@ -49,8 +49,6 @@ services:
   docker-gc:
     image: clockworksoul/docker-gc-cron:latest
     container_name: docker-gc
-    tags:
-      - maint
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
